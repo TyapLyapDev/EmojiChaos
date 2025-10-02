@@ -14,6 +14,9 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
 
     public Pool(T prefab, Transform parent, int size = MaximumSize)
     {
+        if(prefab == null)
+            throw new System.ArgumentNullException(nameof(prefab));
+
         _prefab = prefab;
         _parent = parent;
         _size = size;
