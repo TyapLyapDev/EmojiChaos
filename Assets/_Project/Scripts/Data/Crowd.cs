@@ -7,12 +7,12 @@ public class Crowd
     [SerializeField] private SpawnOrderType _spawnOrder;
 
     [SerializeField, Min(0.0001f)] private float _delayLine;
-    [SerializeField] private float _delayRow;
+    [SerializeField, Min(0)] private float _delayRow;
     [SerializeField, Min(0.0001f)] private float _stepOffset;
 
     [SerializeField] private int _id;
-    [SerializeField] private int _countLines;
-    [SerializeField] private int _quantity;
+    [SerializeField, Min(1)] private int _countLines;
+    [SerializeField, Min(1)] private int _quantity;
 
     public SpawnOrderType SpawnOrder => _spawnOrder;
 

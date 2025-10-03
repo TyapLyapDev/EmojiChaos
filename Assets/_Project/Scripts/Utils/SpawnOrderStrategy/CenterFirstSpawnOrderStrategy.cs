@@ -1,9 +1,8 @@
 using System;
-using System.Reflection;
 
 public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
 {
-    private const int CenterDivisor = 2;
+    private const int MiddlePointDivisor = 2;
 
     public int[] Calculate(int countLines)
     {
@@ -45,7 +44,7 @@ public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
 
     private int CalculateCenterIndex(int countLines)
     {
-        int result = countLines / CenterDivisor;
+        int result = countLines / MiddlePointDivisor;
 
         if (IsEven(countLines))
             --result;
@@ -54,7 +53,7 @@ public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
     }
 
     private bool IsEven(int value) =>
-        value % CenterDivisor == 0;
+        value % MiddlePointDivisor == 0;
 
     private bool TryAddIndexInRange(int sideIndex, int countLines, int[] spawnOrder, ref int orderIndex, ref int distance)
     {

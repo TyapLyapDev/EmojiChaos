@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9b68c5915f1aa54ea694b73055e3b0f, type: 3}
-  m_Name: Level
+  m_Name: Test
   m_EditorClassIdentifier: 
   _enemyPrefabs:
   - {fileID: 9101103833535012143, guid: a898ea53ebe23da4d87da8ccc4b9d4a8, type: 3}
@@ -21,32 +21,11 @@ MonoBehaviour:
   - {fileID: 5143261974956985242, guid: 762c135c0dc30364da24e4fc65912085, type: 3}
   _crowds:
   - _spawnOrder: 0
-    _delayLine: 0.2
+    _delayLine: 0.1
     _delayRow: 0.1
-    _stepOffset: 0.18
-    _id: 2
-    _countLines: 5
-    _quantity: 30
-  - _spawnOrder: 0
-    _delayLine: 0.017
-    _delayRow: 0
-    _stepOffset: 0.23
+    _stepOffset: 2
     _id: 0
-    _countLines: 1
-    _quantity: 1
-  - _spawnOrder: 0
-    _delayLine: 0.23
-    _delayRow: 0
-    _stepOffset: 0.23
-    _id: 0
-    _countLines: 3
-    _quantity: 30
-  - _spawnOrder: 1
-    _delayLine: 0.35
-    _delayRow: 0.1
-    _stepOffset: 0.18
-    _id: 1
-    _countLines: 3
-    _quantity: 20
+    _countLines: 2
+    _quantity: 4
   _speed: 0.5
   _isRandomSequence: 0

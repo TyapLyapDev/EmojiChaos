@@ -6,18 +6,20 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
     private const int MaximumSize = 100;
 
     private readonly T _prefab;
+    private readonly System.Action<T> _created;
     private readonly Transform _parent;
     private readonly Stack<T> _elements = new();
     private readonly int _size;
 
     private int _count;
 
-    public Pool(T prefab, Transform parent, int size = MaximumSize)
+    public Pool(T prefab, System.Action<T> created, Transform parent, int size = MaximumSize)
     {
         if(prefab == null)
             throw new System.ArgumentNullException(nameof(prefab));
 
         _prefab = prefab;
+        _created = created;
         _parent = parent;
         _size = size;
     }
@@ -35,7 +37,6 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
             element = Create();
 
         element.Deactivated += Return;
-        element.gameObject.SetActive(true);
 
         return true;
     }
@@ -55,6 +56,7 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
         _count++;
 
         T element = Object.Instantiate(_prefab, _parent);
+        _created?.Invoke(element);
 
         return element;
     }

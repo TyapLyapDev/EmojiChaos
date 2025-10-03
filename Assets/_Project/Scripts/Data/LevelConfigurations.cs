@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,30 +17,19 @@ public class LevelConfigurations : ScriptableObject
     private void OnValidate()
     {
         if (GetUniqueCrowdIds().Count > _enemyPrefabs.Count)
-            throw new Exception($"Количество {nameof(_enemyPrefabs)} должно быть не меньше количества уникальных (по Id) {nameof(_crowds)}");
+            Debug.LogError($"Количество {nameof(_enemyPrefabs)} должно быть не меньше количества уникальных (по Id) {nameof(_crowds)}");
     }
 
     public List<int> GetUniqueCrowdIds() =>
         _crowds.Select(c => c.Id).Distinct().ToList();
 
-    public List<Crowd> GetCrowdSequence() =>
-        _isRandomSequence ? GetShuffledCrowds() : _crowds.Where(c => c != null).ToList();
-
-    private List<Crowd> GetShuffledCrowds()
+    public List<Crowd> GetCrowdSequence()
     {
-        if (_crowds == null || _crowds.Count == 0)
-            return new List<Crowd>();
+        List<Crowd> crowds = _crowds.Where(c => c != null).ToList();
 
-        List<Crowd> shuffledList = new(_crowds);
+        if(_isRandomSequence)
+            Utils.Shuffle(crowds);
 
-        for (int i = shuffledList.Count - 1; i > 0; i--)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, i + 1);
-            Crowd temp = shuffledList[i];
-            shuffledList[i] = shuffledList[randomIndex];
-            shuffledList[randomIndex] = temp;
-        }
-
-        return shuffledList;
+        return crowds;
     }
 }

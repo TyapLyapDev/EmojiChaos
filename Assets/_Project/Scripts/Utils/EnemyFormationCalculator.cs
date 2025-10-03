@@ -1,8 +1,8 @@
 using System;
 
-public class LinesOffsetCalculator
+public class EnemyFormationCalculator
 {
-    private const int CenterDivisor = 2;
+    private const int MiddlePointDivisor = 2;
 
     public float[] Calculate(int countLines, float stepOffset)
     {
@@ -13,7 +13,7 @@ public class LinesOffsetCalculator
             throw new ArgumentOutOfRangeException(nameof(stepOffset), "ќѕј„ »,  ќ—я ! ќтступы не могут быть отрицательными!");
 
         float[] offsets = new float[countLines];
-        float startOffset = -(countLines - 1) * stepOffset / CenterDivisor;
+        float startOffset = -(countLines - 1) * stepOffset / MiddlePointDivisor;
 
         for (int i = 0; i < countLines; i++)
             offsets[i] = startOffset + i * stepOffset;
