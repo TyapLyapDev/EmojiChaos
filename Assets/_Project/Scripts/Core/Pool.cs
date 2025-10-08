@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Pool<T> where T : MonoBehaviour, IPoolable<T>
 {
-    private const int MaximumSize = 100;
+    private const int MaximumSize = 300;
 
     private readonly T _prefab;
     private readonly System.Action<T> _created;
