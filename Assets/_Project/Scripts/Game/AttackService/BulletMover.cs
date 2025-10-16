@@ -7,6 +7,8 @@ public class BulletMover
 
     private readonly Transform _transform;
 
+    private Transform _target;
+
     public BulletMover(Transform transform)
     {
         _transform = transform;
@@ -14,14 +16,14 @@ public class BulletMover
 
     public event Action TargetReached;
 
-    public void Move(Transform target, float deltaSpeed)
+    public void Move(float deltaSpeed)
     {
-        if (target == null)
+        if (_target == null)
             return;
 
-        _transform.LookAt(target);
+        _transform.LookAt(_target);
 
-        Vector3 direction = target.position - _transform.position;
+        Vector3 direction = _target.position - _transform.position;
         float sqrDistance = direction.sqrMagnitude;
 
         if (sqrDistance <= Threshold * Threshold)
@@ -39,4 +41,16 @@ public class BulletMover
         if (moveDistance >= distance - Threshold)
             TargetReached?.Invoke();
     }
+
+    public void SetStartPosition(Vector3 position) =>
+        _transform.position = position;
+
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+        _transform.LookAt(_target);
+    }
+
+    public void ResetTarget() =>
+        _target = null;
 }

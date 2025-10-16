@@ -4,9 +4,11 @@ using UnityEngine.Splines;
 
 public class SplineMover
 {
+    private const float PositionInterpolationSpeed = 10;
+
     private readonly Transform _transform;
     private readonly SplineOffsetCalculator _offsetCalculator;
-    private readonly SideOffsetHandler _offsetHandler;
+    private readonly SideOffsetHandler _sideOffsetHandler;
 
     private float _currentDistance;
 
@@ -20,35 +22,46 @@ public class SplineMover
 
         _transform = transform;
         _offsetCalculator = new(splineContainer);
-        _offsetHandler = new();
+        _sideOffsetHandler = new();
 
         Reset();
     }
 
+    public float CurrentDistance => _currentDistance;
+
     public void Reset()
     {
         _currentDistance = 0f;
-        _offsetHandler.Reset();
-        _transform.position = _offsetCalculator.CalculatePosition(_currentDistance, _offsetHandler.CurrentOffset);
+        _sideOffsetHandler.Reset();
+        _transform.position = CalculateTargetPosition();
     }
 
     public void SetSideOffset(float offset) =>
-        _offsetHandler.SetTargetOffset(offset);
+        _sideOffsetHandler.SetTargetOffset(offset);
 
-    public void Move(float speed, float deltaTime)
+    public void Move(float deltaDistance)
     {
-        if (deltaTime < 0)
-            throw new ArgumentOutOfRangeException(nameof(deltaTime), "ќѕј„ »,  ќ—я ! «начение не может быть меньше нул€");
-
-        float newDistance = _currentDistance + speed * deltaTime;
-        float splineLength = _offsetCalculator.SplineLength;
-
-        if (newDistance <= 0 || newDistance >= splineLength)
-            return;
-
-        _currentDistance = Mathf.Clamp(newDistance, 0, splineLength);
-        _offsetHandler.Update(deltaTime);
-        Vector3 targetPosition = _offsetCalculator.CalculatePosition(_currentDistance, _offsetHandler.CurrentOffset);
-        _transform.position = Vector3.Lerp(_transform.position, targetPosition, deltaTime);
+        UpdateSideOffset(deltaDistance);
+        UpdateDistance(deltaDistance);
+        UpdatePosition(deltaDistance);
     }
+
+    private void UpdateSideOffset(float deltaDistance) =>
+        _sideOffsetHandler.Update(deltaDistance);
+
+    private void UpdateDistance(float distanceDelta)
+    {
+        _currentDistance += distanceDelta;
+        _currentDistance = Mathf.Clamp(_currentDistance, 0f, _offsetCalculator.SplineLength);
+    }
+
+    private void UpdatePosition(float deltaDistance)
+    {
+        Vector3 targetPosition = CalculateTargetPosition();
+        float interpolationFactor = deltaDistance * PositionInterpolationSpeed;
+        _transform.position = Vector3.Lerp(_transform.position, targetPosition, interpolationFactor);
+    }
+
+    private Vector3 CalculateTargetPosition() =>
+        _offsetCalculator.CalculatePosition(_currentDistance, _sideOffsetHandler.CurrentOffset);
 }

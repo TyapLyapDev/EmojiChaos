@@ -37,6 +37,6 @@ public class CarService : IDisposable
                 car.Clicked -= OnCarClciked;
     }
 
-    public void OnCarClciked(Car car) =>
+    private void OnCarClciked(Car car) =>
         CarClicked?.Invoke(car);
 }

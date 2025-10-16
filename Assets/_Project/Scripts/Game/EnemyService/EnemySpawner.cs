@@ -1,47 +1,69 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : IDisposable
+public class EnemySpawner
 {
-    private readonly EnemySpawnCoordinator _spawnCoordinator;
     private readonly Pool<Enemy> _pool;
-    private readonly WaveSequencer _waveSequencer;
+    private readonly TypeColorRandomizer _colorRandomizer;
+    private readonly EnemyFormationCalculator _formationCalculator = new();
+    private readonly SpawnStrategyRegistry _spawnStrategy = new();
     private readonly float _gameSpeed;
 
-    public event Action<Enemy> Spawned;
-    public event Action<Enemy> Created;
-
-    public EnemySpawner(MonoBehaviour runner, Enemy prefab, List<Crowd> crowdSequence, Transform parent, float gameSpeed)
+    public EnemySpawner(Pool<Enemy> pool, TypeColorRandomizer colorRandomizer, float gameSpeed)
     {
-        if (gameSpeed <= 0)
-            throw new ArgumentOutOfRangeException(nameof(gameSpeed), "Значение должно быть больше нуля");
-
-        _spawnCoordinator = new(runner);
-        _pool = new(prefab, OnEnemyCreated, parent);
-        _waveSequencer = new(crowdSequence);
+        _pool = pool;
+        _colorRandomizer = colorRandomizer ?? throw new ArgumentNullException(nameof(colorRandomizer));
         _gameSpeed = gameSpeed;
-
-        _spawnCoordinator.Spawned += OnEnemySpawned;
     }
+
+    public event Action<Enemy> Spawned;
 
     public void Dispose()
     {
-        StopSpawning();
 
-        if (_spawnCoordinator != null)
-            _spawnCoordinator.Spawned -= OnEnemySpawned;
     }
 
-    public void Run() =>
-        _spawnCoordinator.StartSpawningSequence(_waveSequencer, _pool, _gameSpeed);
+    public IEnumerator SpawnCrowd(Crowd crowd)
+    {
+        if (crowd == null)
+            yield break;
 
-    public void StopSpawning() =>
-        _spawnCoordinator.StopSpawningSequence();
+        int offsetIndex = 0;
+        int countLines = crowd.CountLines;
 
-    private void OnEnemySpawned(Enemy enemy) =>
-        Spawned?.Invoke(enemy);
+        float[] offsets = _formationCalculator.Calculate(countLines, crowd.StepOffset);
+        int[] spawnOrder = _spawnStrategy.CalculateSpawnOrder(crowd.SpawnOrder, countLines);
+        float lineDelay = crowd.DelayLine / _gameSpeed;
+        float rowDelay = crowd.DelayRow / _gameSpeed;
 
-    private void OnEnemyCreated(Enemy enemy) =>
-        Created?.Invoke(enemy);
+        WaitForSeconds waitLine = new(lineDelay);
+        WaitForSeconds waitRow = new(rowDelay);
+
+        int remainingEnemies = crowd.Quantity;
+
+        while (remainingEnemies > 0)
+        {
+            bool isLastInLine = false;
+
+            if (_colorRandomizer.TryGetColor(crowd.Id, out Color color))
+            {
+                if (_pool.TryGive(out Enemy enemy))
+                {
+                    enemy.Activate(crowd.Id,
+                        offsets[spawnOrder[offsetIndex]],
+                        color);
+
+                    offsetIndex = (offsetIndex + 1) % offsets.Length;
+                    remainingEnemies--;
+                    isLastInLine = (offsetIndex % countLines == 0) && (remainingEnemies > 0);
+                    Spawned?.Invoke(enemy);
+                }
+            }
+
+            yield return isLastInLine ? waitLine : waitRow;
+        }
+
+        yield return waitLine;
+    }
 }

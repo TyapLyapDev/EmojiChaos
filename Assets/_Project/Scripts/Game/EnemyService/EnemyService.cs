@@ -5,10 +5,10 @@ using UnityEngine.Splines;
 
 public class EnemyService : IDisposable
 {
-    private readonly EnemySpawner _spawner;
+    private readonly CrowdSpawnCoordinator _crowdSpawnCoordinator;
+    private readonly EnemySpawner _enemySpawner;
     private readonly EnemySpeedDirector _enemySpeedDirector;
     private readonly SplineContainer _splineConteiner;
-    private readonly TypeColorRandomizer _colorRandomizer;
 
     public EnemyService(MonoBehaviour runner,
         Enemy prefab,
@@ -20,41 +20,34 @@ public class EnemyService : IDisposable
         if (splineContainer == null)
             throw new ArgumentNullException(nameof(splineContainer));
 
+        Pool<Enemy> pool = new(prefab, OnEnemyCreated, splineContainer.transform);
+        _enemySpawner = new(pool, colorRandomizer, gameSpeed);
         _splineConteiner = splineContainer;
-        _spawner = new(runner, prefab, crowds, splineContainer.transform, gameSpeed);
-        _enemySpeedDirector = new(runner, gameSpeed);
-        _colorRandomizer = colorRandomizer;
+        _crowdSpawnCoordinator = new(runner, _enemySpawner, crowds);
+        _enemySpeedDirector = new(gameSpeed);
 
-        _spawner.Spawned += OnEnemySpawned;
-        _spawner.Created += OnEnemyCreated;
+        _enemySpawner.Spawned += OnEnemySpawned;
     }
 
     public event Action<Enemy> EnemySpawned;
 
     public void Dispose()
     {
-        _spawner.Spawned -= OnEnemySpawned;
-        _spawner.Created -= OnEnemyCreated;
-
-        _spawner?.Dispose();
+        _enemySpawner.Spawned -= OnEnemySpawned;
+        _crowdSpawnCoordinator?.Dispose();
         _enemySpeedDirector?.Dispose();
     }
 
-    public void Run()
+    public void StartRunning()
     {
-        _enemySpeedDirector.Run();
-        _spawner.Run();
+        _enemySpeedDirector.StartRun();
+        _crowdSpawnCoordinator.StartRunning();
     }
 
     private void OnEnemySpawned(Enemy enemy)
     {
-        if (_colorRandomizer.TryGetColor(enemy.Id, out Color color))
-        {
-            enemy.SetColor(color);
-            _enemySpeedDirector.AddEnemy(enemy);
-
-            EnemySpawned?.Invoke(enemy);
-        }
+        _enemySpeedDirector.RegisterEnemy(enemy);
+        EnemySpawned?.Invoke(enemy);
     }
 
     private void OnEnemyCreated(Enemy enemy) =>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class Level : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private bool _isRandomSequence;
 
-    private List<SlotAttack> _slots;
+    private List<AttackSlot> _slots;
     private List<Car> _cars;
     private TypeColorRandomizer _colorRandomizer;
     private EnemyService _enemyService;
@@ -27,15 +28,21 @@ public class Level : MonoBehaviour
 
         _enemyService?.Dispose();
         _carService?.Dispose();
+        _attackSystem?.Dispose();
     }
 
     public void Initialize()
     {
-        _slots = GetComponentsInChildren<SlotAttack>(true).ToList();
+        _slots = GetComponentsInChildren<AttackSlot>(true).ToList();
         _cars = GetComponentsInChildren<Car>(true).ToList();
 
+        List<Crowd> crowds = new(_crowds);
+
+        if(_isRandomSequence) 
+            Utils.Shuffle(crowds);
+
         _colorRandomizer = new(new(_colors), GetIds());
-        _enemyService = new(this, _enemyPrefab, new(_crowds), _splineContainer, _colorRandomizer, _speed);
+        _enemyService = new(this, _enemyPrefab, new(crowds), _splineContainer, _colorRandomizer, _speed);
         _attackSystem = new(new(_slots), _bulletPrefab);
         _carService = new(new(_cars), _colorRandomizer);
 
@@ -43,10 +50,8 @@ public class Level : MonoBehaviour
         _enemyService.EnemySpawned += OnEnemySpawned;
     }
 
-    public void Run()
-    {
-        _enemyService.Run();
-    }
+    public void StatrRunning() =>
+        _enemyService.StartRunning();
 
     private List<int> GetIds()
     {
@@ -58,10 +63,16 @@ public class Level : MonoBehaviour
 
     private void OnCarClicked(Car car)
     {
-        if (_attackSystem.TryApply(car.Id, car.BulletCount, car.Color))
-            Destroy(car.gameObject);
+        if (car == null)
+            throw new ArgumentNullException(nameof(car));
+
+        int id = car.Id;
+
+        if (_colorRandomizer.TryGetColor(id, out Color color))
+            if (_attackSystem.TryInstallGun(id, car.BulletCount, color))
+                Destroy(car.gameObject);
     }
 
     private void OnEnemySpawned(Enemy enemy) =>
-        _attackSystem.AddEnemy(enemy);
+        _attackSystem.RegisterEnemy(enemy);
 }

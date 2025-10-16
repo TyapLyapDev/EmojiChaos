@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class ResourceBalanceChecker : EditorWindow
     [MenuItem(MenuPath + Title)]
     public static void GenerateReport()
     {
-        ClearConsole();
+        CustomLogger.ClearConsole();
         CustomLogger.LogWhite("ПРОЦЕДУРА ПРОВЕРКИ СООТВЕТСТВИЯ ВРАГОВ И БОЕПРИПАСОВ");
 
         if (TryFindSingleObjectByType(out LevelBootstrap levelBootstrap) == false)
@@ -123,8 +122,8 @@ public class ResourceBalanceChecker : EditorWindow
 
                 continue;
             }
-            
-            
+
+
             if (hasEnemies && hasCar == false)
             {
                 CustomLogger.LogRed($"ID [{id}]: есть враги ({enemyCount}), но нет авто");
@@ -132,7 +131,7 @@ public class ResourceBalanceChecker : EditorWindow
 
                 continue;
             }
-            
+
             if (hasEnemies && hasCar)
             {
                 if (enemyCount != carInfo.totalBulletCount)
@@ -143,20 +142,8 @@ public class ResourceBalanceChecker : EditorWindow
             }
         }
 
-        //foreach (var pair in ammoByCarType)
-        //    if (pair.Value.cars.Count > 1)
-        //        Debug.Log($"Уровень {level.name}: ID {pair.Key} - {pair.Value.cars.Count} авто с общими припасами: {pair.Value.totalBulletCount}");
-
         if (hasBalanceIssues == false)
             CustomLogger.LogGreen($"Баланс проверен, проблем не обнаружено");
-    }
-
-    private static void ClearConsole()
-    {
-        Assembly assembly = Assembly.GetAssembly(typeof(SceneView));
-        System.Type type = assembly.GetType("UnityEditor.LogEntries");
-        MethodInfo method = type.GetMethod("Clear");
-        method?.Invoke(new object(), null);
     }
 
     private static bool TryFindSingleObjectByType<T>(out T component) where T : Object
@@ -178,20 +165,4 @@ public class ResourceBalanceChecker : EditorWindow
         public List<Car> cars = new();
     }
 }
-
-public static class CustomLogger
-{
-    public static void LogWhite(string message) =>
-        Debug.Log($"<b><color=#ffffff>{message}</color></b>");
-
-    public static void LogGreen(string message) =>
-        Debug.Log($"<b><color=#6bff4a>{message}</color></b>");
-
-    public static void LogRed(string message) =>
-        Debug.LogWarning($"<b><color=#ff4242>{message}</color></b>");
-
-    public static void LogBlue(string message) =>
-        Debug.Log($"<b><color=#5c64ff>{message}</color></b>");
-}
-
 #endif

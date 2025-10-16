@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Pool<T> where T : MonoBehaviour, IPoolable<T>
@@ -6,25 +7,23 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
     private const int MaximumSize = 300;
 
     private readonly T _prefab;
-    private readonly System.Action<T> _created;
     private readonly Transform _parent;
+    private readonly Action<T> _created;
     private readonly Stack<T> _elements = new();
     private readonly int _size;
 
     private int _count;
 
-    public Pool(T prefab, System.Action<T> created, Transform parent, int size = MaximumSize)
+    public Pool(T prefab, Action<T> created, Transform parent, int size = MaximumSize)
     {
-        if(prefab == null)
-            throw new System.ArgumentNullException(nameof(prefab));
+        _prefab = prefab ?? throw new ArgumentNullException(nameof(prefab));
 
-        _prefab = prefab;
         _created = created;
         _parent = parent;
         _size = size;
     }
 
-    public bool TryGet(out T element)
+    public bool TryGive(out T element)
     {
         element = null;
 
@@ -41,7 +40,7 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
         return true;
     }
 
-    private void Return(T element)
+    public void Return(T element)
     {
         if (element == null)
             return;
@@ -55,7 +54,7 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
     {
         _count++;
 
-        T element = Object.Instantiate(_prefab, _parent);
+        T element = UnityEngine.Object.Instantiate(_prefab, _parent);
         _created?.Invoke(element);
 
         return element;
