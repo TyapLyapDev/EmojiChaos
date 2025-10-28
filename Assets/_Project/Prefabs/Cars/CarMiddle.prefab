@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5046132938719524321}
   - component: {fileID: 823167456300744089}
   - component: {fileID: 3155328094314644139}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CarMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,11 +134,11 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6104661, y: 2.2829597, z: 1.1914431}
-  m_Center: {x: -0.009274653, y: 0.0014899458, z: -0.53792787}
+  m_Size: {x: 1.25, y: 1, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &823167456300744089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visual: {fileID: 3155328094314644139}
+  _selfCollider: {fileID: 5046132938719524321}
   _id: 0
   _bulletCount: 15
 --- !u!114 &3155328094314644139
@@ -274,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7394610529522724578}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -282,4 +283,4 @@ Transform:
   - {fileID: 2795058471460569651}
   - {fileID: 1198559682438509508}
   m_Father: {fileID: 2450799003983629438}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}

@@ -7,7 +7,10 @@ public class AttackSlot : MonoBehaviour
     [SerializeField] private Gun _gun;
     [SerializeField] private bool _needAds;
 
+    private bool _isReserved;
     private bool _isInitialized;
+
+    public bool IsAvailable => _gun.IsActive == false && _needAds == false && _isReserved == false;
 
     public void Initialize(Pool<Bullet> pool, EnemyRegistry enemyRegistry, Action<Bullet> bulletActivated)
     {
@@ -27,6 +30,12 @@ public class AttackSlot : MonoBehaviour
         _isInitialized = true;
     }
 
+    public void SetReservation() =>
+        _isReserved = true;
+
+    public void ResetReservation() =>
+        _isReserved = false;
+
     public bool TryActivateGun(int carType, int bulletCount, Color color)
     {
         ValidateInitialization(nameof(TryActivateGun));
@@ -35,6 +44,7 @@ public class AttackSlot : MonoBehaviour
             return false;
 
         _gun.Activate(carType, bulletCount, color);
+        _isReserved = false;
 
         return true;
     }

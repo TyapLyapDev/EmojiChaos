@@ -6,7 +6,8 @@ using UnityEngine.Splines;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] private SplineContainer _splineContainer;
+    [SerializeField] private SplineContainer _enemySplineContainer;
+    [SerializeField] private SplineContainer _roadSplineContainer;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private List<Color> _colors;
@@ -23,7 +24,7 @@ public class Level : MonoBehaviour
 
     private void OnDestroy()
     {
-        _carService.CarClicked -= OnCarClicked;
+        //_carService.CarClicked -= OnCarClicked;
         _enemyService.EnemySpawned -= OnEnemySpawned;
 
         _enemyService?.Dispose();
@@ -33,6 +34,9 @@ public class Level : MonoBehaviour
 
     public void Initialize()
     {
+        if (_roadSplineContainer.TryGetComponent(out SplineMeshTools.Core.SplineMesh splineMesh))
+            splineMesh.GenerateMeshAlongSpline();
+
         _slots = GetComponentsInChildren<AttackSlot>(true).ToList();
         _cars = GetComponentsInChildren<Car>(true).ToList();
 
@@ -42,15 +46,15 @@ public class Level : MonoBehaviour
             Utils.Shuffle(crowds);
 
         _colorRandomizer = new(new(_colors), GetIds());
-        _enemyService = new(this, _enemyPrefab, new(crowds), _splineContainer, _colorRandomizer, _speed);
+        _enemyService = new(this, _enemyPrefab, new(crowds), _enemySplineContainer, _colorRandomizer, _speed);
         _attackSystem = new(new(_slots), _bulletPrefab);
-        _carService = new(new(_cars), _colorRandomizer);
+        _carService = new(new(_cars), _colorRandomizer, _attackSystem, _roadSplineContainer);
 
-        _carService.CarClicked += OnCarClicked;
+        //_carService.CarClicked += OnCarClicked;
         _enemyService.EnemySpawned += OnEnemySpawned;
     }
 
-    public void StatrRunning() =>
+    public void StartRunning() =>
         _enemyService.StartRunning();
 
     private List<int> GetIds()

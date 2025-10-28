@@ -34,6 +34,23 @@ public class AttackSystem : IDisposable
         return false;
     }
 
+    public bool TryGetAvailableSlot(out AttackSlot attackSlot)
+    {
+        foreach (AttackSlot slot in _slots)
+        {
+            if (slot.IsAvailable)
+            {
+                attackSlot = slot;
+
+                return true;
+            }
+        }            
+
+        attackSlot = null;
+
+        return false;
+    }
+
     public void RegisterEnemy(Enemy enemy) =>
         _enemyRegistry.RegisterEnemy(enemy);
 

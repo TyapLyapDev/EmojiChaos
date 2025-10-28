@@ -22,5 +22,5 @@ public class LevelBootstrap : MonoBehaviour
     }
 
     private void Start() =>
-        _level.StatrRunning();
+        _level.StartRunning();
 }
