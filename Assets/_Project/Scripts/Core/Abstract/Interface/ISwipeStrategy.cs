@@ -1,6 +1,6 @@
+using System;
+
 public interface ISwipeStrategy
 {
-    bool TryGetSwipe(out SwipeData swipeData);
-
-    bool IsPointerOverUIElement();
+    event Action<ISwipeable, int> HasSwipe;
 }

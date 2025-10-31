@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Car : MonoBehaviour, IObstacle
+public class Car : MonoBehaviour, IObstacle, ISwipeable
 {
     [SerializeField] private CarVisual _visual;
     [SerializeField] private BoxCollider _selfCollider;
@@ -11,7 +12,7 @@ public class Car : MonoBehaviour, IObstacle
 
     private MapSplineNodes _mapSplineNodes;
     private AttackSlot _attackSlot;
-    private ICarMovementStrategy _mover;
+    private IMovementStrategy _mover;
     private Color _color;
     private bool _isInitialized;
 
@@ -20,6 +21,8 @@ public class Car : MonoBehaviour, IObstacle
     public int BulletCount => _bulletCount;
 
     public bool CanMovement => _mover != null;
+
+    public Transform Transform => transform;
 
     public void Initialize(MapSplineNodes mapSplineNodes)
     {
@@ -49,10 +52,10 @@ public class Car : MonoBehaviour, IObstacle
         _attackSlot = attackSlot;
         _attackSlot.SetReservation();
 
-        CarForwardMover mover = new(transform, _selfCollider, direction);
+        CarForwardMoverStrategy mover = new(transform, _selfCollider, direction);
         _mover = mover;
         mover.ObstacleCollision += OnObstacleCollision;
-        mover.CarRoadDetected += OnCarRoadDetected;
+        mover.RoadCarDetected += OnRoadCarDetected;
 
         return true;
     }
@@ -60,38 +63,38 @@ public class Car : MonoBehaviour, IObstacle
     public void Move(float deltaDistance) =>
         _mover?.Move(deltaDistance);
 
-    private void OnObstacleCollision(CarForwardMover carForwardMover)
+    private void OnObstacleCollision(CarForwardMoverStrategy carForwardMover)
     {
         _attackSlot.ResetReservation();
         _attackSlot = null;
 
         carForwardMover.ObstacleCollision -= OnObstacleCollision;
-        carForwardMover.CarRoadDetected -= OnCarRoadDetected;
+        carForwardMover.RoadCarDetected -= OnRoadCarDetected;
 
-        CarRollBackMover newMover = new(transform, _selfCollider, carForwardMover.Direction);
+        CarRollBackMoverStrategy newMover = new(transform, _selfCollider, carForwardMover.Direction);
         _mover = newMover;
         newMover.Stopped += OnRollBackStopped;
     }
 
-    private void OnCarRoadDetected(CarForwardMover carForwardMover, CarRoad road)
+    private void OnRoadCarDetected(CarForwardMoverStrategy carForwardMover, RoadCar road, Vector3 hitPoint)
     {
         carForwardMover.ObstacleCollision -= OnObstacleCollision;
-        carForwardMover.CarRoadDetected -= OnCarRoadDetected;
+        carForwardMover.RoadCarDetected -= OnRoadCarDetected;
 
-        CarSplineMover carSplineMover = new(transform, _mapSplineNodes, _attackSlot.transform);
+        List<SplineSegment> path = _mapSplineNodes.GetPathSegments(hitPoint, _attackSlot.GetPosition());
+        CarSplineMoverStrategy carSplineMover = new(transform, path);
         _mover = carSplineMover;
 
         carSplineMover.DestinationReached += OnDestinationReached;
-        Debug.Log($"Car {Id} reached road {road.name}");
     }
 
-    private void OnRollBackStopped(CarRollBackMover mover)
+    private void OnRollBackStopped(CarRollBackMoverStrategy mover)
     {
         mover.Stopped -= OnRollBackStopped;
         _mover = null;
     }
 
-    private void OnDestinationReached(CarSplineMover mover)
+    private void OnDestinationReached(CarSplineMoverStrategy mover)
     {
         mover.DestinationReached -= OnDestinationReached;
         

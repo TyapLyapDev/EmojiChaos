@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
 {
     [SerializeField] private EnemyVisual _visual;    
     
-    private SplineMover _mover;
+    private EnemyMover _mover;
     private int _id = -1;
     private bool _isInitialized;
 

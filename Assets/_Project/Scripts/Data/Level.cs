@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +23,6 @@ public class Level : MonoBehaviour
 
     private void OnDestroy()
     {
-        //_carService.CarClicked -= OnCarClicked;
         _enemyService.EnemySpawned -= OnEnemySpawned;
 
         _enemyService?.Dispose();
@@ -50,7 +48,6 @@ public class Level : MonoBehaviour
         _attackSystem = new(new(_slots), _bulletPrefab);
         _carService = new(new(_cars), _colorRandomizer, _attackSystem, _roadSplineContainer);
 
-        //_carService.CarClicked += OnCarClicked;
         _enemyService.EnemySpawned += OnEnemySpawned;
     }
 
@@ -63,18 +60,6 @@ public class Level : MonoBehaviour
         List<int> carIds = _cars.Select(c => c.Id).ToList();
 
         return crowdIds.Concat(carIds).ToList();
-    }
-
-    private void OnCarClicked(Car car)
-    {
-        if (car == null)
-            throw new ArgumentNullException(nameof(car));
-
-        int id = car.Id;
-
-        if (_colorRandomizer.TryGetColor(id, out Color color))
-            if (_attackSystem.TryInstallGun(id, car.BulletCount, color))
-                Destroy(car.gameObject);
     }
 
     private void OnEnemySpawned(Enemy enemy) =>

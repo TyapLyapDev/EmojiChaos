@@ -8,9 +8,9 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform _bulletStartPosition;
     [SerializeField] private float _shotDelay;
 
-    private GunAim _aim;
+    private Aimer _aim;
     private IntervalRunner _runner;
-    private GunShooter _shooter;
+    private Shooter _shooter;
     private bool _isInitialized;
 
     public event Action<Bullet> BulletActivated;

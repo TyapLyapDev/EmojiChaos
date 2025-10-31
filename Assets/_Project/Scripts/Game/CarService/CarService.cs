@@ -7,18 +7,18 @@ public class CarService : IDisposable
 {
     private readonly List<Car> _cars;
     private readonly TypeColorRandomizer _colorRandomizer;
-    private readonly CarSwipeHandler _swipeHandler;
     private readonly CarSpeedDirector _speedDirector = new();
     private readonly AttackSystem _attackSystem;
     private readonly MapSplineNodes _mapSplineNodes;
+    private readonly ISwipeStrategy _swipeHandler;
 
     public CarService(List<Car> cars, TypeColorRandomizer colorRandomizer, AttackSystem attackSystem, SplineContainer carRoadSpline)
     {
         _cars = cars;
         _colorRandomizer = colorRandomizer;
-        _swipeHandler = new();
         _attackSystem = attackSystem;
         _mapSplineNodes = new(carRoadSpline);
+        _swipeHandler = new CarSwipeStrategy();
 
         InitializeCars();
 
@@ -28,8 +28,11 @@ public class CarService : IDisposable
     public void Dispose()
     {
         _swipeHandler.HasSwipe -= OnSwipe;
-        _swipeHandler.Dispose();
-        _speedDirector.Dispose();
+
+        if(_swipeHandler is IDisposable disposable)
+            disposable.Dispose();
+
+        _speedDirector?.Dispose();
     }
 
     private void InitializeCars()
@@ -48,10 +51,11 @@ public class CarService : IDisposable
         }
     }
 
-    private void OnSwipe(Car car, int direction)
+    private void OnSwipe(ISwipeable swipeableObject, int direction)
     {
-        if (_attackSystem.TryGetAvailableSlot(out AttackSlot attackSlot))
-            if (car.TryReservationSlot(attackSlot, direction))
-                _speedDirector.Register(car);
+        if (swipeableObject is Car car)
+            if (_attackSystem.TryGetAvailableSlot(out AttackSlot attackSlot))
+                if (car.TryReservationSlot(attackSlot, direction))
+                    _speedDirector.Register(car);
     }
 }
