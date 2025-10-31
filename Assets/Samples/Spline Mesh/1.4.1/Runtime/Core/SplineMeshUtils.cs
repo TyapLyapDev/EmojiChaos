@@ -75,40 +75,30 @@ namespace SplineMeshTools.Core
 				return Vector2.zero;
 			}
 
-			switch (uvAxis)
-			{
-				case VectorAxis.X:
-					return new Vector2(point * uvResolutions[splineCount], uv.y);
-				default:
-					return new Vector2(uv.x, point * uvResolutions[splineCount]);
-			}
-		}
+            return uvAxis switch
+            {
+                VectorAxis.X => new Vector2(point * uvResolutions[splineCount], uv.y),
+                _ => new Vector2(uv.x, point * uvResolutions[splineCount]),
+            };
+        }
 
 		public static Vector3 GetRequiredOffset(Vector3 vector, VectorAxis axis)
 		{
-			switch (axis)
-			{
-				case VectorAxis.X:
-					return new Vector3(vector.y, vector.z, 0f);
-
-				default:
-				case VectorAxis.Y:
-					return new Vector3(vector.x, vector.z, 0f);
-			}
-		}
+            return axis switch
+            {
+                VectorAxis.X => new Vector3(vector.y, vector.z, 0f),
+                _ => new Vector3(vector.x, vector.z, 0f),
+            };
+        }
 
 		public static float GetRequiredAxis(Vector3 vector, VectorAxis axis)
 		{
-			switch (axis)
-			{
-				case VectorAxis.X:
-					return vector.x;
-
-				default:
-				case VectorAxis.Y:
-					return vector.y;
-			}
-		}
+            return axis switch
+            {
+                VectorAxis.X => vector.x,
+                _ => vector.y,
+            };
+        }
 
         public static (Spline, float) FindClosestSplineAndPosition(SplineContainer splineContainer, Vector3 objectPosition)
         {

@@ -6,6 +6,7 @@ public class CarVisual : MonoBehaviour
     private const string ColorProperty = "_Color";
 
     [SerializeField] private Renderer _renderer;
+    [SerializeField] private int _targetMaterialIndex = 0;
 
     private MaterialPropertyBlock _propertyBlock;
     private int _colorShaderId;
@@ -29,9 +30,9 @@ public class CarVisual : MonoBehaviour
     {
         ValidateInitialization(nameof(SetColor));
 
-        _renderer.GetPropertyBlock(_propertyBlock);
+        _renderer.GetPropertyBlock(_propertyBlock, _targetMaterialIndex);
         _propertyBlock.SetColor(_colorShaderId, color);
-        _renderer.SetPropertyBlock(_propertyBlock);
+        _renderer.SetPropertyBlock(_propertyBlock, _targetMaterialIndex);
     }
 
     private void ValidateInitialization(string methodName)

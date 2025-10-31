@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.Splines;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Splines;
 
 namespace SplineMeshTools.Core
 {
@@ -36,7 +36,6 @@ namespace SplineMeshTools.Core
         [Tooltip("Should the mesh twist based on the rotation of the knots?")]
         [SerializeField] protected bool shouldTwistMesh = false;
 
-
         [Space]
         [Header("Offsets")]
         [SerializeField] protected Vector3 positionAdjustment;
@@ -45,6 +44,8 @@ namespace SplineMeshTools.Core
 
         protected SplineContainer splineContainer;
         protected MeshFilter meshFilter;
+
+        public event System.Action <Mesh> Generated;
 
         private bool autoGenFlag;
 
@@ -236,22 +237,25 @@ namespace SplineMeshTools.Core
                 splineCounter++;
             }
 
-            var generatedMesh = new Mesh();
-            generatedMesh.name = meshName;
-            generatedMesh.vertices = combinedVertices.ToArray();
-            generatedMesh.normals = combinedNormals.ToArray();
-            generatedMesh.uv = combinedUVs.ToArray();
-            generatedMesh.subMeshCount = segmentMesh.subMeshCount;
+            Mesh generatedMesh = new()
+            {
+                name = meshName,
+                vertices = combinedVertices.ToArray(),
+                normals = combinedNormals.ToArray(),
+                uv = combinedUVs.ToArray(),
+                subMeshCount = segmentMesh.subMeshCount
+            };
 
             for (int submeshIndex = 0; submeshIndex < segmentMesh.subMeshCount; submeshIndex++)
                 generatedMesh.SetTriangles(combinedSubmeshTriangles[submeshIndex].ToArray(), submeshIndex);
-
-            meshFilter.mesh = generatedMesh;
 
             generatedMesh.RecalculateBounds();
             generatedMesh.RecalculateNormals();
             generatedMesh.RecalculateTangents();
 
+            meshFilter.mesh = generatedMesh;
+
+            Generated?.Invoke(generatedMesh);
         }
 
         protected virtual bool CheckForErrors()
@@ -280,6 +284,5 @@ namespace SplineMeshTools.Core
             if (splineContainer.Splines.Contains(spline))
                 GenerateMeshAlongSpline();
         }
-
     }
 }

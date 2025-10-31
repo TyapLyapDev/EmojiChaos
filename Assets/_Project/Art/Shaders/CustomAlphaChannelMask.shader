@@ -4,6 +4,8 @@ Shader "Custom/AlphaChannelMask"
     {
         _MainTex ("Texture (RGB) + Mask (A)", 2D) = "white" {}
         _BackgroundColor ("Background Color", Color) = (0,0,1,1)
+        _Metallic ("Metallic", Range(0.0, 1.0)) = 0.0
+        _Glossiness ("Smoothness", Range(0.0, 1.0)) = 0.5
     }
 
     SubShader 
@@ -15,8 +17,12 @@ Shader "Custom/AlphaChannelMask"
         
         sampler2D _MainTex;
         fixed4 _BackgroundColor;
+        half _Metallic;
+        half _Glossiness;
         
-        struct Input { float2 uv_MainTex; };
+        struct Input { 
+            float2 uv_MainTex; 
+        };
         
         void surf (Input IN, inout SurfaceOutputStandard o) 
         {
@@ -26,7 +32,10 @@ Shader "Custom/AlphaChannelMask"
             
             o.Albedo = lerp(_BackgroundColor.rgb, color, mask);
             o.Alpha = 1.0;
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
         }
         ENDCG
     }
+    FallBack "Diffuse"
 }

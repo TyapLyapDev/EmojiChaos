@@ -32,9 +32,6 @@ public class Level : MonoBehaviour
 
     public void Initialize()
     {
-        if (_roadSplineContainer.TryGetComponent(out SplineMeshTools.Core.SplineMesh splineMesh))
-            splineMesh.GenerateMeshAlongSpline();
-
         _slots = GetComponentsInChildren<AttackSlot>(true).ToList();
         _cars = GetComponentsInChildren<Car>(true).ToList();
 

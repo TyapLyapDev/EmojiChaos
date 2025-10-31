@@ -4,7 +4,6 @@ using UnityEngine.Splines;
 
 namespace SplineMeshTools.Colliders
 {
-
     [RequireComponent(typeof(SplineContainer))]
     [RequireComponent(typeof(MeshCollider))]
     [RequireComponent(typeof(Rigidbody))]
@@ -51,12 +50,12 @@ namespace SplineMeshTools.Colliders
         {
             SplineContainer splineContainer = GetComponent<SplineContainer>();
 
-            List<Vector3> combinedVertices = new List<Vector3>();
-            List<int> combinedTriangles = new List<int>();
+            List<Vector3> combinedVertices = new();
+            List<int> combinedTriangles = new();
 
             foreach (Spline spline in splineContainer.Splines)
             {
-                Mesh mesh = new Mesh();
+                Mesh mesh = new();
 
                 Vector3[] vertices = new Vector3[resolution * 8];
                 int[] triangles = new int[(resolution) * 36];
@@ -154,14 +153,12 @@ namespace SplineMeshTools.Colliders
                 mesh.RecalculateNormals();
             }
 
-            Mesh combinedMesh = new Mesh();
+            Mesh combinedMesh = new();
             combinedMesh.SetVertices(combinedVertices);
             combinedMesh.SetTriangles(combinedTriangles, 0);
-            combinedMesh.RecalculateNormals();
+            combinedMesh.RecalculateNormals();            
 
-            return combinedMesh;
+            return combinedMesh; 
         }
-
-
     }
 }
