@@ -1,14 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class Level : MonoBehaviour
+public class Level : InitializingBehaviour
 {
-    [SerializeField] private SplineContainer _enemySplineContainer;
-    [SerializeField] private SplineContainer _roadSplineContainer;
+    [SerializeField] private EnemySplineContainer _enemySplineContainer;
+    [SerializeField] private CarSplineContainer _carSplineContainer;
     [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private SmokeParticle _smokeParticlePrefab;
+    [SerializeField] private BloodParticle _bloodParticlePrefab;
     [SerializeField] private List<Color> _colors;
     [SerializeField] private List<Crowd> _crowds;
     [SerializeField] private float _speed;
@@ -16,49 +19,64 @@ public class Level : MonoBehaviour
 
     private List<AttackSlot> _slots;
     private List<Car> _cars;
-    private TypeColorRandomizer _colorRandomizer;
-    private EnemyService _enemyService;
-    private AttackSystem _attackSystem;
-    private CarService _carService;
+    private List<Gun> _guns;
+    private List<Crowd> _readyCrowds;
+    private List<int> _ids;
 
-    private void OnDestroy()
+    public SplineContainer EnemySplineContainer => GetSafeReference(_enemySplineContainer.SplineContainer);
+
+    public SplineContainer CarSplineContainer => GetSafeReference(_carSplineContainer.SplineContainer);
+
+    public Enemy EnemyPrefab => GetSafeReference(_enemyPrefab);
+
+    public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
+
+    public BloodParticle BloodParticlePrefab => GetSafeReference(_bloodParticlePrefab);
+
+    public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
+
+    public IReadOnlyList<Color> Colors => GetSafeReference(_colors);
+
+    public float Speed => GetSafeValue(_speed);
+
+    public IReadOnlyList<AttackSlot> Slots => GetSafeReference(_slots);
+
+    public IReadOnlyList<Car> Cars => GetSafeReference(_cars);
+
+    public IReadOnlyList<Gun> Guns => GetSafeReference(_guns);
+
+    public IReadOnlyList<Crowd> Crowds => GetSafeReference(_readyCrowds);
+
+    public IReadOnlyList<int> Ids => GetSafeReference(_ids);
+
+    protected override void OnInitialize()
     {
-        _enemyService.EnemySpawned -= OnEnemySpawned;
-
-        _enemyService?.Dispose();
-        _carService?.Dispose();
-        _attackSystem?.Dispose();
-    }
-
-    public void Initialize()
-    {
+        _enemySplineContainer.Initialize();
+        _carSplineContainer.Initialize();
+        _ids = GetIds();
         _slots = GetComponentsInChildren<AttackSlot>(true).ToList();
         _cars = GetComponentsInChildren<Car>(true).ToList();
+        _guns = GetComponentsInChildren<Gun>(true).ToList();
 
-        List<Crowd> crowds = new(_crowds);
+        PrepareCrowds();
 
-        if(_isRandomSequence) 
-            Utils.Shuffle(crowds);
-
-        _colorRandomizer = new(new(_colors), GetIds());
-        _enemyService = new(this, _enemyPrefab, new(crowds), _enemySplineContainer, _colorRandomizer, _speed);
-        _attackSystem = new(new(_slots), _bulletPrefab);
-        _carService = new(new(_cars), _colorRandomizer, _attackSystem, _roadSplineContainer);
-
-        _enemyService.EnemySpawned += OnEnemySpawned;
+        if (_colors == null || _colors.Count < _ids.Count)
+            throw new Exception($"–азмер {nameof(_colors)} должен быть не меньше размера {nameof(_ids)}");
     }
-
-    public void StartRunning() =>
-        _enemyService.StartRunning();
 
     private List<int> GetIds()
     {
-        List<int> crowdIds = _crowds.Select(c => c.Id).ToList();
-        List<int> carIds = _cars.Select(c => c.Id).ToList();
+        IEnumerable<int> crowdIds = _crowds.Select(c => c.Id);
+        IEnumerable<int> carIds = GetComponentsInChildren<Car>(true).Select(c => c.Id);
 
-        return crowdIds.Concat(carIds).ToList();
+        return crowdIds.Concat(carIds).Distinct().ToList();
     }
 
-    private void OnEnemySpawned(Enemy enemy) =>
-        _attackSystem.RegisterEnemy(enemy);
+    private void PrepareCrowds()
+    {
+        _readyCrowds = new(_crowds);
+
+        if (_isRandomSequence)
+            Utils.Shuffle(_readyCrowds);
+    }
 }

@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: 2100000, guid: faca1f501e98f894a91e47907a9bc663, type: 2}
+    second: {fileID: 2100000, guid: b8c717e0080b34b4181b1c95ac282e19, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -33,7 +33,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wheel
-    second: {fileID: 2100000, guid: 280d25cb73038ed44951575f44ced263, type: 2}
+    second: {fileID: 2100000, guid: 28ee460c202f1434eb73b2e58085726b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

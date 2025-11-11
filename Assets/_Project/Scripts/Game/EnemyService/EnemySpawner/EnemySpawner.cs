@@ -10,18 +10,22 @@ public class EnemySpawner
     private readonly SpawnStrategyRegistry _spawnStrategy = new();
     private readonly float _gameSpeed;
 
-    public EnemySpawner(Pool<Enemy> pool, TypeColorRandomizer colorRandomizer, float gameSpeed)
+    public EnemySpawner(Pool<Enemy> pool, TypeColorRandomizer colorRandomizer, float speed)
     {
-        _pool = pool;
+        _pool = pool ?? throw new ArgumentNullException(nameof(pool));
         _colorRandomizer = colorRandomizer ?? throw new ArgumentNullException(nameof(colorRandomizer));
-        _gameSpeed = gameSpeed;
+
+        if(speed <= 0f)
+            throw new ArgumentOutOfRangeException(nameof(speed), "Speed must be greater than zero");
+
+        _gameSpeed = speed;
     }
 
     public event Action<Enemy> Spawned;
 
     public void Dispose()
     {
-
+        Spawned = null;
     }
 
     public IEnumerator SpawnCrowd(Crowd crowd)

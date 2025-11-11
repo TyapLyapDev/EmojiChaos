@@ -23,7 +23,7 @@ public class CarForwardMoverStrategy : IMovementStrategy
     }
 
     public event Action<CarForwardMoverStrategy> ObstacleCollision;
-    public event Action<CarForwardMoverStrategy, RoadCar, Vector3> RoadCarDetected;
+    public event Action<CarForwardMoverStrategy, CarSplineContainer, Vector3> RoadCarDetected;
 
     public int Direction => _direction;
 
@@ -64,7 +64,7 @@ public class CarForwardMoverStrategy : IMovementStrategy
             if (hit.collider.TryGetComponent(out IObstacle _))
                 return true;
 
-            if(hit.collider.TryGetComponent(out RoadCar carRoad))
+            if(hit.collider.TryGetComponent(out CarSplineContainer carRoad))
                 RoadCarDetected?.Invoke(this, carRoad, hit.point);
         }
 

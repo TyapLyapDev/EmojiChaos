@@ -10,7 +10,7 @@ public class BulletSpeedDirector : System.IDisposable
     private readonly List<Bullet> _bullets = new();
     private readonly CompositeDisposable _disposables = new();
 
-    public BulletSpeedDirector()
+    public void Run()
     {
         Observable.EveryUpdate()
             .Where(_ => _bullets.Count > 0)

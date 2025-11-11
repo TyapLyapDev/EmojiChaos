@@ -1,23 +1,34 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
 
-public class EnemySpeedDirector : System.IDisposable
+public class EnemySpeedDirector : IDisposable
 {
     private const float ReverseMovementMultiplier = 2.5f;
 
+    private readonly EnemySpawner _spawner;
     private readonly List<EnemyMovementInfo> _enemies = new();
     private readonly CompositeDisposable _disposables = new();
     private readonly float _speed;
 
-    public EnemySpeedDirector(float speed)
+    public EnemySpeedDirector(EnemySpawner enemySpawner, float speed)
     {
-        _speed = speed;        
+        _spawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
+
+        if (speed <= 0)
+            throw new ArgumentOutOfRangeException(nameof(speed), "Speed must be greater than zero");
+
+        _speed = speed;
+        _spawner.Spawned += OnEnemySpawned;
     }
 
     public void Dispose()
     {
+        if(_spawner != null)
+            _spawner.Spawned -= OnEnemySpawned;
+
         List<EnemyMovementInfo> enemies = new(_enemies);
 
         foreach (EnemyMovementInfo enemy in enemies)
@@ -27,7 +38,7 @@ public class EnemySpeedDirector : System.IDisposable
         _disposables?.Dispose();
     }
 
-    public void StartRun()
+    public void Run()
     {
         Observable.EveryUpdate().
             Where(_ => _enemies.Count > 0).
@@ -35,7 +46,7 @@ public class EnemySpeedDirector : System.IDisposable
             AddTo(_disposables);
     }
 
-    public void RegisterEnemy(Enemy enemy)
+    private void RegisterEnemy(Enemy enemy)
     {
         if (enemy == null)
             return;
@@ -89,7 +100,7 @@ public class EnemySpeedDirector : System.IDisposable
     private void OnEnemyDeactivated(Enemy enemy)
     {
         if (enemy == null)
-            throw new System.ArgumentNullException(nameof(enemy));
+            return;
 
         EnemyMovementInfo enemyToRemove = _enemies.Find(info => info?.Enemy == enemy);
 
@@ -108,5 +119,13 @@ public class EnemySpeedDirector : System.IDisposable
             throw new System.ArgumentNullException(nameof(second));
 
         return first.SplineDistance - second.SplineDistance;
+    }
+
+    private void OnEnemySpawned(Enemy enemy)
+    {
+        if(enemy == null)
+            throw new ArgumentNullException(nameof(enemy));
+
+        RegisterEnemy(enemy);
     }
 }

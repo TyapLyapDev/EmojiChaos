@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Crowd
 {
-    [SerializeField] private SpawnOrderType _spawnOrder;
+    [SerializeField] private SpawnOrderStrategyType _spawnOrder;
 
     [SerializeField, Min(0.0001f)] private float _delayLine;
     [SerializeField, Min(0)] private float _delayRow;
@@ -14,7 +14,7 @@ public class Crowd
     [SerializeField, Min(1)] private int _countLines;
     [SerializeField, Min(1)] private int _quantity;
 
-    public SpawnOrderType SpawnOrder => _spawnOrder;
+    public SpawnOrderStrategyType SpawnOrder => _spawnOrder;
 
     public float DelayLine => _delayLine;
 

@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System;
 using Unity.Mathematics;
 using UnityEditor;
@@ -178,3 +180,4 @@ public static class SplineUtils
         target.RecalculateTangents();
     }
 }
+#endif

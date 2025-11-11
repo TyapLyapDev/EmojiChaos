@@ -1,65 +1,35 @@
-using System;
 using TMPro;
 using UnityEngine;
 
-public class GunVisual : MonoBehaviour
+public class GunVisual : InitializingBehaviour
 {
-    private const string SmileBackgroundColorProperty = "_BackgroundColor";
-    private const string MuzzleColorProperty = "_Color";
-
-    [SerializeField] private Renderer _smile;
-    [SerializeField] private Renderer _muzzle;
+    [SerializeField] private SimpleRepainter[] _repainters;
     [SerializeField] private TextMeshProUGUI _countText;
 
-    private MaterialPropertyBlock _smilePropertyBlock;
-    private MaterialPropertyBlock _muzzlePropertyBlock;
-    private int _smileBackgroundColorShaderId;
-    private int _muzzleColorShaderId;
-    private bool _isInitialized;
+    private Color _color;
 
-    public void Initialize()
-    {
-        if (_isInitialized)
-            throw new InvalidOperationException("Попытка повторной инициализации");
-
-        if (_muzzle == null)
-            throw new NullReferenceException($"{nameof(_muzzle)} не назначен");
-
-        if (_smile == null)
-            throw new NullReferenceException($"{nameof(_smile)} не назначен");
-
-        _smilePropertyBlock = new();
-        _muzzlePropertyBlock = new();
-        _smileBackgroundColorShaderId = Shader.PropertyToID(SmileBackgroundColorProperty);
-        _muzzleColorShaderId = Shader.PropertyToID(MuzzleColorProperty);
-
-        _isInitialized = true;
-    }
+    public Color Color => _color;
 
     public void SetColor(Color color)
     {
-        ValidateInitialization(nameof(SetColor));
+        ValidateInit(nameof(SetColor));
+        _color = color;
 
-        _smile.GetPropertyBlock(_smilePropertyBlock);
-        _smilePropertyBlock.SetColor(_smileBackgroundColorShaderId, color);
-        _smile.SetPropertyBlock(_smilePropertyBlock);
-
-        _muzzle.GetPropertyBlock(_muzzlePropertyBlock);
-        _muzzlePropertyBlock.SetColor(_muzzleColorShaderId, color);
-        _muzzle.SetPropertyBlock(_muzzlePropertyBlock);
+        foreach (SimpleRepainter repainter in _repainters)
+            repainter.SetColor(color);
 
         _countText.color = color;
     }
 
-    public void SetBulletCount(int bulletCount)
+    public void DisplayBulletCount(int bulletCount)
     {
-        ValidateInitialization(nameof(SetBulletCount));
+        ValidateInit(nameof(DisplayBulletCount));
         _countText.text = bulletCount.ToString();
     }
 
-    private void ValidateInitialization(string methodName)
+    protected override void OnInitialize()
     {
-        if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите {nameof(Initialize)}");
+        foreach (SimpleRepainter repainter in _repainters)
+            repainter.Initialize();
     }
 }

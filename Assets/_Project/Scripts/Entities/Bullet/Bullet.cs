@@ -6,30 +6,24 @@ public class Bullet : MonoBehaviour, IPoolable<Bullet>
     [SerializeField] private BulletVisual _visual;
 
     private BulletMover _mover;
-    private Enemy _target;
+    private Enemy _enemyTarget;
     private bool _isInitialized;
-    private bool _isDeactivating;
 
     public event Action<Bullet> Deactivated;
 
-    public Enemy Target => _target;
+    public Transform Target => _enemyTarget.BulletTarget;
 
     private void OnDestroy()
     {
         _isInitialized = false;
 
         if (_mover != null)
+        {
             _mover.TargetReached -= OnTargetReached;
+            _mover = null;
+        }
 
         UnsubscribeFromTarget();
-    }
-
-    public void Move(float deltaDistance)
-    {
-        if (_isInitialized == false)
-            return;
-
-        _mover.Move(deltaDistance);
     }
 
     public void Initialize()
@@ -47,35 +41,29 @@ public class Bullet : MonoBehaviour, IPoolable<Bullet>
         _isInitialized = true;
     }
 
-    public void Activate(Enemy target, Color color, Vector3 startPosition)
+    public void Activate(Enemy enemyTarget, Vector3 startPosition)
     {
         ValidateInitialization(nameof(Activate));
 
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
+        if (enemyTarget == null)
+            throw new ArgumentNullException(nameof(enemyTarget));
 
-        if (target.IsActive == false)
+        if (enemyTarget.IsActive == false)
             throw new InvalidOperationException("Невозможно активировать пулю при неактивной цели");
 
-        _target = target;
-        _visual.SetColor(color);
+        _enemyTarget = enemyTarget;
+        _visual.SetColor(enemyTarget.Color);
         _mover.SetStartPosition(startPosition);
-        _mover.SetTarget(_target.transform);
+        _mover.SetTarget(_enemyTarget.BulletTarget);
 
-        target.Deactivated += OnTargetDeactivated;
+        _enemyTarget.Deactivated += OnTargetDeactivated;
 
-        _isDeactivating = false;
         gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
         ValidateInitialization(nameof(Deactivate));
-
-        if (_isDeactivating)
-            return;
-
-        _isDeactivating = true;
 
         gameObject.SetActive(false);
         UnsubscribeFromTarget();
@@ -84,10 +72,19 @@ public class Bullet : MonoBehaviour, IPoolable<Bullet>
         Deactivated?.Invoke(this);
     }
 
+    public void Move(float deltaDistance)
+    {
+        ValidateInitialization(nameof(Move));
+
+        _mover.Move(deltaDistance);
+    }
+
     private void OnTargetReached()
     {
-        if (_target != null && _target.IsActive)
-            _target.Deactivate();
+        if (_enemyTarget != null)
+            _enemyTarget.Kill();
+
+        Deactivate();
     }
 
     private void OnTargetDeactivated(Enemy _) =>
@@ -95,16 +92,16 @@ public class Bullet : MonoBehaviour, IPoolable<Bullet>
 
     private void UnsubscribeFromTarget()
     {
-        if (_target != null)
-        {
-            _target.Deactivated -= OnTargetDeactivated;
-            _target = null;
-        }
+        if (_enemyTarget == null)
+            return;
+
+        _enemyTarget.Deactivated -= OnTargetDeactivated;
+        _enemyTarget = null;
     }
 
     private void ValidateInitialization(string methodName)
     {
         if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите{nameof(Initialize)}");
+            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите {nameof(Initialize)}");
     }
 }

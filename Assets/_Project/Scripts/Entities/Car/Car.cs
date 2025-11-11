@@ -24,7 +24,7 @@ public class Car : MonoBehaviour, IObstacle, ISwipeable
 
     public Transform Transform => transform;
 
-    public void Initialize(MapSplineNodes mapSplineNodes)
+    public void Initialize(MapSplineNodes mapSplineNodes, Color color)
     {
         if (_isInitialized)
             throw new InvalidOperationException("Попытка повторной инициализации");
@@ -33,19 +33,16 @@ public class Car : MonoBehaviour, IObstacle, ISwipeable
             throw new NullReferenceException(nameof(_visual));
 
         _mapSplineNodes = mapSplineNodes ?? throw new ArgumentNullException(nameof(mapSplineNodes));
-        _visual.Initialize();
-        _isInitialized = true;
-    }
 
-    public void SetColor(Color color)
-    {
-        ValidateInitialization(nameof(SetColor));
-        _visual.SetColor(color);
-        _color = color;
+        _visual.Initialize();
+        SetColor(color);
+        _isInitialized = true;
     }
 
     public bool TryReservationSlot(AttackSlot attackSlot, int direction)
     {
+        ValidateInitialization(nameof(TryReservationSlot));
+
         if (_mover != null)
             return false;
 
@@ -60,8 +57,18 @@ public class Car : MonoBehaviour, IObstacle, ISwipeable
         return true;
     }
 
-    public void Move(float deltaDistance) =>
+    public void Move(float deltaDistance)
+    {
+        ValidateInitialization(nameof(TryReservationSlot));
+
         _mover?.Move(deltaDistance);
+    }
+
+    private void SetColor(Color color)
+    {
+        _visual.SetColor(color);
+        _color = color;
+    }
 
     private void OnObstacleCollision(CarForwardMoverStrategy carForwardMover)
     {
@@ -76,7 +83,7 @@ public class Car : MonoBehaviour, IObstacle, ISwipeable
         newMover.Stopped += OnRollBackStopped;
     }
 
-    private void OnRoadCarDetected(CarForwardMoverStrategy carForwardMover, RoadCar road, Vector3 hitPoint)
+    private void OnRoadCarDetected(CarForwardMoverStrategy carForwardMover, CarSplineContainer road, Vector3 hitPoint)
     {
         carForwardMover.ObstacleCollision -= OnObstacleCollision;
         carForwardMover.RoadCarDetected -= OnRoadCarDetected;
@@ -108,6 +115,6 @@ public class Car : MonoBehaviour, IObstacle, ISwipeable
     private void ValidateInitialization(string methodName)
     {
         if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите {nameof(Initialize)}");
+            throw new InvalidOperationException($"Метод {methodName} был вызыван до инициализации!");
     }
 }

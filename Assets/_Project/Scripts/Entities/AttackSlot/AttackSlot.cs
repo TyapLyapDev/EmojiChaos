@@ -3,38 +3,58 @@ using UnityEngine;
 
 public class AttackSlot : MonoBehaviour
 {
-    [SerializeField] private GameObject _ads;
+    [SerializeField] private AttackSlotVisual _visual;
+    [SerializeField] private AdvertisingBox _advertisingBox;
     [SerializeField] private Gun _gun;
     [SerializeField] private bool _needAds;
 
     private bool _isReserved;
     private bool _isInitialized;
 
-    public bool IsAvailable => _gun.IsActive == false && _needAds == false && _isReserved == false;
+    public bool IsAvailable => _gun.IsActive == false
+        && _needAds == false
+        && _isReserved == false;
 
-    public void Initialize(Pool<Bullet> pool, EnemyRegistry enemyRegistry, Action<Bullet> bulletActivated)
+    private void OnDestroy()
+    {
+        if (_gun != null)
+            _gun.ShootingCompleted -= OnShootingCompleted;
+    }
+
+    public void Initialize()
     {
         if (_isInitialized)
             throw new InvalidOperationException("Попытка повторной инициализации");
 
-        if (_ads == null)
-            throw new NullReferenceException(nameof(_ads));
+        if (_visual == null)
+            throw new NullReferenceException(nameof(_visual));
+
+        if (_advertisingBox == null)
+            throw new NullReferenceException(nameof(_advertisingBox));
 
         if (_gun == null)
             throw new NullReferenceException(nameof(_gun));
 
-        _gun.Initialize(pool, enemyRegistry, bulletActivated);
-        _ads.SetActive(_needAds);
-        _gun.gameObject.SetActive(false);
-
+        _advertisingBox.SetActive(_needAds);
+        _gun.SetActive(false);
+        _gun.ShootingCompleted += OnShootingCompleted;
         _isInitialized = true;
     }
 
-    public void SetReservation() =>
+    public void SetReservation()
+    {
         _isReserved = true;
 
-    public void ResetReservation() =>
+        _visual.StopTwinkle();
+    }
+
+    public void ResetReservation()
+    {
         _isReserved = false;
+
+        if (IsAvailable)
+            _visual.Twinkle();
+    }
 
     public bool TryActivateGun(int carType, int bulletCount, Color color)
     {
@@ -44,14 +64,20 @@ public class AttackSlot : MonoBehaviour
             return false;
 
         _gun.Activate(carType, bulletCount, color);
-        _isReserved = false;
+        ResetReservation();
 
         return true;
+    }
+
+    private void OnShootingCompleted()
+    {
+        if (IsAvailable)
+            _visual.Twinkle();
     }
 
     private void ValidateInitialization(string methodName)
     {
         if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызван перед инициализацией. Сначала вызовите{nameof(Initialize)}");
+            throw new InvalidOperationException($"Метод {methodName} был вызван до инициализации!");
     }
 }

@@ -11,16 +11,22 @@ public class Gun : MonoBehaviour
     private Aimer _aim;
     private IntervalRunner _runner;
     private Shooter _shooter;
+    private ParticleShower _particleShower;
     private bool _isInitialized;
 
-    public event Action<Bullet> BulletActivated;
+    public event Action ShootingCompleted;
 
     public bool IsActive => gameObject.activeInHierarchy;
 
-    private void OnDestroy() =>
-        _runner.Dispose();
+    private void OnDestroy()
+    {
+        if (_shooter != null)
+            _shooter.Completed -= OnShootingCompleted;
 
-    public void Initialize(Pool<Bullet> bulletPool, EnemyRegistry enemyRegistry, Action<Bullet> bulletActivated)
+        _runner?.Dispose();
+    }
+
+    public void Initialize(Shooter shooter, ParticleShower particleShower)
     {
         if (_isInitialized)
             throw new InvalidOperationException("Попытка повторной инициализации");
@@ -34,13 +40,17 @@ public class Gun : MonoBehaviour
         if (_bulletStartPosition == null)
             throw new NullReferenceException(nameof(_bulletStartPosition));
 
-        if(_shotDelay <= 0)
+        if (_shotDelay <= 0)
             throw new ArgumentOutOfRangeException(nameof(_shotDelay), "Значение должно быть больше нуля");
+
+        _shooter = shooter ?? throw new ArgumentNullException(nameof(shooter));
+        _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
 
         _visual.Initialize();
         _runner = new(OnShootTick);
         _aim = new(_rotatingModel);
-        _shooter = new(bulletPool, enemyRegistry, _bulletStartPosition, bulletActivated);
+        _shooter.SetStartPosition(_bulletStartPosition);
+        _shooter.Completed += OnShootingCompleted;
 
         _isInitialized = true;
     }
@@ -52,9 +62,9 @@ public class Gun : MonoBehaviour
         if (bulletCount <= 0)
             throw new ArgumentOutOfRangeException(nameof(bulletCount), "Значение должно быть больше нуля");
 
-        _shooter.Activate(bulletCount, carType, color);
+        _shooter.Activate(bulletCount, carType);
         _visual.SetColor(color);
-        _visual.SetBulletCount(bulletCount);
+        _visual.DisplayBulletCount(bulletCount);
         _aim.ResetRotation();
         gameObject.SetActive(true);
 
@@ -69,15 +79,19 @@ public class Gun : MonoBehaviour
 
     private void OnShootTick()
     {
-        if(_shooter.TryShoot(out Bullet bullet))
+        if (_shooter.TryShoot(out Bullet bullet))
         {
-            _aim.AimAtTarget(bullet.Target.transform);
-            _visual.SetBulletCount(_shooter.BulletCount);
-            BulletActivated?.Invoke(bullet);
+            _aim.AimAtTarget(bullet.Target);
+            _visual.DisplayBulletCount(_shooter.BulletCount);
+            _particleShower.ShowSmoke(_bulletStartPosition.position, _bulletStartPosition.rotation);
         }
+    }
 
-        if (_shooter.IsActive == false)
-            Deactivate();
+    private void OnShootingCompleted()
+    {
+        _particleShower.ShowBlood(transform.position, transform.rotation, _visual.Color);
+        Deactivate();
+        ShootingCompleted?.Invoke();
     }
 
     private void ValidateInitialization(string methodName)

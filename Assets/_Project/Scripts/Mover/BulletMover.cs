@@ -21,6 +21,9 @@ public class BulletMover
         if (_target == null)
             return;
 
+        if(deltaSpeed < 0)
+            throw new ArgumentOutOfRangeException(nameof(deltaSpeed), "Значение должно быть положительным");
+
         _transform.LookAt(_target);
 
         Vector3 direction = _target.position - _transform.position;
@@ -47,6 +50,9 @@ public class BulletMover
 
     public void SetTarget(Transform target)
     {
+        if(target == null)
+            throw new ArgumentNullException(nameof(target));
+
         _target = target;
         _transform.LookAt(_target);
     }

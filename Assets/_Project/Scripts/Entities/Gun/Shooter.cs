@@ -4,41 +4,48 @@ using UnityEngine;
 public class Shooter
 {
     private readonly Pool<Bullet> _bulletPool;
-    private readonly EnemyRegistry _enemyRegistry;
-    private readonly Transform _bulletStartPosition;
-    private readonly Action<Bullet> _bulletActivated;
+    private readonly EnemyRegistryToAttack _enemyRegistry;
+    private readonly BulletSpeedDirector _bulletSpeedDirector;
 
-    private Color _bulletColor;
+    private Transform _bulletStartPosition;
     private int _bulletCount;
     private int _bulletType;
 
-    public Shooter(Pool<Bullet> bulletPool, EnemyRegistry enemyRegistry, Transform bulletStartPosition, Action<Bullet> bulletActivated)
+    public Shooter(Pool<Bullet> bulletPool, EnemyRegistryToAttack enemyRegistry, BulletSpeedDirector bulletSpeedDirector)
     {
         _bulletPool = bulletPool ?? throw new ArgumentNullException(nameof(bulletPool));
         _enemyRegistry = enemyRegistry ?? throw new ArgumentNullException(nameof(enemyRegistry));
-        _bulletStartPosition = bulletStartPosition != null ? bulletStartPosition : throw new ArgumentNullException(nameof(bulletStartPosition));
-        _bulletActivated = bulletActivated ?? throw new ArgumentNullException(nameof(bulletActivated));
+        _bulletSpeedDirector = bulletSpeedDirector ?? throw new ArgumentNullException(nameof(bulletSpeedDirector));
     }
 
-    public bool IsActive => _bulletCount > 0;
+    public event Action Completed;
 
     public int BulletCount => _bulletCount;
 
-    public void Activate(int bulletCount, int bulletType, Color bulletColor)
+    private bool IsHaveBullet => _bulletCount > 0;
+
+    public void SetStartPosition(Transform position)
+    {
+        if (position == null)
+            throw new ArgumentNullException(nameof(position));
+
+        _bulletStartPosition = position;
+    }
+
+    public void Activate(int bulletCount, int bulletType)
     {
         if (bulletCount < 0)
             throw new ArgumentOutOfRangeException(nameof(bulletCount), " оличество патронов не может быть отрицательным");
 
         _bulletCount = bulletCount;
         _bulletType = bulletType;
-        _bulletColor = bulletColor;
     }        
 
     public bool TryShoot(out Bullet bullet)
     {
         bullet = null;
 
-        if (IsActive == false)
+        if (IsHaveBullet == false)
             return false;
 
         if (_bulletPool.TryGive(out bullet) == false)
@@ -58,9 +65,18 @@ public class Shooter
 
     private void PerformShot(Bullet bullet, Enemy enemy)
     {
-        bullet.Activate(enemy, _bulletColor, _bulletStartPosition.position);
+        if(bullet == null)
+            throw new ArgumentNullException(nameof(bullet));
+
+        if (enemy == null)
+            throw new ArgumentNullException(nameof(enemy));
+
+        bullet.Activate(enemy, _bulletStartPosition.position);
         _bulletCount--;
 
-        _bulletActivated?.Invoke(bullet);
+        if (IsHaveBullet == false)
+            Completed?.Invoke();
+
+        _bulletSpeedDirector?.RegisterBullet(bullet);
     }
 }

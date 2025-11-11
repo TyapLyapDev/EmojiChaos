@@ -1,48 +1,21 @@
-using System;
 using UnityEngine;
 
-public class EnemyVisual : MonoBehaviour
+public class EnemyVisual : InitializingBehaviour
 {
-    private const string BackgroundColorProperty = "_BackgroundColor";
-
-    [SerializeField] private Renderer _renderer;
+    [SerializeField] private SimpleRepainter _repainter;
     [SerializeField] private Animator _animator;
 
-    private EnemyAnimator _customAnimator;
-    private MaterialPropertyBlock _propertyBlock;
-    private int _backgroundColorShaderId;
-    private bool _isInitialized;
-
-    public void Initialize()
-    {
-        if (_isInitialized)
-            throw new InvalidOperationException("Попытка повторной инициализации");
-
-        if (_renderer == null)
-            throw new NullReferenceException(nameof(_renderer));
-
-        if (_animator == null)
-            throw new NullReferenceException(nameof(_animator));
-
-        _customAnimator = new(_animator);
-        _propertyBlock = new();
-        _backgroundColorShaderId = Shader.PropertyToID(BackgroundColorProperty);
-
-        _isInitialized = true;
-    }
+    private EnemyAnimator _enemyAnimator;
 
     public void SetColor(Color color)
     {
-        ValidateInitialization(nameof(SetColor));
-
-        _renderer.GetPropertyBlock(_propertyBlock);
-        _propertyBlock.SetColor(_backgroundColorShaderId, color);
-        _renderer.SetPropertyBlock(_propertyBlock);
+        ValidateInit(nameof(SetColor));
+        _repainter.SetColor(color);
     }
 
-    private void ValidateInitialization(string methodName)
+    protected override void OnInitialize()
     {
-        if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите {nameof(Initialize)}");
+        _enemyAnimator = new(_animator);
+        _repainter.Initialize();
     }
 }

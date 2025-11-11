@@ -1,6 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-
 
 #if UNITY_EDITOR
 using UnityEditor;

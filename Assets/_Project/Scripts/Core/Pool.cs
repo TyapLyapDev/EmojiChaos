@@ -1,24 +1,24 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Pool<T> where T : MonoBehaviour, IPoolable<T>
 {
-    private const int MaximumSize = 300;
+    private const int MaximumSize = 500;
 
-    private readonly T _prefab;
+    private readonly IFactory<T> _factory;
     private readonly Transform _parent;
-    private readonly Action<T> _created;
     private readonly Stack<T> _elements = new();
     private readonly int _size;
 
     private int _count;
 
-    public Pool(T prefab, Action<T> created, Transform parent, int size = MaximumSize)
-    {
-        _prefab = prefab ?? throw new ArgumentNullException(nameof(prefab));
+    public event Action<T> Created;
 
-        _created = created;
+    public Pool(IFactory<T> factory, Transform parent, int size = MaximumSize)
+    {
+        _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+
         _parent = parent;
         _size = size;
     }
@@ -46,7 +46,7 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
             return;
 
         element.Deactivated -= Return;
-        element.gameObject.SetActive(false);
+        element.SetActive(false);
         _elements.Push(element);
     }
 
@@ -54,8 +54,9 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
     {
         _count++;
 
-        T element = UnityEngine.Object.Instantiate(_prefab, _parent);
-        _created?.Invoke(element);
+        T element = _factory.Create();
+        element.SetParent(_parent);
+        Created?.Invoke(element);
 
         return element;
     }

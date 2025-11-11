@@ -24,7 +24,7 @@ public class CrowdSpawnCoordinator : IDisposable
         StopRunning();
     }
 
-    public void StartRunning()
+    public void Run()
     {
         StopRunning();
         _crowdCoroutine = _runner.StartCoroutine(Spawning());

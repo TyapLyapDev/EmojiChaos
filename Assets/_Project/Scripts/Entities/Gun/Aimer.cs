@@ -12,8 +12,10 @@ public class Aimer
 
     public void AimAtTarget(Transform target)
     {
-        if (target != null && target != _rotatingModel)
-            _rotatingModel.LookAt(target);
+        if (target == null)
+            throw new ArgumentNullException(nameof(target));
+
+        _rotatingModel.LookAt(target);
     }
 
     public void ResetRotation() =>

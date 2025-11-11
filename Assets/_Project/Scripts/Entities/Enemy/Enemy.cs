@@ -4,11 +4,14 @@ using UnityEngine.Splines;
 
 public class Enemy : MonoBehaviour, IPoolable<Enemy>
 {
-    [SerializeField] private EnemyVisual _visual;    
-    
+    [SerializeField] private EnemyVisual _visual;
+    [SerializeField] private Transform _bulletTarget;
+
+    private ParticleShower _particle;
     private EnemyMover _mover;
-    private int _id = -1;
+    private int _id;
     private bool _isInitialized;
+    private Color _color;
 
     public event Action<Enemy> Deactivated;
 
@@ -18,16 +21,22 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
 
     public bool IsActive => gameObject.activeInHierarchy && _isInitialized;
 
-    public void Initialize(SplineContainer splineContainer)
+    public Transform BulletTarget => _bulletTarget;
+
+    public Color Color => _color;
+
+    public void Initialize(SplineContainer splineContainer, ParticleShower particleShower)
     {
         if (_isInitialized)
             throw new InvalidOperationException("Попытка повторной инициализации");
 
+        if (_visual == null)
+            throw new NullReferenceException(nameof(_visual));
+
         if (splineContainer == null)
             throw new ArgumentNullException(nameof(splineContainer));
 
-        if (_visual == null)
-            throw new NullReferenceException(nameof(_visual));
+        _particle = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
 
         _visual.Initialize();
         _mover = new(splineContainer, transform);
@@ -41,6 +50,7 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
         _id = id;
         _mover.SetSideOffset(sideOffset);
         _visual.SetColor(color);
+        _color = color;
         gameObject.SetActive(true);
     }
 
@@ -53,6 +63,17 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
         Deactivated?.Invoke(this);
     }
 
+    public void Kill()
+    {
+        ValidateInitialization(nameof(Kill));
+
+        if (IsActive == false)
+            throw new InvalidOperationException($"Объект неактивен");
+
+        _particle.ShowBlood(_bulletTarget.position, _bulletTarget.rotation, _color);
+        Deactivate();
+    }
+
     public void Move(float deltaSpeed)
     {
         ValidateInitialization(nameof(Move));
@@ -63,6 +84,6 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
     private void ValidateInitialization(string methodName)
     {
         if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите{nameof(Initialize)}");
+            throw new InvalidOperationException($"Метод {methodName} был вызыван до инициализации!");
     }
 }
