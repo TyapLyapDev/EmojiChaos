@@ -1,51 +1,32 @@
 using System;
 using UnityEngine;
-using UnityEngine.Splines;
 
-public class Enemy : MonoBehaviour, IPoolable<Enemy>
+public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Enemy>, IHittable
 {
     [SerializeField] private EnemyVisual _visual;
-    [SerializeField] private Transform _bulletTarget;
+    [SerializeField] private Transform _center;
 
-    private ParticleShower _particle;
+    private EnemyConfig _config;
     private EnemyMover _mover;
     private int _id;
-    private bool _isInitialized;
     private Color _color;
 
     public event Action<Enemy> Deactivated;
+    public event Action<IHittable> Disappeared;
 
     public int Type => _id;
 
     public float SplineDistance => _mover?.CurrentDistance ?? 0f;
 
-    public bool IsActive => gameObject.activeInHierarchy && _isInitialized;
+    public bool IsActive => GetSafeValue(gameObject.activeInHierarchy);
 
-    public Transform BulletTarget => _bulletTarget;
+    public Transform Center => _center;
 
     public Color Color => _color;
 
-    public void Initialize(SplineContainer splineContainer, ParticleShower particleShower)
-    {
-        if (_isInitialized)
-            throw new InvalidOperationException("Попытка повторной инициализации");
-
-        if (_visual == null)
-            throw new NullReferenceException(nameof(_visual));
-
-        if (splineContainer == null)
-            throw new ArgumentNullException(nameof(splineContainer));
-
-        _particle = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
-
-        _visual.Initialize();
-        _mover = new(splineContainer, transform);
-        _isInitialized = true;
-    }
-
     public void Activate(int id, float sideOffset, Color color)
     {
-        ValidateInitialization(nameof(Activate));
+        ValidateInit(nameof(Activate));
 
         _id = id;
         _mover.SetSideOffset(sideOffset);
@@ -56,34 +37,37 @@ public class Enemy : MonoBehaviour, IPoolable<Enemy>
 
     public void Deactivate()
     {
-        ValidateInitialization(nameof(Deactivate));
+        ValidateInit(nameof(Deactivate));
 
         _mover.Reset();
         gameObject.SetActive(false);
+        Disappeared?.Invoke(this);
         Deactivated?.Invoke(this);
     }
 
     public void Kill()
     {
-        ValidateInitialization(nameof(Kill));
+        ValidateInit(nameof(Kill));
 
         if (IsActive == false)
             throw new InvalidOperationException($"Объект неактивен");
 
-        _particle.ShowBlood(_bulletTarget.position, _bulletTarget.rotation, _color);
+        _config.ParticleShower.ShowBlood(_center.position, _center.rotation, _color);
         Deactivate();
     }
 
     public void Move(float deltaSpeed)
     {
-        ValidateInitialization(nameof(Move));
+        ValidateInit(nameof(Move));
 
         _mover?.Move(deltaSpeed);
     }
 
-    private void ValidateInitialization(string methodName)
+    protected override void OnInitialize(EnemyConfig config)
     {
-        if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван до инициализации!");
+        _config = config ?? throw new ArgumentNullException(nameof(config));
+
+        _visual.Initialize();
+        _mover = new(_config.SplineContainer, transform);
     }
 }

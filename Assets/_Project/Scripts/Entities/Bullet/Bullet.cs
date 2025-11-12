@@ -1,69 +1,48 @@
 using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPoolable<Bullet>
+public class Bullet : InitializingBehaviour, IPoolable<Bullet>
 {
     [SerializeField] private BulletVisual _visual;
 
     private BulletMover _mover;
-    private Enemy _enemyTarget;
-    private bool _isInitialized;
+    private IHittable _target;
 
     public event Action<Bullet> Deactivated;
 
-    public Transform Target => _enemyTarget.BulletTarget;
+    public IHittable Target => GetSafeReference(_target);
 
     private void OnDestroy()
     {
-        _isInitialized = false;
-
         if (_mover != null)
-        {
             _mover.TargetReached -= OnTargetReached;
-            _mover = null;
-        }
 
         UnsubscribeFromTarget();
     }
 
-    public void Initialize()
+    public void Activate(IHittable target, Vector3 startPosition)
     {
-        if (_isInitialized)
-            throw new InvalidOperationException("Попытка повторной инициализации");
+        ValidateInit(nameof(Activate));
 
-        if (_visual == null)
-            throw new NullReferenceException(nameof(_visual));
+        if (target == null)
+            throw new ArgumentNullException(nameof(target));
 
-        _visual.Initialize();
-        _mover = new(transform);
-        _mover.TargetReached += OnTargetReached;
-
-        _isInitialized = true;
-    }
-
-    public void Activate(Enemy enemyTarget, Vector3 startPosition)
-    {
-        ValidateInitialization(nameof(Activate));
-
-        if (enemyTarget == null)
-            throw new ArgumentNullException(nameof(enemyTarget));
-
-        if (enemyTarget.IsActive == false)
+        if (target.IsActive == false)
             throw new InvalidOperationException("Невозможно активировать пулю при неактивной цели");
 
-        _enemyTarget = enemyTarget;
-        _visual.SetColor(enemyTarget.Color);
+        _target = target;
+        _visual.SetColor(target.Color);
         _mover.SetStartPosition(startPosition);
-        _mover.SetTarget(_enemyTarget.BulletTarget);
+        _mover.SetTarget(_target.Center);
 
-        _enemyTarget.Deactivated += OnTargetDeactivated;
+        _target.Disappeared += OnTargetDeactivated;
 
         gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
-        ValidateInitialization(nameof(Deactivate));
+        ValidateInit(nameof(Deactivate));
 
         gameObject.SetActive(false);
         UnsubscribeFromTarget();
@@ -74,34 +53,34 @@ public class Bullet : MonoBehaviour, IPoolable<Bullet>
 
     public void Move(float deltaDistance)
     {
-        ValidateInitialization(nameof(Move));
+        ValidateInit(nameof(Move));
 
         _mover.Move(deltaDistance);
     }
 
+    protected override void OnInitialize()
+    {
+        _visual.Initialize();
+        _mover = new(transform);
+        _mover.TargetReached += OnTargetReached;
+    }
+
     private void OnTargetReached()
     {
-        if (_enemyTarget != null)
-            _enemyTarget.Kill();
+        _target?.Kill();
 
         Deactivate();
     }
 
-    private void OnTargetDeactivated(Enemy _) =>
+    private void OnTargetDeactivated(IHittable hittable) =>
         Deactivate();
 
     private void UnsubscribeFromTarget()
     {
-        if (_enemyTarget == null)
+        if (_target == null)
             return;
 
-        _enemyTarget.Deactivated -= OnTargetDeactivated;
-        _enemyTarget = null;
-    }
-
-    private void ValidateInitialization(string methodName)
-    {
-        if (_isInitialized == false)
-            throw new InvalidOperationException($"Метод {methodName} был вызыван перед инициализацией. Сначала вызовите {nameof(Initialize)}");
+        _target.Disappeared -= OnTargetDeactivated;
+        _target = null;
     }
 }

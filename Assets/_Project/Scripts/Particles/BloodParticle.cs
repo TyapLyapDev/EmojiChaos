@@ -12,26 +12,30 @@ public class BloodParticle : OneShotParticle, IPoolable<BloodParticle>
 
     public event Action<BloodParticle> Deactivated;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        _module = ParticleSystem.main;
-        _stratchedModule = _stratched.main;
-        _circlesModule = _circles.main;
-    }
-
     public void Deactivate()
     {
+        ValidateInit(nameof(Deactivate));
+
         gameObject.SetActive(false);
         Deactivated?.Invoke(this);
     }
 
     public void SetColor(Color color)
     {
+        ValidateInit(nameof(SetColor));
+
         _module.startColor = color;
         _stratchedModule.startColor = color;
         _circlesModule.startColor = color;
+    }
+
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
+
+        _module = ParticleSystem.main;
+        _stratchedModule = _stratched.main;
+        _circlesModule = _circles.main;
     }
 
     protected override void OnComleted() =>

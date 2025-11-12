@@ -17,7 +17,7 @@ public class Level : InitializingBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private bool _isRandomSequence;
 
-    private List<AttackSlot> _slots;
+    private List<Rack> _slots;
     private List<Car> _cars;
     private List<Gun> _guns;
     private List<Crowd> _readyCrowds;
@@ -39,7 +39,7 @@ public class Level : InitializingBehaviour
 
     public float Speed => GetSafeValue(_speed);
 
-    public IReadOnlyList<AttackSlot> Slots => GetSafeReference(_slots);
+    public IReadOnlyList<Rack> Slots => GetSafeReference(_slots);
 
     public IReadOnlyList<Car> Cars => GetSafeReference(_cars);
 
@@ -51,12 +51,13 @@ public class Level : InitializingBehaviour
 
     protected override void OnInitialize()
     {
+        _slots = GetComponentsInChildren<Rack>(true).ToList();
+        _cars = GetComponentsInChildren<Car>(true).ToList();
+        _guns = GetComponentsInChildren<Gun>(true).ToList();
+
         _enemySplineContainer.Initialize();
         _carSplineContainer.Initialize();
         _ids = GetIds();
-        _slots = GetComponentsInChildren<AttackSlot>(true).ToList();
-        _cars = GetComponentsInChildren<Car>(true).ToList();
-        _guns = GetComponentsInChildren<Gun>(true).ToList();
 
         PrepareCrowds();
 

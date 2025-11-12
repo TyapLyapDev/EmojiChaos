@@ -14,39 +14,27 @@ public class ResourceBalanceChecker : EditorWindow
         CustomLogger.ClearConsole();
         CustomLogger.LogWhite("ПРОЦЕДУРА ПРОВЕРКИ СООТВЕТСТВИЯ ВРАГОВ И БОЕПРИПАСОВ");
 
-        if (TryFindSingleObjectByType(out LevelBootstrap levelBootstrap) == false)
+        Level[] allLevels = Resources.LoadAll<Level>(string.Empty);
+
+        if (allLevels == null || allLevels.Length == 0)
         {
-            CustomLogger.LogRed($"{nameof(levelBootstrap)} не найден или не является единственным на сцене!");
+            CustomLogger.LogRed($"Не найдено уровней в папке Resources/");
 
             return;
         }
 
-        string propertyName = "_levels";
-        SerializedObject serializedBootstrap = new(levelBootstrap);
-        SerializedProperty levelsProperty = serializedBootstrap.FindProperty(propertyName);
+        CustomLogger.LogBlue($"Найдено уровней: {allLevels.Length}");
 
-        if (levelsProperty == null)
+        foreach (Level level in allLevels)
         {
-            CustomLogger.LogRed($"Не удалось найти свойство \"{propertyName}\"");
-
-            return;
-        }
-
-        CustomLogger.LogBlue($"Найдено уровней: {levelsProperty.arraySize}");
-
-        for (int i = 0; i < levelsProperty.arraySize; i++)
-        {
-            SerializedProperty levelProperty = levelsProperty.GetArrayElementAtIndex(i);
-            Level level = levelProperty.objectReferenceValue as Level;
-
             if (level == null)
             {
-                CustomLogger.LogRed($"Отсутствует ссылка на уровень, индекс: [{i}]");
+                CustomLogger.LogRed("Обнаружен null уровень в Resources");
 
                 continue;
             }
 
-            CustomLogger.LogBlue($"Уровень [{i}] \"{level.name}\"");
+            CustomLogger.LogBlue($"Уровень \"{level.name}\"");
             AnalyzeLevelBalance(level);
         }
     }

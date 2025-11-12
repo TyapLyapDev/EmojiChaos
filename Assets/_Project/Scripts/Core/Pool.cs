@@ -13,8 +13,6 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
 
     private int _count;
 
-    public event Action<T> Created;
-
     public Pool(IFactory<T> factory, Transform parent, int size = MaximumSize)
     {
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
@@ -30,11 +28,7 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
         if (_elements.Count == 0 && _count >= _size)
             return false;
 
-        if (_elements.Count > 0)
-            element = _elements.Pop();
-        else
-            element = Create();
-
+        element = _elements.Count > 0 ? _elements.Pop() : Create();
         element.Deactivated += Return;
 
         return true;
@@ -56,7 +50,6 @@ public class Pool<T> where T : MonoBehaviour, IPoolable<T>
 
         T element = _factory.Create();
         element.SetParent(_parent);
-        Created?.Invoke(element);
 
         return element;
     }

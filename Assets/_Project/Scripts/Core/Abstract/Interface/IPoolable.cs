@@ -1,8 +1,1 @@
-using System;
-
-public interface IPoolable<T>
-{
-    public event Action<T> Deactivated;
-
-    void Deactivate();
-}
+public interface IPoolable<T> : IDeactivatable<T> { }

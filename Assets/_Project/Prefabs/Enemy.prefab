@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visual: {fileID: 6481089253781623323}
-  _bulletTarget: {fileID: 5823619021514996571}
+  _center: {fileID: 5823619021514996571}
 --- !u!114 &6481089253781623323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5823619021514996571}
   m_Layer: 0
-  m_Name: BulletTarget
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 3214334931703075669}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0.9}
+  m_LocalPosition: {x: 0, y: 0.3, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
