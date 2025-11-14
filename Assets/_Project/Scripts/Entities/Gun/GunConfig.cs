@@ -1,6 +1,6 @@
 using System;
 
-public class GunConfig : IConfig
+public readonly struct GunConfig : IConfig
 {
     private readonly Shooter _shooter;
     private readonly ParticleShower _particleShower;

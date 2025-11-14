@@ -52,7 +52,7 @@ public abstract class BaseInitializingBehaviour : MonoBehaviour
     private void ValidateFieldsInInspector()
     {
         IEnumerable<FieldInfo> fields = GetType()
-            .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            .GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy)
             .Where(f => f.IsDefined(typeof(SerializeField), false));
 
         foreach (FieldInfo field in fields)
@@ -63,11 +63,22 @@ public abstract class BaseInitializingBehaviour : MonoBehaviour
             if (field.FieldType.IsValueType)
                 continue;
 
-            if (value == null)
-                throw new NullReferenceException($"SerializeField поле {fieldName} не назначено в инспекторе");
+            if (IsUnityObjectNull(value)) 
+                throw new NullReferenceException($"SerializeField поле {fieldName} не назначено в инспекторе");      
 
             ValidateCollectionElements(value, fieldName, field.FieldType);
         }
+    }
+
+    private bool IsUnityObjectNull(object obj)
+    {
+        if (obj == null)
+            return true;
+
+        if (obj is UnityEngine.Object unityObj)
+            return unityObj == null;
+
+        return false;
     }
 
     private void ValidateCollectionElements(object collection, string fieldName, Type fieldType)

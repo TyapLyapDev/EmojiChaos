@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class ParticleShower
 {
-    private Pool<SmokeParticle> _smokeParticlePool;
-    private Pool<BloodParticle> _bloodParticlePool;
+    private readonly Pool<SmokeParticle> _smokeParticlePool;
+    private readonly Pool<BloodParticle> _bloodParticlePool;
+    private readonly Pool<HitParticle> _hitParticlePool;
 
-    public ParticleShower(Pool<SmokeParticle> smokeParticlePool, Pool<BloodParticle> bloodParticlePool)
+    public ParticleShower(Pool<SmokeParticle> smokeParticlePool, Pool<BloodParticle> bloodParticlePool, Pool<HitParticle> hitParticlePool)
     {
         _smokeParticlePool = smokeParticlePool ?? throw new ArgumentNullException(nameof(smokeParticlePool));
         _bloodParticlePool = bloodParticlePool ?? throw new ArgumentNullException(nameof(bloodParticlePool));
+        _hitParticlePool = hitParticlePool ?? throw new ArgumentNullException(nameof(hitParticlePool));
     }
 
     public void ShowSmoke(Vector3 position, Quaternion direction)
@@ -28,6 +30,16 @@ public class ParticleShower
         {
             particle.SetPositionAndRotation(position, direction);
             particle.SetColor(color);
+            particle.SetActive(true);
+            particle.Play();
+        }
+    }
+
+    public void ShowHit(Vector3 position)
+    {
+        if (_hitParticlePool.TryGive(out HitParticle particle))
+        {
+            particle.SetPositionAndRotation(position, Quaternion.identity);
             particle.SetActive(true);
             particle.Play();
         }

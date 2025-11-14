@@ -12,6 +12,8 @@ public class Level : InitializingBehaviour
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private SmokeParticle _smokeParticlePrefab;
     [SerializeField] private BloodParticle _bloodParticlePrefab;
+    [SerializeField] private HitParticle _hitParticlePrefab;
+    [SerializeField] private ParticleSystem _portalParticle;
     [SerializeField] private List<Color> _colors;
     [SerializeField] private List<Crowd> _crowds;
     [SerializeField] private float _speed;
@@ -32,6 +34,10 @@ public class Level : InitializingBehaviour
     public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
 
     public BloodParticle BloodParticlePrefab => GetSafeReference(_bloodParticlePrefab);
+
+    public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
+
+    public ParticleSystem PortalParticle => _portalParticle;
 
     public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
 

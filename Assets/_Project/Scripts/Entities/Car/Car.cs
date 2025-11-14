@@ -47,23 +47,56 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
 
     protected override void OnInitialize(CarConfig config)
     {
-        _config = config ?? throw new ArgumentNullException(nameof(config));
+        _config = config;
 
         _visual.Initialize();
         _visual.SetColor(_config.Color);
     }
 
-    private void OnObstacleCollision(CarForwardMoverStrategy carForwardMover)
+    private void OnObstacleCollision(CarForwardMoverStrategy carForwardMover, Vector3 hitPoint)
     {
         _attackSlot.ResetReservation();
         _attackSlot = null;
+        _config.ParticleShower.ShowHit(hitPoint);
 
         carForwardMover.ObstacleCollision -= OnObstacleCollision;
         carForwardMover.RoadCarDetected -= OnRoadCarDetected;
 
-        CarRollBackMoverStrategy newMover = new(transform, _selfCollider, carForwardMover.Direction);
-        _mover = newMover;
+        if (carForwardMover.Direction > 0)
+        {
+            _visual.ForwardAccidentCompleted += OnForwardAccidentCompleted;
+            _visual.SetForwardAccident();
+        }
+        else
+        {
+            _visual.BackwardAccidentCompleted += OnBackwardAccidentCompleted;
+            _visual.SetBackwardAccident();
+        }
 
+        _mover = null;
+    }
+
+    private void OnForwardAccidentCompleted()
+    {
+        if (_visual != null)
+            _visual.ForwardAccidentCompleted -= OnForwardAccidentCompleted;
+
+        CreateCarRollBackMover(1);
+    }
+
+    private void OnBackwardAccidentCompleted()
+    {
+        if (_visual != null)
+            _visual.BackwardAccidentCompleted -= OnBackwardAccidentCompleted;
+
+        CreateCarRollBackMover(-1);
+    }
+
+    private void CreateCarRollBackMover(int direction)
+    {
+        CarRollBackMoverStrategy newMover = new(transform, _selfCollider, direction);
+        _mover = newMover;
+        _config.SpeedDirector.Register(this);
         newMover.Stopped += OnRollBackStopped;
     }
 
@@ -88,8 +121,8 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     private void OnDestinationReached(CarSplineMoverStrategy mover)
     {
         mover.DestinationReached -= OnDestinationReached;
-        
-        if(_attackSlot.TryActivateGun(_id, _bulletCount, _config.Color) == false)
+
+        if (_attackSlot.TryActivateGun(_id, _bulletCount, _config.Color) == false)
             throw new Exception($"Ќе удалось активировать пушку дл€ машины {_id}");
 
         Destroy(gameObject);

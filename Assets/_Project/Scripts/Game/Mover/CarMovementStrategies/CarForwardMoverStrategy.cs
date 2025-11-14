@@ -22,7 +22,7 @@ public class CarForwardMoverStrategy : IMovementStrategy
         _forwardOffset = self.size.z * transform.lossyScale.z / Bisector - _sphereRadius;
     }
 
-    public event Action<CarForwardMoverStrategy> ObstacleCollision;
+    public event Action<CarForwardMoverStrategy, Vector3> ObstacleCollision;
     public event Action<CarForwardMoverStrategy, CarSplineContainer, Vector3> RoadCarDetected;
 
     public int Direction => _direction;
@@ -32,10 +32,7 @@ public class CarForwardMoverStrategy : IMovementStrategy
         Vector3 direction = _direction * _transform.forward;
 
         if (IsCollision(deltaDistance, direction))
-        {
-            ObstacleCollision?.Invoke(this);
             return;
-        }
 
         _transform.position += deltaDistance * direction;
     }
@@ -62,10 +59,15 @@ public class CarForwardMoverStrategy : IMovementStrategy
                 continue;
 
             if (hit.collider.TryGetComponent(out IObstacle _))
+            {
+                if (hit.collider.TryGetComponent(out IObstacle _))
+                    ObstacleCollision?.Invoke(this, hit.point);
+
                 return true;
+            }
 
             if(hit.collider.TryGetComponent(out CarSplineContainer carRoad))
-                RoadCarDetected?.Invoke(this, carRoad, hit.point);
+                RoadCarDetected?.Invoke(this, carRoad, hit.point);            
         }
 
         return false;

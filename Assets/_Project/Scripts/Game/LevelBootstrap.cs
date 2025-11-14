@@ -41,14 +41,15 @@ public class LevelBootstrap : MonoBehaviour
         _services.Add(poolBuilder.Build(_level.BulletPrefab));
         _services.Add(poolBuilder.Build(_level.SmokeParticlePrefab));
         _services.Add(poolBuilder.Build(_level.BloodParticlePrefab));
-        _services.Add(new ParticleShower(_services.Get<Pool<SmokeParticle>>(), _services.Get<Pool<BloodParticle>>()));
+        _services.Add(poolBuilder.Build(_level.HitParticlePrefab));
+        _services.Add(new ParticleShower(_services.Get<Pool<SmokeParticle>>(), _services.Get<Pool<BloodParticle>>(), _services.Get<Pool<HitParticle>>()));
         _services.Add(poolBuilder.Build(_level.EnemyPrefab, new EnemyConfig(_level.EnemySplineContainer, _services.Get<ParticleShower>())));
 
         _services.Add(new SlotReservator(_level.Slots, _services.Get<ISwipeStrategy>()));
         _services.Add(new EnemySpawner(_services.Get<Pool<Enemy>>(), _services.Get<TypeColorRandomizer>(), _level.Speed));
         _services.Add(new EnemyRegistryToAttack(_services.Get<EnemySpawner>()));
         _services.Add(new EnemySpeedDirector(_services.Get<EnemySpawner>(), _level.Speed));
-        _services.Add(new CrowdSpawnCoordinator(this, _services.Get<EnemySpawner>(), new(_level.Crowds)));
+        _services.Add(new CrowdSpawnCoordinator(this, _services.Get<EnemySpawner>(), new(_level.Crowds), _level.PortalParticle));
         _services.Add(new CarMovementInitiator(_services.Get<SlotReservator>(), _services.Get<CarSpeedDirector>()));
     }
 
@@ -74,13 +75,15 @@ public class LevelBootstrap : MonoBehaviour
 
     private void InitializeCars()
     {
-        TypeColorRandomizer colorRandomizer = _services.Get<TypeColorRandomizer>();
+        CarSpeedDirector carSpeedDirector = _services.Get<CarSpeedDirector>();
+        ParticleShower particleShower = _services.Get<ParticleShower>();
         MapSplineNodes mapSplineNodes = new(_level.CarSplineContainer);
+        TypeColorRandomizer colorRandomizer = _services.Get<TypeColorRandomizer>();
 
         foreach (Car car in _level.Cars)
             if (car != null)
                 if (colorRandomizer.TryGetColor(car.Id, out Color color))
-                    car.Initialize(new CarConfig(mapSplineNodes, color));
+                    car.Initialize(new CarConfig(carSpeedDirector, particleShower, mapSplineNodes, color));
     }
 
     private void InitializeGuns()

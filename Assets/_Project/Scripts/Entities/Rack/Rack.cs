@@ -41,6 +41,7 @@ public class Rack : InitializingBehaviour
             return false;
 
         _gun.Activate(carType, bulletCount, color);
+        _visual.ShowAppearance();
         ResetReservation();
 
         return true;

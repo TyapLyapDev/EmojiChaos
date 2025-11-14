@@ -18,7 +18,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
 
     private void OnDestroy()
     {
-        if (_config != null)
+        if (_config.Shooter != null)
             _config.Shooter.Completed -= OnShootingCompleted;
 
         _runner?.Dispose();
@@ -42,7 +42,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
 
     protected override void OnInitialize(GunConfig config)
     {
-        _config = config ?? throw new ArgumentNullException(nameof(config));
+        _config = config;
 
         if (_shotDelay <= 0)
             throw new ArgumentOutOfRangeException(nameof(_shotDelay), "Значение должно быть больше нуля");

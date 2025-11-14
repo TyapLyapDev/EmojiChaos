@@ -76,6 +76,18 @@ public class EnemyRegistryToAttack : IDisposable
         return enemy != null && enemy.IsActive;
     }
 
+    public void Scare(int enemyType, int count)
+    {
+        if (_availableEnemiesByType.ContainsKey(enemyType) == false)
+            return;
+
+        List<Enemy> enemies = _availableEnemiesByType[enemyType].Take(count).ToList();
+
+        foreach (Enemy enemy in enemies)
+            if (enemy != null)
+                enemy.Scare();
+    }
+
     private void OnEnemyDeactivated(Enemy enemy)
     {
         if (enemy == null)

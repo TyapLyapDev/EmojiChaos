@@ -1,38 +1,29 @@
 using System;
 using UnityEngine;
 
-public class SimpleRepainter : InitializingBehaviour
+public class SimpleRepainter : BaseRepainter
 {
-    [SerializeField] private Renderer _renderer;
-    [SerializeField] private string _propertyColor;
+    [SerializeField] private string _propertyColor = "_BackgroundColor";
 
-    private MaterialPropertyBlock _propertyBlock;
+    private Color _color;
     private int _shaderId;
 
     public void SetColor(Color color)
     {
-        ValidateInit(nameof(SetColor));
-
-        OnGetPropertyBlock(_renderer, _propertyBlock);
-        _propertyBlock.SetColor(_shaderId, color);
-        OnSetPropertyBlock(_renderer, _propertyBlock);
+        _color = color;
+        Repaint();
     }
 
-    protected virtual void OnGetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
-        renderer.GetPropertyBlock(propertyBlock);
-
-    protected virtual void OnSetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
-        renderer.SetPropertyBlock(propertyBlock);
+    protected override void OnRepaint(MaterialPropertyBlock propertyBlock) =>
+        propertyBlock.SetColor(_shaderId, _color);
 
     protected override void OnInitialize()
     {
-        if (_renderer == null)
-            throw new NullReferenceException(nameof(_renderer));
+        base.OnInitialize();
 
         if (string.IsNullOrEmpty(_propertyColor))
             throw new InvalidOperationException(nameof(_propertyColor));
 
-        _propertyBlock = new();
         _shaderId = Shader.PropertyToID(_propertyColor);
     }
 }

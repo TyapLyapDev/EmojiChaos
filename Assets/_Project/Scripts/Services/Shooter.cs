@@ -39,6 +39,7 @@ public class Shooter
 
         _bulletCount = bulletCount;
         _bulletType = bulletType;
+        _enemyRegistry.Scare(_bulletType, bulletCount);
     }        
 
     public bool TryShoot(out Bullet bullet)

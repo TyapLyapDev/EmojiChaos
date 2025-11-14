@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Splines;
 
-public class EnemyConfig : IConfig
+public readonly struct EnemyConfig : IConfig
 {
     private readonly SplineContainer _splineContainer;
     private readonly ParticleShower _particleShower;

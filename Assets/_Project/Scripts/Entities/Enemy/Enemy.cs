@@ -24,6 +24,11 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
 
     public Color Color => _color;
 
+    private void OnDestroy()
+    {
+        _visual.DiedCompleted -= OnDiedCompleted;
+    }
+
     public void Activate(int id, float sideOffset, Color color)
     {
         ValidateInit(nameof(Activate));
@@ -31,6 +36,7 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
         _id = id;
         _mover.SetSideOffset(sideOffset);
         _visual.SetColor(color);
+        _visual.ResetDied();
         _color = color;
         gameObject.SetActive(true);
     }
@@ -45,17 +51,6 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
         Deactivated?.Invoke(this);
     }
 
-    public void Kill()
-    {
-        ValidateInit(nameof(Kill));
-
-        if (IsActive == false)
-            throw new InvalidOperationException($"Объект неактивен");
-
-        _config.ParticleShower.ShowBlood(_center.position, _center.rotation, _color);
-        Deactivate();
-    }
-
     public void Move(float deltaSpeed)
     {
         ValidateInit(nameof(Move));
@@ -63,11 +58,35 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
         _mover?.Move(deltaSpeed);
     }
 
+    public void Scare()
+    {
+        _visual.SetFear();
+    }
+
+    public void Kill()
+    {
+        ValidateInit(nameof(Kill));
+
+        if (IsActive == false)
+            throw new InvalidOperationException($"Объект неактивен");
+
+        _visual.SetDied();        
+    }
+
     protected override void OnInitialize(EnemyConfig config)
     {
-        _config = config ?? throw new ArgumentNullException(nameof(config));
+        _config = config;
 
         _visual.Initialize();
         _mover = new(_config.SplineContainer, transform);
+
+        _visual.DiedCompleted += OnDiedCompleted;
+    }
+        
+
+    private void OnDiedCompleted()
+    {
+        _config.ParticleShower.ShowBlood(_center.position, _center.rotation, _color);
+        Deactivate();
     }
 }

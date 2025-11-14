@@ -1,21 +1,22 @@
+using System;
 using UnityEngine;
 
-public class EnemyAnimator
+public class EnemyAnimator : InitializingBehaviour
 {
-    private const string IsWalk = nameof(IsWalk);
+    private static readonly int s_hashIsDied = Animator.StringToHash("IsDied");
 
-    private readonly Animator _animator;
-    private readonly int _hashIsWalk;
+    [SerializeField] private Animator _animator;
 
-    public EnemyAnimator(Animator animator)
-    {
-        _animator = animator;
-        _hashIsWalk = Animator.StringToHash(IsWalk);
-    }
+    public event Action DiedComleted;
 
-    public void SetWalk() =>
-        _animator.SetBool(_hashIsWalk, true);
+    public void ResetDied() =>
+        _animator.SetBool(s_hashIsDied, false);
 
-    public void SetIdle() =>
-        _animator.SetBool(_hashIsWalk, false);
+    public void SetDied() =>
+        _animator.SetBool(s_hashIsDied, true);
+
+    protected override void OnInitialize() { }
+
+    public void OnDiedComleted() =>
+        DiedComleted?.Invoke();
 }
