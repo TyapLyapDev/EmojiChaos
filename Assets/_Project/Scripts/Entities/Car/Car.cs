@@ -13,12 +13,20 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     private CarConfig _config;
     private Rack _attackSlot;
     private IMovementStrategy _mover;
+    private List<SplineSegment> _currentPath;
 
     public int Id => _id;
 
     public int BulletCount => _bulletCount;
 
     public Transform Transform => transform;
+
+    public void Move(float deltaDistance)
+    {
+        ValidateInit(nameof(Move));
+
+        _mover?.Move(deltaDistance);
+    }
 
     public bool TryReservationSlot(Rack attackSlot, int direction)
     {
@@ -30,19 +38,12 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         _attackSlot = attackSlot;
         _attackSlot.SetReservation();
 
-        CarForwardMoverStrategy mover = new(transform, _selfCollider, direction);
-        _mover = mover;
-        mover.ObstacleCollision += OnObstacleCollision;
-        mover.RoadCarDetected += OnRoadCarDetected;
+        if (direction < 0)
+            _mover = new CarStraightBackwardMoverStrategy(transform, _selfCollider, OnBackwardObstacleCollision, OnRoadBackwardDetected);
+        else
+            _mover = new CarStraightForwardMoverStrategy(transform, _selfCollider, OnForwardObstacleCollision, OnRoadForwardDetected);
 
         return true;
-    }
-
-    public void Move(float deltaDistance)
-    {
-        ValidateInit(nameof(TryReservationSlot));
-
-        _mover?.Move(deltaDistance);
     }
 
     protected override void OnInitialize(CarConfig config)
@@ -53,75 +54,64 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         _visual.SetColor(_config.Color);
     }
 
-    private void OnObstacleCollision(CarForwardMoverStrategy carForwardMover, Vector3 hitPoint)
+    private void FindPath(Vector3 hitPoint) =>
+        _currentPath = _config.MapSplineNodes.GetPath(hitPoint, _attackSlot.GetPosition());
+
+    private void HandleObstacleCollision(Vector3 hitPoint)
     {
         _attackSlot.ResetReservation();
         _attackSlot = null;
         _config.ParticleShower.ShowHit(hitPoint);
-
-        carForwardMover.ObstacleCollision -= OnObstacleCollision;
-        carForwardMover.RoadCarDetected -= OnRoadCarDetected;
-
-        if (carForwardMover.Direction > 0)
-        {
-            _visual.ForwardAccidentCompleted += OnForwardAccidentCompleted;
-            _visual.SetForwardAccident();
-        }
-        else
-        {
-            _visual.BackwardAccidentCompleted += OnBackwardAccidentCompleted;
-            _visual.SetBackwardAccident();
-        }
-
         _mover = null;
+    }
+
+    private void OnForwardObstacleCollision(Vector3 hitPoint)
+    {
+        HandleObstacleCollision(hitPoint);
+        _visual.SetForwardAccident(OnForwardAccidentCompleted);
+    }
+
+    private void OnBackwardObstacleCollision(Vector3 hitPoint)
+    {
+        HandleObstacleCollision(hitPoint);
+        _visual.SetBackwardAccident(OnBackwardAccidentCompleted);
+    }
+
+    private void OnRoadForwardDetected(CarSplineContainer _, Vector3 hitPoint)
+    {
+        FindPath(hitPoint);
+        _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
+    }
+
+    private void OnRoadBackwardDetected(CarSplineContainer _, Vector3 hitPoint)
+    {
+        FindPath(hitPoint);
+        _mover = new CarSplineRollBackMoverStrategy(transform, _currentPath[0], OnSplineRollBackReached);
     }
 
     private void OnForwardAccidentCompleted()
     {
-        if (_visual != null)
-            _visual.ForwardAccidentCompleted -= OnForwardAccidentCompleted;
-
-        CreateCarRollBackMover(1);
+        _mover = new CarStraightRollForwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
+        _config.SpeedDirector.Register(this);
     }
 
     private void OnBackwardAccidentCompleted()
     {
-        if (_visual != null)
-            _visual.BackwardAccidentCompleted -= OnBackwardAccidentCompleted;
-
-        CreateCarRollBackMover(-1);
-    }
-
-    private void CreateCarRollBackMover(int direction)
-    {
-        CarRollBackMoverStrategy newMover = new(transform, _selfCollider, direction);
-        _mover = newMover;
+        _mover = new CarStraightRollBackwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
         _config.SpeedDirector.Register(this);
-        newMover.Stopped += OnRollBackStopped;
     }
 
-    private void OnRoadCarDetected(CarForwardMoverStrategy carForwardMover, CarSplineContainer road, Vector3 hitPoint)
-    {
-        carForwardMover.ObstacleCollision -= OnObstacleCollision;
-        carForwardMover.RoadCarDetected -= OnRoadCarDetected;
-
-        List<SplineSegment> path = _config.MapSplineNodes.GetPathSegments(hitPoint, _attackSlot.GetPosition());
-        CarSplineMoverStrategy carSplineMover = new(transform, path);
-        _mover = carSplineMover;
-
-        carSplineMover.DestinationReached += OnDestinationReached;
-    }
-
-    private void OnRollBackStopped(CarRollBackMoverStrategy mover)
-    {
-        mover.Stopped -= OnRollBackStopped;
+    private void OnRollBackCompleted() =>
         _mover = null;
-    }
 
-    private void OnDestinationReached(CarSplineMoverStrategy mover)
+    private void OnSplineRollBackReached() =>
+        _mover = new CarForwardToSplineMoverStrategy(transform, _currentPath[0], OnForwardToSplineMovementCompleted);
+
+    private void OnForwardToSplineMovementCompleted() =>
+        _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
+
+    private void OnDestinationReached()
     {
-        mover.DestinationReached -= OnDestinationReached;
-
         if (_attackSlot.TryActivateGun(_id, _bulletCount, _config.Color) == false)
             throw new Exception($"Ќе удалось активировать пушку дл€ машины {_id}");
 

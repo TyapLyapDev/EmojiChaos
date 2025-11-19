@@ -8,25 +8,31 @@ public class CarAnimator : InitializingBehaviour
 
     [SerializeField] private Animator _animator;
 
-    public event Action ForwardAccidentCompleted;
-    public event Action BackwardAccidentCompleted;
+    private Action _forwardAccidentCompleted;
+    private Action _backwardAccidentCompleted;
 
-    public void SetForwardAccident() =>
+    public void SetForwardAccident(Action accidentCompleted)
+    {
+        _forwardAccidentCompleted = accidentCompleted;
         _animator.SetBool(s_forwardAccidentId, true);
+    }
 
-    public void SetBackwardAccident() =>
+    public void SetBackwardAccident(Action accidentCompleted)
+    {
+        _backwardAccidentCompleted = accidentCompleted;
         _animator.SetBool(s_backwardAccidentId, true);
+    }
 
     public void OnEndForwardAccident()
     {
         _animator.SetBool(s_forwardAccidentId, false);
-        ForwardAccidentCompleted?.Invoke();
+        _forwardAccidentCompleted?.Invoke();
     }
 
     public void OnEndBackwardAccident()
     {
         _animator.SetBool(s_backwardAccidentId, false);
-        BackwardAccidentCompleted?.Invoke();
+        _backwardAccidentCompleted?.Invoke();
     }
 
     protected override void OnInitialize() { }

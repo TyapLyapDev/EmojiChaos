@@ -4,93 +4,67 @@ using UnityEngine;
 
 public class CarSplineMoverStrategy : IMovementStrategy
 {
-    private const float BaseRotationSpeed = 10f;
-    private const float BaseMovementSpeed = 5f;
+    private const float MovementSmoothSpeedMultiplier = 1f;
+    private const float RotationSmoothSpeedMultiplier = 140;
+    private const float SqrThrieshold = 0.005f;
+    private const float StartMargin = 0.2f;
 
     private readonly Transform _transform;
-    private readonly List<SplineSegment> _path;
-    private float _currentSegmentProgress;
+    private readonly Action _destinationReached;
+    private readonly SegmentProcessor _segmentProcessor;
+
     private Quaternion _targetRotation;
     private Vector3 _targetPosition;
 
-    public CarSplineMoverStrategy(Transform transform, List<SplineSegment> path)
+    public CarSplineMoverStrategy(Transform transform, List<SplineSegment> path, Action destinationReached)
     {
-        _transform = transform;
-        _path = path;
-        _targetRotation = _transform.rotation;
-    }
+        _transform = transform != null ? transform : throw new ArgumentNullException(nameof(transform));
+        _destinationReached = destinationReached;
+        _segmentProcessor = new SegmentProcessor(path ?? throw new ArgumentNullException(nameof(path)));
 
-    public event Action<CarSplineMoverStrategy> DestinationReached;
+        _segmentProcessor.ProcessMovement(StartMargin);
+    }
 
     public void Move(float deltaDistance)
     {
-        if (_path == null || _path.Count == 0)
+        if (_segmentProcessor.HasPath == false && (_transform.position - _targetPosition).sqrMagnitude <= SqrThrieshold)
+        {
+            _destinationReached?.Invoke();
             return;
-
-        float remainingDistance = deltaDistance;
-
-        while (remainingDistance > 0 && _path.Count > 0)
-        {
-            SplineSegment currentSegment = _path[0];
-            float segmentLength = currentSegment.CalculateLength();
-
-            if (segmentLength <= 0)
-            {
-                RemoveCurrentSegment();
-
-                continue;
-            }
-
-            float progressDelta = remainingDistance / segmentLength;
-            float newProgress = _currentSegmentProgress + progressDelta;
-
-            if (newProgress >= 1f)
-            {
-                float usedProgress = 1f - _currentSegmentProgress;
-                float usedDistance = usedProgress * segmentLength;
-                remainingDistance -= usedDistance;
-
-                RemoveCurrentSegment();
-
-                continue;
-            }
-
-            _currentSegmentProgress = newProgress;
-            remainingDistance = 0;
-            UpdateTargetTransform();
         }
 
+        _segmentProcessor.ProcessMovement(deltaDistance);
+        UpdateTargetTransform();
         ApplySmoothTransform(deltaDistance);
-
-        if (_path.Count == 0)
-            DestinationReached?.Invoke(this);
-    }
-
-    private void RemoveCurrentSegment()
-    {
-        if (_path.Count > 0)
-        {
-            _path.RemoveAt(0);
-            _currentSegmentProgress = 0;
-        }
     }
 
     private void UpdateTargetTransform()
     {
-        if (_path.Count == 0)
+        SplineSegment currentSegment = _segmentProcessor.GetCurrentSegment();
+
+        if (currentSegment == null)
             return;
 
-        SplineSegment currentSegment = _path[0];
-        float currentSplineProgress = Mathf.Lerp(currentSegment.StartProgress, currentSegment.EndProgress, _currentSegmentProgress);
+        _targetPosition = currentSegment.GetWorldPositionBySegmentProgress(_segmentProcessor.GetCurrentProgress());
 
-        _targetPosition = currentSegment.GetWorldPosition(currentSplineProgress);
-        Vector3 worldTangent = currentSegment.GetWorldTangent(currentSplineProgress);
+        Vector3 worldTangent = currentSegment.GetWorldTangentBySegmentProgress(_segmentProcessor.GetCurrentProgress());
         _targetRotation = Quaternion.LookRotation(worldTangent);
     }
 
     private void ApplySmoothTransform(float deltaDistance)
     {
-        _transform.position = Vector3.Lerp(_transform.position, _targetPosition, BaseMovementSpeed * deltaDistance);
-        _transform.rotation = Quaternion.Slerp(_transform.rotation, _targetRotation, BaseRotationSpeed * deltaDistance);
+        Vector3 newPosition = Vector3.MoveTowards(
+            _transform.position,
+            _targetPosition,
+            deltaDistance * MovementSmoothSpeedMultiplier
+        );
+
+        Quaternion newRotation = Quaternion.RotateTowards(
+            _transform.rotation,
+            _targetRotation,
+            deltaDistance * RotationSmoothSpeedMultiplier
+        );
+
+        _transform.SetPositionAndRotation(newPosition, newRotation);
     }
 }

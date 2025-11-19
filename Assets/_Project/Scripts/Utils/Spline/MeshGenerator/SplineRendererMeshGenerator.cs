@@ -32,8 +32,6 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [SerializeField] private bool _uniformUVs = true;
     [SerializeField] private bool _isTwistMesh;
     [SerializeField] private bool _isAutoupdate;
-    [ReadOnly][SerializeField] private int _verticesCount;
-    [ReadOnly][SerializeField] private int _trianglesCount;
 
     private bool _isSubscribedToSplineEvents;
 
@@ -258,9 +256,6 @@ public class SplineRendererMeshGenerator : MonoBehaviour
         generatedMesh.RecalculateBounds();
         generatedMesh.RecalculateNormals();
         generatedMesh.RecalculateTangents();
-
-        _verticesCount = generatedMesh.vertices.Length;
-        _trianglesCount = generatedMesh.triangles.Length;
 
         SaveMeshAsAsset(generatedMesh);
     }

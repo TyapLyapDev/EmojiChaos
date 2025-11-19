@@ -749,9 +749,9 @@ MonoBehaviour:
         z: 0.4719111
       Rotation:
         value:
-          x: -5.3585597e-28
+          x: 0
           y: 0.0027657968
-          z: -1.9374306e-25
+          z: 0
           w: 0.99999624
     - Position:
         x: -1.63
@@ -1263,8 +1263,6 @@ MonoBehaviour:
   _uniformUVs: 1
   _isTwistMesh: 1
   _isAutoupdate: 1
-  _verticesCount: 364
-  _trianglesCount: 1014
 --- !u!114 &4531977506457339927
 MonoBehaviour:
   m_ObjectHideFlags: 0

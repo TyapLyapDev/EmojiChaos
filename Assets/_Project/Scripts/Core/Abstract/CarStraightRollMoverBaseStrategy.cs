@@ -1,41 +1,46 @@
 using System;
 using UnityEngine;
 
-public class CarForwardMoverStrategy : IMovementStrategy
+public abstract class CarStraightRollMoverBaseStrategy : IMovementStrategy
 {
     private const float Bisector = 2;
+    private const float SpeedMultiplier = 0.3f;
 
     private readonly Transform _transform;
     private readonly Collider _selfCollider;
-    private readonly int _direction;
+    private readonly Action _completed;
 
     private readonly float _sphereRadius;
     private readonly float _forwardOffset;
 
-    public CarForwardMoverStrategy(Transform transform, BoxCollider self, int direction)
+    public CarStraightRollMoverBaseStrategy(Transform transform, BoxCollider self, Action completed)
     {
-        _transform = transform;
-        _selfCollider = self;
-        _direction = direction;
+        _transform = transform != null ? transform : throw new ArgumentNullException(nameof(transform));
+        _selfCollider = self != null ? self : throw new ArgumentNullException(nameof(self));
+        _completed = completed;
 
         _sphereRadius = self.size.x * transform.lossyScale.x / Bisector;
-        _forwardOffset = self.size.z * transform.lossyScale.z / Bisector - _sphereRadius;
+        _forwardOffset = self.size.z * transform.lossyScale.z / Bisector + _sphereRadius;
     }
 
-    public event Action<CarForwardMoverStrategy, Vector3> ObstacleCollision;
-    public event Action<CarForwardMoverStrategy, CarSplineContainer, Vector3> RoadCarDetected;
-
-    public int Direction => _direction;
+    protected Transform Transform => _transform;
 
     public void Move(float deltaDistance)
     {
-        Vector3 direction = _direction * _transform.forward;
+        deltaDistance *= SpeedMultiplier;
+        Vector3 direction = GetDirection();
 
-        if (IsCollision(deltaDistance, direction))
+        if (IsCollision(deltaDistance, direction) && IsCollision(deltaDistance, -direction) == false)
+        {
+            _transform.position -= direction * deltaDistance;
+
             return;
+        }
 
-        _transform.position += deltaDistance * direction;
+        _completed?.Invoke();
     }
+
+    protected abstract Vector3 GetDirection();
 
     private bool IsCollision(float deltaDistance, Vector3 direction)
     {
@@ -59,15 +64,7 @@ public class CarForwardMoverStrategy : IMovementStrategy
                 continue;
 
             if (hit.collider.TryGetComponent(out IObstacle _))
-            {
-                if (hit.collider.TryGetComponent(out IObstacle _))
-                    ObstacleCollision?.Invoke(this, hit.point);
-
                 return true;
-            }
-
-            if(hit.collider.TryGetComponent(out CarSplineContainer carRoad))
-                RoadCarDetected?.Invoke(this, carRoad, hit.point);            
         }
 
         return false;

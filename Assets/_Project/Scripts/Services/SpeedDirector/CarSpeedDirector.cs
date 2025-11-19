@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CarSpeedDirector : IDisposable
 {
-    private const float Speed = 6f;
+    private const float Speed = 5f;
 
     private readonly List<Car> _cars = new();
     private IDisposable _updateSubscription;
