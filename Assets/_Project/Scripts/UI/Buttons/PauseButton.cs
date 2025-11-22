@@ -1,0 +1,1 @@
+public class PauseButton : ButtonClickHandler<PauseButton> { }

@@ -604,9 +604,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2
-    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2
-    Windows Store Apps: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2
+    Android: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    EmbeddedLinux: DOTWEEN
+    GameCoreScarlett: DOTWEEN
+    GameCoreXboxOne: DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    PS4: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    PS5: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    QNX: DOTWEEN
+    Stadia: DOTWEEN
+    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;DOTWEEN;PlayerStats_yg;Storage_yg;Authorization_yg
+    VisionOS: DOTWEEN
+    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;DOTWEEN;PlayerStats_yg;Storage_yg;Authorization_yg
+    Windows Store Apps: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;DOTWEEN;PlayerStats_yg;Storage_yg;Authorization_yg
+    XboxOne: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    iPhone: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
+    tvOS: DOTWEEN;PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;PlayerStats_yg;Storage_yg;Authorization_yg
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

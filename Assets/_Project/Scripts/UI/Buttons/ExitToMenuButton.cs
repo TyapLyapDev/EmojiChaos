@@ -1,0 +1,1 @@
+public class ExitToMenuButton : ButtonClickHandler<ExitToMenuButton> { }

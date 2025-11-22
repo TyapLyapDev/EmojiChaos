@@ -1,0 +1,1 @@
+public class SettingsPanelOpenerButton : ButtonClickHandler<SettingsPanelOpenerButton> { }

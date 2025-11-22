@@ -35,11 +35,13 @@ public class CarSwipeStrategy : ISwipeStrategy, IDisposable
         if (Utils.IsMobilePlatform())
             return new MobileClickHandlerStrategy();
         else
-            return new PCSwipeClickHandlerStrategy();
+            return new PCClickHandlerStrategy();
     }
 
-    private void OnClick(ISwipeable swipeableObject, Vector2 startPosition)
+    private void OnClick(IClickable clickableObject, Vector2 startPosition)
     {
+        if(clickableObject is ISwipeable swipeableObject)
+
         _swipeableObject = swipeableObject ?? throw new ArgumentNullException(nameof(swipeableObject));
         _startPosition = startPosition;
 

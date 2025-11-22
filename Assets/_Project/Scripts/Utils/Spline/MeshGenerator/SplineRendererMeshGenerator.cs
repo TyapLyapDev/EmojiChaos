@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -34,6 +36,12 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [SerializeField] private bool _isAutoupdate;
 
     private bool _isSubscribedToSplineEvents;
+
+    public Vector3 PositionAdjustment => _positionAdjustment;
+
+    public Vector3 ScaleAdjustment => _scaleAdjustment;
+
+    public event Action Changed;
 
     private void OnValidate()
     {
@@ -97,7 +105,10 @@ public class SplineRendererMeshGenerator : MonoBehaviour
 
     private void GenerateMesh()
     {
-        if (_segmentMesh == null)
+        if (Application.isPlaying) 
+            return;
+
+            if (_segmentMesh == null)
         {
             Debug.LogError("Меш-сегмент не назначен");
             return;
@@ -173,6 +184,9 @@ public class SplineRendererMeshGenerator : MonoBehaviour
                     Vector3 tangent = spline.EvaluateTangent(point);
                     Vector3 splinePosition = spline.EvaluatePosition(point);
 
+                    if (tangent.sqrMagnitude < Mathf.Epsilon)
+                        tangent = Vector3.forward;
+
                     int knotAIndex = i % knots.Count;
                     int knotBIndex = (i + 1) % knots.Count;
 
@@ -193,6 +207,9 @@ public class SplineRendererMeshGenerator : MonoBehaviour
                     point = Mathf.Clamp01(point);
 
                     Vector3 tangent = spline.EvaluateTangent(point);
+
+                    if (tangent.sqrMagnitude < Mathf.Epsilon)
+                        tangent = Vector3.forward;
 
                     int knotAIndex = i % knots.Count;
                     int knotBIndex = (i + 1) % knots.Count;
@@ -258,6 +275,8 @@ public class SplineRendererMeshGenerator : MonoBehaviour
         generatedMesh.RecalculateTangents();
 
         SaveMeshAsAsset(generatedMesh);
+
+        Changed?.Invoke();
     }
 
     private void SaveMeshAsAsset(Mesh generatedMesh)

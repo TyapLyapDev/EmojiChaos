@@ -10,6 +10,7 @@ public class EnemyMover
     private readonly SplineOffsetCalculator _offsetCalculator;
     private readonly SideOffsetHandler _sideOffsetHandler;
 
+    private readonly float _cachedSplineLength;
     private float _currentDistance;
 
     public EnemyMover(SplineContainer splineContainer, Transform transform)
@@ -23,11 +24,14 @@ public class EnemyMover
         _transform = transform;
         _offsetCalculator = new(splineContainer);
         _sideOffsetHandler = new();
+        _cachedSplineLength = _offsetCalculator.SplineLength;
 
         Reset();
     }
 
     public float CurrentDistance => _currentDistance;
+
+    public float Progress => _cachedSplineLength > 0 ? _currentDistance / _cachedSplineLength : 0f;
 
     public void Reset()
     {

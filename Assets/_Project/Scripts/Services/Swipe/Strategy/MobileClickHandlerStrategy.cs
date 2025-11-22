@@ -1,28 +1,12 @@
-using System;
-using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MobileClickHandlerStrategy : IClickHandlerStrategy, IDisposable
+public class MobileClickHandlerStrategy : BaseClickHandlerStrategy
 {
-    private readonly IDisposable _updateSubscription;
-    private readonly Camera _camera;
+    public override Vector2 GetCurrentPosition() =>
+        Input.touchCount > 0 ? Input.GetTouch(0).position : Vector2.zero;
 
-    public MobileClickHandlerStrategy()
-    {
-        _updateSubscription = Observable.EveryUpdate().Subscribe(_ => Update());
-        _camera = Camera.main;
-    }
-
-    public event Action<ISwipeable, Vector2> Clicked;
-    public event Action Unclicked;
-
-    public void Dispose() =>
-        _updateSubscription?.Dispose();
-
-    public Vector2 GetCurrentPosition() =>
-        Input.GetTouch(0).position;
-
-    private void Update()
+    protected override void Update()
     {
         if (Input.touchCount == 0)
             return;
@@ -32,16 +16,29 @@ public class MobileClickHandlerStrategy : IClickHandlerStrategy, IDisposable
         if (touch.phase == TouchPhase.Began)
         {
             Vector2 touchPosition = touch.position;
+
+            if (IsUiElement(touchPosition, out RaycastResult result))
+            {
+                if (IsClickableUiElement(result, out IClickable clickable))
+                {
+                    InvokeClicked(clickable, touchPosition);
+
+                    return;
+                }
+
+                return;
+            }
+
             Ray ray = _camera.ScreenPointToRay(touchPosition);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo) == false)
                 return;
 
-            if (hitInfo.collider.TryGetComponent(out Car car))
-                Clicked?.Invoke(car, touchPosition);
+            if (hitInfo.collider.TryGetComponent(out IClickable clickableObject))
+                InvokeClicked(clickableObject, touchPosition);
         }
 
         if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-            Unclicked?.Invoke();
+            InvokeUnclicked();
     }
 }

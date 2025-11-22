@@ -1,0 +1,1 @@
+public class SettingsPanelCloserButton : ButtonClickHandler<SettingsPanelCloserButton> { }

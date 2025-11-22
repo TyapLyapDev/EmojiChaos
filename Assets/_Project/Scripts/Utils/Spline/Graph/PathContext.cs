@@ -40,8 +40,8 @@ public class PathContext
         Spline startSpline, float startProgress,
         Spline goalSpline, float goalProgress)
     {
-        var startNode = new SplineNode(startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
-        var goalNode = new SplineNode(goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
+        SplineNode startNode = new(startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
+        SplineNode goalNode = new(goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
 
         ConnectVirtualNode(startNode, _nodes.Where(n => n.Spline == startSpline).ToList(), startSpline, startProgress, true);
         ConnectVirtualNode(goalNode, _nodes.Where(n => n.Spline == goalSpline).ToList(), goalSpline, goalProgress, false);
@@ -62,6 +62,7 @@ public class PathContext
         if (current.Spline == neighbor.Spline && current.Spline.Closed)
         {
             float directionPenalty = CalculateDirectionPenaltyMultiplier(current, neighbor);
+
             return storedDistance * directionPenalty;
         }
 

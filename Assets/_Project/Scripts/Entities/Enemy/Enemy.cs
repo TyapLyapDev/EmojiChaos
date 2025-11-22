@@ -24,6 +24,8 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
 
     public Color Color => _color;
 
+    public float Progress => _mover?.Progress ?? 0f;
+
     private void OnDestroy()
     {
         _visual.DiedCompleted -= OnDiedCompleted;

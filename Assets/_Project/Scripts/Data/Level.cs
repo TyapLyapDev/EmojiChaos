@@ -12,6 +12,7 @@ public class Level : InitializingBehaviour
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private SmokeParticle _smokeParticlePrefab;
     [SerializeField] private BloodParticle _bloodParticlePrefab;
+    [SerializeField] private StarBangParticle _starBangParticlePrefab;
     [SerializeField] private HitParticle _hitParticlePrefab;
     [SerializeField] private ParticleSystem _portalParticle;
     [SerializeField] private List<Color> _colors;
@@ -22,6 +23,7 @@ public class Level : InitializingBehaviour
     private List<Rack> _slots;
     private List<Car> _cars;
     private List<Gun> _guns;
+    private List<Star> _stars;
     private List<Crowd> _readyCrowds;
     private List<int> _ids;
 
@@ -34,6 +36,8 @@ public class Level : InitializingBehaviour
     public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
 
     public BloodParticle BloodParticlePrefab => GetSafeReference(_bloodParticlePrefab);
+
+    public StarBangParticle StarBangParticlePrefab => GetSafeReference(_starBangParticlePrefab);
 
     public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
 
@@ -51,6 +55,8 @@ public class Level : InitializingBehaviour
 
     public IReadOnlyList<Gun> Guns => GetSafeReference(_guns);
 
+    public IReadOnlyList<Star> Stars => GetSafeReference(_stars);
+
     public IReadOnlyList<Crowd> Crowds => GetSafeReference(_readyCrowds);
 
     public IReadOnlyList<int> Ids => GetSafeReference(_ids);
@@ -60,6 +66,7 @@ public class Level : InitializingBehaviour
         _slots = GetComponentsInChildren<Rack>(true).ToList();
         _cars = GetComponentsInChildren<Car>(true).ToList();
         _guns = GetComponentsInChildren<Gun>(true).ToList();
+        _stars = GetComponentsInChildren<Star>(true).ToList();
 
         _enemySplineContainer.Initialize();
         _carSplineContainer.Initialize();

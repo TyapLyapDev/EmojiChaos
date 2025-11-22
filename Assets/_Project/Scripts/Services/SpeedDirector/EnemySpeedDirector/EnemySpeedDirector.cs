@@ -24,6 +24,8 @@ public class EnemySpeedDirector : IDisposable
         _spawner.Spawned += OnEnemySpawned;
     }
 
+    public event Action<float> FirstEnemyProgressChanged;
+
     public void Dispose()
     {
         if(_spawner != null)
@@ -95,6 +97,8 @@ public class EnemySpeedDirector : IDisposable
                 currentEnemyInfo.Enemy.Move(currentDeltaDistance);
             }
         }
+
+        FirstEnemyProgressChanged?.Invoke(_enemies[0].Enemy.Progress);
     }
 
     private void OnEnemyDeactivated(Enemy enemy)
