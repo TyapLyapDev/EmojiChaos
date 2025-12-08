@@ -5,15 +5,11 @@ public class GunVisual : InitializingBehaviour
 {
     [SerializeField] private SimpleRepainter[] _repainters;
     [SerializeField] private TextMeshProUGUI _countText;
-
-    private Color _color;
-
-    public Color Color => _color;
+    [SerializeField] private GunAnimator _animator;
 
     public void SetColor(Color color)
     {
         ValidateInit(nameof(SetColor));
-        _color = color;
 
         foreach (SimpleRepainter repainter in _repainters)
             repainter.SetColor(color);
@@ -27,9 +23,20 @@ public class GunVisual : InitializingBehaviour
         _countText.text = bulletCount.ToString();
     }
 
+    public void SetHidding()
+    {
+        _animator.PlayHidding();
+        _countText.text = string.Empty;
+    }
+
+    public void SetShooting() =>
+        _animator.PlayShooting();
+
     protected override void OnInitialize()
     {
         foreach (SimpleRepainter repainter in _repainters)
             repainter.Initialize();
+
+        _animator.Initialize();
     }
 }

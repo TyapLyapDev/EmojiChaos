@@ -12,7 +12,7 @@ public class ResourceBalanceChecker : EditorWindow
     public static void GenerateReport()
     {
         CustomLogger.ClearConsole();
-        CustomLogger.LogWhite("ПРОЦЕДУРА ПРОВЕРКИ СООТВЕТСТВИЯ ВРАГОВ И БОЕПРИПАСОВ");
+        CustomLogger.Log("ПРОЦЕДУРА ПРОВЕРКИ СООТВЕТСТВИЯ ВРАГОВ И БОЕПРИПАСОВ");
 
         Level[] allLevels = Resources.LoadAll<Level>(string.Empty);
 
@@ -55,20 +55,24 @@ public class ResourceBalanceChecker : EditorWindow
         Car[] cars = level.GetComponentsInChildren<Car>(true);
         SortedDictionary<int, int> enemiesByType = new();
 
-        for (int i = 0; i < crowdsProperty.arraySize; i++)
+        int totalCrowds = crowdsProperty.arraySize;
+        int totalEnemies = 0;
+
+        for (int i = 0; i < totalCrowds; i++)
         {
             SerializedProperty crowdProperty = crowdsProperty.GetArrayElementAtIndex(i);
             int id = crowdProperty.FindPropertyRelative("_id").intValue;
             int quantity = crowdProperty.FindPropertyRelative("_quantity").intValue;
-            int totalEnemies = quantity;
+            totalEnemies += quantity;
 
             if (enemiesByType.ContainsKey(id))
-                enemiesByType[id] += totalEnemies;
+                enemiesByType[id] += quantity;
             else
-                enemiesByType.Add(id, totalEnemies);
+                enemiesByType.Add(id, quantity);
         }
 
         Dictionary<int, CarAmmoInfo> ammoByCarType = new();
+        int totalCars = cars.Length;
 
         foreach (Car car in cars)
         {
@@ -95,6 +99,7 @@ public class ResourceBalanceChecker : EditorWindow
 
         HashSet<int> allIds = new(enemiesByType.Keys);
         allIds.UnionWith(ammoByCarType.Keys);
+        int totalTypes = allIds.Count;
 
         bool hasBalanceIssues = false;
 
@@ -130,21 +135,10 @@ public class ResourceBalanceChecker : EditorWindow
             }
         }
 
+        CustomLogger.Log($"Всего толп: {totalCrowds}, врагов: {totalEnemies}, авто: {totalCars}, типов: {totalTypes}");
+
         if (hasBalanceIssues == false)
             CustomLogger.LogGreen($"Баланс проверен, проблем не обнаружено");
-    }
-
-    private static bool TryFindSingleObjectByType<T>(out T component) where T : Object
-    {
-        component = null;
-
-        T[] list = FindObjectsByType<T>(FindObjectsSortMode.None);
-
-        if (list.Length == 0 || list.Length > 1)
-            return false;
-
-        component = list[0];
-        return true;
     }
 
     private class CarAmmoInfo

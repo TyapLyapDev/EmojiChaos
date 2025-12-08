@@ -18,7 +18,7 @@ public abstract class OneShotParticle : InitializingBehaviour
         StartCoroutine();
     }
 
-    protected abstract void OnComleted();
+    protected abstract void OnCompleted();
 
     protected override void OnInitialize() =>
         _waitUntil = new(() => _particleSystem.isStopped);
@@ -42,6 +42,6 @@ public abstract class OneShotParticle : InitializingBehaviour
     {
         yield return _waitUntil;
 
-        OnComleted();
+        OnCompleted();
     }
 }

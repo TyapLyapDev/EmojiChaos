@@ -1,0 +1,1 @@
+public class NextLevelOpenerButton : ButtonClickHandler<NextLevelOpenerButton> { }

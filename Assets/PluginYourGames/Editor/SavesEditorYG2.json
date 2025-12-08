@@ -7,6 +7,22 @@
         false,
         false
     ],
-    "idSave": 3,
-    "CurrentLevel": 1
+    "idSave": 660,
+    "SavesData": {
+        "SelectedLevel": 2,
+        "LevelProgress": 2,
+        "MusicVolume": 0.461789608001709,
+        "SfxVolume": 0.4858148992061615,
+        "Levels": [
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 0
+            }
+        ]
+    }
 }

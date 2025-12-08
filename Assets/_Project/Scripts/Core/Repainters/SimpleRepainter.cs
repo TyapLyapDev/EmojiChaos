@@ -10,6 +10,8 @@ public class SimpleRepainter : BaseRepainter
 
     public void SetColor(Color color)
     {
+        ValidateInit(nameof(SetColor));
+
         _color = color;
         Repaint();
     }

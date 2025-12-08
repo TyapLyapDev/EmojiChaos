@@ -1,0 +1,1 @@
+public class ProgressResetOpenerButton : ButtonClickHandler<ProgressResetOpenerButton> { }

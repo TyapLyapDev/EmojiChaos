@@ -10,6 +10,6 @@ public class StarBangParticle : OneShotParticle, IPoolable<StarBangParticle>
         Deactivated?.Invoke(this);
     }
 
-    protected override void OnComleted() =>
+    protected override void OnCompleted() =>
         Deactivate();
 }

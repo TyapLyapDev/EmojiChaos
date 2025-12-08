@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using System;
 
-public class BulletSpeedDirector : System.IDisposable
+public class BulletSpeedDirector : IDisposable
 {
     private const float Speed = 8;
 
@@ -33,10 +34,10 @@ public class BulletSpeedDirector : System.IDisposable
     public void RegisterBullet(Bullet bullet)
     {
         if (bullet == null)
-            throw new System.ArgumentNullException(nameof(bullet));
+            throw new ArgumentNullException(nameof(bullet));
 
         if (_bullets.Contains(bullet))
-            throw new System.InvalidOperationException($"{nameof(RegisterBullet)} Попытка повторной регистрации пули");
+            throw new InvalidOperationException($"{nameof(RegisterBullet)} Попытка повторной регистрации пули");
 
         _bullets.Add(bullet);
         bullet.Deactivated += OnBulletDeactivated;
@@ -63,7 +64,7 @@ public class BulletSpeedDirector : System.IDisposable
     private void OnBulletDeactivated(Bullet bullet)
     {
         if (bullet == null)
-            throw new System.ArgumentNullException(nameof(bullet));
+            throw new ArgumentNullException(nameof(bullet));
 
         bullet.Deactivated -= OnBulletDeactivated;
         _bullets.Remove(bullet);

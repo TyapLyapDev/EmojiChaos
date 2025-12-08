@@ -1,26 +1,30 @@
+using System;
 using UniRx;
 using UnityEngine;
 
-public class IntervalRunner
+public class IntervalRunner : IDisposable
 {
-    private readonly System.Action _onIntervalElapsed;
-    private System.IDisposable _updateSubscription;
+    private readonly Action _onIntervalElapsed;
+    private IDisposable _updateSubscription;
     private float _interval;
     private float _accumulatedTime;
     private bool _isRunning;
 
-    public IntervalRunner(System.Action onIntervalElapsed)
+    public IntervalRunner(Action onIntervalElapsed)
     {
         _onIntervalElapsed = onIntervalElapsed ?? throw new System.ArgumentNullException(nameof(onIntervalElapsed));
     }
 
+    public void Dispose() =>
+        StopRunning();
+
     public void StartRunning(float intervalInSeconds)
     {
         if (intervalInSeconds <= 0f)
-            throw new System.ArgumentOutOfRangeException(nameof(intervalInSeconds), "Значение должно быть больше нуля");
+            throw new ArgumentOutOfRangeException(nameof(intervalInSeconds), "Значение должно быть больше нуля");
 
         if (_isRunning)
-            throw new System.InvalidOperationException($"{nameof(StartRunning)}: попытка повторного запуска");
+            throw new InvalidOperationException($"{nameof(StartRunning)}: попытка повторного запуска");
 
         _isRunning = true;
         _interval = intervalInSeconds;
@@ -48,7 +52,4 @@ public class IntervalRunner
         _updateSubscription?.Dispose();
         _updateSubscription = null;
     }
-
-    public void Dispose() =>
-        StopRunning();
 }

@@ -23,10 +23,19 @@ public class SlotReservator : IDisposable
 
     private void OnSwipe(ISwipeable swipeableObject, int direction)
     {
-        if (swipeableObject is Car car)
-            if (TryGetAvailableSlot(out Rack attackSlot))
-                if (car.TryReservationSlot(attackSlot, direction))
-                    SlotReserved?.Invoke(car);
+        if (swipeableObject is Car car == false)
+            return;
+
+        if (TryGetAvailableSlot(out Rack attackSlot))
+        {
+            if (car.TryReservationSlot(attackSlot, direction))
+                SlotReserved?.Invoke(car);
+        }
+        else
+        {
+            car.HanleUnavailableStatus();
+            Audio.Sfx.PlayCarCantDrive();
+        }
     }
 
     private bool TryGetAvailableSlot(out Rack attackSlot)
@@ -39,7 +48,7 @@ public class SlotReservator : IDisposable
 
                 return true;
             }
-        }            
+        }
 
         attackSlot = null;
 

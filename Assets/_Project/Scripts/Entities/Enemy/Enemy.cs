@@ -4,13 +4,14 @@ using UnityEngine;
 public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Enemy>, IHittable
 {
     [SerializeField] private EnemyVisual _visual;
-    [SerializeField] private Transform _center;
+    [SerializeField] private Transform _centerBody;
 
     private EnemyConfig _config;
     private EnemyMover _mover;
     private int _id;
     private Color _color;
 
+    public event Action<Enemy> Killed;
     public event Action<Enemy> Deactivated;
     public event Action<IHittable> Disappeared;
 
@@ -20,7 +21,7 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
 
     public bool IsActive => GetSafeValue(gameObject.activeInHierarchy);
 
-    public Transform Center => _center;
+    public Transform CenterBody => _centerBody;
 
     public Color Color => _color;
 
@@ -29,6 +30,7 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
     private void OnDestroy()
     {
         _visual.DiedCompleted -= OnDiedCompleted;
+        Deactivated?.Invoke(this);
     }
 
     public void Activate(int id, float sideOffset, Color color)
@@ -72,7 +74,10 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
         if (IsActive == false)
             throw new InvalidOperationException($"Объект неактивен");
 
-        _visual.SetDied();        
+        _visual.SetDied();
+        Killed?.Invoke(this);
+
+        Audio.Sfx.PlayEnemyHit();
     }
 
     protected override void OnInitialize(EnemyConfig config)
@@ -84,11 +89,11 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
 
         _visual.DiedCompleted += OnDiedCompleted;
     }
-        
+
 
     private void OnDiedCompleted()
     {
-        _config.ParticleShower.ShowBlood(_center.position, _center.rotation, _color);
+        _config.ParticleShower.ShowBlood(_centerBody.position, _centerBody.rotation, _color);
         Deactivate();
     }
 }

@@ -18,11 +18,9 @@ public class Shooter
         _bulletSpeedDirector = bulletSpeedDirector ?? throw new ArgumentNullException(nameof(bulletSpeedDirector));
     }
 
-    public event Action Completed;
-
     public int BulletCount => _bulletCount;
 
-    private bool IsHaveBullet => _bulletCount > 0;
+    public bool IsHaveBullet => _bulletCount > 0;
 
     public void SetStartPosition(Transform position)
     {
@@ -74,9 +72,6 @@ public class Shooter
 
         bullet.Activate(enemy, _bulletStartPosition.position);
         _bulletCount--;
-
-        if (IsHaveBullet == false)
-            Completed?.Invoke();
 
         _bulletSpeedDirector?.RegisterBullet(bullet);
     }

@@ -1,8 +1,11 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
 public class Gun : InitializingWithConfigBehaviour<GunConfig>
 {
+    private const float HiddingTime = 0.35f;
+
     [SerializeField] private GunVisual _visual;
     [SerializeField] private Transform _rotatingModel;
     [SerializeField] private Transform _bulletStartPosition;
@@ -11,6 +14,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
     private GunConfig _config;
     private Aimer _aim;
     private IntervalRunner _runner;
+    private Tween _deactivateTween;
 
     public event Action ShootingCompleted;
 
@@ -18,10 +22,8 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
 
     private void OnDestroy()
     {
-        if (_config.Shooter != null)
-            _config.Shooter.Completed -= OnShootingCompleted;
-
         _runner?.Dispose();
+        _deactivateTween?.Kill();
     }
 
     public void Activate(int carType, int bulletCount, Color color)
@@ -31,11 +33,14 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
         if (bulletCount <= 0)
             throw new ArgumentOutOfRangeException(nameof(bulletCount), "Значение должно быть больше нуля");
 
+        _deactivateTween?.Kill();
         _config.Shooter.Activate(bulletCount, carType);
         _visual.SetColor(color);
         _visual.DisplayBulletCount(bulletCount);
         _aim.ResetRotation();
         gameObject.SetActive(true);
+
+        Audio.Sfx.PlayGunInstalled();
 
         _runner.StartRunning(_shotDelay);
     }
@@ -48,16 +53,16 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
             throw new ArgumentOutOfRangeException(nameof(_shotDelay), "Значение должно быть больше нуля");
 
         _visual.Initialize();
+
         _runner = new(OnShootTick);
         _aim = new(_rotatingModel);
         _config.Shooter.SetStartPosition(_bulletStartPosition);
-        _config.Shooter.Completed += OnShootingCompleted;
     }
 
     private void Deactivate()
     {
-        _runner.StopRunning();
         gameObject.SetActive(false);
+        ShootingCompleted?.Invoke();
     }
 
     private void OnShootTick()
@@ -67,17 +72,28 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
             IHittable enemyTarget = bullet.Target;
 
             if (enemyTarget != null)
-                _aim.AimAtTarget(enemyTarget.Center);
+                _aim.AimAtTarget(enemyTarget.CenterBody);
 
-            _visual.DisplayBulletCount(_config.Shooter.BulletCount);
+            if (_config.Shooter.IsHaveBullet)
+            {
+                _visual.SetShooting();
+                _visual.DisplayBulletCount(_config.Shooter.BulletCount);
+                Audio.Sfx.PlayGunShot();
+            }
+            else
+            {
+                HandleShootingCompleted();
+            }
+
             _config.ParticleShower.ShowSmoke(_bulletStartPosition.position, _bulletStartPosition.rotation);
         }
     }
 
-    private void OnShootingCompleted()
+    private void HandleShootingCompleted()
     {
-        _config.ParticleShower.ShowBlood(transform.position, transform.rotation, _visual.Color);
-        Deactivate();
-        ShootingCompleted?.Invoke();
+        _runner.StopRunning();
+        _visual.SetHidding();
+        _deactivateTween = DOVirtual.DelayedCall(HiddingTime, Deactivate).SetUpdate(UpdateType.Normal, false);
+        Audio.Sfx.PlayGunDisapperence();
     }
 }

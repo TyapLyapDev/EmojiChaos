@@ -1,0 +1,1 @@
+public class PreviousLanguageButton : ButtonClickHandler<PreviousLanguageButton> { }

@@ -5,7 +5,7 @@ public interface IHittable : IRepaintable
 {
     event Action<IHittable> Disappeared;
 
-    Transform Center { get; }
+    Transform CenterBody { get; }
 
     bool IsActive { get; }
 

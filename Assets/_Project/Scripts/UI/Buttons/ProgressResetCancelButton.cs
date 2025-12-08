@@ -1,0 +1,1 @@
+public class ProgressResetCancelButton : ButtonClickHandler<ProgressResetCancelButton> { }

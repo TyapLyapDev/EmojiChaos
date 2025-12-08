@@ -1,6 +1,6 @@
 using System;
 
-public interface ISwipeStrategy
+public interface ISwipeStrategy : IDisposable
 {
     event Action<ISwipeable, int> HasSwipe;
 }

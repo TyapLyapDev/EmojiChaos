@@ -1,1 +1,5 @@
-public class ResumeButton : ButtonClickHandler<ResumeButton> { }
+public class ResumeButton : ButtonClickHandler<ResumeButton> 
+{
+    protected override void OnClick() =>
+        Audio.Sfx.PlayResume();
+}

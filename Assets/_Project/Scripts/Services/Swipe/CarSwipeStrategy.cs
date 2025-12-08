@@ -2,7 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 
-public class CarSwipeStrategy : ISwipeStrategy, IDisposable
+public class CarSwipeStrategy : ISwipeStrategy
 {
     private const float SwipeDistance = 20f;
 
@@ -26,6 +26,8 @@ public class CarSwipeStrategy : ISwipeStrategy, IDisposable
 
     public void Dispose()
     {
+        _clickHandler.Dispose();
+
         if (_clickHandler is IDisposable disposable)
             disposable.Dispose();
     }

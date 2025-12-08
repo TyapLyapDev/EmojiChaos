@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 733ef13a81ed8454b971d443426eb644
+guid: 80bc4d3210da068409fc1b668dcdc5b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Road Mat
-    second: {fileID: 2100000, guid: 331bedc0949c66a44b0b765ebadaa4e7, type: 2}
+    second: {fileID: 2100000, guid: 7e30f98cce5c8794bbc7e40fe7199fe4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -76,7 +76,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0

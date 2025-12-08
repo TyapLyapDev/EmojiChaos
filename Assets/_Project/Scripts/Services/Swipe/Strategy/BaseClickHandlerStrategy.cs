@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy, IDisposable
+public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy
 {
-    protected readonly IDisposable _updateSubscription;
+    protected readonly IDisposable _observable;
     protected readonly Camera _camera;
     protected readonly List<GraphicRaycaster> _graphicRaycasters;
     protected readonly EventSystem _eventSystem;
@@ -18,7 +18,7 @@ public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy, IDisposa
 
     protected BaseClickHandlerStrategy()
     {
-        _updateSubscription = Observable.EveryUpdate().Subscribe(_ => Update());
+        _observable = Observable.EveryUpdate().Subscribe(_ => Update());
         _camera = Camera.main;
         _graphicRaycasters = UnityEngine.Object.FindObjectsOfType<GraphicRaycaster>().ToList();
         _eventSystem = EventSystem.current;
@@ -29,7 +29,7 @@ public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy, IDisposa
     protected abstract void Update();
 
     public void Dispose() =>
-        _updateSubscription?.Dispose();
+        _observable?.Dispose();
 
     protected bool IsUiElement(Vector2 position, out RaycastResult result)
     {

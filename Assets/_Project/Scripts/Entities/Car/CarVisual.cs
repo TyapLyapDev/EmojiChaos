@@ -9,15 +9,23 @@ public class CarVisual : InitializingBehaviour
     public void SetColor(Color color)
     {
         ValidateInit(nameof(SetColor));
-
         _repainter.SetColor(color);
     }
 
-    public void SetForwardAccident(Action accidentCompleted) =>
-        _carAnimator.SetForwardAccident(accidentCompleted);
+    public void ShowForwardAccident(Action accidentCompleted)
+    {
+        ValidateInit(nameof(ShowForwardAccident));
+        _carAnimator.PlayForwardAccident(accidentCompleted);
+    }
 
-    public void SetBackwardAccident(Action accidentCompleted) =>
-        _carAnimator.SetBackwardAccident(accidentCompleted);
+    public void ShowBackwardAccident(Action accidentCompleted)
+    {
+        ValidateInit(nameof(ShowBackwardAccident));
+        _carAnimator.PlayBackwardAccident(accidentCompleted);
+    }
+
+    public void ShowUnavailable() =>
+        _carAnimator.PlayUnavailable();
 
     protected override void OnInitialize() =>
         _repainter.Initialize();

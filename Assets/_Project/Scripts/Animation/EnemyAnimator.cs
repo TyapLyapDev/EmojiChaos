@@ -9,14 +9,20 @@ public class EnemyAnimator : InitializingBehaviour
 
     public event Action DiedComleted;
 
-    public void ResetDied() =>
+    public void PlayIdle()
+    {
+        ValidateInit(nameof(PlayIdle));
         _animator.SetBool(s_hashIsDied, false);
+    }
 
-    public void SetDied() =>
+    public void PlayDied()
+    {
+        ValidateInit(nameof(PlayDied));
         _animator.SetBool(s_hashIsDied, true);
+    }
 
     protected override void OnInitialize() { }
 
-    public void OnDiedComleted() =>
+    private void OnDiedComleted() =>
         DiedComleted?.Invoke();
 }

@@ -1,57 +1,252 @@
-using System;
+using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
 {
+    private const float DelayAfterGameOver = 1.5f;
+
     [SerializeField] private PausePanel _pausePanel;
+    [SerializeField] private VictoryPanel _victoryPanel;
+    [SerializeField] private DefeatPanel _defeatPanel;
+    [SerializeField] private SettingsPanel _settingsPanel;
+    [SerializeField] private ProgressResetterPanel _progressResetterPanel;
+    [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
+
     [SerializeField] private PauseButton _pauseButton;
     [SerializeField] private ResumeButton _resumeButton;
-    [SerializeField] private RestartButton _restartButton;
-    [SerializeField] private ExitToMenuButton _exitToMenuButton;
+    [SerializeField] private NextLevelOpenerButton _nextLevelOpenerButton;
+    [SerializeField] private SettingsPanelOpenerButton _settingsPanelOpenerButton;
+    [SerializeField] private SettingsPanelCloserButton _settingsPanelCloserButton;
+    [SerializeField] private List<RestartButton> _restartButtons;
+    [SerializeField] private List<ExitToMenuButton> _exitToMenuButtons;
+    [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
+    [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
+    [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
+
+    [SerializeField] private SliderInformer _musicSlider;
 
     private LevelUiConfig _config;
+    private Tween _delayedCallTween;
 
     private void OnDestroy()
     {
-        _pauseButton.Clicked -= OnPauseClicked;
-        _resumeButton.Clicked -= OnResumeClicked;
-        _restartButton.Clicked -= OnRestartClicked;
-        _exitToMenuButton.Clicked -= OnExitToMenuClicked;
+        _delayedCallTween?.Kill();
+
+        if (_config.LevelStatsHandler != null)
+        {
+            _config.LevelStatsHandler.Victory -= OnVictory;
+            _config.LevelStatsHandler.Defeat -= OnDefeat;
+        }
+
+        if (_pauseButton != null)
+            _pauseButton.Clicked -= OnPauseClicked;
+
+        if (_resumeButton != null)
+            _resumeButton.Clicked -= OnResumeClicked;
+
+        if (_nextLevelOpenerButton != null)
+            _nextLevelOpenerButton.Clicked -= OnNextLevelClicked;
+
+        if (_settingsPanelOpenerButton != null)
+            _settingsPanelOpenerButton.Clicked -= OnOpenSettingsPanelClicked;
+
+        if (_settingsPanelCloserButton != null)
+            _settingsPanelCloserButton.Clicked -= OnCloseSettingsPanelClicked;
+
+        if (_progressResetOpenerButton != null)
+            _progressResetOpenerButton.Clicked -= OnProgressResetOpenerClicked;
+
+        if (_progressResetAcceptButton != null)
+            _progressResetAcceptButton.Clicked -= OnProgresResetAcceptClicked;
+
+        if (_progressResetCancelButton != null)
+            _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
+
+        foreach (RestartButton button in _restartButtons)
+            if (button != null)
+                button.Clicked -= OnRestartClicked;
+
+        foreach (ExitToMenuButton button in _exitToMenuButtons)
+            if (button != null)
+                button.Clicked -= OnExitToMenuClicked;
+
+        if(_musicSlider != null)
+        {
+            _musicSlider.PointerDownPressed -= OnMusicSliderDownPressed;
+            _musicSlider.PointerUpPressed -= OnMusicSliderUpPressed;
+        }
     }
 
     protected override void OnInitialize(LevelUiConfig config)
     {
         _config = config;
+
+        _darkBackgroundPanel.Initialize();
+        _pausePanel.Initialize();
+        _victoryPanel.Initialize();
+        _defeatPanel.Initialize();
+        _settingsPanel.Initialize(_config.Saver);
+        _progressResetterPanel.Initialize();
+
+        _pauseButton.Initialize();
+        _resumeButton.Initialize();
+        _nextLevelOpenerButton.Initialize();
+        _settingsPanelOpenerButton.Initialize();
+        _settingsPanelCloserButton.Initialize();
+        _progressResetAcceptButton.Initialize();
+        _progressResetCancelButton.Initialize();
+        _progressResetOpenerButton.Initialize();
+
+        _config.LevelStatsHandler.Victory += OnVictory;
+        _config.LevelStatsHandler.Defeat += OnDefeat;
+
         _pauseButton.Clicked += OnPauseClicked;
         _resumeButton.Clicked += OnResumeClicked;
-        _restartButton.Clicked += OnRestartClicked;
-        _exitToMenuButton.Clicked += OnExitToMenuClicked;
-        _pausePanel.HideFast();
+        _nextLevelOpenerButton.Clicked += OnNextLevelClicked;
+        _settingsPanelOpenerButton.Clicked += OnOpenSettingsPanelClicked;
+        _settingsPanelCloserButton.Clicked += OnCloseSettingsPanelClicked;
+        _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
+        _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
+        _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
+
+        _musicSlider.PointerDownPressed += OnMusicSliderDownPressed;
+        _musicSlider.PointerUpPressed += OnMusicSliderUpPressed;
+
+        foreach (RestartButton button in _restartButtons)
+        {
+            button.Initialize();
+            button.Clicked += OnRestartClicked;
+        }
+
+        foreach (ExitToMenuButton button in _exitToMenuButtons)
+        {
+            button.Initialize();
+            button.Clicked += OnExitToMenuClicked;
+        }
+    }
+
+    private void OnVictory()
+    {
+        _config.Saver.TryIncreaseLevelProgress();
+        _config.Saver.SetWhereMoreStarCount(_config.LevelStatsHandler.StarCount);
+        _config.Saver.Save();
+
+        if (_config.Saver.CanLoadNextLevel)
+            _nextLevelOpenerButton.Show();
+        else
+            _nextLevelOpenerButton.Hide();
+
+        _pauseButton.Hide();
+
+        _victoryPanel.Activate(
+            _config.LevelStatsHandler.Score, 
+            _config.LevelStatsHandler.StarCount,
+            _config.Saver.SelectedLevel);
+
+        ShowPanelAfterDelay(_victoryPanel);
+
+        Audio.Music.Pause();
+    }
+
+    private void OnDefeat()
+    {
+        _pauseButton.Hide();
+        _defeatPanel.Activate(_config.Saver.SelectedLevel);
+        ShowPanelAfterDelay(_defeatPanel);
+
+        Audio.Music.Pause();
+    }
+
+    private void ShowPanelAfterDelay(PanelBase panel)
+    {
+        _delayedCallTween = DOVirtual.DelayedCall(DelayAfterGameOver, () =>
+        {
+            if (panel != null && panel.gameObject != null)
+            {
+                _darkBackgroundPanel.Show();
+                panel.Show();
+                _config.PauseSwitcher.SetPause();
+            }
+        }, false).SetUpdate(true);
     }
 
     private void OnPauseClicked(PauseButton _)
     {
         _config.PauseSwitcher.SetPause();
+        _darkBackgroundPanel.Show();
         _pausePanel.Show();
+
+        Audio.Music.Pause();
     }
 
     private void OnResumeClicked(ResumeButton _)
     {
         _config.PauseSwitcher.SetResume();
-        _pausePanel.HideFast();
+        _darkBackgroundPanel.Hide();
+        _pausePanel.Hide();
+
+        Audio.Music.UnPause();
     }
 
-    private void OnRestartClicked(RestartButton button)
+    private void OnNextLevelClicked(NextLevelOpenerButton _)
     {
-        _pausePanel.HideFast();
         _config.PauseSwitcher.SetResume();
-        _config.SceneLoader.ReloadCurrentScene();
+        int levelIndex = _config.Saver.SelectedLevel;
+        _config.Saver.SetSelectedLevel(levelIndex + 1);
+        _config.Saver.Save();
+
+        SceneLoader.Instance.ReloadCurrentScene();
+    }
+
+    private void OnOpenSettingsPanelClicked(SettingsPanelOpenerButton _)
+    {
+        _pausePanel.Hide();
+        _settingsPanel.Show();
+    }
+
+    private void OnCloseSettingsPanelClicked(SettingsPanelCloserButton _)
+    {
+        _settingsPanel.Hide();
+        _pausePanel.Show();
+    }
+
+    private void OnProgressResetOpenerClicked(ProgressResetOpenerButton _)
+    {
+        _settingsPanel.Hide();
+        _progressResetterPanel.Show();
+    }
+
+    private void OnProgresResetAcceptClicked(ProgressResetAcceptButton _)
+    {
+        _progressResetterPanel.Hide();
+        _settingsPanel.Show();
+        _settingsPanel.ResetProgress();
+    }
+
+    private void OnProgresResetCancelClicked(ProgressResetCancelButton _)
+    {
+        _progressResetterPanel.Hide();
+        _settingsPanel.Show();
+    }
+
+    private void OnMusicSliderDownPressed() =>
+        Audio.Music.UnPause();
+
+    private void OnMusicSliderUpPressed() =>
+        Audio.Music.Pause();
+
+    private void OnRestartClicked(RestartButton _)
+    {
+        _config.PauseSwitcher.SetResume();
+
+        SceneLoader.Instance.ReloadCurrentScene();
     }
 
     private void OnExitToMenuClicked(ExitToMenuButton button)
     {
-        _pausePanel.HideFast();
         _config.PauseSwitcher.SetResume();
-        _config.SceneLoader.LoadScene(Constants.MenuSceneName);
+
+        SceneLoader.Instance.LoadScene(Constants.MenuSceneName);
     }
 }

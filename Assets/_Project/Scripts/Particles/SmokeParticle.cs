@@ -10,6 +10,6 @@ public class SmokeParticle : OneShotParticle, IPoolable<SmokeParticle>
         Deactivated?.Invoke(this);
     }
 
-    protected override void OnComleted() =>
+    protected override void OnCompleted() =>
         Deactivate();
 }

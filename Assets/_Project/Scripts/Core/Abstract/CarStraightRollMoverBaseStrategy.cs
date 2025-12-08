@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class CarStraightRollMoverBaseStrategy : IMovementStrategy
 {
-    private const float Bisector = 2;
+    private const float SizeDivider = 2;
     private const float SpeedMultiplier = 0.3f;
 
     private readonly Transform _transform;
@@ -19,8 +19,8 @@ public abstract class CarStraightRollMoverBaseStrategy : IMovementStrategy
         _selfCollider = self != null ? self : throw new ArgumentNullException(nameof(self));
         _completed = completed;
 
-        _sphereRadius = self.size.x * transform.lossyScale.x / Bisector;
-        _forwardOffset = self.size.z * transform.lossyScale.z / Bisector + _sphereRadius;
+        _sphereRadius = self.size.x * transform.lossyScale.x / SizeDivider;
+        _forwardOffset = self.size.z * transform.lossyScale.z / SizeDivider + _sphereRadius;
     }
 
     protected Transform Transform => _transform;

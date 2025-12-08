@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Star : InitializingWithConfigBehaviour<StarConfig>
 {
-    private const float FearProgressDistance = 0.2f;
+    private const float FearProgressDistance = 0.1f;
+    private const float RelaxProgressDistance = 0.22f;
 
     [SerializeField] private StarVisual _visual;
     [SerializeField] private float _progressOnSpline = 1f;
@@ -13,6 +14,8 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
 
     private StarConfig _config;
 
+    public event Action<Star> Destroyed;
+
     private void OnDestroy()
     {
         if (_config.EnemySpeedDirector != null)
@@ -21,6 +24,17 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
 
     public void SetProgress(float progress) =>
         _progressOnSpline = progress;
+
+    public void SetEnjoy()
+    {
+        if (_isFear == false)
+            return;
+
+        _isFear = false;
+        _visual.SetEnjoy();
+
+        Audio.Sfx.PlayStarRelax();
+    }
 
     protected override void OnInitialize(StarConfig config)
     {
@@ -37,7 +51,7 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
             _visual.DiedCompleted += OnDiedCompleted;
 
             _visual.SetDied();
-            _config.CameraShaker.Shake();
+            Audio.Sfx.PlayStarByeBye();
 
             return;
         }
@@ -49,21 +63,22 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
 
             _isFear = true;
             _visual.SetFear();
+            Audio.Sfx.PlayStarFear();
 
             return;
         }
 
-        if (_isFear == false)
-            return;
-
-        _isFear = false;
-        _visual.SetEnjoy();
+        if (progress <= _progressOnSpline - RelaxProgressDistance)
+            SetEnjoy();
     }
 
     private void OnDiedCompleted()
     {
         _visual.DiedCompleted -= OnDiedCompleted;
         _config.ParticleShower.ShowStarBang(_centerTarget.position, _centerTarget.rotation);
+        _config.CameraShaker.Shake();
+        Destroyed?.Invoke(this);
+        Audio.Sfx.PlayStarPoof();
         Destroy(gameObject);
     }
 }

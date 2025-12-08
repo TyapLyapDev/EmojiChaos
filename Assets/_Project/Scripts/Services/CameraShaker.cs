@@ -2,7 +2,7 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 
-public class CameraShaker
+public class CameraShaker : IDisposable
 {
     private const float DefaultDuration = 0.5f;
     private const float DefaultStrength = 0.2f;
@@ -18,7 +18,8 @@ public class CameraShaker
     private readonly Vector3 _originalPosition;
     private readonly Quaternion _originalRotation;
 
-    private Tween _currentShakeTween;
+    private Tween _currentPositionTween;
+    private Tween _currentRotationTween;
 
     public CameraShaker()
     {
@@ -32,32 +33,44 @@ public class CameraShaker
         _originalRotation = _cameraTransform.rotation;
     }
 
+    public void Dispose() =>
+        StopShake();
+
     public void Shake()
     {
         StopShake();
 
-        _currentShakeTween = _cameraTransform.DOShakePosition(
+        if (_cameraTransform == null)
+            return;
+
+        _currentPositionTween = _cameraTransform.DOShakePosition(
             duration: DefaultDuration,
             strength: DefaultStrength,
             vibrato: DefaultVibrato,
             randomness: DefaultRandomness,
             fadeOut: DefaultFadeOut
-        );
+        ).SetUpdate(UpdateType.Normal, true);
 
-        _cameraTransform.DOShakeRotation(
+        _currentRotationTween = _cameraTransform.DOShakeRotation(
             duration: DefaultDuration * RotationDurationMultiplier,
             strength: RotationStrength,
             vibrato: DefaultVibrato / RotationVibratoDivider,
             randomness: DefaultRandomness
-        );
+        ).SetUpdate(UpdateType.Normal, true);
     }
 
     private void StopShake()
     {
-        if (_currentShakeTween != null && _currentShakeTween.IsActive())
+        if (_currentPositionTween != null && _currentPositionTween.IsActive())
         {
-            _currentShakeTween.Kill();
-            _currentShakeTween = null;
+            _currentPositionTween.Kill();
+            _currentPositionTween = null;
+        }
+
+        if (_currentRotationTween != null && _currentRotationTween.IsActive())
+        {
+            _currentRotationTween.Kill();
+            _currentRotationTween = null;
         }
 
         if (_cameraTransform != null)

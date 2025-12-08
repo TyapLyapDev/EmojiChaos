@@ -33,7 +33,7 @@ public class Bullet : InitializingBehaviour, IPoolable<Bullet>
         _target = target;
         _visual.SetColor(target.Color);
         _mover.SetStartPosition(startPosition);
-        _mover.SetTarget(_target.Center);
+        _mover.SetTarget(_target.CenterBody);
 
         _target.Disappeared += OnTargetDeactivated;
 
@@ -68,7 +68,6 @@ public class Bullet : InitializingBehaviour, IPoolable<Bullet>
     private void OnTargetReached()
     {
         _target?.Kill();
-
         Deactivate();
     }
 

@@ -41,7 +41,7 @@ public class Level : InitializingBehaviour
 
     public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
 
-    public ParticleSystem PortalParticle => _portalParticle;
+    public ParticleSystem PortalParticle => GetSafeReference(_portalParticle);
 
     public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
 

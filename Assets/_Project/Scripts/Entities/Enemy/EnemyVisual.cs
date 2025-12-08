@@ -25,13 +25,13 @@ public class EnemyVisual : InitializingBehaviour
 
     public void SetDied()
     {
-        _animator.SetDied();
+        _animator.PlayDied();
         SetRandom(_deathTextures);
     }
 
     public void ResetDied()
     {
-        _animator.ResetDied();
+        _animator.PlayIdle();
         SetRandom(_angryTextures);
     }
 

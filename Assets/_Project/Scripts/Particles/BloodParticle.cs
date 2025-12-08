@@ -38,6 +38,6 @@ public class BloodParticle : OneShotParticle, IPoolable<BloodParticle>
         _circlesModule = _circles.main;
     }
 
-    protected override void OnComleted() =>
+    protected override void OnCompleted() =>
         Deactivate();
 }

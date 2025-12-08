@@ -62,8 +62,8 @@ public class EnemyMover
     private void UpdatePosition(float deltaDistance)
     {
         Vector3 targetPosition = CalculateTargetPosition();
-        float interpolationFactor = deltaDistance * PositionInterpolationSpeed;
-        _transform.position = Vector3.Lerp(_transform.position, targetPosition, interpolationFactor);
+        float maxDistanceDelta = Mathf.Abs(deltaDistance) * PositionInterpolationSpeed;
+        _transform.position = Vector3.MoveTowards(_transform.position, targetPosition, maxDistanceDelta);
     }
 
     private Vector3 CalculateTargetPosition() =>

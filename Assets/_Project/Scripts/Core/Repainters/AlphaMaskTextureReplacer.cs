@@ -10,6 +10,8 @@ public class AlphaMaskTextureReplacer : BaseRepainter
 
     public void SetTexture(Texture2D texture)
     {
+        ValidateInit(nameof(SetTexture));
+
         _texture = texture;
         Repaint();
     }

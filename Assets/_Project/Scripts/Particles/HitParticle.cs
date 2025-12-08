@@ -12,6 +12,6 @@ public class HitParticle : OneShotParticle, IPoolable<HitParticle>
         Deactivated?.Invoke(this);
     }
 
-    protected override void OnComleted() =>
+    protected override void OnCompleted() =>
         Deactivate();
 }

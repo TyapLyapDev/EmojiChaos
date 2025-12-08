@@ -4,6 +4,15 @@ using UnityEngine;
 
 public static class Utils
 {
+    public static int CalculateLevelCountInProject()
+    {
+        int levelCount = Resources.LoadAll<Level>(Constants.LevelsPath).Length;
+        GC.Collect();
+        Resources.UnloadUnusedAssets();
+
+        return levelCount;
+    }
+
     public static void Shuffle<T>(List<T> list)
     {
         if (list == null)

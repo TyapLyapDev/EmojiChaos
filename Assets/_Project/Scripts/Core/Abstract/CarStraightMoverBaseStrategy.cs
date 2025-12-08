@@ -3,15 +3,15 @@ using UnityEngine;
 
 public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
 {
-    private const float Bisector = 2;
+    private const float SizeDivider = 2;
 
     private readonly Transform _transform;
     private readonly BoxCollider _selfCollider;
     private readonly Action<Vector3> _obstacleCollision;
     private readonly Action<CarSplineContainer, Vector3> _roadDetected;
 
-    private float _sphereRadius;
-    private float _forwardOffset;
+    private float _collisionSphereRadius;
+    private float _collisionCheckDistance;
 
     public CarStraightMoverBaseStrategy(Transform transform,
         BoxCollider self,
@@ -23,7 +23,7 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
         _obstacleCollision = obstacleCollision;
         _roadDetected = roadDetected;
 
-        CalculateDimensions();        
+        CalculateCollisionDimensions();
     }
 
     protected Transform Transform => _transform;
@@ -42,13 +42,14 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
 
     private bool IsCollision(float deltaDistance, Vector3 direction)
     {
-        Vector3 startPosition = _transform.position + _transform.up * _sphereRadius;
-        float distance = _forwardOffset + deltaDistance;
+        Vector3 startPosition = _transform.position + _transform.up * _collisionSphereRadius;
+        float distance = _collisionCheckDistance + deltaDistance;
 
         RaycastHit[] hits = new RaycastHit[10];
+
         int hitCount = Physics.SphereCastNonAlloc(
             startPosition,
-            _sphereRadius,
+            _collisionSphereRadius,
             direction,
             hits,
             distance
@@ -63,8 +64,7 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
 
             if (hit.collider.TryGetComponent(out IObstacle _))
             {
-                if (hit.collider.TryGetComponent(out IObstacle _))
-                    _obstacleCollision?.Invoke(hit.point);
+                _obstacleCollision?.Invoke(hit.point);
 
                 return true;
             }
@@ -76,9 +76,9 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
         return false;
     }
 
-    private void CalculateDimensions()
+    private void CalculateCollisionDimensions()
     {
-        _sphereRadius = _selfCollider.size.x * _transform.lossyScale.x / Bisector;
-        _forwardOffset = _selfCollider.size.z * _transform.lossyScale.z / Bisector - _sphereRadius;
+        _collisionSphereRadius = _selfCollider.size.x * _transform.lossyScale.x / SizeDivider;
+        _collisionCheckDistance = _selfCollider.size.z * _transform.lossyScale.z / SizeDivider - _collisionSphereRadius;
     }
 }

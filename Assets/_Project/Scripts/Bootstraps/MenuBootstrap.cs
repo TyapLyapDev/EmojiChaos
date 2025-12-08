@@ -6,6 +6,9 @@ public class MenuBootstrap : MonoBehaviour
 
     private void Start()
     {
-        _menuUIHandler.Initialize(new MenuUiConfig());
+        _menuUIHandler.Initialize(new MenuUiConfig(
+            new Saver(Utils.CalculateLevelCountInProject())));
+
+        Audio.Music.PlayMenu();
     }
 }

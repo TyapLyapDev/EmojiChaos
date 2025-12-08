@@ -18,7 +18,7 @@ public static class CustomLogger
         method?.Invoke(new object(), null);
     }
 
-    public static void LogWhite(string message) =>
+    public static void Log(string message) =>
         Debug.Log(MakeBold(WrapColor(White, message)));
 
     public static void LogGreen(string message) =>

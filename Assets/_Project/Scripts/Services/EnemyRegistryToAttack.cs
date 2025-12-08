@@ -9,7 +9,8 @@ public class EnemyRegistryToAttack : IDisposable
 
     public EnemyRegistryToAttack(EnemySpawner enemySpawner)
     {
-        _spawner = enemySpawner;
+        _spawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
+
         _spawner.Spawned += OnEnemySpawned;
     }
 
@@ -18,15 +19,44 @@ public class EnemyRegistryToAttack : IDisposable
         if (_spawner != null)
             _spawner.Spawned -= OnEnemySpawned;
 
-        Dictionary<int, List<Enemy>> enemiesByTypeCopy = new(_availableEnemiesByType);
+        ClearAllEnemies();
+    }
 
-        foreach (KeyValuePair<int, List<Enemy>> kvp in enemiesByTypeCopy)
+    public bool TryGiveEnemy(int enemyType, out Enemy enemy)
+    {
+        if (TryGetEnemiesList(enemyType, out List<Enemy> enemies) == false || enemies.Count == 0)
         {
-            foreach (Enemy enemy in kvp.Value)
+            enemy = null;
+
+            return false;
+        }
+
+        enemy = enemies.First();
+        RemoveEnemy(enemy);
+
+        return enemy.IsActive;
+    }
+
+    public void Scare(int enemyType, int count)
+    {
+        if (TryGetEnemiesList(enemyType, out List<Enemy> enemies) == false)
+            return;
+
+        List<Enemy> enemiesToScare = enemies.Take(count).ToList();
+
+        foreach (var enemy in enemiesToScare)
+            enemy.Scare();
+    }
+
+    private void ClearAllEnemies()
+    {
+        foreach (List<Enemy> enemies in _availableEnemiesByType.Values)
+        {
+            foreach (Enemy enemy in enemies)
                 if (enemy != null)
                     enemy.Deactivated -= OnEnemyDeactivated;
 
-            kvp.Value.Clear();
+            enemies.Clear();
         }
 
         _availableEnemiesByType.Clear();
@@ -37,80 +67,50 @@ public class EnemyRegistryToAttack : IDisposable
         if (enemy == null)
             throw new ArgumentNullException(nameof(enemy));
 
-        int enemyType = enemy.Type;
-
-        if (_availableEnemiesByType.ContainsKey(enemyType) == false)
-            _availableEnemiesByType[enemyType] = new();
-
         if (enemy.IsActive == false)
             throw new InvalidOperationException($"{nameof(enemy)} должен быть активным при регистрации");
 
-        if (_availableEnemiesByType[enemyType].Contains(enemy))
+        List<Enemy> enemies = GetOrCreateEnemiesList(enemy.Type);
+
+        if (enemies.Contains(enemy))
             throw new InvalidOperationException($"{nameof(enemy)} уже был зарегистрирован");
 
-        _availableEnemiesByType[enemyType].Add(enemy);
+        enemies.Add(enemy);
         enemy.Deactivated += OnEnemyDeactivated;
     }
 
-    public bool TryGiveEnemy(int enemyType, out Enemy enemy)
+    private void RemoveEnemy(Enemy enemy)
     {
-        enemy = null;
-
-        if (_availableEnemiesByType.ContainsKey(enemyType) == false)
-            return false;
-
-        List<Enemy> enemies = _availableEnemiesByType[enemyType];
-
-        if (enemies.Count == 0)
-            return false;
-
-        enemy = enemies.First();
-        enemies.RemoveAt(0);
-
-        if (enemies.Count == 0)
-            _availableEnemiesByType.Remove(enemyType);
-
-        if (enemy != null)
-            enemy.Deactivated -= OnEnemyDeactivated;
-
-        return enemy != null && enemy.IsActive;
-    }
-
-    public void Scare(int enemyType, int count)
-    {
-        if (_availableEnemiesByType.ContainsKey(enemyType) == false)
+        if (enemy == null) 
             return;
 
-        List<Enemy> enemies = _availableEnemiesByType[enemyType].Take(count).ToList();
-
-        foreach (Enemy enemy in enemies)
-            if (enemy != null)
-                enemy.Scare();
-    }
-
-    private void OnEnemyDeactivated(Enemy enemy)
-    {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
-
-        int enemyType = enemy.Type;
-
-        if (_availableEnemiesByType.ContainsKey(enemyType) == false)
+        if (TryGetEnemiesList(enemy.Type, out List<Enemy> enemies) == false)
             return;
 
-        List<Enemy> enemies = _availableEnemiesByType[enemyType];
         enemy.Deactivated -= OnEnemyDeactivated;
         enemies.Remove(enemy);
 
         if (enemies.Count == 0)
-            _availableEnemiesByType.Remove(enemyType);
+            _availableEnemiesByType.Remove(enemy.Type);
     }
 
-    private void OnEnemySpawned(Enemy enemy)
+    private List<Enemy> GetOrCreateEnemiesList(int enemyType)
     {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+        if (_availableEnemiesByType.TryGetValue(enemyType, out List<Enemy> enemies) == false)
+        {
+            enemies = new();
+            _availableEnemiesByType[enemyType] = enemies;
+        }
 
-        RegisterEnemy(enemy);
+        return enemies;
     }
+
+    private bool TryGetEnemiesList(int enemyType, out List<Enemy> enemies) =>
+        _availableEnemiesByType.TryGetValue(enemyType, out enemies);
+
+    private void OnEnemySpawned(Enemy enemy) =>
+        RegisterEnemy(enemy);
+
+    private void OnEnemyDeactivated(Enemy enemy) =>
+        RemoveEnemy(enemy);
 }
