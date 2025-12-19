@@ -1,0 +1,1 @@
+public class LeaderboardPanelCloserButton : ButtonClickHandler<LeaderboardPanelCloserButton> { }

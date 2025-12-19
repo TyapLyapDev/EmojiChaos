@@ -18,7 +18,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
 
     public event Action ShootingCompleted;
 
-    public bool IsActive => gameObject.activeInHierarchy;
+    public Transform Center => _rotatingModel;
 
     private void OnDestroy()
     {

@@ -130,6 +130,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     {
         _config.Saver.TryIncreaseLevelProgress();
         _config.Saver.SetWhereMoreStarCount(_config.LevelStatsHandler.StarCount);
+        _config.Saver.IncreaseScore(_config.LevelStatsHandler.FinalScore);
         _config.Saver.Save();
 
         if (_config.Saver.CanLoadNextLevel)

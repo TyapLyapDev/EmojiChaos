@@ -4,6 +4,8 @@ using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Splines;
@@ -14,6 +16,8 @@ using UnityEngine.Splines;
 [RequireComponent(typeof(MeshFilter))]
 public class SplineRendererMeshGenerator : MonoBehaviour
 {
+#if UNITY_EDITOR
+
     private const string DefaultMeshName = "UnknownMesh";
     private const string MeshAssetExtension = ".asset";
     private const string AssetsPathPrefix = "Assets/";
@@ -34,6 +38,7 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [SerializeField] private bool _uniformUVs = true;
     [SerializeField] private bool _isTwistMesh;
     [SerializeField] private bool _isAutoupdate;
+
 
     private bool _isSubscribedToSplineEvents;
 
@@ -299,7 +304,8 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [ContextMenu("Обновить меш рендерера")]
     public void UpdateMeshCollider() =>
         GenerateMesh();
-}
+
 #endif
+}
 
 public enum VectorAxis { X, Y }

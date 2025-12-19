@@ -2,6 +2,8 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine.Splines;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ using System.Linq;
 [RequireComponent(typeof(Rigidbody))]
 public class SplineMeshColliderGenerator : MonoBehaviour
 {
+#if UNITY_EDITOR
+
     private const string DefaultMeshName = "UnknownMesh";
     private const string MeshAssetExtension = ".asset";
     private const string AssetsPathPrefix = "Assets/";
@@ -109,7 +113,7 @@ public class SplineMeshColliderGenerator : MonoBehaviour
         List<Vector3> vertices = new();
         List<int> triangles = new();
 
-        for(int splineIndex = 0; splineIndex < _splineContainer.Splines.Count; splineIndex++)
+        for (int splineIndex = 0; splineIndex < _splineContainer.Splines.Count; splineIndex++)
         {
             if (_resolutions != null && splineIndex < _resolutions.Length && _resolutions[splineIndex] < 2)
                 continue;
@@ -213,5 +217,6 @@ public class SplineMeshColliderGenerator : MonoBehaviour
     [ContextMenu("Обновить меш коллайдера")]
     public void UpdateMeshCollider() =>
         GenerateMesh();
-}
+
 #endif
+}

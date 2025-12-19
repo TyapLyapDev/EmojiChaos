@@ -14,7 +14,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     private Rack _targetRack;
     private IMovementStrategy _mover;
     private List<SplineSegment> _currentPath;
-    private AudioSource _vrum;
+    private AudioSource _roar;
 
     public int Id => _id;
 
@@ -51,7 +51,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
                 OnForwardObstacleCollision,
                 OnRoadForwardDetected);
 
-        _vrum = Audio.Sfx.PlayCarRoar();
+        _roar = Audio.Sfx.PlayCarRoar();
 
         return true;
     }
@@ -77,7 +77,11 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         _config.ParticleShower.ShowHit(hitPoint);
         _mover = null;
 
-        _vrum.Stop();
+        if (_roar != null)
+        {
+            _roar.Stop();
+            _roar = null;
+        }
         Audio.Sfx.PlayCarAccident();
     }
 
@@ -131,9 +135,34 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         if (_targetRack.TryActivateGun(_id, _bulletCount, _config.Color) == false)
             throw new Exception($"Ќе удалось активировать пушку дл€ машины {_id}");
 
-        if (_vrum != null)
-            _vrum.Stop();
+        if (_roar != null)
+            _roar.Stop();
 
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        Vector3 position = transform.position + Vector3.up * 0.3f + Vector3.forward * -0.14f;
+        string text = _id.ToString();
+
+        float bgRadius = 0.1f;
+        UnityEditor.Handles.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+        UnityEditor.Handles.DrawSolidDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
+
+        UnityEditor.Handles.color = Color.yellow;
+        UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
+
+        GUIStyle style = new()
+        {
+            fontSize = 12,
+            normal = { textColor = Color.yellow },
+            alignment = TextAnchor.MiddleCenter,
+            fontStyle = FontStyle.Bold
+        };
+
+        UnityEditor.Handles.Label(position, text, style);
+#endif
     }
 }

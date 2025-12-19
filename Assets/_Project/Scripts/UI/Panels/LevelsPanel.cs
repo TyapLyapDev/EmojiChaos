@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using YG;
 
 public class LevelsPanel : PanelBase 
 {
@@ -20,8 +21,13 @@ public class LevelsPanel : PanelBase
         _levelBoxContainer.ClickUnlockedLevel += OnUnlockedLevelClicked;
     }
 
-    private void OnUnlockedLevelClicked(int levelIndex) =>
+    private void OnUnlockedLevelClicked(int levelIndex)
+    {
+        if (YG2.saves.SavesData.IsNoAds == false)
+            YG2.InterstitialAdvShow();
+
         LevelClicked?.Invoke(levelIndex);
+    }
 
     protected override void OnShow()
     {

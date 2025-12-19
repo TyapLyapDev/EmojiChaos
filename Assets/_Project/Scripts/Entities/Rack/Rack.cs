@@ -1,70 +1,91 @@
+using System;
 using UnityEngine;
+using YG;
 
 public class Rack : InitializingBehaviour
 {
     [SerializeField] private GameObject _rackModel;
     [SerializeField] private GameObject _rackRuins;
-    [SerializeField] private RackVisual _visual;
-    [SerializeField] private AdvertisingBox _advertisingBox;
-    [SerializeField] private PurchasingBox _purchasingBox;
+    [SerializeField] private AdvertisingButton _advertisingButton;
+    [SerializeField] private PurchasingButton _purchasingButton;
     [SerializeField] private Gun _gun;
-    [SerializeField] private bool _needAds;
-    [SerializeField] private bool _needPurchase;
 
     private bool _isReserved;
 
-    public bool IsAvailable => _gun.IsActive == false
-        && _needAds == false
-        && _needPurchase == false
-        && _isReserved == false;
+    public event Action<Gun> GunInstalled;
+
+    public bool IsAvailable => 
+        _gun.IsActiveSelf() == false
+        && _isReserved == false
+        && _rackModel.activeSelf;
 
     private void OnDestroy()
     {
-        if (_gun != null)
-            _gun.ShootingCompleted -= OnShootingCompleted;
+        YG2.onRewardAdv -= OnRewardAdv;
+        YG2.onPurchaseSuccess -= OnPurchaseSucces;
     }
 
-    public void SetReservation()
-    {
+    public void SetReservation() =>
         _isReserved = true;
-        _visual.StopTwinkle();
-    }
 
-    public void ResetReservation()
-    {
+    public void ResetReservation() =>
         _isReserved = false;
-
-        if (IsAvailable)
-            _visual.Twinkle();
-    }
 
     public bool TryActivateGun(int carType, int bulletCount, Color color)
     {
         ValidateInit(nameof(TryActivateGun));
 
-        if (_gun.IsActive || _needAds)
+        if (_gun.IsActiveSelf() == false && _rackModel.activeSelf == false)
             return false;
 
         _gun.Activate(carType, bulletCount, color);
-        _visual.ShowAppearance();
         ResetReservation();
+        GunInstalled?.Invoke(_gun);
 
         return true;
     }
 
     protected override void OnInitialize()
     {
-        _advertisingBox.SetActive(_needAds);
-        _purchasingBox.SetActive(_needPurchase);
-        _rackModel.SetActive(_needPurchase == false && _needAds == false);
-        _rackRuins.SetActive(_needPurchase || _needAds);
+        _advertisingButton.Initialize();
+        _purchasingButton.Initialize();
+
+        if (_purchasingButton.IsActiveSelf() && YG2.saves.SavesData.IsPurchsingRack == true)
+        {
+            _purchasingButton.SetActive(false);
+            SetRack();
+        }
+
         _gun.SetActive(false);
-        _gun.ShootingCompleted += OnShootingCompleted;
+
+        YG2.onRewardAdv += OnRewardAdv;
+        YG2.onPurchaseSuccess += OnPurchaseSucces;
     }
 
-    private void OnShootingCompleted()
+    private void SetRack()
     {
-        if (IsAvailable)
-            _visual.Twinkle();
+        _rackRuins.SetActive(false);
+        _rackModel.SetActive(true);
+    }
+
+    private void OnRewardAdv(string id)
+    {
+        if (id == Constants.RewardRack + _advertisingButton.GetInstanceID())
+        {
+            _advertisingButton.SetActive(false);
+            SetRack();
+        }
+    }
+
+    private void OnPurchaseSucces(string id)
+    {
+        if (_purchasingButton.IsActiveSelf() && id == Constants.PurchasingRack)
+        {
+            _purchasingButton.SetActive(false);
+            SetRack();
+
+            YG2.saves.SavesData.IsPurchsingRack = true;
+            YG2.SaveProgress();
+        }
     }
 }

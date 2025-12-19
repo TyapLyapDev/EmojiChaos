@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class LevelBootstrap : MonoBehaviour
@@ -5,6 +7,7 @@ public class LevelBootstrap : MonoBehaviour
     [SerializeField] private LevelUiHandler _uiHandler;
 
     private Level _level;
+    private Tutorial _tutorial;
     private readonly ServicesRegistry _services = new();
 
     private void Start()
@@ -27,7 +30,13 @@ public class LevelBootstrap : MonoBehaviour
         Factory<Level> levelFactory = new(levelPrefab);
         _level = levelFactory.Create();
 
-        System.GC.Collect();
+        if (levelIndex == 0)
+        {
+            Tutorial tutorialPrefab = Resources.Load<Tutorial>(Constants.TutorialPath);
+            _tutorial = Instantiate(tutorialPrefab);
+        }
+
+        GC.Collect();
         Resources.UnloadUnusedAssets();
     }
 
@@ -36,7 +45,7 @@ public class LevelBootstrap : MonoBehaviour
         _services.Add(new CarSpeedDirector());
         _services.Add(new BulletSpeedDirector());
         _services.Add(new CameraShaker());
-        _services.Add(new PauseSwitcher());      
+        _services.Add(new PauseSwitcher());
         _services.Add(new CarSwipeStrategy() as ISwipeStrategy);
         _services.Add(new TypeColorRandomizer(new(_level.Colors), new(_level.Ids)));
 
@@ -69,6 +78,7 @@ public class LevelBootstrap : MonoBehaviour
         InitializeCars();
         InitializeStars();
         InitializeUIHandler();
+        InitializeTutorial();
     }
 
     private void StartRun()
@@ -127,7 +137,23 @@ public class LevelBootstrap : MonoBehaviour
     {
         _uiHandler.Initialize(new LevelUiConfig(
             _services.Get<PauseSwitcher>(),
-            _services.Get<Saver>(), 
+            _services.Get<Saver>(),
             _services.Get<LevelStatsHandler>()));
+    }
+
+    private void InitializeTutorial()
+    {
+        if (_tutorial != null)
+        {
+            _tutorial.Initialize(new(
+                _level.PortalParticle.transform, 
+                _services.Get<EnemySpawner>(),
+                _level.Cars[0],
+                _services.Get<ISwipeStrategy>(),
+                _services.Get<EnemiesSpeedDirector>(),
+                _level.Slots.ToArray(),
+                _level.Stars.Last()));
+
+        }
     }
 }

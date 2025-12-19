@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-#if UNITY_EDITOR
 
 [ExecuteInEditMode]
 public class InstallerOnSpline : MonoBehaviour
 {
+#if UNITY_EDITOR
+
     [SerializeField, Min(0)] private int _splineIndex;
     [SerializeField, Range(0, 1)] private float _progress;
     [SerializeField] private Vector3 _additionalRotation = Vector3.zero;
@@ -15,6 +16,7 @@ public class InstallerOnSpline : MonoBehaviour
     [SerializeField] private SplineContainer _splineContainer;
     [SerializeField] private SplineRendererMeshGenerator _splineRendererMeshGenerator;
     [SerializeField] private bool _isAutoupdate = true;
+
 
     private Spline _currentSpline;
     private bool _isSubscribedToEvents = false;
@@ -193,5 +195,6 @@ public class InstallerOnSpline : MonoBehaviour
             return false;
         }
     }
-}
+
 #endif
+}

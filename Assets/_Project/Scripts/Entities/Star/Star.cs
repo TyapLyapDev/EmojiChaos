@@ -16,6 +16,8 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
 
     public event Action<Star> Destroyed;
 
+    public Transform Center => _centerTarget;
+
     private void OnDestroy()
     {
         if (_config.EnemySpeedDirector != null)

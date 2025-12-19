@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2951047679102765226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.36, z: 0.054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,9 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc0b599380efd045b644e535d157ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _center: {fileID: 0}
   _visual: {fileID: 4265320033411378195}
   _progressOnSpline: 1
   _centerTarget: {fileID: 2785413866380756163}
+  Center: {fileID: 0}
 --- !u!114 &4265320033411378195
 MonoBehaviour:
   m_ObjectHideFlags: 0

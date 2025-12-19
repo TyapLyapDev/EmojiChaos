@@ -28,6 +28,8 @@ public class LevelStatsHandler : IDisposable
 
     public int Score => _levelScore.Score;
 
+    public int FinalScore => _levelScore.Score * _starsCounter.StarCount * 2;
+
     public void Dispose()
     {
         Unsubscribe();

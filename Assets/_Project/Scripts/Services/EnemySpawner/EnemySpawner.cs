@@ -9,6 +9,7 @@ public class EnemySpawner
     private readonly EnemyFormationCalculator _formationCalculator = new();
     private readonly SpawnStrategyRegistry _spawnStrategy = new();
     private readonly float _gameSpeed;
+    private bool _isPause;
 
     public EnemySpawner(Pool<Enemy> pool, TypeColorRandomizer colorRandomizer, float speed)
     {
@@ -27,6 +28,12 @@ public class EnemySpawner
     {
         Spawned = null;
     }
+
+    public void Pause() =>
+        _isPause = true;
+
+    public void Resume() =>
+        _isPause = false;
 
     public IEnumerator SpawnCrowd(Crowd crowd)
     {
@@ -48,6 +55,9 @@ public class EnemySpawner
 
         while (remainingEnemies > 0)
         {
+            while(_isPause)
+                yield return null;
+
             bool isLastInLine = false;
 
             if (_colorRandomizer.TryGetColor(crowd.Id, out Color color))

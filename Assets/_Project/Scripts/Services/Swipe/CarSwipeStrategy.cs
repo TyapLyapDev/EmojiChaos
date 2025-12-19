@@ -12,6 +12,7 @@ public class CarSwipeStrategy : ISwipeStrategy
     private IDisposable _updateSubscription;
     private ISwipeable _swipeableObject;
     private Vector2 _startPosition;
+    private bool _isPause;
 
     public CarSwipeStrategy()
     {
@@ -31,6 +32,12 @@ public class CarSwipeStrategy : ISwipeStrategy
         if (_clickHandler is IDisposable disposable)
             disposable.Dispose();
     }
+
+    public void Pause() =>
+        _isPause = true;
+
+    public void Resume() =>
+        _isPause = false;
 
     private IClickHandlerStrategy CreatePlatformSpecificStrategy()
     {
@@ -59,6 +66,9 @@ public class CarSwipeStrategy : ISwipeStrategy
 
     private void HandleSwipeState()
     {
+        if(_isPause) 
+            return;
+
         Vector2 delta = _clickHandler.GetCurrentPosition() - _startPosition;
         float distance = delta.magnitude;
 

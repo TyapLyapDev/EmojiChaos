@@ -1,10 +1,12 @@
 using UnityEngine;
+using YG;
 
 public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 {
     [SerializeField] private LevelsPanel _levelsPanel;
     [SerializeField] private SettingsPanel _settingsPanel;
     [SerializeField] private ProgressResetterPanel _progressResetterPanel;
+    [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
     [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
 
     [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
@@ -13,6 +15,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     [SerializeField] private SettingsPanelCloserButton _settingsPanelCloserButton;
     [SerializeField] private ProgressLevelOpenerButton _progressLevelOpenerButton;
     [SerializeField] private LeaderboardOpenerButton _leaderboardOpenerButton;
+    [SerializeField] private LeaderboardPanelCloserButton _leaderboardCloserButton;
+    [SerializeField] private NoAdsButton _noAdsButton;
     [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
     [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
     [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
@@ -37,7 +41,13 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
             _settingsPanelCloserButton.Clicked -= OnSettingsPanelCloseClicked;
 
         if (_progressLevelOpenerButton != null)
-            _progressLevelOpenerButton.Clicked -= OnProgressLevelOpenerClicked;
+            _progressLevelOpenerButton.Clicked -= OnProgressLevelOpenClicked;
+
+        if (_leaderboardOpenerButton != null)
+            _leaderboardOpenerButton.Clicked -= OnLeaderboardOpenClicked;
+
+        if (_leaderboardCloserButton != null)
+            _leaderboardCloserButton.Clicked -= OnLeaderboardCloseClicked;
 
         if(_progressResetOpenerButton != null)
             _progressResetOpenerButton.Clicked -= OnProgressResetOpenerClicked;
@@ -47,6 +57,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
         if (_progressResetCancelButton != null)
             _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
+
+        YG2.onPurchaseSuccess -= OnPurchaseSuccess;
     }
 
     protected override void OnInitialize(MenuUiConfig config)
@@ -56,6 +68,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _levelsPanel.Initialize(_config.Saver);
         _settingsPanel.Initialize(_config.Saver);
         _progressResetterPanel.Initialize();
+        _leaderBoardPanel.Initialize();
         _darkBackgroundPanel.Initialize();
 
         _levelsPanelOpenerButton.Initialize();
@@ -64,6 +77,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _settingsPanelCloserButton.Initialize();
         _progressLevelOpenerButton.Initialize();
         _leaderboardOpenerButton.Initialize();
+        _leaderboardCloserButton.Initialize();
+        _noAdsButton.Initialize();
         _progressResetAcceptButton.Initialize();
         _progressResetCancelButton.Initialize();
         _progressResetOpenerButton.Initialize();
@@ -73,10 +88,19 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _levelsPanelCloserButton.Clicked += OnLevelsPanelCloseClicked;
         _settingsPanelOpenerButton.Clicked += OnSettingsPanelOpenClicked;
         _settingsPanelCloserButton.Clicked += OnSettingsPanelCloseClicked;
-        _progressLevelOpenerButton.Clicked += OnProgressLevelOpenerClicked;
+        _progressLevelOpenerButton.Clicked += OnProgressLevelOpenClicked;
+        _leaderboardOpenerButton.Clicked += OnLeaderboardOpenClicked;
+        _leaderboardCloserButton.Clicked += OnLeaderboardCloseClicked;
         _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
         _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
         _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
+
+        YG2.onPurchaseSuccess += OnPurchaseSuccess;
+
+        bool isNoAds = YG2.saves.SavesData.IsNoAds;
+        YG2.StickyAdActivity(isNoAds == false);
+        _noAdsButton.SetActive(isNoAds == false);
+        _noAdsButton.transform.parent.gameObject.SetActive(isNoAds == false);
     }
 
     private void OnLevelsPanelOpenClicked(LevelsPanelOpenerButton _)
@@ -103,12 +127,24 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _settingsPanel.Hide();
     }
 
-    private void OnProgressLevelOpenerClicked(ProgressLevelOpenerButton _)
+    private void OnProgressLevelOpenClicked(ProgressLevelOpenerButton _)
     {
         int levelIndex = _config.Saver.LevelProgress;
         _config.Saver.SetSelectedLevel(levelIndex);
         _config.Saver.Save();
         SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
+    }
+
+    private void OnLeaderboardOpenClicked(LeaderboardOpenerButton _)
+    {
+        _darkBackgroundPanel.Show();
+        _leaderBoardPanel.Show();
+    }
+
+    private void OnLeaderboardCloseClicked(LeaderboardPanelCloserButton _)
+    {
+        _darkBackgroundPanel.Hide();
+        _leaderBoardPanel.Hide();
     }
 
     private void OnProgressResetOpenerClicked(ProgressResetOpenerButton _)
@@ -135,5 +171,17 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _config.Saver.SetSelectedLevel(levelIndex);
         _config.Saver.Save();
         SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
+    }
+
+    private void OnPurchaseSuccess(string id)
+    {
+        if(id == Constants.PurchasingNoAds)
+        {
+            _config.Saver.DisableAds();
+
+            YG2.StickyAdActivity(false);
+            _noAdsButton.SetActive(false);
+            _noAdsButton.transform.parent.gameObject.SetActive(false);
+        }
     }
 }

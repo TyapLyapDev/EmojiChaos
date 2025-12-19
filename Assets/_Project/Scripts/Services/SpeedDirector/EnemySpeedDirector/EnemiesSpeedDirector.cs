@@ -12,6 +12,7 @@ public class EnemiesSpeedDirector : IDisposable
     private readonly List<EnemyMovementInfo> _enemies = new();
     private readonly CompositeDisposable _disposables = new();
     private readonly float _speed;
+    private bool _isPause;
 
     public EnemiesSpeedDirector(EnemySpawner enemySpawner, float speed)
     {
@@ -51,6 +52,12 @@ public class EnemiesSpeedDirector : IDisposable
             AddTo(_disposables);
     }
 
+    public void Pause() =>
+        _isPause = true;
+
+    public void Resume() =>
+        _isPause = false;
+
     private void RegisterEnemy(Enemy enemy)
     {
         if (enemy == null)
@@ -70,6 +77,9 @@ public class EnemiesSpeedDirector : IDisposable
 
     private void UpdateMovement()
     {
+        if (_isPause)
+            return;
+
         float baseDeltaDistance = _speed * Time.deltaTime;
 
         List<EnemyMovementInfo> enemies = _enemies.Where(enemy => enemy != null).ToList();

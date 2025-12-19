@@ -13,6 +13,9 @@ public class Music : InitializingBehaviour
     public void SetMute()
     {
         _isMute = true;
+
+        Debug.Log("SetMute");
+
         _source.Pause();
     }
 
@@ -57,6 +60,9 @@ public class Music : InitializingBehaviour
     {
         _isPause = false;
         _source.UnPause();
+
+        if (_source.isPlaying == false)
+            _source.Play();
     }
 
     protected override void OnInitialize()
