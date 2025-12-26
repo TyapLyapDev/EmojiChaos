@@ -65,28 +65,32 @@ MonoBehaviour:
   - {r: 0.45530656, g: 0.4377358, b: 1, a: 1}
   - {r: 0.9402595, g: 0.4377358, b: 1, a: 1}
   _crowds:
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: c2656db2698699f48a6d9be788c3f917, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.2
     _delayRow: 0.1
     _stepOffset: 0.18
     _id: 0
     _countLines: 5
     _quantity: 5
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 3fb09267ea7fda04380cd1586259a4bd, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.017
     _delayRow: 0.3
     _stepOffset: 0.23
     _id: 1
     _countLines: 3
     _quantity: 15
-  - _spawnOrder: 2
+  - _battleFormationCrowd: {fileID: 11400000, guid: b3924eb79c415c04ea1ebeaf707a23e1, type: 2}
+    _spawnOrder: 2
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 0
     _countLines: 2
     _quantity: 5
-  - _spawnOrder: 2
+  - _battleFormationCrowd: {fileID: 11400000, guid: b3924eb79c415c04ea1ebeaf707a23e1, type: 2}
+    _spawnOrder: 2
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25

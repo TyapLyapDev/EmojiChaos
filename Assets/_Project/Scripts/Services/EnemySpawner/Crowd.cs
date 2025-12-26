@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Crowd
 {
+    [SerializeField] private BattleFormationCrowd _battleFormationCrowd;
     [SerializeField] private SpawnOrderStrategyType _spawnOrder;
 
     [SerializeField, Min(0.0001f)] private float _delayLine;

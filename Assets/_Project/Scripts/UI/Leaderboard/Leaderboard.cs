@@ -71,11 +71,10 @@ public class Leaderboard : InitializingBehaviour
         for (int i = linesToActivate; i < _lines.Length; i++)
             _lines[i].Deactivate();
 
-        _split.SetActive(isPlayerInTop == false);
-
-        if (isPlayerInTop)
+        if (isPlayerInTop || YG2.player.auth == false)
         {
             _lineOutTop.Deactivate();
+            _split.SetActive(false);
         }
         else
         {
@@ -88,6 +87,7 @@ public class Leaderboard : InitializingBehaviour
                 score: player.score,
                 isCurrentPlayer: true);
 
+            _split.SetActive(true);
             _lineOutTop.Activate(config);
         }
     }

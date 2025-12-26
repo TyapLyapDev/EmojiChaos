@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "UI/AnimationStrategy")]
+[CreateAssetMenu(menuName = "Scriptable object/AnimationStrategy")]
 public class UiAnimation : ScriptableObject
 {
     [Header ("Start")]

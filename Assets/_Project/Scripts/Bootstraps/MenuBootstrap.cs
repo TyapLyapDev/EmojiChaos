@@ -14,7 +14,12 @@ public class MenuBootstrap : MonoBehaviour
             new Saver(Utils.CalculateLevelCountInProject())));
 
         Audio.Music.PlayMenu();
-        YG2.OpenAuthDialog();        
+
+        if (YG2.saves.SavesData.ShowedAuthDialog == false)
+        {
+            YG2.OpenAuthDialog();
+            YG2.saves.SavesData.ShowedAuthDialog = true;
+        }
     }
 
     private void ConsumePurchases()
@@ -23,7 +28,7 @@ public class MenuBootstrap : MonoBehaviour
         {
             if (purchase.consumed == false)
             {
-                if(purchase.id == Constants.PurchasingNoAds)
+                if (purchase.id == Constants.PurchasingNoAds)
                 {
                     YG2.saves.SavesData.IsNoAds = true;
                     YG2.ConsumePurchaseByID(purchase.id, true);

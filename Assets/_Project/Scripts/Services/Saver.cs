@@ -21,7 +21,7 @@ public class Saver
         if (totalLevelsCount < 0)
             throw new ArgumentOutOfRangeException(nameof(totalLevelsCount));
 
-        _totalLevelsCount = totalLevelsCount;        
+        _totalLevelsCount = totalLevelsCount;
         EnterMissingData();
     }
 
@@ -35,9 +35,7 @@ public class Saver
 
     public float SfxVolume => Data.SfxVolume;
 
-    public bool CanLoadNextLevel => Data.SelectedLevel < Data.LevelProgress;
-
-    public bool IsNoAds => Data.IsNoAds;
+    public bool NextLevelExists => Data.SelectedLevel + 1 < TotalLevelsCount;
 
     private SavesData Data => YG2.saves.SavesData;
 
@@ -49,7 +47,7 @@ public class Saver
         if (SelectedLevel < LevelProgress)
             return false;
 
-        if (TotalLevelsCount <= LevelProgress + 1)
+        if (TotalLevelsCount <= LevelProgress)
             return false;
 
         Data.LevelProgress++;
@@ -83,7 +81,9 @@ public class Saver
     public void IncreaseScore(int score)
     {
         Data.Score += score;
-        YG2.SetLeaderboard(Constants.LeaderboardTechnoName, Data.Score);
+
+        if (YG2.player.auth)
+            YG2.SetLeaderboard(Constants.LeaderboardTechnoName, Data.Score);
 
         if (LeaderboardYGMediator.Instance != null)
             LeaderboardYGMediator.Instance.RequestAnUpdate();

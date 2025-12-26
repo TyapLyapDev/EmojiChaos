@@ -129,7 +129,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
     private void OnProgressLevelOpenClicked(ProgressLevelOpenerButton _)
     {
-        int levelIndex = _config.Saver.LevelProgress;
+        int levelIndex = Mathf.Min(_config.Saver.LevelProgress, _config.Saver.TotalLevelsCount - 1);
         _config.Saver.SetSelectedLevel(levelIndex);
         _config.Saver.Save();
         SceneLoader.Instance.LoadScene(Constants.LevelSceneName);

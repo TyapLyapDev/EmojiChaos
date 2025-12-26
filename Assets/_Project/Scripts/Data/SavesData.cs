@@ -12,6 +12,7 @@ public class SavesData
     public List<LevelDataInfo> Levels = new();
     public bool IsPurchsingRack = false;
     public bool IsNoAds = false;
+    public bool ShowedAuthDialog = false;
 
     public void Reset()
     {

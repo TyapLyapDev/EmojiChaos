@@ -13,9 +13,6 @@ public class Music : InitializingBehaviour
     public void SetMute()
     {
         _isMute = true;
-
-        Debug.Log("SetMute");
-
         _source.Pause();
     }
 

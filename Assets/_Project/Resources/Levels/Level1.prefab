@@ -65,84 +65,95 @@ MonoBehaviour:
   - {r: 0.45530656, g: 0.4377358, b: 1, a: 1}
   - {r: 0.9402595, g: 0.4377358, b: 1, a: 1}
   _crowds:
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: c2656db2698699f48a6d9be788c3f917, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.2
     _delayRow: 0.1
     _stepOffset: 0.18
     _id: 0
     _countLines: 5
     _quantity: 20
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 34825772f84c3794eac29eb2fd8eab9e, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.017
     _delayRow: 0.3
     _stepOffset: 0.23
     _id: 1
     _countLines: 2
     _quantity: 12
-  - _spawnOrder: 2
+  - _battleFormationCrowd: {fileID: 11400000, guid: 941f4dd37a7864e428bf619535b965fc, type: 2}
+    _spawnOrder: 2
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 2
     _countLines: 3
     _quantity: 21
-  - _spawnOrder: 1
+  - _battleFormationCrowd: {fileID: 11400000, guid: 3104d317c7b1074408c1571b49960306, type: 2}
+    _spawnOrder: 1
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 3
     _countLines: 3
     _quantity: 18
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 3fb09267ea7fda04380cd1586259a4bd, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 0
     _countLines: 3
     _quantity: 24
-  - _spawnOrder: 1
+  - _battleFormationCrowd: {fileID: 11400000, guid: 1d9bf45154f885f4f9f8b3b8c21150fc, type: 2}
+    _spawnOrder: 1
     _delayLine: 0.3
     _delayRow: 0
     _stepOffset: 0.3
     _id: 2
     _countLines: 3
     _quantity: 30
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 1d9bf45154f885f4f9f8b3b8c21150fc, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.3
     _delayRow: 0
     _stepOffset: 0.3
     _id: 1
     _countLines: 3
     _quantity: 12
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 3fb09267ea7fda04380cd1586259a4bd, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 3
     _countLines: 3
     _quantity: 12
-  - _spawnOrder: 2
+  - _battleFormationCrowd: {fileID: 11400000, guid: df75209c0eb95f348b07bc2308c78f4d, type: 2}
+    _spawnOrder: 2
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 1
     _countLines: 4
     _quantity: 16
-  - _spawnOrder: 0
+  - _battleFormationCrowd: {fileID: 11400000, guid: 34825772f84c3794eac29eb2fd8eab9e, type: 2}
+    _spawnOrder: 0
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 0
     _countLines: 2
     _quantity: 16
-  - _spawnOrder: 1
+  - _battleFormationCrowd: {fileID: 11400000, guid: 3104d317c7b1074408c1571b49960306, type: 2}
+    _spawnOrder: 1
     _delayLine: 0.3
     _delayRow: 0.15
     _stepOffset: 0.25
     _id: 2
     _countLines: 3
     _quantity: 9
-  _speed: 0.6
+  _speed: 0.5
   _isRandomSequence: 0
 --- !u!1 &1400056802201101292
 GameObject:
