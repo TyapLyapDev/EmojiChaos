@@ -11,6 +11,7 @@ public class SettingsPanel : PanelBase
     [SerializeField] private SfxMuteButton _sfxMuteButton;
     [SerializeField] private MusicMuteButton _musicMuteButton;
     [SerializeField] private LanguageSwitcher _languageSwitcher;
+    [SerializeField] private TestInUpResetButton _testInUpResetButton;
 
     private Saver _saver;
     private VolumeModifier _musicModifier;
@@ -23,6 +24,9 @@ public class SettingsPanel : PanelBase
 
         if (_closerButton != null)
             _closerButton.Clicked -= OnCloseClicked;
+
+        if (_testInUpResetButton != null)
+            _testInUpResetButton.Clicked -= OnTestInUpResetClicked;
     }
 
     public void Initialize(Saver saver)
@@ -36,8 +40,10 @@ public class SettingsPanel : PanelBase
         InitializeVolumeButtons();
 
         _languageSwitcher.Initialize();
+        _testInUpResetButton.Initialize();
 
         _closerButton.Clicked += OnCloseClicked;
+        _testInUpResetButton.Clicked += OnTestInUpResetClicked;
     }
 
     public void ResetProgress()
@@ -78,4 +84,10 @@ public class SettingsPanel : PanelBase
 
     private void OnCloseClicked(SettingsPanelCloserButton _) =>
         SaveVolumeSettings();
+
+    private void OnTestInUpResetClicked(TestInUpResetButton button)
+    {
+        _saver.ResetInUp();
+        _saver.Save();
+    }
 }

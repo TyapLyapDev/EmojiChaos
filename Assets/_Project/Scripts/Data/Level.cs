@@ -15,8 +15,9 @@ public class Level : InitializingBehaviour
     [SerializeField] private StarBangParticle _starBangParticlePrefab;
     [SerializeField] private HitParticle _hitParticlePrefab;
     [SerializeField] private ParticleSystem _portalParticle;
-    [SerializeField] private List<Color> _colors;
+    [SerializeField] private ColorSet _colorSet;
     [SerializeField] private List<Crowd> _crowds;
+    [SerializeField] private Color _backgroundColor;
     [SerializeField] private float _speed;
     [SerializeField] private bool _isRandomSequence;
 
@@ -45,7 +46,9 @@ public class Level : InitializingBehaviour
 
     public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
 
-    public IReadOnlyList<Color> Colors => GetSafeReference(_colors);
+    public Color BackgroundColor => _backgroundColor;
+
+    public IReadOnlyList<Color> Colors => GetSafeReference(_colorSet.Colors);
 
     public float Speed => GetSafeValue(_speed);
 
@@ -74,8 +77,8 @@ public class Level : InitializingBehaviour
 
         PrepareCrowds();
 
-        if (_colors == null || _colors.Count < _ids.Count)
-            throw new Exception($"–азмер {nameof(_colors)} должен быть не меньше размера {nameof(_ids)}");
+        if (_colorSet.Colors == null || _colorSet.Colors.Count < _ids.Count)
+            throw new Exception($"–азмер {nameof(_colorSet.Colors)} должен быть не меньше размера {nameof(_ids)}");
     }
 
     private List<int> GetIds()

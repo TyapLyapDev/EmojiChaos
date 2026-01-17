@@ -38,6 +38,8 @@ public class LevelBootstrap : MonoBehaviour
 
         GC.Collect();
         Resources.UnloadUnusedAssets();
+
+        Camera.main.backgroundColor = _level.BackgroundColor;
     }
 
     private void RegisterServices()
@@ -140,7 +142,7 @@ public class LevelBootstrap : MonoBehaviour
             _services.Get<Saver>(),
             _services.Get<LevelStatsHandler>()));
     }
-
+        
     private void InitializeTutorial()
     {
         if (_tutorial != null)

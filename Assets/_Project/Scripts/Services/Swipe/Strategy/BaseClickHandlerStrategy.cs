@@ -44,6 +44,9 @@ public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy
 
         foreach (GraphicRaycaster raycaster in _graphicRaycasters)
         {
+            if (raycaster == null)
+                continue;
+
             List<RaycastResult> results = new();
             raycaster.Raycast(eventData, results);
 

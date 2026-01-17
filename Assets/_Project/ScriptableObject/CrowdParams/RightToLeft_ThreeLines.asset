@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RightToLeft_ThreeLines
   m_EditorClassIdentifier: 
   _spawnOrder: 2
-  _delayLine: 0.3
+  _delayLine: 0.2
   _delayRow: 0.15
   _stepOffset: 0.25
   _countLines: 3

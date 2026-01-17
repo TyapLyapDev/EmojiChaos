@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CenterFirst_ThreeLines
   m_EditorClassIdentifier: 
   _spawnOrder: 0
-  _delayLine: 0.017
-  _delayRow: 0.3
-  _stepOffset: 0.23
+  _delayLine: 0.33
+  _delayRow: 0.11
+  _stepOffset: 0.2
   _countLines: 3

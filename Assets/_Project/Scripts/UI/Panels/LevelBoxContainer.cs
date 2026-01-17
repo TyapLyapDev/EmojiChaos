@@ -16,29 +16,52 @@ public class LevelBoxContainer : InitializingWithConfigBehaviour<LevelBoxContain
 
     public event Action<int> ClickLockedLevel;
     public event Action<int> ClickUnlockedLevel;
+    public event Action PageChanged;
+
+    public bool IsFirstPage => _currentPage == 0;
+
+    public bool IsLastPage => _currentPage == MaxPage;
+
+    private int MaxPage => (_config.Saver.TotalLevelsCount - 1) / CellCapacity;
 
     public void ShowCurrentProgressPage()
     {
         _currentLevelProgress = _config.Saver.LevelProgress;
-        _currentPage = (_currentLevelProgress - 1) / CellCapacity;
-        UpdateCountEarnedStars();
+        _currentPage = (Mathf.Min(_currentLevelProgress, _config.Saver.TotalLevelsCount-1)) / CellCapacity;
         ShowPage(_currentPage);
+    }
+
+    public void NextPage()
+    {
+        if (_currentPage < MaxPage)
+        {
+            _currentPage++;
+            ShowPage(_currentPage);
+        }
+    }
+
+    public void PreviousPage()
+    {
+        if (_currentPage > 0)
+        {
+            _currentPage--;
+            ShowPage(_currentPage);
+        }
     }
 
     private void UpdateCountEarnedStars()
     {
         List<int> starsInfo = _config.Saver.GetStarsInfo();
-
         int starsInfoCount = starsInfo.Count;
 
         for (int i = 0; i < CellCapacity; i++)
         {
-            int level = (i + 1) % CellCapacity;
+            int level = _currentPage * CellCapacity + i + 1;
 
-            if (starsInfoCount < level)
-                return;
-
-            _levelBoxes[i].SetCountEarnedStars(starsInfo[level - 1]);
+            if (level - 1 < starsInfoCount && level - 1 >= 0)
+                _levelBoxes[i].SetCountEarnedStars(starsInfo[level - 1]);
+            else
+                _levelBoxes[i].SetCountEarnedStars(0);
         }
     }
 
@@ -67,26 +90,10 @@ public class LevelBoxContainer : InitializingWithConfigBehaviour<LevelBoxContain
 
             levelBox.HideCell();
         }
-    }
 
-    public void NextPage()
-    {
-        int maxPage = (_config.Saver.TotalLevelsCount - 1) / CellCapacity;
+        UpdateCountEarnedStars();
 
-        if (_currentPage < maxPage)
-        {
-            _currentPage++;
-            ShowPage(_currentPage);
-        }
-    }
-
-    public void PreviousPage()
-    {
-        if (_currentPage > 0)
-        {
-            _currentPage--;
-            ShowPage(_currentPage);
-        }
+        PageChanged?.Invoke();
     }
 
     protected override void OnInitialize(LevelBoxContainerConfig config)

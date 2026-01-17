@@ -15,5 +15,5 @@ MonoBehaviour:
   _spawnOrder: 2
   _delayLine: 0.3
   _delayRow: 0.15
-  _stepOffset: 0.25
+  _stepOffset: 0.2
   _countLines: 4

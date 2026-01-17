@@ -5,27 +5,20 @@ using UnityEngine;
 public class Crowd
 {
     [SerializeField] private BattleFormationCrowd _battleFormationCrowd;
-    [SerializeField] private SpawnOrderStrategyType _spawnOrder;
-
-    [SerializeField, Min(0.0001f)] private float _delayLine;
-    [SerializeField, Min(0)] private float _delayRow;
-    [SerializeField, Min(0.0001f)] private float _stepOffset;
-
     [SerializeField] private int _id;
-    [SerializeField, Min(1)] private int _countLines;
     [SerializeField, Min(1)] private int _quantity;
 
-    public SpawnOrderStrategyType SpawnOrder => _spawnOrder;
+    public SpawnOrderStrategyType SpawnOrder => _battleFormationCrowd.SpawnOrder;
 
-    public float DelayLine => _delayLine;
+    public float DelayLine => _battleFormationCrowd.DelayLine;
 
-    public float DelayRow => _delayRow;
+    public float DelayRow => _battleFormationCrowd.DelayRow;
 
-    public float StepOffset => _stepOffset;
+    public float StepOffset => _battleFormationCrowd.StepOffset;
+
+    public int CountLines => _battleFormationCrowd.CountLines;
 
     public int Id => _id;
-
-    public int CountLines => _countLines;
 
     public int Quantity => _quantity;
 }

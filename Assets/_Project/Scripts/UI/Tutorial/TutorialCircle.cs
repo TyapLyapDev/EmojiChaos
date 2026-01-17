@@ -32,6 +32,7 @@ public class TutorialCircle : InitializingBehaviour, IPointerClickHandler
         _parentCanvas = GetComponentInParent<Canvas>();
         _canvasRectTransform = _parentCanvas.GetComponent<RectTransform>();
         _initialSize = _rectTransform.sizeDelta;
+        Hide();
 
         _panelClickHandler.Clicked += OnPanelClicked;
     }

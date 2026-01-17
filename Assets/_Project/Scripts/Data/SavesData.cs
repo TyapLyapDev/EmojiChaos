@@ -13,12 +13,4 @@ public class SavesData
     public bool IsPurchsingRack = false;
     public bool IsNoAds = false;
     public bool ShowedAuthDialog = false;
-
-    public void Reset()
-    {
-        SelectedLevel = 0;
-        LevelProgress = 0;
-        Score = 0;
-        Levels.Clear();
-    }
 }

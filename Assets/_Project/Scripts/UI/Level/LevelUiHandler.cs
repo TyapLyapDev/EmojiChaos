@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
@@ -23,8 +24,10 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
     [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
     [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
+    [SerializeField] private GameSpeedToggleDirector _gameSpeedToggleDirector;
 
     [SerializeField] private SliderInformer _musicSlider;
+    [SerializeField] private LanguageTextWithParam _levelTex;
 
     private LevelUiConfig _config;
     private Tween _delayedCallTween;
@@ -98,6 +101,9 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _progressResetCancelButton.Initialize();
         _progressResetOpenerButton.Initialize();
 
+        _gameSpeedToggleDirector.Initialize(config.PauseSwitcher);
+        _levelTex.SetParam((config.Saver.SelectedLevel+1).ToString());
+
         _config.LevelStatsHandler.Victory += OnVictory;
         _config.LevelStatsHandler.Defeat += OnDefeat;
 
@@ -138,7 +144,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         else
             _nextLevelOpenerButton.Hide();
 
-        _pauseButton.Hide();
+        _gameSpeedToggleDirector.SetActive(false);
 
         _victoryPanel.Activate(
             _config.LevelStatsHandler.Score, 
@@ -152,7 +158,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
 
     private void OnDefeat()
     {
-        _pauseButton.Hide();
+        _gameSpeedToggleDirector.SetActive(false);
         _defeatPanel.Activate(_config.Saver.SelectedLevel);
         ShowPanelAfterDelay(_defeatPanel);
 

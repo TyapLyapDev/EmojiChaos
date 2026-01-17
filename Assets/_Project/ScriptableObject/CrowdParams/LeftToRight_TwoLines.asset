@@ -16,4 +16,4 @@ MonoBehaviour:
   _delayLine: 0.3
   _delayRow: 0.15
   _stepOffset: 0.25
-  _countLines: 3
+  _countLines: 2

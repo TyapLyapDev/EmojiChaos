@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable object/Battle Formation Crowd")]
+[CreateAssetMenu(menuName = "Scriptable object/Battle formation crowd")]
 [Serializable]
 public class BattleFormationCrowd : ScriptableObject
 {

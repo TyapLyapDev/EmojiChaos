@@ -90,6 +90,12 @@ public abstract class ButtonClickHandler<T> : InitializingBehaviour,
         gameObject.SetActive(false);
     }
 
+    public void SetColor(Color color)
+    {
+        _initialColor = color;
+        _image.color = _initialColor;
+    }
+
     protected override void OnInitialize()
     {
         _originalScale = transform.localScale;

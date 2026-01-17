@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using YG;
 
 namespace YG
@@ -100,8 +101,18 @@ public class Saver
 
     public void ResetProgress()
     {
-        Data.Reset();
-        EnterMissingData();
+        Data.SelectedLevel = 0;
+        Data.LevelProgress = 0;
+        Data.Score = 0;
+
+        foreach (LevelDataInfo level in Data.Levels)
+            level.CountStars = 0;
+    }
+
+    public void ResetInUp()
+    {
+        Data.IsPurchsingRack = false;
+        Data.IsNoAds = false;
     }
 
     private void EnterMissingData()

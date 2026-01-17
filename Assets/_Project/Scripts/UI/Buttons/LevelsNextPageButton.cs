@@ -1,0 +1,1 @@
+public class LevelsNextPageButton : ButtonClickHandler<LevelsNextPageButton> { }

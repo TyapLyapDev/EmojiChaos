@@ -1,0 +1,1 @@
+public class TestInUpResetButton : ButtonClickHandler<TestInUpResetButton> { }
