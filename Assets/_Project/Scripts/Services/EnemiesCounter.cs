@@ -26,7 +26,7 @@ public class EnemiesCounter : IDisposable
 
     public void Dispose()
     {
-        if (_isDisposed) 
+        if (_isDisposed)
             return;
 
         Unsubscribe();
@@ -55,19 +55,7 @@ public class EnemiesCounter : IDisposable
         }
     }
 
-    private void OnEnemySpawned(Enemy enemy)
-    {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
-
-        _enemies.Add(enemy);
-        enemy.Deactivated += OnEnemyDeactivated;
-        enemy.Killed += OnEnemyKilled;
-
-        EnemyCountChanged?.Invoke(_enemies.Count);
-    }
-
-    private void OnEnemyDeactivated(Enemy enemy)
+    private void ProcessDiedEnemy(Enemy enemy)
     {
         if (enemy == null)
             throw new ArgumentNullException(nameof(enemy));
@@ -82,6 +70,21 @@ public class EnemiesCounter : IDisposable
             AllEnemiesDefeated?.Invoke();
     }
 
+    private void OnEnemySpawned(Enemy enemy)
+    {
+        if (enemy == null)
+            throw new ArgumentNullException(nameof(enemy));
+
+        _enemies.Add(enemy);
+        enemy.Deactivated += OnEnemyDeactivated;
+        enemy.Killed += OnEnemyKilled;
+
+        EnemyCountChanged?.Invoke(_enemies.Count);
+    }
+
+    private void OnEnemyDeactivated(Enemy enemy) =>
+        ProcessDiedEnemy(enemy);
+
     private void OnSpawnCompleted()
     {
         if (_enemies.Count == 0)
@@ -90,7 +93,11 @@ public class EnemiesCounter : IDisposable
 
     private void OnEnemyKilled(Enemy enemy)
     {
-        enemy.Killed -= OnEnemyKilled;
+        if (enemy == null)
+            throw new ArgumentNullException(nameof(enemy));
+
+        ProcessDiedEnemy(enemy);
+
         Killed?.Invoke(enemy);
     }
 }

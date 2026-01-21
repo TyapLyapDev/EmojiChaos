@@ -22,6 +22,7 @@ public class CarSpeedDirector : IDisposable
             return;
 
         _cars.Add(car);
+        car.EnableSmoke();
 
         if (_cars.Count == 1)
             _updateSubscription = Observable.EveryUpdate().Subscribe(_ => ProcessMovement());
@@ -30,6 +31,7 @@ public class CarSpeedDirector : IDisposable
     public void Unregister(Car car)
     {
         _cars.Remove(car);
+        car.DisableSmoke();
 
         if (_cars.Count == 0)
         {

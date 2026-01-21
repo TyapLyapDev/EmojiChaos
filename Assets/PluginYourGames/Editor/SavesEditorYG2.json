@@ -7,11 +7,11 @@
         false,
         false
     ],
-    "idSave": 1134,
+    "idSave": 1227,
     "SavesData": {
-        "SelectedLevel": 22,
-        "LevelProgress": 23,
-        "Score": 834700,
+        "SelectedLevel": 30,
+        "LevelProgress": 31,
+        "Score": 1483760,
         "MusicVolume": 0.43928730487823489,
         "SfxVolume": 0.5,
         "Levels": [
@@ -83,6 +83,30 @@
             },
             {
                 "CountStars": 2
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
+            },
+            {
+                "CountStars": 3
             }
         ],
         "IsPurchsingRack": false,

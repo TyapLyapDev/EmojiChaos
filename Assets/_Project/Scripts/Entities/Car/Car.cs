@@ -10,11 +10,12 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     [SerializeField] private int _id;
     [SerializeField] private int _bulletCount;
 
-    private CarConfig _config;
+    private AudioSource _roar;
+    private ParticleSystem _smoke;
     private Rack _targetRack;
+    private CarConfig _config;
     private IMovementStrategy _mover;
     private List<SplineSegment> _currentPath;
-    private AudioSource _roar;
 
     public int Id => _id;
 
@@ -59,12 +60,27 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     public void HanleUnavailableStatus() =>
         _visual.ShowUnavailable();
 
+    public void DisableSmoke()
+    {
+        if (_smoke != null)
+            _smoke.gameObject.SetActive(false);
+    }
+
+    public void EnableSmoke()
+    {
+        if (_smoke != null)
+            _smoke.gameObject.SetActive(true);
+    }
+
     protected override void OnInitialize(CarConfig config)
     {
         _config = config;
 
         _visual.Initialize();
         _visual.SetColor(_config.Color);
+
+        _smoke = GetComponentInChildren<ParticleSystem>();
+        DisableSmoke();
     }
 
     private void FindPath(Vector3 hitPoint) =>
@@ -76,6 +92,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         _targetRack = null;
         _config.ParticleShower.ShowHit(hitPoint);
         _mover = null;
+        DisableSmoke();
 
         if (_roar != null)
         {
