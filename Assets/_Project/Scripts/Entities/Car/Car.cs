@@ -23,6 +23,14 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
 
     public Transform Transform => transform;
 
+    public CarVisual Visual => _visual;
+
+    public void SetId(int id) =>
+        _id = id;
+
+    public void SetBulletCount(int count) => 
+        _bulletCount = count;
+
     public void Move(float deltaDistance)
     {
         ValidateInit(nameof(Move));
@@ -57,7 +65,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         return true;
     }
 
-    public void HanleUnavailableStatus() =>
+    public void HandleUnavailableStatus() =>
         _visual.ShowUnavailable();
 
     public void DisableSmoke()
@@ -158,9 +166,9 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         Destroy(gameObject);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-#if UNITY_EDITOR
         Vector3 position = transform.position + Vector3.up * 0.3f + Vector3.forward * -0.14f;
         string text = _id.ToString();
 
@@ -180,6 +188,6 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
         };
 
         UnityEditor.Handles.Label(position, text, style);
-#endif
     }
+#endif
 }

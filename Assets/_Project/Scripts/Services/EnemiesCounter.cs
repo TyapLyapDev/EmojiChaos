@@ -47,12 +47,6 @@ public class EnemiesCounter : IDisposable
             _crowdSpawnCoordinator.EnemySpawned -= OnEnemySpawned;
             _crowdSpawnCoordinator.Completed -= OnSpawnCompleted;
         }
-
-        foreach (Enemy enemy in _enemies)
-        {
-            if (enemy != null)
-                enemy.Deactivated -= OnEnemyDeactivated;
-        }
     }
 
     private void ProcessDiedEnemy(Enemy enemy)
@@ -60,7 +54,6 @@ public class EnemiesCounter : IDisposable
         if (enemy == null)
             throw new ArgumentNullException(nameof(enemy));
 
-        enemy.Deactivated -= OnEnemyDeactivated;
         enemy.Killed -= OnEnemyKilled;
         _enemies.Remove(enemy);
 
@@ -76,14 +69,10 @@ public class EnemiesCounter : IDisposable
             throw new ArgumentNullException(nameof(enemy));
 
         _enemies.Add(enemy);
-        enemy.Deactivated += OnEnemyDeactivated;
         enemy.Killed += OnEnemyKilled;
 
         EnemyCountChanged?.Invoke(_enemies.Count);
     }
-
-    private void OnEnemyDeactivated(Enemy enemy) =>
-        ProcessDiedEnemy(enemy);
 
     private void OnSpawnCompleted()
     {

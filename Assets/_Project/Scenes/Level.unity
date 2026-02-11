@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiHandler: {fileID: 1440693735}
+  _skinReplacer: {fileID: 2080952045}
 --- !u!4 &60367193
 Transform:
   m_ObjectHideFlags: 0
@@ -579,6 +580,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _timeScale: 2
 --- !u!1 &201783739
 GameObject:
@@ -746,6 +748,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!114 &241689761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,18 +991,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c98f6fac44b974e9e94b1c2747eff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0424\u0418\u0410\u0421\u041A\u041E"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _en:
-    _text: DEFEAT
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _tr:
-    _text: "YEN\u0130LG\u0130"
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0424\u0418\u0410\u0421\u041A\u041E"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: DEFEAT
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "YEN\u0130LG\u0130"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
 --- !u!1 &414232999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1381,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!114 &566984575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2394,6 +2399,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!225 &840102481
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2708,18 +2714,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5ba1660962ee74fa652c9381cfb0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _en:
-    _text: Level {0}
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _tr:
-    _text: Seviye {0}
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _en:
+      _text: Level {0}
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _tr:
+      _text: Seviye {0}
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
 --- !u!114 &1013443497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2914,6 +2921,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &1047063654
 GameObject:
   m_ObjectHideFlags: 0
@@ -3048,6 +3056,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!114 &1158210565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3183,6 +3192,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &1216549734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,18 +3624,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c98f6fac44b974e9e94b1c2747eff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u041F\u041E\u0411\u0415\u0414\u0410!"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _en:
-    _text: VICTORY!
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _tr:
-    _text: ZAFER!
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _texts:
+    _ru:
+      _text: "\u041F\u041E\u0411\u0415\u0414\u0410!"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: VICTORY!
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: ZAFER!
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
 --- !u!1001 &1277445447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3878,6 +3889,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &1324592420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,6 +3987,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &1389006216
 GameObject:
   m_ObjectHideFlags: 0
@@ -5039,18 +5052,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5ba1660962ee74fa652c9381cfb0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _en:
-    _text: Level {0}
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _tr:
-    _text: Seviye {0}
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _en:
+      _text: Level {0}
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _tr:
+      _text: Seviye {0}
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
 --- !u!1 &1668519364
 GameObject:
   m_ObjectHideFlags: 0
@@ -5110,6 +5124,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!114 &1668519367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5643,6 +5658,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _timeScale: 4
 --- !u!1 &1823527360
 GameObject:
@@ -5754,6 +5770,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _timeScale: 1
 --- !u!1 &1823656718
 GameObject:
@@ -5902,18 +5919,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5ba1660962ee74fa652c9381cfb0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _en:
-    _text: Level {0}
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _tr:
-    _text: Seviye {0}
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C {0}"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _en:
+      _text: Level {0}
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _tr:
+      _text: Seviye {0}
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
 --- !u!1 &1829270835
 GameObject:
   m_ObjectHideFlags: 0
@@ -6348,6 +6366,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950976419}
   m_CullTransparentMesh: 1
+--- !u!1 &2080952044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080952046}
+  - component: {fileID: 2080952045}
+  m_Layer: 0
+  m_Name: SkinReplacer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2080952045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080952044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a012d690729a242976bb401b3b5f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _littleMiniCarPrefab: {fileID: 4765435798039309615, guid: 0b5b45fb52720484a9974f53aeb21688, type: 3}
+  _littleMiddleCarPrefab: {fileID: 8455835859714948642, guid: df0bc5a80952fcc4c9160dd32e333009, type: 3}
+  _littleMaxCarPrefab: {fileID: 1124522655611318027, guid: bae2c734aa09f1147bd6e7d9f0c37c29, type: 3}
+--- !u!4 &2080952046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080952044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2137539118
 GameObject:
   m_ObjectHideFlags: 0
@@ -6407,6 +6472,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!114 &2137539121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6455,6 +6521,7 @@ SceneRoots:
   - {fileID: 43080555}
   - {fileID: 1829270839}
   - {fileID: 1440693736}
+  - {fileID: 2080952046}
   - {fileID: 943156074}
   - {fileID: 1865097712}
   - {fileID: 328681450}

@@ -25,8 +25,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _GradientRotation: 87
+    - _PixelsPerUnit: 270
     m_Colors:
-    - _Color1: {r: 1, g: 0.9188844, b: 0.59607846, a: 1}
-    - _Color2: {r: 1, g: 0.9548015, b: 0.79811317, a: 1}
+    - _Color1: {r: 0.96476704, g: 1, b: 0.65471697, a: 1}
+    - _Color2: {r: 0.8986223, g: 0.9169811, b: 0.58652186, a: 1}
   m_BuildTextureStacks: []

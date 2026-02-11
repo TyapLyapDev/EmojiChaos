@@ -33,7 +33,7 @@ public class SlotReservator : IDisposable
         }
         else
         {
-            car.HanleUnavailableStatus();
+            car.HandleUnavailableStatus();
             Audio.Sfx.PlayCarCantDrive();
         }
     }

@@ -7,13 +7,13 @@
         false,
         false
     ],
-    "idSave": 1227,
+    "idSave": 1458,
     "SavesData": {
-        "SelectedLevel": 30,
-        "LevelProgress": 31,
-        "Score": 1483760,
-        "MusicVolume": 0.43928730487823489,
-        "SfxVolume": 0.5,
+        "SelectedLevel": 1,
+        "LevelProgress": 36,
+        "Score": 514920,
+        "MusicVolume": 0.29794108867645266,
+        "SfxVolume": 0.5971753001213074,
         "Levels": [
             {
                 "CountStars": 3
@@ -34,46 +34,13 @@
                 "CountStars": 2
             },
             {
-                "CountStars": 3
+                "CountStars": 2
             },
             {
                 "CountStars": 3
             },
             {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
-            },
-            {
-                "CountStars": 3
+                "CountStars": 2
             },
             {
                 "CountStars": 3
@@ -88,7 +55,19 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 3
+                "CountStars": 2
+            },
+            {
+                "CountStars": 1
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 1
             },
             {
                 "CountStars": 3
@@ -97,7 +76,37 @@
                 "CountStars": 3
             },
             {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 1
+            },
+            {
+                "CountStars": 1
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 2
+            },
+            {
+                "CountStars": 1
+            },
+            {
+                "CountStars": 1
+            },
+            {
                 "CountStars": 3
+            },
+            {
+                "CountStars": 2
             },
             {
                 "CountStars": 3
@@ -106,11 +115,39 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 3
+                "CountStars": 1
+            },
+            {
+                "CountStars": 1
+            },
+            {
+                "CountStars": 2
             }
         ],
         "IsPurchsingRack": false,
-        "IsNoAds": false,
-        "ShowedAuthDialog": true
+        "IsNoAds": true,
+        "ShowedAuthDialog": true,
+        "ShopDatas": [
+            {
+                "EntityType": 0,
+                "ButtonTypes": [
+                    1,
+                    0,
+                    0
+                ]
+            },
+            {
+                "EntityType": 1,
+                "ButtonTypes": [
+                    1
+                ]
+            },
+            {
+                "EntityType": 2,
+                "ButtonTypes": [
+                    1
+                ]
+            }
+        ]
     }
 }

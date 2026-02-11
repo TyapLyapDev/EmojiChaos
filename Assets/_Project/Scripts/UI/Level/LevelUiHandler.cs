@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
@@ -27,7 +26,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     [SerializeField] private GameSpeedToggleDirector _gameSpeedToggleDirector;
 
     [SerializeField] private SliderInformer _musicSlider;
-    [SerializeField] private LanguageTextWithParam _levelTex;
+    [SerializeField] private LanguageSwitchHandlerWithParam _levelTex;
 
     private LevelUiConfig _config;
     private Tween _delayedCallTween;
@@ -229,6 +228,8 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _progressResetterPanel.Hide();
         _settingsPanel.Show();
         _settingsPanel.ResetProgress();
+        _config.PauseSwitcher.SetResume();
+        _config.SceneLoader.LoadScene(Constants.MenuSceneName);
     }
 
     private void OnProgresResetCancelClicked(ProgressResetCancelButton _)
@@ -246,14 +247,12 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     private void OnRestartClicked(RestartButton _)
     {
         _config.PauseSwitcher.SetResume();
-
-        SceneLoader.Instance.ReloadCurrentScene();
+        _config.SceneLoader.ReloadCurrentScene();
     }
 
     private void OnExitToMenuClicked(ExitToMenuButton button)
     {
         _config.PauseSwitcher.SetResume();
-
-        SceneLoader.Instance.LoadScene(Constants.MenuSceneName);
+        _config.SceneLoader.LoadScene(Constants.MenuSceneName);
     }
 }

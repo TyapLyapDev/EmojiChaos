@@ -35,7 +35,8 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
         _isFear = false;
         _visual.SetEnjoy();
 
-        Audio.Sfx.PlayStarRelax();
+        if (Audio.Sfx != null)
+            Audio.Sfx.PlayStarRelax();
     }
 
     protected override void OnInitialize(StarConfig config)

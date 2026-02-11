@@ -497,6 +497,19 @@ MonoBehaviour:
     _text: "\u0130lerlemeyi \ns\u0131f\u0131rla"
     _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
     _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \n\u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: "Reset \nProgress"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "\u0130lerlemeyi \ns\u0131f\u0131rla"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
 --- !u!1 &3420239824607200141
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +607,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &4089102734400844913
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +767,19 @@ MonoBehaviour:
     _text: "T\xFCrk"
     _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
     _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _texts:
+    _ru:
+      _text: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: English
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "T\xFCrk"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
 --- !u!1 &4164683734896276921
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +877,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &4413737382181993044
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +975,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _disabledIcon: {fileID: 5944957407354929888}
   _sliderInformer: {fileID: 8758555404893900964}
 --- !u!1 &5230978167463168430
@@ -1121,6 +1150,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &5573826261795527965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1457,19 @@ MonoBehaviour:
     _text: Ayarlar
     _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
     _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+  _texts:
+    _ru:
+      _text: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _en:
+      _text: Settings
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _tr:
+      _text: Ayarlar
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
 --- !u!1 &6408966905260133819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1567,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _disabledIcon: {fileID: 5230978167463168430}
   _sliderInformer: {fileID: 1039603200922359258}
 --- !u!1 &7283539344983102971
@@ -1623,6 +1667,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1 &7295901404596171212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +2297,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
 --- !u!1001 &1652502072788509899
 PrefabInstance:
   m_ObjectHideFlags: 0

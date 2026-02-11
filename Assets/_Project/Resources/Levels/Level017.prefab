@@ -98,7 +98,6 @@ MonoBehaviour:
   _bloodParticlePrefab: {fileID: 685118654415726809, guid: 8521681e053a6ec4d9c04466f019ff9f, type: 3}
   _starBangParticlePrefab: {fileID: 208547737658216714, guid: c3d1e39f9ec87b04aa84bd6a8c7258d7, type: 3}
   _hitParticlePrefab: {fileID: -7902250144798182435, guid: 628edca8b55f2b94ba7552d88fb6b96d, type: 3}
-  _portalParticle: {fileID: 8313678959209326751}
   _colorSet: {fileID: 11400000, guid: 75ac3fab70bb2d24fb9f4d7ae49cbbe2, type: 2}
   _crowds:
   - _battleFormationCrowd: {fileID: 11400000, guid: 34825772f84c3794eac29eb2fd8eab9e, type: 2}
@@ -164,6 +163,8 @@ MonoBehaviour:
   _backgroundColor: {r: 1, g: 0.79607844, b: 0.627451, a: 1}
   _speed: 0.65
   _isRandomSequence: 0
+  _difficulty: 3
+  _preview: {fileID: 21300000, guid: 9619b10fa39948e4ea1fb9bf5f48a088, type: 3}
 --- !u!1 &5157488268460329986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,11 +1080,6 @@ PrefabInstance:
 --- !u!4 &8313678959209326750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9027514048236820042, guid: a8b2268cd0fd6e34bbadb127235ed53b, type: 3}
-  m_PrefabInstance: {fileID: 1020121138468929236}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8313678959209326751 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 9027514048236820043, guid: a8b2268cd0fd6e34bbadb127235ed53b, type: 3}
   m_PrefabInstance: {fileID: 1020121138468929236}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1252420600353009919

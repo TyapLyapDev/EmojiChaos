@@ -14,12 +14,14 @@ public class Level : InitializingBehaviour
     [SerializeField] private BloodParticle _bloodParticlePrefab;
     [SerializeField] private StarBangParticle _starBangParticlePrefab;
     [SerializeField] private HitParticle _hitParticlePrefab;
-    [SerializeField] private ParticleSystem _portalParticle;
     [SerializeField] private ColorSet _colorSet;
     [SerializeField] private List<Crowd> _crowds;
     [SerializeField] private Color _backgroundColor;
     [SerializeField] private float _speed;
     [SerializeField] private bool _isRandomSequence;
+    [SerializeField] private int _difficulty;
+    [SerializeField] private Sprite _preview;
+
 
     private List<Rack> _slots;
     private List<Car> _cars;
@@ -27,6 +29,13 @@ public class Level : InitializingBehaviour
     private List<Star> _stars;
     private List<Crowd> _readyCrowds;
     private List<int> _ids;
+    private Portal _portal;
+
+    public int Difficulty => _difficulty;
+
+    public bool IsRandomSequence => _isRandomSequence;
+
+    public Sprite Preview => _preview;
 
     public SplineContainer EnemySplineContainer => GetSafeReference(_enemySplineContainer.SplineContainer);
 
@@ -42,7 +51,7 @@ public class Level : InitializingBehaviour
 
     public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
 
-    public ParticleSystem PortalParticle => GetSafeReference(_portalParticle);
+    public Portal Portal => GetSafeReference(_portal);
 
     public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
 
@@ -70,6 +79,7 @@ public class Level : InitializingBehaviour
         _cars = GetComponentsInChildren<Car>(true).ToList();
         _guns = GetComponentsInChildren<Gun>(true).ToList();
         _stars = GetComponentsInChildren<Star>(true).ToList();
+        _portal = GetComponentInChildren<Portal>(true);
 
         _enemySplineContainer.Initialize();
         _carSplineContainer.Initialize();

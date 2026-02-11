@@ -17,6 +17,7 @@ public abstract class ButtonClickHandler<T> : InitializingBehaviour,
     [SerializeField] private float _animationExitDuration = 0.25f;
     [SerializeField] private Ease _enterEase = Ease.OutElastic;
     [SerializeField] private Ease _exitEase = Ease.OutBack;
+    [SerializeField] private bool _isPlaySoundPointerDown = true;
 
     private Vector3 _originalScale;
     private Tween _currentTween;
@@ -34,15 +35,6 @@ public abstract class ButtonClickHandler<T> : InitializingBehaviour,
     protected virtual void OnDestroy() =>
         KillTween();
 
-    private void KillTween()
-    {
-        if (_currentTween != null && _currentTween.IsActive())
-        {
-            _currentTween.Kill();
-            _currentTween = null;
-        }
-    }
-
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         ValidateInit(nameof(OnPointerEnter));
@@ -59,7 +51,10 @@ public abstract class ButtonClickHandler<T> : InitializingBehaviour,
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         ValidateInit(nameof(OnPointerDown));
-        Audio.Sfx.PlayPointerDownButton();
+
+        if (_isPlaySoundPointerDown)
+            Audio.Sfx.PlayPointerDownButton();
+
         _image.color = _selectedColor;
         Pressed?.Invoke(Self);
     }
@@ -123,5 +118,14 @@ public abstract class ButtonClickHandler<T> : InitializingBehaviour,
             .SetEase(_exitEase)
             .SetUpdate(true)
             .OnKill(() => _currentTween = null);
+    }
+
+    private void KillTween()
+    {
+        if (_currentTween != null && _currentTween.IsActive())
+        {
+            _currentTween.Kill();
+            _currentTween = null;
+        }
     }
 }

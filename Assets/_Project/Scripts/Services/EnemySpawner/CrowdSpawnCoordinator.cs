@@ -8,13 +8,13 @@ public class CrowdSpawnCoordinator : IDisposable
     private readonly EnemySpawner _enemySpawner;
     private readonly CrowdSequencer _crowdSequencer;
     private readonly MonoBehaviour _runner;
-    private readonly ParticleSystem _portal;
+    private readonly Portal _portal;
 
     private Coroutine _crowdCoroutine;
     private Coroutine _enemySpawningCoroutine;
     private bool _isSpawning;
 
-    public CrowdSpawnCoordinator(MonoBehaviour runner, EnemySpawner enemySpawner, List<Crowd> crowdSequence, ParticleSystem portal)
+    public CrowdSpawnCoordinator(MonoBehaviour runner, EnemySpawner enemySpawner, List<Crowd> crowdSequence, Portal portal)
     {
         _runner = runner != null ? runner : throw new ArgumentNullException(nameof(runner));
         _enemySpawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
@@ -62,7 +62,7 @@ public class CrowdSpawnCoordinator : IDisposable
             yield return _enemySpawningCoroutine = _runner.StartCoroutine(_enemySpawner.SpawnCrowd(crowd));
 
         _isSpawning = false;
-        _portal.Stop();
+        _portal.Hide();
         Completed?.Invoke();
     }
 

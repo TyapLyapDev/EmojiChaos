@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using YG;
 
 public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 {
     [SerializeField] private LevelsPanel _levelsPanel;
+    [SerializeField] private ShopPanel _shopPanel;
     [SerializeField] private SettingsPanel _settingsPanel;
     [SerializeField] private ProgressResetterPanel _progressResetterPanel;
     [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
@@ -11,6 +13,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
     [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
     [SerializeField] private LevelsPanelCloserButton _levelsPanelCloserButton;
+    [SerializeField] private ShopPanelOpenerButton _shopPanelOpenerButton;
+    [SerializeField] private ShopPanelCloserButton _shopPanelCloserButton;
     [SerializeField] private SettingsPanelOpenerButton _settingsPanelOpenerButton;
     [SerializeField] private SettingsPanelCloserButton _settingsPanelCloserButton;
     [SerializeField] private ProgressLevelOpenerButton _progressLevelOpenerButton;
@@ -33,6 +37,12 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
         if (_levelsPanelCloserButton != null)
             _levelsPanelCloserButton.Clicked -= OnLevelsPanelCloseClicked;
+
+        if (_shopPanelOpenerButton != null)
+            _shopPanelOpenerButton.Clicked -= OnShopPanelOpenClicked;
+
+        if (_shopPanelCloserButton != null)
+            _shopPanelCloserButton.Clicked -= OnShopPanelCloseClicked;
 
         if (_settingsPanelOpenerButton != null)
             _settingsPanelOpenerButton.Clicked -= OnSettingsPanelOpenClicked;
@@ -65,7 +75,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     {
         _config = config;
 
-        _levelsPanel.Initialize(_config.Saver);
+        _levelsPanel.Initialize(_config.Saver.LevelProgress, _config.Saver.GetStarInfos());
+        _shopPanel.Initialize(_config.Saver);
         _settingsPanel.Initialize(_config.Saver);
         _progressResetterPanel.Initialize();
         _leaderBoardPanel.Initialize();
@@ -73,6 +84,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
         _levelsPanelOpenerButton.Initialize();
         _levelsPanelCloserButton.Initialize();
+        _shopPanelOpenerButton.Initialize();
+        _shopPanelCloserButton.Initialize();
         _settingsPanelOpenerButton.Initialize();
         _settingsPanelCloserButton.Initialize();
         _progressLevelOpenerButton.Initialize();
@@ -86,6 +99,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _levelsPanel.LevelClicked += OnLevelClicked;
         _levelsPanelOpenerButton.Clicked += OnLevelsPanelOpenClicked;
         _levelsPanelCloserButton.Clicked += OnLevelsPanelCloseClicked;
+        _shopPanelOpenerButton.Clicked += OnShopPanelOpenClicked;
+        _shopPanelCloserButton.Clicked += OnShopPanelCloseClicked;
         _settingsPanelOpenerButton.Clicked += OnSettingsPanelOpenClicked;
         _settingsPanelCloserButton.Clicked += OnSettingsPanelCloseClicked;
         _progressLevelOpenerButton.Clicked += OnProgressLevelOpenClicked;
@@ -112,6 +127,18 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     private void OnLevelsPanelCloseClicked(LevelsPanelCloserButton _)
     {
         _levelsPanel.Hide();
+        _darkBackgroundPanel.Hide();
+    }
+
+    private void OnShopPanelOpenClicked(ShopPanelOpenerButton button)
+    {
+        _shopPanel.Show();
+        _darkBackgroundPanel.Show();
+    }
+
+    private void OnShopPanelCloseClicked(ShopPanelCloserButton button)
+    {
+        _shopPanel.Hide();
         _darkBackgroundPanel.Hide();
     }
 
@@ -158,6 +185,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetterPanel.Hide();
         _settingsPanel.Show();
         _settingsPanel.ResetProgress();
+
+        _config.SceneLoader.LoadScene(Constants.MenuSceneName);
     }
 
     private void OnProgresResetCancelClicked(ProgressResetCancelButton _)

@@ -1,15 +1,18 @@
 public class EnemyMovementInfo
 {
     private readonly Enemy _enemy;
-    private readonly float _forwardDistance;
+    private float _distance;
 
-    public EnemyMovementInfo(Enemy enemy, float forwardDistance)
+    public EnemyMovementInfo(Enemy enemy, float distance)
     {
         _enemy = enemy;
-        _forwardDistance = forwardDistance;
+        _distance = distance;
     }
 
     public Enemy Enemy => _enemy;
 
-    public float RequiredDistance => _forwardDistance;
+    public float Distance => _distance;
+
+    public void SetDistance(float distance) =>
+        _distance = distance;
 }

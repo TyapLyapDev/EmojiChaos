@@ -1,0 +1,1 @@
+public class ShopPanelCloserButton : ButtonClickHandler<ShopPanelCloserButton> { }

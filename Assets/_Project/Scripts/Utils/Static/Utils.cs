@@ -79,4 +79,11 @@ public static class Utils
                Application.platform == RuntimePlatform.Android ||
                Application.platform == RuntimePlatform.IPhonePlayer;
     }
+
+    public static void ClearContent(Transform content)
+    {
+        foreach (Transform child in content)
+            if (child != null)
+                UnityEngine.Object.Destroy(child.gameObject);
+    }
 }

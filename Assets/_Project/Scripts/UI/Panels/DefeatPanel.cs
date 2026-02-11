@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DefeatPanel : PanelBase 
 {
-    [SerializeField] private LanguageTextWithParam _level;
+    [SerializeField] private LanguageSwitchHandlerWithParam _level;
 
     public void Activate(int level) =>
         _level.SetParam((level + 1).ToString());

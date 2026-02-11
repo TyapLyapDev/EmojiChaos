@@ -15,7 +15,7 @@ public class Rack : InitializingBehaviour
     public event Action<Gun> GunInstalled;
 
     public bool IsAvailable => 
-        _gun.IsActiveSelf() == false
+        _gun.IsAvailable
         && _isReserved == false
         && _rackModel.activeSelf;
 
@@ -35,7 +35,7 @@ public class Rack : InitializingBehaviour
     {
         ValidateInit(nameof(TryActivateGun));
 
-        if (_gun.IsActiveSelf() == false && _rackModel.activeSelf == false)
+        if (_gun.IsAvailable == false || _rackModel.activeSelf == false)
             return false;
 
         _gun.Activate(carType, bulletCount, color);

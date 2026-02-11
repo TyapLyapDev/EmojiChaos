@@ -4,7 +4,7 @@ using UnityEngine;
 public class VictoryPanel : PanelBase
 {
     [SerializeField] private LevelScoreDisplay _scoreDisplay;
-    [SerializeField] private LanguageTextWithParam _level;
+    [SerializeField] private LanguageSwitchHandlerWithParam _level;
     [SerializeField] private GameObject[] _stars;
 
     private ScoreAccrualAnimator _scoreAccrualAnimator;

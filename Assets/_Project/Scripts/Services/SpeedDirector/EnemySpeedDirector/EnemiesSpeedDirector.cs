@@ -11,12 +11,14 @@ public class EnemiesSpeedDirector : IDisposable
     private readonly EnemySpawner _spawner;
     private readonly List<EnemyMovementInfo> _enemies = new();
     private readonly CompositeDisposable _disposables = new();
+    private readonly Portal _portal;
     private readonly float _speed;
     private bool _isPause;
 
-    public EnemiesSpeedDirector(EnemySpawner enemySpawner, float speed)
+    public EnemiesSpeedDirector(EnemySpawner enemySpawner, Portal portal, float speed)
     {
         _spawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
+        _portal = portal != null ? portal : throw new ArgumentNullException(nameof(_portal));
 
         if (speed <= 0)
             throw new ArgumentOutOfRangeException(nameof(speed), "Speed must be greater than zero");
@@ -61,17 +63,19 @@ public class EnemiesSpeedDirector : IDisposable
     private void RegisterEnemy(Enemy enemy)
     {
         if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+            throw new ArgumentNullException(nameof(enemy));        
 
-        float forwardDistance;
+        if (_enemies.Count > 0)
+        { 
+            EnemyMovementInfo lastEnemyInfo = _enemies.Last();
+            float distance = CalculateDistance( lastEnemyInfo.Enemy, enemy);
 
-        if (_enemies.Count == 0)
-            forwardDistance = 0;
-        else
-            forwardDistance = CalculateDistance(_enemies.Last().Enemy, enemy);
+            if (lastEnemyInfo.Distance == 0)
+                lastEnemyInfo.SetDistance(distance);
+        }
 
-        EnemyMovementInfo enemyMovementInfo = new(enemy, forwardDistance);
-        _enemies.Add(enemyMovementInfo);
+        EnemyMovementInfo currentEnemytInfo = new(enemy, 0);
+        _enemies.Add(currentEnemytInfo);
         enemy.Killed += OnEnemyKilled;
     }
 
@@ -81,24 +85,21 @@ public class EnemiesSpeedDirector : IDisposable
             return;
 
         float baseDeltaDistance = _speed * Time.deltaTime;
-
         List<EnemyMovementInfo> enemies = _enemies.Where(enemy => enemy != null).ToList();
 
         for (int i = enemies.Count - 1; i >= 0; i--)
         {
             EnemyMovementInfo currentEnemyInfo = enemies[i];
-
-            if (currentEnemyInfo?.Enemy == null)
-                continue;
-
+            Enemy currentEnemy = currentEnemyInfo.Enemy;
             float currentDeltaDistance = baseDeltaDistance;
             int nextEnemyIndex = i + 1;
 
-            if (nextEnemyIndex < enemies.Count && enemies[nextEnemyIndex] != null)
+            if(nextEnemyIndex < enemies.Count)
             {
+                EnemyMovementInfo nextEnemyInfo = enemies[nextEnemyIndex];
                 Enemy nextEnemy = enemies[nextEnemyIndex].Enemy;
-                float actualDistance = CalculateDistance(currentEnemyInfo.Enemy, nextEnemy);
-                float requiredDistance = enemies[nextEnemyIndex].RequiredDistance;
+                float actualDistance = CalculateDistance(currentEnemy, nextEnemy);
+                float requiredDistance = currentEnemyInfo.Distance;
 
                 if (actualDistance > requiredDistance)
                 {
@@ -107,7 +108,7 @@ public class EnemiesSpeedDirector : IDisposable
                 }
             }
 
-            currentEnemyInfo.Enemy.Move(currentDeltaDistance);
+            currentEnemy.Move(currentDeltaDistance);
         }
 
         float firstEnemyProgress = enemies[0].Enemy.Progress;

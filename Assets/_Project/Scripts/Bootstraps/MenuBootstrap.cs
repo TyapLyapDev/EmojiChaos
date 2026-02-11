@@ -11,7 +11,8 @@ public class MenuBootstrap : MonoBehaviour
         ConsumePurchases();
 
         _menuUIHandler.Initialize(new MenuUiConfig(
-            new Saver(Utils.CalculateLevelCountInProject())));
+            new Saver(Utils.CalculateLevelCountInProject()), 
+            SceneLoader.Instance));
 
         Audio.Music.PlayMenu();
 
