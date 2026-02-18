@@ -2,13 +2,15 @@ using System;
 using UnityEngine;
 using YG;
 
-public class Rack : InitializingBehaviour
+public class Rack : InitializingWithConfigBehaviour<RackConfig>
 {
     [SerializeField] private GameObject _rackModel;
     [SerializeField] private GameObject _rackRuins;
+    [SerializeField] private Transform _gunTarget;
     [SerializeField] private AdvertisingButton _advertisingButton;
     [SerializeField] private PurchasingButton _purchasingButton;
-    [SerializeField] private Gun _gun;
+    
+    private Gun _gun;
 
     private bool _isReserved;
 
@@ -45,8 +47,13 @@ public class Rack : InitializingBehaviour
         return true;
     }
 
-    protected override void OnInitialize()
+    protected override void OnInitialize(RackConfig config)
     {
+        _gun = config.Gun;
+        _gun.SetParent(transform);
+        _gun.SetPositionAndRotation(_gunTarget.position, _gunTarget.rotation);
+        _gun.SetActive(false);
+
         _advertisingButton.Initialize();
         _purchasingButton.Initialize();
 
@@ -55,8 +62,6 @@ public class Rack : InitializingBehaviour
             _purchasingButton.SetActive(false);
             SetRack();
         }
-
-        _gun.SetActive(false);
 
         YG2.onRewardAdv += OnRewardAdv;
         YG2.onPurchaseSuccess += OnPurchaseSucces;
@@ -88,4 +93,16 @@ public class Rack : InitializingBehaviour
             YG2.SaveProgress();
         }
     }
+}
+
+public readonly struct RackConfig : IConfig
+{
+    private readonly Gun _gun;
+
+    public RackConfig(Gun gun)
+    {
+        _gun = gun != null ? gun : throw new ArgumentNullException(nameof(gun));
+    }
+
+    public Gun Gun => _gun;
 }

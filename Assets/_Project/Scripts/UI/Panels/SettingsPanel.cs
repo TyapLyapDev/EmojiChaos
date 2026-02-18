@@ -16,6 +16,7 @@ public class SettingsPanel : PanelBase
     private Saver _saver;
     private VolumeModifier _musicModifier;
     private VolumeModifier _sfxModifier;
+    private SceneLoader _sceneLoader;
 
     private void OnDestroy()
     {
@@ -29,11 +30,12 @@ public class SettingsPanel : PanelBase
             _testInUpResetButton.Clicked -= OnTestInUpResetClicked;
     }
 
-    public void Initialize(Saver saver)
+    public void Initialize(Saver saver, SceneLoader sceneLoader)
     {
         Initialize();
 
         _saver = saver ?? throw new ArgumentNullException(nameof(saver));
+        _sceneLoader = sceneLoader != null ? sceneLoader : throw new ArgumentNullException(nameof(sceneLoader));
 
         InitializeVolumeSliders();
         InitializeVolumeModifiers();
@@ -89,5 +91,6 @@ public class SettingsPanel : PanelBase
     {
         _saver.ResetInUp();
         _saver.Save();
+        _sceneLoader.LoadScene(Constants.MenuSceneName);
     }
 }

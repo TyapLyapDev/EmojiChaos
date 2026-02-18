@@ -5,10 +5,12 @@ namespace UI.Shop
 {
     public class CardButtonTypeSwitcher : MonoBehaviour
     {
-        [SerializeField] private Image _image;
-        [SerializeField] private Sprite _opened;
-        [SerializeField] private Sprite _selected;
-        [SerializeField] private Sprite _needViewAds;
+        [SerializeField] private Image _frame;
+        [SerializeField] private Sprite _openedSprite;
+        [SerializeField] private Sprite _selectedSprite;
+        [SerializeField] private Sprite _needAdsSprite;
+        [SerializeField] private GameObject _selectedIcon;
+        [SerializeField] private GameObject _needViewIcon;
 
         public ShopCardItemButtonType Type { get; private set; }
 
@@ -16,15 +18,44 @@ namespace UI.Shop
         {
             Type = type;
 
-            Sprite sprite = type switch
+            switch (type)
             {
-                ShopCardItemButtonType.Opened => _opened,
-                ShopCardItemButtonType.Selected => _selected,
-                ShopCardItemButtonType.NeedViewAds => _needViewAds,
-                _ => throw new System.ArgumentOutOfRangeException()
-            };
+                case ShopCardItemButtonType.Opened:
+                    HideAll();
+                    break;
 
-            _image.sprite = sprite;
+                case ShopCardItemButtonType.Selected:
+                    SetSelected();
+                    break;
+
+                case ShopCardItemButtonType.NeedViewAds:
+                    SetNeedAds();
+                    break;
+
+                default:
+                    throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        private void SetSelected()
+        {
+            _frame.sprite = _selectedSprite;
+            _selectedIcon.SetActive(true);
+            _needViewIcon.SetActive(false);
+        }
+
+        private void SetNeedAds()
+        {
+            _frame.sprite = _needAdsSprite;
+            _selectedIcon.SetActive(false);
+            _needViewIcon.SetActive(true);
+        }
+
+        private void HideAll()
+        {
+            _frame.sprite = _openedSprite;
+            _selectedIcon.SetActive(false);
+            _needViewIcon.SetActive(false);
         }
     }
 }

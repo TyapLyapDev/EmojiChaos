@@ -2,7 +2,7 @@ Authorization v1.022
 GameLabel v1.0
 InterstitialAdv v1.01
 Leaderboards v1.01
-Localization v1.01
+Localization v1.02
 Payments v1.01
 Review v1.0
 RewardedAdv v1.011

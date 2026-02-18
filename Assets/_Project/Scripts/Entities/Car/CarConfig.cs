@@ -3,12 +3,12 @@ using UnityEngine;
 
 public readonly struct CarConfig : IConfig
 {
-    private readonly CarSpeedDirector _speedDirector;
+    private readonly CarMovementDirector _speedDirector;
     private readonly ParticleShower _particleShower;
     private readonly MapSplineNodes _mapSplineNodes;
     private readonly Color _color;
 
-    public CarConfig(CarSpeedDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
+    public CarConfig(CarMovementDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
     {
         _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
         _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
@@ -16,7 +16,7 @@ public readonly struct CarConfig : IConfig
         _color = color;
     }
 
-    public CarSpeedDirector SpeedDirector => _speedDirector;
+    public CarMovementDirector SpeedDirector => _speedDirector;
 
     public ParticleShower ParticleShower => _particleShower;
 

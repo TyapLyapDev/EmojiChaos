@@ -7,7 +7,7 @@ public readonly struct TutorialConfig : IConfig
     private readonly EnemySpawner _enemySpawner;
     private readonly ISwipeStrategy _swipeStrategy;
     private readonly Car _car;
-    private readonly EnemiesSpeedDirector _enemiesSpeedDirector;
+    private readonly EnemiesMovementDirector _enemiesSpeedDirector;
     private readonly Rack[] _racks;
     private readonly Star _star;
 
@@ -16,7 +16,7 @@ public readonly struct TutorialConfig : IConfig
         EnemySpawner enemySpawner, 
         Car car, 
         ISwipeStrategy swipeStrategy, 
-        EnemiesSpeedDirector enemiesSpeedDirector,
+        EnemiesMovementDirector enemiesSpeedDirector,
         Rack[] racks,
         Star star)
     {
@@ -37,7 +37,7 @@ public readonly struct TutorialConfig : IConfig
 
     public ISwipeStrategy SwipeStrategy => _swipeStrategy;
 
-    public EnemiesSpeedDirector EnemiesSpeedDirector => _enemiesSpeedDirector;
+    public EnemiesMovementDirector EnemiesSpeedDirector => _enemiesSpeedDirector;
 
     public Rack[] Racks => _racks;
 

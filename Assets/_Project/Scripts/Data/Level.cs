@@ -8,7 +8,6 @@ public class Level : InitializingBehaviour
 {
     [SerializeField] private EnemySplineContainer _enemySplineContainer;
     [SerializeField] private CarSplineContainer _carSplineContainer;
-    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private SmokeParticle _smokeParticlePrefab;
     [SerializeField] private BloodParticle _bloodParticlePrefab;
@@ -24,8 +23,6 @@ public class Level : InitializingBehaviour
 
 
     private List<Rack> _slots;
-    private List<Car> _cars;
-    private List<Gun> _guns;
     private List<Star> _stars;
     private List<Crowd> _readyCrowds;
     private List<int> _ids;
@@ -40,8 +37,6 @@ public class Level : InitializingBehaviour
     public SplineContainer EnemySplineContainer => GetSafeReference(_enemySplineContainer.SplineContainer);
 
     public SplineContainer CarSplineContainer => GetSafeReference(_carSplineContainer.SplineContainer);
-
-    public Enemy EnemyPrefab => GetSafeReference(_enemyPrefab);
 
     public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
 
@@ -63,10 +58,6 @@ public class Level : InitializingBehaviour
 
     public IReadOnlyList<Rack> Slots => GetSafeReference(_slots);
 
-    public IReadOnlyList<Car> Cars => GetSafeReference(_cars);
-
-    public IReadOnlyList<Gun> Guns => GetSafeReference(_guns);
-
     public IReadOnlyList<Star> Stars => GetSafeReference(_stars);
 
     public IReadOnlyList<Crowd> Crowds => GetSafeReference(_readyCrowds);
@@ -76,8 +67,6 @@ public class Level : InitializingBehaviour
     protected override void OnInitialize()
     {
         _slots = GetComponentsInChildren<Rack>(true).ToList();
-        _cars = GetComponentsInChildren<Car>(true).ToList();
-        _guns = GetComponentsInChildren<Gun>(true).ToList();
         _stars = GetComponentsInChildren<Star>(true).ToList();
         _portal = GetComponentInChildren<Portal>(true);
 

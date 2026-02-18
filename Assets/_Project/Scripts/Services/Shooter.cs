@@ -5,13 +5,13 @@ public class Shooter
 {
     private readonly Pool<Bullet> _bulletPool;
     private readonly EnemyRegistryToAttack _enemyRegistry;
-    private readonly BulletSpeedDirector _bulletSpeedDirector;
+    private readonly BulletMovementDirector _bulletSpeedDirector;
 
     private Transform _bulletStartPosition;
     private int _bulletCount;
     private int _bulletType;
 
-    public Shooter(Pool<Bullet> bulletPool, EnemyRegistryToAttack enemyRegistry, BulletSpeedDirector bulletSpeedDirector)
+    public Shooter(Pool<Bullet> bulletPool, EnemyRegistryToAttack enemyRegistry, BulletMovementDirector bulletSpeedDirector)
     {
         _bulletPool = bulletPool ?? throw new ArgumentNullException(nameof(bulletPool));
         _enemyRegistry = enemyRegistry ?? throw new ArgumentNullException(nameof(enemyRegistry));

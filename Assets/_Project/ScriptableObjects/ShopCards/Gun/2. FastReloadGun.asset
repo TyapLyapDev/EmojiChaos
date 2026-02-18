@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7c9795bb612aa4e9838c5175692ed8, type: 3}
+  m_Name: 2. FastReloadGun
+  m_EditorClassIdentifier: 
+  _type: 2
+  _revardedAdvId: FastReloadGuns
+  _preview: {fileID: 21300000, guid: ef78aa0e52c74044ebb4ff25572ec26e, type: 3}
+  _tittle:
+    _ru:
+      _text: "\u0411\u044B\u0441\u0442\u0440\u0430\u044F \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Fast recharge
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "H\u0131zl\u0131 mermiler"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _description:
+    _ru:
+      _text: "\u041E\u0447\u0435\u043D\u044C \u0431\u044B\u0441\u0442\u0440\u0430\u044F
+        \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430 \u0441\u043D\u0430\u0440\u044F\u0434\u043E\u0432"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Very fast reloading of projectiles
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "Mermilerin \xE7ok h\u0131zl\u0131 yeniden y\xFCklenmesi"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _prefab: {fileID: 7003509550441881520, guid: ddddc1d84fa3a484f8b9040ae4fcb353, type: 3}
+  _bulletSpeed: 5
+  _timeReload: 0.06

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d058eea569849478b735bb79937de3, type: 3}
+  m_Name: 1. LittleCar
+  m_EditorClassIdentifier: 
+  _type: 2
+  _revardedAdvId: SmallCars
+  _preview: {fileID: 21300000, guid: 51c41068f5ac7bc4699661de6face3f9, type: 3}
+  _tittle:
+    _ru:
+      _text: "\u0423\u043C\u0435\u043D\u044C\u0448\u0435\u043D\u043D\u044B\u0435"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Reduced
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "Azalt\u0131lm\u0131\u015F"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _description:
+    _ru:
+      _text: "\u041F\u0440\u043E\u0435\u0434\u0443\u0442 \u0442\u0430\u043C, \u0433\u0434\u0435
+        \u0434\u0440\u0443\u0433\u0438\u0435 \u043D\u0435 \u0441\u043C\u043E\u0433\u0443\u0442"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: They'll go where others can't
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "Ba\u015Fkalar\u0131n\u0131n yapamad\u0131\u011F\u0131 bir yerden ge\xE7ecekler"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _miniCarPrefab: {fileID: 4765435798039309615, guid: 0b5b45fb52720484a9974f53aeb21688, type: 3}
+  _middleCarPrefab: {fileID: 8455835859714948642, guid: df0bc5a80952fcc4c9160dd32e333009, type: 3}
+  _maxCarPrefab: {fileID: 1124522655611318027, guid: bae2c734aa09f1147bd6e7d9f0c37c29, type: 3}
+  _speed: 5

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d058eea569849478b735bb79937de3, type: 3}
+  m_Name: 2. SportCar
+  m_EditorClassIdentifier: 
+  _type: 2
+  _revardedAdvId: SportCars
+  _preview: {fileID: 21300000, guid: 9fbe8404d7b571648b8a4612ed2387a7, type: 3}
+  _tittle:
+    _ru:
+      _text: "\u0421\u043F\u043E\u0440\u0442\u0438\u0432\u043D\u044B\u0435"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Sports
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: Sporlar
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _description:
+    _ru:
+      _text: "\u041F\u0435\u0440\u0435\u0434\u0432\u0438\u0433\u0430\u044E\u0442\u0441\u044F
+        \u0432\u0434\u0432\u043E\u0435 \u0431\u044B\u0441\u0442\u0440\u0435\u0435"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: They move twice as fast
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "\u0130ki kat daha h\u0131zl\u0131 hareket ediyorlar"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _miniCarPrefab: {fileID: 8210384560500119658, guid: 087d10edf6e1bae4e89918aaa7c650a9, type: 3}
+  _middleCarPrefab: {fileID: 8210384560500119658, guid: 1fdfa17ae86dc3b469a41a877b6510d4, type: 3}
+  _maxCarPrefab: {fileID: 8210384560500119658, guid: e0f0281f2723337478f25f0e973f5ffc, type: 3}
+  _speed: 10

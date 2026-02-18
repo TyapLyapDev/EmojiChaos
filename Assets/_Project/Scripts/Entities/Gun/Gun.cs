@@ -1,16 +1,14 @@
 using DG.Tweening;
 using System;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class Gun : InitializingWithConfigBehaviour<GunConfig>
 {
-    private const float HiddingTime = 0.35f;
+    private const float HiddingTime = 0.25f;
 
     [SerializeField] private GunVisual _visual;
     [SerializeField] private Transform _rotatingModel;
     [SerializeField] private Transform _bulletStartPosition;
-    [SerializeField] private float _shotDelay;
 
     private GunConfig _config;
     private Aimer _aim;
@@ -42,18 +40,13 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
         _visual.DisplayBulletCount(bulletCount);
         _aim.ResetRotation();
         gameObject.SetActive(true);
-
+        _runner.StartRunning(_config.TimeReload);
         Audio.Sfx.PlayGunInstalled();
-
-        _runner.StartRunning(_shotDelay);
     }
 
     protected override void OnInitialize(GunConfig config)
     {
         _config = config;
-
-        if (_shotDelay <= 0)
-            throw new ArgumentOutOfRangeException(nameof(_shotDelay), "Значение должно быть больше нуля");
 
         _visual.Initialize();
 

@@ -9,8 +9,8 @@ public class ShifterPlatform : MonoBehaviour
     private Detector _detector;
     private Bubble _bubble;
     private Transform _flipperParent;
-    private List<Car> _carsToShow;
-    private readonly List<Car> _carsEnter = new();
+    private List<Car> _carsToShow = new();
+    private List<Car> _carsEnter = new();
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class ShifterPlatform : MonoBehaviour
 
         yield return null;
 
+        InitCarsToShow();
         ShowNextCar();
     }
 
@@ -47,7 +48,7 @@ public class ShifterPlatform : MonoBehaviour
 
     private void InitCarsToShow()
     {
-        _carsToShow = transform.GetComponentsInChildren<Car>().ToList();
+        _carsToShow = transform.GetComponentsInChildren<Car>(true).ToList();
 
         foreach (Car car in _carsToShow)
             car.SetActive(false);
@@ -55,11 +56,15 @@ public class ShifterPlatform : MonoBehaviour
 
     private void ShowNextCar()
     {
+        _carsToShow = _carsToShow.Where(c => c != null).ToList();
+        _carsEnter = _carsEnter.Where(c => c != null).ToList();
+
         if (_carsEnter.Count != 0 || _carsToShow.Count == 0)
             return;
 
-        Car carToShow = _carsToShow.First();
-        _carsToShow.Remove(carToShow);
+        Car carToShow = _carsToShow[0];
+        _carsToShow.RemoveAt(0);
+
         carToShow.SetParent(_flipperParent);
         carToShow.transform.position = _flipperParent.position;
         carToShow.transform.Rotate(0, 0, 180, Space.World);
@@ -71,8 +76,19 @@ public class ShifterPlatform : MonoBehaviour
     private void OnEnter(Collider collider)
     {
         if (collider.TryGetComponent(out Car car))
+        {
             if (_carsEnter.Contains(car) == false)
+            {
                 _carsEnter.Add(car);
+                car.MarkedReplacement += OnCarReplaced;
+            }
+        }
+    }
+
+    private void OnCarReplaced(Car car)
+    {
+        car.MarkedReplacement -= OnCarReplaced;
+        _carsEnter.Remove(car);
     }
 
     private void OnExit(Collider collider)

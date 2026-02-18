@@ -7,7 +7,7 @@ public class LevelStatsHandler : IDisposable
     private readonly StarsCounter _starsCounter;
     private readonly LevelScore _levelScore;
 
-    public LevelStatsHandler(EnemiesSpeedDirector enemySpeedDirector, 
+    public LevelStatsHandler(EnemiesMovementDirector enemySpeedDirector, 
         StarsCounter starCounter, 
         EnemiesCounter enemiesCounter,
         int level)

@@ -23,6 +23,9 @@ public class Saver
 
         _totalLevelsCount = totalLevelsCount;
         EnterMissingData();
+
+        if(Data.IsNoAds)
+            YG2.StickyAdActivity(false);
     }
 
     public int TotalLevelsCount => _totalLevelsCount;
@@ -99,36 +102,49 @@ public class Saver
 
     public void AddShopCardInfos(ShopCardInfos[] infos)
     {
+        if (infos == null)
+            return;
+
         foreach (ShopCardInfos info in infos)
         {
-            ShopData existingData = Data.ShopDatas.FirstOrDefault(shopData => shopData.EntityType == info.EntityType);
+            if (info == null || info.CardInfos == null)
+                continue;
+
+            ShopData existingData = Data.ShopDatas.FirstOrDefault(
+                shopData => shopData.EntityType == info.EntityType);
+
+            List<ShopCardItemButtonType> newButtonTypes = info.CardInfos
+                .Select(cardInfo => cardInfo.Type)
+                .ToList();
 
             if (existingData == null)
             {
-                List<ShopCardItemButtonType> buttonTypes = info.CardInfos
-                    .Select(shopCardInfo => shopCardInfo.Type)
-                    .ToList();
-
                 ShopData shopData = new()
                 {
                     EntityType = info.EntityType,
-                    ButtonTypes = buttonTypes,
+                    ButtonTypes = newButtonTypes
                 };
 
                 Data.ShopDatas.Add(shopData);
             }
             else
             {
-                existingData.ButtonTypes = info.CardInfos
-                    .Select(shopCardInfo => shopCardInfo.Type)
-                    .ToList();
+                existingData.ButtonTypes ??= new List<ShopCardItemButtonType>();
+
+                foreach (ShopCardItemButtonType buttonType in newButtonTypes)
+                    if (existingData.ButtonTypes.Contains(buttonType) == false)
+                        existingData.ButtonTypes.Add(buttonType);
             }
         }
     }
 
     public void SetShopCards(ShopEntityItemType entityType, IReadOnlyList<ShopCardItemButtonType> buttonTypes)
     {
-        ShopData shopData = Data.ShopDatas.FirstOrDefault(shopData => shopData.EntityType == entityType);
+        if (buttonTypes == null)
+            return;
+
+        ShopData shopData = Data.ShopDatas.FirstOrDefault(
+            shopData => shopData.EntityType == entityType);
 
         if (shopData == null)
         {
@@ -137,6 +153,7 @@ public class Saver
                 EntityType = entityType,
                 ButtonTypes = new List<ShopCardItemButtonType>(buttonTypes)
             };
+
             Data.ShopDatas.Add(shopData);
         }
         else
@@ -147,9 +164,13 @@ public class Saver
 
     public IReadOnlyList<ShopCardItemButtonType> GetShopButtonTypes(ShopEntityItemType entityType)
     {
-        ShopData shopData = Data.ShopDatas.FirstOrDefault(shopData => shopData.EntityType == entityType);
+        ShopData shopData = Data.ShopDatas.FirstOrDefault(
+            shopData => shopData.EntityType == entityType);
 
-        return shopData?.ButtonTypes ?? new List<ShopCardItemButtonType>();
+        if (shopData == null)
+            return Array.Empty<ShopCardItemButtonType>();
+
+        return shopData.ButtonTypes.ToList().AsReadOnly();
     }
 
     public void Save() =>

@@ -2666,7 +2666,7 @@ PrefabInstance:
       objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1417704688046384421, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_Name
-      value: CarMax (2)
+      value: CarMax3
       objectReference: {fileID: 0}
     - target: {fileID: 2450799003983629438, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_LocalScale.x
@@ -3173,7 +3173,7 @@ PrefabInstance:
       objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1417704688046384421, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_Name
-      value: CarMax
+      value: CarMax2
       objectReference: {fileID: 0}
     - target: {fileID: 2450799003983629438, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_LocalScale.x
@@ -3867,7 +3867,7 @@ PrefabInstance:
       objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 1417704688046384421, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_Name
-      value: CarMax (1)
+      value: CarMax
       objectReference: {fileID: 0}
     - target: {fileID: 2450799003983629438, guid: e45f5f1fd1118704d8e1a114c970b372, type: 3}
       propertyPath: m_LocalScale.x

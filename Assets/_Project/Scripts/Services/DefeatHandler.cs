@@ -2,10 +2,10 @@ using System;
 
 public class DefeatHandler : IDisposable
 {
-    private readonly EnemiesSpeedDirector _enemiesSpeedDirector;
+    private readonly EnemiesMovementDirector _enemiesSpeedDirector;
     private readonly StarsCounter _starsCounter;
 
-    public DefeatHandler(EnemiesSpeedDirector enemiesSpeedDirector, StarsCounter starsCounter)
+    public DefeatHandler(EnemiesMovementDirector enemiesSpeedDirector, StarsCounter starsCounter)
     {
         _enemiesSpeedDirector = enemiesSpeedDirector ?? throw new ArgumentNullException(nameof(enemiesSpeedDirector));
         _starsCounter = starsCounter ?? throw new ArgumentNullException(nameof(starsCounter));

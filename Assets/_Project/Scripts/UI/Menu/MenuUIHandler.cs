@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using YG;
 
@@ -77,7 +76,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
         _levelsPanel.Initialize(_config.Saver.LevelProgress, _config.Saver.GetStarInfos());
         _shopPanel.Initialize(_config.Saver);
-        _settingsPanel.Initialize(_config.Saver);
+        _settingsPanel.Initialize(_config.Saver, _config.SceneLoader);
         _progressResetterPanel.Initialize();
         _leaderBoardPanel.Initialize();
         _darkBackgroundPanel.Initialize();

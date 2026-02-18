@@ -17,6 +17,8 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     private IMovementStrategy _mover;
     private List<SplineSegment> _currentPath;
 
+    public event Action<Car> MarkedReplacement;
+
     public int Id => _id;
 
     public int BulletCount => _bulletCount;
@@ -24,6 +26,11 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     public Transform Transform => transform;
 
     public CarVisual Visual => _visual;
+
+    public Color Color => _config.Color;
+
+    public void MarkReplacement() =>
+        MarkedReplacement?.Invoke(this);
 
     public void SetId(int id) =>
         _id = id;
@@ -61,6 +68,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
                 OnRoadForwardDetected);
 
         _roar = Audio.Sfx.PlayCarRoar();
+        EnableSmoke();
 
         return true;
     }

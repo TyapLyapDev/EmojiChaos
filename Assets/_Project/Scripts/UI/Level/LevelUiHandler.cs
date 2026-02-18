@@ -88,7 +88,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _pausePanel.Initialize();
         _victoryPanel.Initialize();
         _defeatPanel.Initialize();
-        _settingsPanel.Initialize(_config.Saver);
+        _settingsPanel.Initialize(_config.Saver, _config.SceneLoader);
         _progressResetterPanel.Initialize();
 
         _pauseButton.Initialize();

@@ -1,11 +1,12 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
 public class LevelBootstrap : MonoBehaviour
 {
     [SerializeField] private LevelUiHandler _uiHandler;
-    [SerializeField] private SkinReplacer _skinReplacer;
+    [SerializeField] private CarSkinReplacer _skinReplacer;
+    [SerializeField] private EnemySelector _enemySelector;
+    [SerializeField] private GunSelector _gunSelector;
 
     private Level _level;
     private Tutorial _tutorial;
@@ -26,8 +27,10 @@ public class LevelBootstrap : MonoBehaviour
     {
         Saver saver = new(Utils.CalculateLevelCountInProject());
         _services.Add(saver);
+
         int levelIndex = saver.SelectedLevel;
-        Level levelPrefab = Resources.LoadAll<Level>(Constants.LevelsPath)[levelIndex];
+        LevelFinder finder = new ();
+        Level levelPrefab = finder.Find(levelIndex);
         Factory<Level> levelFactory = new(levelPrefab);
         _level = levelFactory.Create();
 
@@ -37,17 +40,16 @@ public class LevelBootstrap : MonoBehaviour
             _tutorial = Instantiate(tutorialPrefab);
         }
 
-        GC.Collect();
-        Resources.UnloadUnusedAssets();
-
         Camera.main.backgroundColor = _level.BackgroundColor;
+        _skinReplacer.Init(_level, saver.GetShopButtonTypes(ShopEntityItemType.Cars));
+        _enemySelector.Init(saver.GetShopButtonTypes(ShopEntityItemType.Enemies), _level.Speed);
+        _gunSelector.Init(saver.GetShopButtonTypes(ShopEntityItemType.Guns));
     }
 
     private void RegisterServices()
     {
-        _skinReplacer.ReplaceCarsLittle(new(_level.Cars));
-        _services.Add(new CarSpeedDirector());
-        _services.Add(new BulletSpeedDirector());
+        _services.Add(new CarMovementDirector(_skinReplacer.Speed));
+        _services.Add(new BulletMovementDirector(_gunSelector.BulletSpeed));
         _services.Add(new CameraShaker());
         _services.Add(new PauseSwitcher());
         _services.Add(new CarSwipeStrategy() as ISwipeStrategy);
@@ -64,21 +66,20 @@ public class LevelBootstrap : MonoBehaviour
         _services.Add(poolBuilder.Build(_level.HitParticlePrefab));
 
         _services.Add(new ParticleShower(_services.Get<Pool<SmokeParticle>>(), _services.Get<Pool<BloodParticle>>(), _services.Get<Pool<StarBangParticle>>(), _services.Get<Pool<HitParticle>>()));
-        _services.Add(poolBuilder.Build(_level.EnemyPrefab, new EnemyConfig(_level.EnemySplineContainer, _services.Get<ParticleShower>())));
+        _services.Add(poolBuilder.Build(_enemySelector.Prefab, new EnemyConfig(_level.EnemySplineContainer, _services.Get<ParticleShower>())));
         _services.Add(new StarsCounter(_level.Stars));
         _services.Add(new SlotReservator(_level.Slots, _services.Get<ISwipeStrategy>()));
-        _services.Add(new EnemySpawner(_services.Get<Pool<Enemy>>(), _services.Get<TypeColorRandomizer>(), _level.Speed));
+        _services.Add(new EnemySpawner(_services.Get<Pool<Enemy>>(), _services.Get<TypeColorRandomizer>(), _enemySelector.Speed));
         _services.Add(new CrowdSpawnCoordinator(this, _services.Get<EnemySpawner>(), new(_level.Crowds), _level.Portal));
         _services.Add(new EnemyRegistryToAttack(_services.Get<EnemySpawner>()));
-        _services.Add(new EnemiesSpeedDirector(_services.Get<EnemySpawner>(), _level.Portal, _level.Speed));
+        _services.Add(new EnemiesMovementDirector(_services.Get<EnemySpawner>(), _level.Portal, _enemySelector.Speed));
         _services.Add(new EnemiesCounter(_services.Get<CrowdSpawnCoordinator>()));
-        _services.Add(new CarMovementInitiator(_services.Get<SlotReservator>(), _services.Get<CarSpeedDirector>()));
-        _services.Add(new LevelStatsHandler(_services.Get<EnemiesSpeedDirector>(), _services.Get<StarsCounter>(), _services.Get<EnemiesCounter>(), _services.Get<Saver>().SelectedLevel + 1));
+        _services.Add(new CarMovementInitiator(_services.Get<SlotReservator>(), _services.Get<CarMovementDirector>()));
+        _services.Add(new LevelStatsHandler(_services.Get<EnemiesMovementDirector>(), _services.Get<StarsCounter>(), _services.Get<EnemiesCounter>(), _services.Get<Saver>().SelectedLevel + 1));
     }
 
     private void InitializeComponents()
     {
-        InitializeGuns();
         InitializeSlots();
         InitializeCars();
         InitializeStars();
@@ -88,8 +89,8 @@ public class LevelBootstrap : MonoBehaviour
 
     private void StartRun()
     {
-        _services.Get<BulletSpeedDirector>().Run();
-        _services.Get<EnemiesSpeedDirector>().Run();
+        _services.Get<BulletMovementDirector>().Run();
+        _services.Get<EnemiesMovementDirector>().Run();
         _services.Get<CrowdSpawnCoordinator>().Run();
 
         Audio.Music.PlayLevel();
@@ -97,13 +98,23 @@ public class LevelBootstrap : MonoBehaviour
 
     private void InitializeSlots()
     {
+        Pool<Bullet> bulletPool = _services.Get<Pool<Bullet>>();
+        EnemyRegistryToAttack enemyRegistryToAttack = _services.Get<EnemyRegistryToAttack>();
+        BulletMovementDirector bulletSpeedDirector = _services.Get<BulletMovementDirector>();
+        ParticleShower particleShower = _services.Get<ParticleShower>();
+
         foreach (Rack slot in _level.Slots)
-            slot.Initialize();
+        {
+            Shooter shooter = new(bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
+            Gun gun = Instantiate(_gunSelector.Prefab);
+            gun.Initialize(new GunConfig(shooter, particleShower, _gunSelector.TimeReload));
+            slot.Initialize(new(gun));
+        }
     }
 
     private void InitializeCars()
     {
-        CarSpeedDirector carSpeedDirector = _services.Get<CarSpeedDirector>();
+        CarMovementDirector carSpeedDirector = _services.Get<CarMovementDirector>();
         ParticleShower particleShower = _services.Get<ParticleShower>();
         MapSplineNodes mapSplineNodes = new(_level.CarSplineContainer);
         TypeColorRandomizer colorRandomizer = _services.Get<TypeColorRandomizer>();
@@ -114,23 +125,9 @@ public class LevelBootstrap : MonoBehaviour
                     car.Initialize(new CarConfig(carSpeedDirector, particleShower, mapSplineNodes, color));
     }
 
-    private void InitializeGuns()
-    {
-        Pool<Bullet> bulletPool = _services.Get<Pool<Bullet>>();
-        EnemyRegistryToAttack enemyRegistryToAttack = _services.Get<EnemyRegistryToAttack>();
-        BulletSpeedDirector bulletSpeedDirector = _services.Get<BulletSpeedDirector>();
-        ParticleShower particleShower = _services.Get<ParticleShower>();
-
-        foreach (Gun gun in _level.Guns)
-        {
-            Shooter shooter = new(bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
-            gun.Initialize(new GunConfig(shooter, particleShower));
-        }
-    }
-
     private void InitializeStars()
     {
-        EnemiesSpeedDirector enemySpeedDirector = _services.Get<EnemiesSpeedDirector>();
+        EnemiesMovementDirector enemySpeedDirector = _services.Get<EnemiesMovementDirector>();
         ParticleShower particleShower = _services.Get<ParticleShower>();
         CameraShaker cameraShaker = _services.Get<CameraShaker>();
 
@@ -156,7 +153,7 @@ public class LevelBootstrap : MonoBehaviour
                 _services.Get<EnemySpawner>(),
                 _skinReplacer.Cars[0],
                 _services.Get<ISwipeStrategy>(),
-                _services.Get<EnemiesSpeedDirector>(),
+                _services.Get<EnemiesMovementDirector>(),
                 _level.Slots.ToArray(),
                 _level.Stars.Last()));
 

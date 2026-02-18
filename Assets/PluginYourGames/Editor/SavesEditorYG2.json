@@ -7,11 +7,11 @@
         false,
         false
     ],
-    "idSave": 1458,
+    "idSave": 1642,
     "SavesData": {
         "SelectedLevel": 1,
-        "LevelProgress": 36,
-        "Score": 514920,
+        "LevelProgress": 7,
+        "Score": 27456,
         "MusicVolume": 0.29794108867645266,
         "SfxVolume": 0.5971753001213074,
         "Levels": [
@@ -28,9 +28,6 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 3
-            },
-            {
                 "CountStars": 2
             },
             {
@@ -40,112 +37,121 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
+            },
+            {
+                "CountStars": 0
             }
         ],
         "IsPurchsingRack": false,
-        "IsNoAds": true,
+        "IsNoAds": false,
         "ShowedAuthDialog": true,
         "ShopDatas": [
             {
                 "EntityType": 0,
                 "ButtonTypes": [
-                    1,
                     0,
-                    0
+                    0,
+                    1,
+                    2
                 ]
             },
             {
                 "EntityType": 1,
                 "ButtonTypes": [
-                    1
+                    0,
+                    0,
+                    1,
+                    2
                 ]
             },
             {
                 "EntityType": 2,
                 "ButtonTypes": [
-                    1
+                    0,
+                    1,
+                    2
                 ]
             }
         ]

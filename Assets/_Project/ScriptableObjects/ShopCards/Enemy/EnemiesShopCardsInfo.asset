@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbbca0a032172b4c91685a813c4a29c, type: 3}
+  m_Name: EnemiesShopCardsInfo
+  m_EditorClassIdentifier: 
+  _entityType: 2
+  _tabName:
+    _ru:
+      _text: "\u0413\u043B\u0438\u0442\u0447\u0438"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Glitches
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "Aksakl\u0131k"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _cardInfos:
+  - {fileID: 11400000, guid: d58272e5cd8a7c0499dd8307402e6aca, type: 2}
+  - {fileID: 11400000, guid: d73e7a7c347d7b54499e70fb2ee2d215, type: 2}
