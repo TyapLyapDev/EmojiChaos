@@ -247,6 +247,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
             YG2.StickyAdActivity(false);
             _noAdsButton.SetActive(false);
             _noAdsButton.transform.parent.gameObject.SetActive(false);
+            _shopPanel.DisableAds();
         }
     }
 }

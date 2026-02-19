@@ -18,13 +18,20 @@ namespace UI.Shop
             _saver.Save();
         }
 
-        public bool TryUnlockWithReward(string rewardId)
+        public void DisableAds()
         {
-            foreach (var tabPanel in _tabFactory.TabPanels)
+            foreach (TabPanel tabPanel in _tabFactory.TabPanels)
+                tabPanel.DisableAds();
+        }
+
+        public bool TryUnlockWithReward(string rewardId, bool needSelect)
+        {
+            foreach (TabPanel tabPanel in _tabFactory.TabPanels)
             {
                 if (tabPanel.TryGetCard(rewardId, out Card card))
                 {
-                    SelectCard(tabPanel, card);
+                    if (needSelect)
+                        SelectCard(tabPanel, card);
 
                     return true;
                 }

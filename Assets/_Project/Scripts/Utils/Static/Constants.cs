@@ -12,7 +12,6 @@ public static class Constants
     public const string LangEn = "en";
 
     public const string RewardRack = nameof(RewardRack);
-    public const string PurchasingRack = "OpenRack";
 
 #if UNITY_EDITOR
     public const string LeaderboardTechnoName = "test";    

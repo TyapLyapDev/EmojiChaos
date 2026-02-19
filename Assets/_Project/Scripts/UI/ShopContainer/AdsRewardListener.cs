@@ -25,6 +25,6 @@ namespace UI.Shop
             YG2.onRewardAdv -= OnRewardAdv;
 
         private void OnRewardAdv(string id) =>
-            _cardSelector.TryUnlockWithReward(id);
+            _cardSelector.TryUnlockWithReward(id, true);
     }
 }

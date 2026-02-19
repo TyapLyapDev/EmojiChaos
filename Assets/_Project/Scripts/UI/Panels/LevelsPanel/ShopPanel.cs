@@ -36,6 +36,9 @@ public class ShopPanel : PanelBase
         _saver.AddShopCardInfos(_infos);
     }
 
+    public void DisableAds() =>
+        _cardSelector.DisableAds();
+
     private void OnTabClick(UI.Shop.TabButton tabButton) =>
         _tabFactory.ActivateTab(tabButton);
 

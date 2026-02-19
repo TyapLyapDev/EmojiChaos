@@ -86,7 +86,7 @@ public class Rack : InitializingWithConfigBehaviour<RackConfig>
 
     private void OnPurchaseSucces(string id)
     {
-        if (_purchasingButton.IsActiveSelf() && id == Constants.PurchasingRack)
+        if (_purchasingButton.IsActiveSelf() && id == _purchasingButton.InApp.Id)
         {
             _purchasingButton.SetActive(false);
             SetRack();

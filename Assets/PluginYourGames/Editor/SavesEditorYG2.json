@@ -7,11 +7,11 @@
         false,
         false
     ],
-    "idSave": 1715,
+    "idSave": 1719,
     "SavesData": {
         "SelectedLevel": 4,
-        "LevelProgress": 4,
-        "Score": 10770,
+        "LevelProgress": 5,
+        "Score": 17790,
         "MusicVolume": 0.29794108867645266,
         "SfxVolume": 0.5971753001213074,
         "Levels": [
@@ -28,7 +28,7 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 0
+                "CountStars": 3
             },
             {
                 "CountStars": 0
@@ -125,16 +125,15 @@
             }
         ],
         "IsPurchsingRack": false,
-        "IsNoAds": false,
+        "IsNoAds": true,
         "ShowedAuthDialog": true,
         "ShopDatas": [
             {
                 "EntityType": 0,
                 "ButtonTypes": [
                     0,
-                    1,
                     0,
-                    2
+                    1
                 ]
             },
             {
