@@ -17,6 +17,12 @@ public class ShopPanel : PanelBase
         _adsListener?.Dispose();
     }
 
+    private void OnEnable() =>
+        _adsListener.Subscribe();
+
+    private void OnDisable() =>
+        _adsListener.Unsubscribe();
+
     public void Initialize(Saver saver)
     {
         _saver = saver;

@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable object/Battle formation crowd")]
-[Serializable]
 public class BattleFormationCrowd : ScriptableObject
 {
     [SerializeField] private SpawnOrderStrategyType _spawnOrder;

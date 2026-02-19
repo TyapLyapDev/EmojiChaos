@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     [SerializeField] private DefeatPanel _defeatPanel;
     [SerializeField] private SettingsPanel _settingsPanel;
     [SerializeField] private ProgressResetterPanel _progressResetterPanel;
+    [SerializeField] private PurchasePanel _purchasePanel;
     [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
 
     [SerializeField] private PauseButton _pauseButton;
@@ -24,6 +26,8 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
     [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
     [SerializeField] private GameSpeedToggleDirector _gameSpeedToggleDirector;
+    [SerializeField] private PurchasePanelCloserButton _purchasePanelCloserButton;
+    [SerializeField] private PurchaseApplierButton _purchaseApplierButton;
 
     [SerializeField] private SliderInformer _musicSlider;
     [SerializeField] private LanguageSwitchHandlerWithParam _levelTex;
@@ -65,6 +69,12 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         if (_progressResetCancelButton != null)
             _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
 
+        if (_purchasePanelCloserButton != null)
+            _purchasePanelCloserButton.Clicked -= OnPurchasePanelCloseClicked;
+
+        if (_purchaseApplierButton != null)
+            _purchaseApplierButton.Clicked -= OnPurchaseApplyClicked;
+
         foreach (RestartButton button in _restartButtons)
             if (button != null)
                 button.Clicked -= OnRestartClicked;
@@ -73,7 +83,11 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
             if (button != null)
                 button.Clicked -= OnExitToMenuClicked;
 
-        if(_musicSlider != null)
+        foreach (SlotPurchasingButton button in _config.SlotPurchasingButtons)
+            if (button != null)
+                button.Clicked -= OnSlotPurchasingButtonClicked;
+
+        if (_musicSlider != null)
         {
             _musicSlider.PointerDownPressed -= OnMusicSliderDownPressed;
             _musicSlider.PointerUpPressed -= OnMusicSliderUpPressed;
@@ -90,6 +104,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _defeatPanel.Initialize();
         _settingsPanel.Initialize(_config.Saver, _config.SceneLoader);
         _progressResetterPanel.Initialize();
+        _purchasePanel.Initialize();
 
         _pauseButton.Initialize();
         _resumeButton.Initialize();
@@ -99,9 +114,10 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _progressResetAcceptButton.Initialize();
         _progressResetCancelButton.Initialize();
         _progressResetOpenerButton.Initialize();
+        _purchasePanelCloserButton.Initialize();
 
         _gameSpeedToggleDirector.Initialize(config.PauseSwitcher);
-        _levelTex.SetParam((config.Saver.SelectedLevel+1).ToString());
+        _levelTex.SetParam((config.Saver.SelectedLevel + 1).ToString());
 
         _config.LevelStatsHandler.Victory += OnVictory;
         _config.LevelStatsHandler.Defeat += OnDefeat;
@@ -114,6 +130,8 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
         _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
         _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
+        _purchasePanelCloserButton.Clicked += OnPurchasePanelCloseClicked;
+        _purchaseApplierButton.Clicked += OnPurchaseApplyClicked;
 
         _musicSlider.PointerDownPressed += OnMusicSliderDownPressed;
         _musicSlider.PointerUpPressed += OnMusicSliderUpPressed;
@@ -129,6 +147,9 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
             button.Initialize();
             button.Clicked += OnExitToMenuClicked;
         }
+
+        foreach (SlotPurchasingButton button in _config.SlotPurchasingButtons)
+            button.Clicked += OnSlotPurchasingButtonClicked;
     }
 
     private void OnVictory()
@@ -146,7 +167,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _gameSpeedToggleDirector.SetActive(false);
 
         _victoryPanel.Activate(
-            _config.LevelStatsHandler.Score, 
+            _config.LevelStatsHandler.Score,
             _config.LevelStatsHandler.StarCount,
             _config.Saver.SelectedLevel);
 
@@ -221,6 +242,21 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     {
         _settingsPanel.Hide();
         _progressResetterPanel.Show();
+        _config.PauseSwitcher.SetResume();
+    }
+
+    private void OnPurchasePanelCloseClicked(PurchasePanelCloserButton button)
+    {
+        _purchasePanel.Hide();
+        _darkBackgroundPanel.Hide();
+        _config.PauseSwitcher.SetResume();
+    }
+
+    private void OnPurchaseApplyClicked(PurchaseApplierButton button)
+    {
+        _purchasePanel.Hide();
+        _darkBackgroundPanel.Hide();
+        _config.PauseSwitcher.SetResume();
     }
 
     private void OnProgresResetAcceptClicked(ProgressResetAcceptButton _)
@@ -254,5 +290,13 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     {
         _config.PauseSwitcher.SetResume();
         _config.SceneLoader.LoadScene(Constants.MenuSceneName);
+    }
+
+    private void OnSlotPurchasingButtonClicked(SlotPurchasingButton button)
+    {
+        _purchasePanel.SetInfo(button.InApp);
+        _purchasePanel.Show();
+        _darkBackgroundPanel.Show();
+        _config.PauseSwitcher.SetPause();
     }
 }

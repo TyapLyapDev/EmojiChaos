@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -137,11 +138,14 @@ public class LevelBootstrap : MonoBehaviour
 
     private void InitializeUIHandler()
     {
+        List<SlotPurchasingButton> slotPurchasingButtons = _level.Slots.Select(s => s.SlotPurchasingButton).ToList();
+
         _uiHandler.Initialize(new LevelUiConfig(
             _services.Get<PauseSwitcher>(),
             _services.Get<Saver>(),
             _services.Get<LevelStatsHandler>(),
-            _services.Get<SceneLoader>()));
+            _services.Get<SceneLoader>(),
+            slotPurchasingButtons));
     }
         
     private void InitializeTutorial()
@@ -156,7 +160,6 @@ public class LevelBootstrap : MonoBehaviour
                 _services.Get<EnemiesMovementDirector>(),
                 _level.Slots.ToArray(),
                 _level.Stars.Last()));
-
         }
     }
 }

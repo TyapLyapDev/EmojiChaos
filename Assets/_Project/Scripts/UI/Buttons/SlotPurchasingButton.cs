@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NoAdsButton : ButtonClickHandler<NoAdsButton> 
+public class SlotPurchasingButton : ButtonClickHandler<SlotPurchasingButton>
 {
     [SerializeField] private InApp _inApp;
 

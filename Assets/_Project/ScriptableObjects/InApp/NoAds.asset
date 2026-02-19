@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914526a5633068746a80b93df68122e7, type: 3}
+  m_Name: NoAds
+  m_EditorClassIdentifier: 
+  _preview: {fileID: 21300000, guid: 86a857ac5a0182f4880803e5671d057b, type: 3}
+  _tittle:
+    _ru:
+      _text: "\u041E\u0442\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0440\u0435\u043A\u043B\u0430\u043C\u044B"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _en:
+      _text: Disabling ads
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
+    _tr:
+      _text: "Reklamlar\u0131 devre d\u0131\u015F\u0131 b\u0131rakma"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
+  _description:
+    _ru:
+      _text: "\u041E\u0442\u043A\u043B\u044E\u0447\u0430\u0435\u0442 \u0440\u0435\u043A\u043B\u0430\u043C\u0443
+        \u043C\u0435\u0436\u0434\u0443 \u0443\u0440\u043E\u0432\u043D\u044F\u043C\u0438,
+        \u0432 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0435 \u0441\u043A\u0438\u043D\u043E\u0432,
+        \u0430 \u0442\u0430\u043A \u0436\u0435 \u0431\u0430\u043D\u043D\u0435\u0440\u044B.
+        \u041E\u0441\u0442\u0430\u0451\u0442\u0441\u044F \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C
+        \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0440\u0435\u043A\u043B\u0430\u043C\u0443
+        \u0434\u043B\u044F \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F
+        \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0433\u043E
+        \u0441\u043B\u043E\u0442\u0430 \u043D\u0430 \u0443\u0440\u043E\u0432\u043D\u0435"
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _en:
+      _text: Disables ads between levels, in the skin store, as well as banners.
+        There is still an opportunity to watch an advertisement to get an additional
+        slot at the level
+      _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+      _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
+    _tr:
+      _text: "Seviyeler aras\u0131ndaki reklamlar\u0131, d\u0131\u015F g\xF6r\xFCn\xFCm
+        ma\u011Fazas\u0131ndaki reklamlar\u0131 ve ayr\u0131ca afi\u015Fleri devre
+        d\u0131\u015F\u0131 b\u0131rak\u0131r. Seviyesinde ek bir yuva elde etmek
+        i\xE7in reklamlar\u0131 izlemek m\xFCmk\xFCn olmaya devam ediyor"
+      _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+      _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
+  _id: NoAds
+  _price: 99

@@ -9,9 +9,7 @@ namespace UI.Shop
 
         public AdsRewardListener(CardSelector cardSelector)
         {
-            _cardSelector = cardSelector ?? throw new ArgumentNullException(nameof(cardSelector));
-
-            Subscribe();
+            _cardSelector = cardSelector ?? throw new ArgumentNullException(nameof(cardSelector));            
         }
 
         public void Dispose() =>
@@ -20,10 +18,10 @@ namespace UI.Shop
         public void ShowRewardedAd(string rewardId) =>
             YG2.RewardedAdvShow(rewardId);
 
-        private void Subscribe() => 
+        public void Subscribe() => 
             YG2.onRewardAdv += OnRewardAdv;
 
-        private void Unsubscribe() => 
+        public void Unsubscribe() => 
             YG2.onRewardAdv -= OnRewardAdv;
 
         private void OnRewardAdv(string id) =>

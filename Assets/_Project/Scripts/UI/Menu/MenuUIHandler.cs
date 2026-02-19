@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using YG;
 
@@ -9,6 +10,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     [SerializeField] private ProgressResetterPanel _progressResetterPanel;
     [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
     [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
+    [SerializeField] private PurchasePanel _purchasePanel;
 
     [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
     [SerializeField] private LevelsPanelCloserButton _levelsPanelCloserButton;
@@ -23,6 +25,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
     [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
     [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
+    [SerializeField] private PurchasePanelCloserButton _purchasePanelCloserButton;
+    [SerializeField] private PurchaseApplierButton _purchaseApplierButton;
 
     private MenuUiConfig _config;
 
@@ -67,6 +71,15 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         if (_progressResetCancelButton != null)
             _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
 
+        if (_purchasePanelCloserButton != null)
+            _purchasePanelCloserButton.Clicked -= OnPurchasePanelCloseClicked;
+
+        if (_noAdsButton != null)
+            _noAdsButton.Clicked -= OnNoAdsButtonClicked;
+
+        if (_purchaseApplierButton != null)
+            _purchaseApplierButton.Clicked -= OnPurchaseApplierButtonClicked;
+
         YG2.onPurchaseSuccess -= OnPurchaseSuccess;
     }
 
@@ -80,6 +93,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetterPanel.Initialize();
         _leaderBoardPanel.Initialize();
         _darkBackgroundPanel.Initialize();
+        _purchasePanel.Initialize();
 
         _levelsPanelOpenerButton.Initialize();
         _levelsPanelCloserButton.Initialize();
@@ -94,6 +108,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetAcceptButton.Initialize();
         _progressResetCancelButton.Initialize();
         _progressResetOpenerButton.Initialize();
+        _purchasePanelCloserButton.Initialize();
 
         _levelsPanel.LevelClicked += OnLevelClicked;
         _levelsPanelOpenerButton.Clicked += OnLevelsPanelOpenClicked;
@@ -108,6 +123,9 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
         _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
         _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
+        _noAdsButton.Clicked += OnNoAdsButtonClicked;
+        _purchasePanelCloserButton.Clicked += OnPurchasePanelCloseClicked;
+        _purchaseApplierButton.Clicked += OnPurchaseApplierButtonClicked;
 
         YG2.onPurchaseSuccess += OnPurchaseSuccess;
 
@@ -179,6 +197,25 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetterPanel.Show();
     }
 
+    private void OnNoAdsButtonClicked(NoAdsButton button)
+    {
+        _purchasePanel.SetInfo(button.InApp);
+        _purchasePanel.Show();
+        _darkBackgroundPanel.Show();
+    }
+
+    private void OnPurchasePanelCloseClicked(PurchasePanelCloserButton button)
+    {
+        _purchasePanel.Hide();
+        _darkBackgroundPanel.Hide();
+    }
+
+    private void OnPurchaseApplierButtonClicked(PurchaseApplierButton button)
+    {
+        _purchasePanel.Hide();
+        _darkBackgroundPanel.Hide();
+    }
+
     private void OnProgresResetAcceptClicked(ProgressResetAcceptButton _)
     {
         _progressResetterPanel.Hide();
@@ -203,7 +240,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
 
     private void OnPurchaseSuccess(string id)
     {
-        if(id == Constants.PurchasingNoAds)
+        if(id == _noAdsButton.InApp.Id)
         {
             _config.Saver.DisableAds();
 

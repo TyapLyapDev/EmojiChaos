@@ -8,13 +8,15 @@ public class Rack : InitializingWithConfigBehaviour<RackConfig>
     [SerializeField] private GameObject _rackRuins;
     [SerializeField] private Transform _gunTarget;
     [SerializeField] private AdvertisingButton _advertisingButton;
-    [SerializeField] private PurchasingButton _purchasingButton;
+    [SerializeField] private SlotPurchasingButton _purchasingButton;
     
     private Gun _gun;
 
     private bool _isReserved;
 
     public event Action<Gun> GunInstalled;
+
+    public SlotPurchasingButton SlotPurchasingButton => _purchasingButton;
 
     public bool IsAvailable => 
         _gun.IsAvailable

@@ -54,6 +54,7 @@ MonoBehaviour:
   _enterEase: 24
   _exitEase: 27
   _isPlaySoundPointerDown: 1
+  _inApp: {fileID: 11400000, guid: 53dfb3f3bc5e32c4a876ec5de1702762, type: 2}
 --- !u!1 &1510052241233762379
 GameObject:
   m_ObjectHideFlags: 0

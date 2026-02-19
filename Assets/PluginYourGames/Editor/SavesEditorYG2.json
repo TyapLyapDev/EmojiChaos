@@ -7,11 +7,11 @@
         false,
         false
     ],
-    "idSave": 1642,
+    "idSave": 1715,
     "SavesData": {
-        "SelectedLevel": 1,
-        "LevelProgress": 7,
-        "Score": 27456,
+        "SelectedLevel": 4,
+        "LevelProgress": 4,
+        "Score": 10770,
         "MusicVolume": 0.29794108867645266,
         "SfxVolume": 0.5971753001213074,
         "Levels": [
@@ -28,13 +28,13 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
                 "CountStars": 0
@@ -132,24 +132,22 @@
                 "EntityType": 0,
                 "ButtonTypes": [
                     0,
-                    0,
                     1,
+                    0,
                     2
                 ]
             },
             {
                 "EntityType": 1,
                 "ButtonTypes": [
-                    0,
-                    0,
                     1,
+                    2,
                     2
                 ]
             },
             {
                 "EntityType": 2,
                 "ButtonTypes": [
-                    0,
                     1,
                     2
                 ]

@@ -5,6 +5,8 @@ using YG.Utils.Pay;
 public class MenuBootstrap : MonoBehaviour
 {
     [SerializeField] private MenuUIHandler _menuUIHandler;
+    [SerializeField] private InApp _noAds;
+    [SerializeField] private InApp _additionalSlot;
 
     private void Start()
     {
@@ -29,12 +31,12 @@ public class MenuBootstrap : MonoBehaviour
         {
             if (purchase.consumed == false)
             {
-                if (purchase.id == Constants.PurchasingNoAds)
+                if (purchase.id == _noAds.Id)
                 {
                     YG2.saves.SavesData.IsNoAds = true;
                     YG2.ConsumePurchaseByID(purchase.id, true);
                 }
-                else if (purchase.id == Constants.PurchasingRack)
+                else if (purchase.id == _additionalSlot.Id)
                 {
                     YG2.saves.SavesData.IsPurchsingRack = true;
                     YG2.ConsumePurchaseByID(purchase.id, true);
