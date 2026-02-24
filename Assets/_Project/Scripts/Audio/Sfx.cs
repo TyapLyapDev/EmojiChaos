@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 public class Sfx : InitializingBehaviour
 {
     private const float SlightPitchDeviation = 0.1f;
-    private const float AveragePitchDeviation = 0.2f;
 
     [SerializeField] private AudioMixer _mixer;
 

@@ -94,6 +94,9 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         }
     }
 
+    public void HideGameSpeedButtons() =>
+        _gameSpeedToggleDirector.SetActive(false);
+
     protected override void OnInitialize(LevelUiConfig config)
     {
         _config = config;

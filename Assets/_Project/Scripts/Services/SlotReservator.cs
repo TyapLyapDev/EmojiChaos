@@ -21,6 +21,9 @@ public class SlotReservator : IDisposable
         _carSwipeStrategy.HasSwipe -= OnSwipe;
     }
 
+    public void ReserveSlot(ISwipeable swipeableObject, int direction) =>
+        OnSwipe(swipeableObject, direction);
+
     private void OnSwipe(ISwipeable swipeableObject, int direction)
     {
         if (swipeableObject is Car car == false)

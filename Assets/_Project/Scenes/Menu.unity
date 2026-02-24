@@ -8100,6 +8100,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 5472664885492810639, guid: b82dcc87c6e7a4048934bdc5e97d8c79, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6321192095614707945, guid: b82dcc87c6e7a4048934bdc5e97d8c79, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -8656,6 +8660,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4594496512025797910, guid: 273470523f424394487a4e97df618e21, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 07e7ff6cfdc202e4c96a9bbda0a5223e, type: 3}
     - target: {fileID: 7131487399645286446, guid: 273470523f424394487a4e97df618e21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

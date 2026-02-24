@@ -6,7 +6,7 @@ public class CarSkinReplacer : MonoBehaviour
 {
     [SerializeField] private ShopCardInfos _carInfos;
 
-    private List<Car> _cars = new();
+    private readonly List<Car> _cars = new();
     private float _speed = 5;
 
     public IReadOnlyList<Car> Cars => _cars;

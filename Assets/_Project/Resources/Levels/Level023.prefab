@@ -98,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemySplineContainer: {fileID: 2668539156024226102}
   _carSplineContainer: {fileID: 8728605365224384769}
-  _enemyPrefab: {fileID: 2873215764451281568, guid: aee91eee6396d9244a0ae7e88dea3aeb, type: 3}
   _bulletPrefab: {fileID: 7086859949687490042, guid: 328efea3f1a76b247b75051804b4f81c, type: 3}
   _smokeParticlePrefab: {fileID: 902208274453891297, guid: 39eac083157b80643bd05af231dc3e49, type: 3}
   _bloodParticlePrefab: {fileID: 685118654415726809, guid: 8521681e053a6ec4d9c04466f019ff9f, type: 3}
@@ -325,7 +324,7 @@ MonoBehaviour:
   _backgroundColor: {r: 0.12452829, g: 0.12452829, b: 0.12452829, a: 1}
   _speed: 0.65
   _isRandomSequence: 1
-  _difficulty: 0
+  _difficulty: 3
   _preview: {fileID: 21300000, guid: 2cd02dd3b14165347a4548eb626e9d06, type: 3}
 --- !u!1 &5157488268460329986
 GameObject:
