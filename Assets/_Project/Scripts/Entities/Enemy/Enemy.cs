@@ -1,12 +1,12 @@
 using System;
 using UnityEngine;
 
-public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Enemy>, IHittable
+public class Enemy : InitializingWithConfigBehaviour<EnemyParam>, IPoolable<Enemy>, IHittable
 {
     [SerializeField] private EnemyVisual _visual;
     [SerializeField] private Transform _centerBody;
 
-    private EnemyConfig _config;
+    private EnemyParam _config;
     private EnemyMover _mover;
     private int _id;
     private Color _color;
@@ -80,7 +80,7 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyConfig>, IPoolable<Ene
         Audio.Sfx.PlayEnemyHit();
     }
 
-    protected override void OnInitialize(EnemyConfig config)
+    protected override void OnInitialize(EnemyParam config)
     {
         _config = config;
 

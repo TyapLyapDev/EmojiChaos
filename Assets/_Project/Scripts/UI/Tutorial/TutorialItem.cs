@@ -5,13 +5,13 @@ public abstract class TutorialItem : MonoBehaviour
 {
     public event Action<TutorialItem> Deactivated;
 
-    private TutorialConfig _config;
+    private TutorialParam _config;
 
     protected bool IsActivated { get; private set; }
 
-    protected TutorialConfig Config => _config;
+    protected TutorialParam Config => _config;
 
-    public void Initilize(TutorialConfig config)
+    public void Initilize(TutorialParam config)
     {
         _config = config;
         Hide();

@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using YG;
 
-public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
+public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiParam>
 {
     [SerializeField] private LevelsPanel _levelsPanel;
     [SerializeField] private ShopPanel _shopPanel;
@@ -11,6 +9,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
     [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
     [SerializeField] private PurchasePanel _purchasePanel;
+    [SerializeField] private AuthPanel _authPanel;
 
     [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
     [SerializeField] private LevelsPanelCloserButton _levelsPanelCloserButton;
@@ -27,8 +26,10 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
     [SerializeField] private PurchasePanelCloserButton _purchasePanelCloserButton;
     [SerializeField] private PurchaseApplierButton _purchaseApplierButton;
+    [SerializeField] private AuthPanelCloserButton _authPanelCloserButton;
+    [SerializeField] private AuthButton _authButton;
 
-    private MenuUiConfig _config;
+    private MenuUiParam _config;
 
     private void OnDestroy()
     {
@@ -62,7 +63,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         if (_leaderboardCloserButton != null)
             _leaderboardCloserButton.Clicked -= OnLeaderboardCloseClicked;
 
-        if(_progressResetOpenerButton != null)
+        if (_progressResetOpenerButton != null)
             _progressResetOpenerButton.Clicked -= OnProgressResetOpenerClicked;
 
         if (_progressResetAcceptButton != null)
@@ -80,10 +81,16 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         if (_purchaseApplierButton != null)
             _purchaseApplierButton.Clicked -= OnPurchaseApplierButtonClicked;
 
-        YG2.onPurchaseSuccess -= OnPurchaseSuccess;
+        if (_authPanelCloserButton != null)
+            _authPanelCloserButton.Clicked -= OnAuthPanelCloseButtonClicked;
+
+        if (_authButton != null)
+            _authButton.Clicked -= OnAuthButtonClicked;
+
+        YandexGameConnector.SuccessPurchased -= OnPurchaseSuccess;
     }
 
-    protected override void OnInitialize(MenuUiConfig config)
+    protected override void OnInitialize(MenuUiParam config)
     {
         _config = config;
 
@@ -94,6 +101,7 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _leaderBoardPanel.Initialize();
         _darkBackgroundPanel.Initialize();
         _purchasePanel.Initialize();
+        _authPanel.Initialize();
 
         _levelsPanelOpenerButton.Initialize();
         _levelsPanelCloserButton.Initialize();
@@ -109,6 +117,8 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _progressResetCancelButton.Initialize();
         _progressResetOpenerButton.Initialize();
         _purchasePanelCloserButton.Initialize();
+        _authPanelCloserButton.Initialize();
+        _authButton.Initialize();
 
         _levelsPanel.LevelClicked += OnLevelClicked;
         _levelsPanelOpenerButton.Clicked += OnLevelsPanelOpenClicked;
@@ -126,11 +136,13 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _noAdsButton.Clicked += OnNoAdsButtonClicked;
         _purchasePanelCloserButton.Clicked += OnPurchasePanelCloseClicked;
         _purchaseApplierButton.Clicked += OnPurchaseApplierButtonClicked;
+        _authPanelCloserButton.Clicked += OnAuthPanelCloseButtonClicked;
+        _authButton.Clicked += OnAuthButtonClicked;
 
-        YG2.onPurchaseSuccess += OnPurchaseSuccess;
+        YandexGameConnector.SuccessPurchased += OnPurchaseSuccess;
 
-        bool isNoAds = YG2.saves.SavesData.IsNoAds;
-        YG2.StickyAdActivity(isNoAds == false);
+        bool isNoAds = _config.Saver.IsNoAds;
+        YandexGameConnector.StickyAdActivity(isNoAds == false);
         _noAdsButton.SetActive(isNoAds == false);
         _noAdsButton.transform.parent.gameObject.SetActive(isNoAds == false);
     }
@@ -176,6 +188,10 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         int levelIndex = Mathf.Min(_config.Saver.LevelProgress, _config.Saver.TotalLevelsCount - 1);
         _config.Saver.SetSelectedLevel(levelIndex);
         _config.Saver.Save();
+
+        if (_config.Saver.IsNoAds == false)
+            YandexGameConnector.InterstitialAdvShow();
+
         SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
     }
 
@@ -183,6 +199,9 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     {
         _darkBackgroundPanel.Show();
         _leaderBoardPanel.Show();
+
+        if (YandexGameConnector.IsAuthorized == false)
+            _authPanel.Show();
     }
 
     private void OnLeaderboardCloseClicked(LeaderboardPanelCloserButton _)
@@ -210,6 +229,17 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
         _darkBackgroundPanel.Hide();
     }
 
+    private void OnAuthPanelCloseButtonClicked(AuthPanelCloserButton button)
+    {
+        _authPanel.Hide();
+    }
+
+    private void OnAuthButtonClicked(AuthButton button)
+    {
+        _authPanel.Hide();
+        YandexGameConnector.OpenAuthDialog();
+    }
+
     private void OnPurchaseApplierButtonClicked(PurchaseApplierButton button)
     {
         _purchasePanel.Hide();
@@ -235,16 +265,20 @@ public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiConfig>
     {
         _config.Saver.SetSelectedLevel(levelIndex);
         _config.Saver.Save();
+
+        if (_config.Saver.IsNoAds == false)
+            YandexGameConnector.InterstitialAdvShow();
+
         SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
     }
 
     private void OnPurchaseSuccess(string id)
     {
-        if(id == _noAdsButton.InApp.Id)
+        if (id == _noAdsButton.InApp.Id)
         {
             _config.Saver.DisableAds();
 
-            YG2.StickyAdActivity(false);
+            YandexGameConnector.StickyAdActivity(false);
             _noAdsButton.SetActive(false);
             _noAdsButton.transform.parent.gameObject.SetActive(false);
             _shopPanel.DisableAds();

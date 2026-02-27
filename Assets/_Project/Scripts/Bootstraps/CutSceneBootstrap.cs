@@ -62,7 +62,7 @@ public class CutSceneBootstrap : MonoBehaviour
         _services.Add(poolBuilder.Build(_level.HitParticlePrefab));
 
         _services.Add(new ParticleShower(_services.Get<Pool<SmokeParticle>>(), _services.Get<Pool<BloodParticle>>(), _services.Get<Pool<StarBangParticle>>(), _services.Get<Pool<HitParticle>>()));
-        _services.Add(poolBuilder.Build(_enemySelector.Prefab, new EnemyConfig(_level.EnemySplineContainer, _services.Get<ParticleShower>())));
+        _services.Add(poolBuilder.Build(_enemySelector.Prefab, new EnemyParam(_level.EnemySplineContainer, _services.Get<ParticleShower>())));
         _services.Add(new StarsCounter(_level.Stars));
         _services.Add(new SlotReservator(_level.Slots, _services.Get<ISwipeStrategy>()));
         _services.Add(new EnemySpawner(_services.Get<Pool<Enemy>>(), _services.Get<TypeColorRandomizer>(), _enemySelector.Speed));
@@ -96,13 +96,14 @@ public class CutSceneBootstrap : MonoBehaviour
         EnemyRegistryToAttack enemyRegistryToAttack = _services.Get<EnemyRegistryToAttack>();
         BulletMovementDirector bulletSpeedDirector = _services.Get<BulletMovementDirector>();
         ParticleShower particleShower = _services.Get<ParticleShower>();
+        Saver saver = _services.Get<Saver>();
 
         foreach (Rack slot in _level.Slots)
         {
             Shooter shooter = new(bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
             Gun gun = Instantiate(_gunSelector.Prefab);
-            gun.Initialize(new GunConfig(shooter, particleShower, _gunSelector.TimeReload));
-            slot.Initialize(new(gun));
+            gun.Initialize(new GunParam(shooter, particleShower, _gunSelector.TimeReload));
+            slot.Initialize(new(gun, saver));
         }
     }
 
@@ -118,7 +119,7 @@ public class CutSceneBootstrap : MonoBehaviour
         foreach (Car car in cars)
             if (car != null)
                 if (colorRandomizer.TryGetColor(car.Id, out Color color))
-                    car.Initialize(new CarConfig(carSpeedDirector, particleShower, mapSplineNodes, color));
+                    car.Initialize(new CarInfo(carSpeedDirector, particleShower, mapSplineNodes, color));
     }
 
     private void InitializeStars()
@@ -128,14 +129,14 @@ public class CutSceneBootstrap : MonoBehaviour
         CameraShaker cameraShaker = _services.Get<CameraShaker>();
 
         foreach (Star star in _level.Stars)
-            star.Initialize(new StarConfig(enemySpeedDirector, particleShower, cameraShaker));
+            star.Initialize(new StarParam(enemySpeedDirector, particleShower, cameraShaker));
     }
 
     private void InitializeUIHandler()
     {
         List<SlotPurchasingButton> slotPurchasingButtons = _level.Slots.Select(s => s.SlotPurchasingButton).ToList();
 
-        _uiHandler.Initialize(new LevelUiConfig(
+        _uiHandler.Initialize(new LevelUiParam(
             _services.Get<PauseSwitcher>(),
             _services.Get<Saver>(),
             _services.Get<LevelStatsHandler>(),

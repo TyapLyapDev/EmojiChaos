@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using YG;
 using YG.Utils.LB;
 
 public class LeaderboardYGMediator : MonoBehaviour
@@ -44,18 +43,18 @@ public class LeaderboardYGMediator : MonoBehaviour
 
     private void OnEnable()
     {
-        YG2.onGetLeaderboard += OnUpdateLeaderboard;
-        YG2.onGetSDKData += OnGetSDKData;
+        YandexGameConnector.GettedLeaderboard += OnUpdateLeaderboard;
+        YandexGameConnector.GettedSDKData += OnGetSDKData;
     }
 
     private void OnDisable()
     {
-        YG2.onGetLeaderboard -= OnUpdateLeaderboard;
-        YG2.onGetSDKData -= OnGetSDKData;
+        YandexGameConnector.GettedLeaderboard -= OnUpdateLeaderboard;
+        YandexGameConnector.GettedSDKData -= OnGetSDKData;
     }
 
     public void RequestAnUpdate() =>
-        YG2.GetLeaderboard(Constants.LeaderboardTechnoName, QuantityTop, 0, PhotoSize);
+        YandexGameConnector.GetLeaderboard(Constants.LeaderboardTechnoName, QuantityTop, 0, PhotoSize);
 
     public bool TryGetAvatar(string uniqueId, out AvatarInfo avatarInfo)
     {
@@ -109,11 +108,14 @@ public class LeaderboardYGMediator : MonoBehaviour
         foreach (LBPlayerData player in data.players)
             StartCoroutine(LoadAvatarCoroutine(player.photo, player.uniqueID));
 
-        StartCoroutine(LoadAvatarCoroutine(YG2.player.photo, YG2.player.id));
+        StartCoroutine(LoadAvatarCoroutine(YandexGameConnector.PlayerPhoto, YandexGameConnector.PlayerId));
 
         DataUpdated?.Invoke(_data);
     }
 
-    private void OnGetSDKData() =>
-        YG2.SetLeaderboard(Constants.LeaderboardTechnoName, YG2.saves.SavesData.Score);
+    private void OnGetSDKData()
+    {
+        if (YandexGameConnector.IsPlayerAuth)
+            YandexGameConnector.SetLeaderboard(Constants.LeaderboardTechnoName);
+    }
 }

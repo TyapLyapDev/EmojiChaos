@@ -1,12 +1,12 @@
 using System;
 using UnityEngine.Splines;
 
-public readonly struct EnemyConfig : IConfig
+public readonly struct EnemyParam : IParam
 {
     private readonly SplineContainer _splineContainer;
     private readonly ParticleShower _particleShower;
 
-    public EnemyConfig(SplineContainer splineContainer, ParticleShower particleShower)
+    public EnemyParam(SplineContainer splineContainer, ParticleShower particleShower)
     {
         _splineContainer = splineContainer != null ? splineContainer : throw new ArgumentNullException(nameof(splineContainer));
         _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));

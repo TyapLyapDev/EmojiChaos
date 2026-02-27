@@ -1,12 +1,12 @@
 using System;
 
-public readonly struct StarConfig : IConfig
+public readonly struct StarParam : IParam
 {
     private readonly EnemiesMovementDirector _enemySpeedDirector;
     private readonly ParticleShower _particleShower;
     private readonly CameraShaker _cameraShaker;
 
-    public StarConfig(EnemiesMovementDirector enemySpeedDirector, ParticleShower particleShower, CameraShaker cameraShaker)
+    public StarParam(EnemiesMovementDirector enemySpeedDirector, ParticleShower particleShower, CameraShaker cameraShaker)
     {
         _enemySpeedDirector = enemySpeedDirector != null ? enemySpeedDirector : throw new ArgumentNullException(nameof(enemySpeedDirector));
         _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));

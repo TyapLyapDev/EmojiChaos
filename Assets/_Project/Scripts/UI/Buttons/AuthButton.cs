@@ -1,0 +1,1 @@
+public class AuthButton : ButtonClickHandler<AuthButton> { }

@@ -1,9 +1,8 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
+public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiParam>
 {
     private const float DelayAfterGameOver = 1.5f;
 
@@ -32,7 +31,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     [SerializeField] private SliderInformer _musicSlider;
     [SerializeField] private LanguageSwitchHandlerWithParam _levelTex;
 
-    private LevelUiConfig _config;
+    private LevelUiParam _config;
     private Tween _delayedCallTween;
 
     private void OnDestroy()
@@ -97,7 +96,7 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     public void HideGameSpeedButtons() =>
         _gameSpeedToggleDirector.SetActive(false);
 
-    protected override void OnInitialize(LevelUiConfig config)
+    protected override void OnInitialize(LevelUiParam config)
     {
         _config = config;
 
@@ -226,6 +225,9 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
         _config.Saver.SetSelectedLevel(levelIndex + 1);
         _config.Saver.Save();
 
+        if (_config.Saver.IsNoAds == false)
+            YandexGameConnector.InterstitialAdvShow();
+
         SceneLoader.Instance.ReloadCurrentScene();
     }
 
@@ -287,12 +289,21 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiConfig>
     {
         _config.PauseSwitcher.SetResume();
         _config.SceneLoader.ReloadCurrentScene();
+
+        if (_config.Saver.IsNoAds == false)
+            YandexGameConnector.InterstitialAdvShow();
     }
 
     private void OnExitToMenuClicked(ExitToMenuButton button)
     {
         _config.PauseSwitcher.SetResume();
         _config.SceneLoader.LoadScene(Constants.MenuSceneName);
+
+        if (_config.Saver.LevelProgress >= 15)
+            YandexGameConnector.ReviewShow();
+
+        if (_config.Saver.LevelProgress >= 20)
+            YandexGameConnector.GameLabelShowDialog();
     }
 
     private void OnSlotPurchasingButtonClicked(SlotPurchasingButton button)

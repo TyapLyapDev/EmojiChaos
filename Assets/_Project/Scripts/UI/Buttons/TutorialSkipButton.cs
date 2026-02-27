@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TutorialSkipButton: ButtonClickHandler<TutorialSkipButton>
 {
-    [SerializeField] private Tutorial _tutoril;
+    [SerializeField] private Tutorial _tutorial;
 
     private void Awake() =>
         Initialize();
@@ -10,6 +10,6 @@ public class TutorialSkipButton: ButtonClickHandler<TutorialSkipButton>
     protected override void OnClick()
     {
         base.OnClick();
-        _tutoril.Complete();
+        _tutorial.Complete();
     }
 }

@@ -485,18 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c98f6fac44b974e9e94b1c2747eff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \n\u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _en:
-    _text: "Reset \nProgress"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _tr:
-    _text: "\u0130lerlemeyi \ns\u0131f\u0131rla"
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
   _texts:
     _ru:
       _text: "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C \n\u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441"
@@ -755,18 +743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c98f6fac44b974e9e94b1c2747eff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _en:
-    _text: English
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: 2100000, guid: 2f7a6e90a6a43974794d8c839b6d4f58, type: 2}
-  _tr:
-    _text: "T\xFCrk"
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2100000, guid: 6200db27f165a794ab46acdb4235cd7d, type: 2}
   _texts:
     _ru:
       _text: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
@@ -1066,12 +1042,12 @@ GameObject:
   - component: {fileID: 9188397448455256460}
   - component: {fileID: 6654912355467503934}
   m_Layer: 5
-  m_Name: InUpResetOpenerButton (1)
+  m_Name: TestInUpResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5618223060917381457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1445,18 +1421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c98f6fac44b974e9e94b1c2747eff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ru:
-    _text: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _en:
-    _text: Settings
-    _font: {fileID: 11400000, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-    _preset: {fileID: -7514263122506082301, guid: 31c31ab8979ecd840aaaf53008bc462d, type: 2}
-  _tr:
-    _text: Ayarlar
-    _font: {fileID: 11400000, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
-    _preset: {fileID: 2139366212490061012, guid: 9d97dc1e7d40b4547a8bcb4b083c0c63, type: 2}
   _texts:
     _ru:
       _text: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
@@ -2061,8 +2025,8 @@ RectTransform:
   m_GameObject: {fileID: 8120688584489483283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 602593216494702714}
   m_Father: {fileID: 0}

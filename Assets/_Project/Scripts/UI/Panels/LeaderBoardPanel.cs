@@ -9,10 +9,4 @@ public class LeaderBoardPanel : PanelBase
         base.OnInitialize();
         _leaderboard.Initialize();
     }
-
-    protected override void OnShow()
-    {
-        base.OnShow();
-        _leaderboard.Activate();
-    }
 }

@@ -1,32 +1,34 @@
 using System;
 using UnityEngine;
-using YG;
 
-public class Rack : InitializingWithConfigBehaviour<RackConfig>
+public class Rack : InitializingWithConfigBehaviour<RackParam>
 {
     [SerializeField] private GameObject _rackModel;
     [SerializeField] private GameObject _rackRuins;
     [SerializeField] private Transform _gunTarget;
     [SerializeField] private AdvertisingButton _advertisingButton;
     [SerializeField] private SlotPurchasingButton _purchasingButton;
-    
-    private Gun _gun;
 
+    private Gun _gun;
+    private RackParam _param;
     private bool _isReserved;
 
     public event Action<Gun> GunInstalled;
 
     public SlotPurchasingButton SlotPurchasingButton => _purchasingButton;
 
-    public bool IsAvailable => 
+    public bool IsAvailable =>
         _gun.IsAvailable
         && _isReserved == false
         && _rackModel.activeSelf;
 
     private void OnDestroy()
     {
-        YG2.onRewardAdv -= OnRewardAdv;
-        YG2.onPurchaseSuccess -= OnPurchaseSucces;
+        YandexGameConnector.AdvRewarded -= OnRewardAdv;
+        YandexGameConnector.SuccessPurchased -= OnPurchaseSucces;
+
+        if (_advertisingButton != null)
+            _advertisingButton.Clicked -= OnClickAdvButton;
     }
 
     public void SetReservation() =>
@@ -49,9 +51,10 @@ public class Rack : InitializingWithConfigBehaviour<RackConfig>
         return true;
     }
 
-    protected override void OnInitialize(RackConfig config)
+    protected override void OnInitialize(RackParam param)
     {
-        _gun = config.Gun;
+        _param = param;
+        _gun = param.Gun;
         _gun.SetParent(transform);
         _gun.SetPositionAndRotation(_gunTarget.position, _gunTarget.rotation);
         _gun.SetActive(false);
@@ -59,14 +62,16 @@ public class Rack : InitializingWithConfigBehaviour<RackConfig>
         _advertisingButton.Initialize();
         _purchasingButton.Initialize();
 
-        if (_purchasingButton.IsActiveSelf() && YG2.saves.SavesData.IsPurchsingRack == true)
+        if (_purchasingButton.IsActiveSelf() && _param.Saver.IsPurchsingRack)
         {
             _purchasingButton.SetActive(false);
             SetRack();
         }
 
-        YG2.onRewardAdv += OnRewardAdv;
-        YG2.onPurchaseSuccess += OnPurchaseSucces;
+        _advertisingButton.Clicked += OnClickAdvButton;
+
+        YandexGameConnector.AdvRewarded += OnRewardAdv;
+        YandexGameConnector.SuccessPurchased += OnPurchaseSucces;
     }
 
     private void SetRack()
@@ -88,23 +93,12 @@ public class Rack : InitializingWithConfigBehaviour<RackConfig>
     {
         if (_purchasingButton.IsActiveSelf() && id == _purchasingButton.InApp.Id)
         {
+            _param.Saver.SetPurchasingRackState(true);
             _purchasingButton.SetActive(false);
             SetRack();
-
-            YG2.saves.SavesData.IsPurchsingRack = true;
-            YG2.SaveProgress();
         }
     }
-}
 
-public readonly struct RackConfig : IConfig
-{
-    private readonly Gun _gun;
-
-    public RackConfig(Gun gun)
-    {
-        _gun = gun != null ? gun : throw new ArgumentNullException(nameof(gun));
-    }
-
-    public Gun Gun => _gun;
+    private void OnClickAdvButton(AdvertisingButton button) =>
+        YandexGameConnector.RewardedAdvShow(Constants.RewardRack + button.GetInstanceID());
 }

@@ -7,13 +7,13 @@
         false,
         false
     ],
-    "idSave": 1769,
+    "idSave": 1808,
     "SavesData": {
-        "SelectedLevel": 21,
-        "LevelProgress": 22,
-        "Score": 297856,
-        "MusicVolume": 0.0,
-        "SfxVolume": 1.0,
+        "SelectedLevel": 5,
+        "LevelProgress": 5,
+        "Score": 17790,
+        "MusicVolume": 0.13738679885864259,
+        "SfxVolume": 0.20219138264656068,
         "Levels": [
             {
                 "CountStars": 3
@@ -31,55 +31,55 @@
                 "CountStars": 3
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 1
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
-                "CountStars": 2
+                "CountStars": 0
             },
             {
-                "CountStars": 3
+                "CountStars": 0
             },
             {
                 "CountStars": 0
@@ -126,14 +126,12 @@
         ],
         "IsPurchsingRack": true,
         "IsNoAds": true,
-        "ShowedAuthDialog": true,
         "ShopDatas": [
             {
                 "EntityType": 0,
                 "ButtonTypes": [
-                    0,
-                    0,
                     1,
+                    2,
                     2
                 ]
             },
@@ -142,14 +140,16 @@
                 "ButtonTypes": [
                     0,
                     0,
-                    1
+                    1,
+                    2
                 ]
             },
             {
                 "EntityType": 2,
                 "ButtonTypes": [
                     0,
-                    1
+                    1,
+                    2
                 ]
             }
         ]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipeable
+public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeable
 {
     [SerializeField] private CarVisual _visual;
     [SerializeField] private BoxCollider _selfCollider;
@@ -13,7 +13,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
     private AudioSource _roar;
     private ParticleSystem _smoke;
     private Rack _targetRack;
-    private CarConfig _config;
+    private CarInfo _config;
     private IMovementStrategy _mover;
     private List<SplineSegment> _currentPath;
 
@@ -88,7 +88,7 @@ public class Car : InitializingWithConfigBehaviour<CarConfig>, IObstacle, ISwipe
             _smoke.gameObject.SetActive(true);
     }
 
-    protected override void OnInitialize(CarConfig config)
+    protected override void OnInitialize(CarInfo config)
     {
         _config = config;
 

@@ -1,5 +1,4 @@
 using System;
-using YG;
 
 namespace UI.Shop
 {
@@ -16,13 +15,13 @@ namespace UI.Shop
             Unsubscribe();
 
         public void ShowRewardedAd(string rewardId) =>
-            YG2.RewardedAdvShow(rewardId);
+            YandexGameConnector.RewardedAdvShow(rewardId);
 
-        public void Subscribe() => 
-            YG2.onRewardAdv += OnRewardAdv;
+        public void Subscribe() =>
+            YandexGameConnector.AdvRewarded += OnRewardAdv;
 
-        public void Unsubscribe() => 
-            YG2.onRewardAdv -= OnRewardAdv;
+        public void Unsubscribe() =>
+            YandexGameConnector.AdvRewarded -= OnRewardAdv;
 
         private void OnRewardAdv(string id) =>
             _cardSelector.TryUnlockWithReward(id, true);

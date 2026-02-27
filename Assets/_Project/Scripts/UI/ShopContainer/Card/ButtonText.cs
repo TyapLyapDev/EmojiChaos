@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using YG;
 
 namespace UI.Shop
 {
@@ -12,17 +11,17 @@ namespace UI.Shop
 
         private void OnEnable()
         {
-            YG2.onSwitchLang += OnSwitchLanguage;
-            OnSwitchLanguage(YG2.lang);
+            YandexGameConnector.LangSwitched += OnSwitchLanguage;
+            OnSwitchLanguage(YandexGameConnector.Lang);
         }
 
         private void OnDisable() =>
-            YG2.onSwitchLang -= OnSwitchLanguage;
+            YandexGameConnector.LangSwitched -= OnSwitchLanguage;
 
         public void SetText(LanguageTextsSet textsSet)
         {
             _textsSet = textsSet;
-            OnSwitchLanguage(YG2.lang);
+            OnSwitchLanguage(YandexGameConnector.Lang);
         }
 
         private void OnSwitchLanguage(string lang)

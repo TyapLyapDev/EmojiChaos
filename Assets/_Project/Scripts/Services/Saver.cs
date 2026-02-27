@@ -2,15 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using YG;
-
-namespace YG
-{
-    public partial class SavesYG
-    {
-        public SavesData SavesData = new();
-    }
-}
 
 public class Saver
 {
@@ -23,9 +14,6 @@ public class Saver
 
         _totalLevelsCount = totalLevelsCount;
         EnterMissingData();
-
-        if(Data.IsNoAds)
-            YG2.StickyAdActivity(false);
     }
 
     public int TotalLevelsCount => _totalLevelsCount;
@@ -42,10 +30,18 @@ public class Saver
 
     public bool IsNoAds => Data.IsNoAds;
 
-    private SavesData Data => YG2.saves.SavesData;
+    private SavesData Data => YandexGameConnector.SavesData;
+
+    public bool IsPurchsingRack => Data.IsPurchsingRack;
 
     public List<int> GetStarInfos() =>
         Data.Levels.Select(v => v.CountStars).ToList();
+
+    public void SetPurchasingRackState(bool isOn)
+    {
+        Data.IsPurchsingRack = isOn;
+        Save();
+    }
 
     public bool TryIncreaseLevelProgress()
     {
@@ -87,8 +83,8 @@ public class Saver
     {
         Data.Score += score;
 
-        if (YG2.player.auth)
-            YG2.SetLeaderboard(Constants.LeaderboardTechnoName, Data.Score);
+        if (YandexGameConnector.IsPlayerAuth)
+            YandexGameConnector.SetLeaderboard(Constants.LeaderboardTechnoName);
 
         if (LeaderboardYGMediator.Instance != null)
             LeaderboardYGMediator.Instance.RequestAnUpdate();
@@ -174,7 +170,7 @@ public class Saver
     }
 
     public void Save() =>
-        YG2.SaveProgress();
+        YandexGameConnector.SaveProgress();
 
     public void ResetProgress()
     {

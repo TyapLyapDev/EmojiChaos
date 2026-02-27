@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using YG;
 
 public class LanguageSwitchHandler : MonoBehaviour
 {
@@ -17,12 +16,12 @@ public class LanguageSwitchHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        YG2.onSwitchLang += OnSwitchLanguage;
-        OnSwitchLanguage(YG2.lang);
+        YandexGameConnector.LangSwitched += OnSwitchLanguage;
+        OnSwitchLanguage(YandexGameConnector.Lang);
     }
 
     private void OnDisable() =>
-        YG2.onSwitchLang -= OnSwitchLanguage;
+        YandexGameConnector.LangSwitched -= OnSwitchLanguage;
 
     private void OnSwitchLanguage(string lang)
     {

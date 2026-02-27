@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Tutorial : InitializingWithConfigBehaviour<TutorialConfig>
+public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
 {
     [SerializeField] TutorialCircle _circle;
     [SerializeField] List<TutorialItem> _items;
@@ -18,7 +18,7 @@ public class Tutorial : InitializingWithConfigBehaviour<TutorialConfig>
         Destroy(gameObject);
     }
 
-    protected override void OnInitialize(TutorialConfig config)
+    protected override void OnInitialize(TutorialParam config)
     {
         foreach (TutorialItem item in _items)
             item.Initilize(config);

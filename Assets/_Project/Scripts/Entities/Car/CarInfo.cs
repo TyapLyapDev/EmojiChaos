@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-public readonly struct CarConfig : IConfig
+public readonly struct CarInfo : IParam
 {
     private readonly CarMovementDirector _speedDirector;
     private readonly ParticleShower _particleShower;
     private readonly MapSplineNodes _mapSplineNodes;
     private readonly Color _color;
 
-    public CarConfig(CarMovementDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
+    public CarInfo(CarMovementDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
     {
         _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
         _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));

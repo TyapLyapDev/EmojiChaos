@@ -1,4 +1,4 @@
-public readonly struct LeaderboardLineConfig : IConfig
+public readonly struct LeaderboardLineParam : IParam
 {
     private readonly string _uniqueId;
     private readonly string _rank;
@@ -6,7 +6,7 @@ public readonly struct LeaderboardLineConfig : IConfig
     private readonly string _score;
     private readonly bool _isCurrentPlayer;
 
-    public LeaderboardLineConfig(string uniqueId, int rank, string nickname, int score, bool isCurrentPlayer)
+    public LeaderboardLineParam(string uniqueId, int rank, string nickname, int score, bool isCurrentPlayer)
     {
         _uniqueId = uniqueId;
         _rank = rank.ToString();

@@ -1,5 +1,5 @@
 public abstract class InitializingWithConfigBehaviour<TConfig> : BaseInitializingBehaviour
-    where TConfig : IConfig
+    where TConfig : IParam
 {
     public void Initialize(TConfig config)
     {

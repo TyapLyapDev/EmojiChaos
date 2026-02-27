@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using YG;
-using YG.Utils.LB;
 
 public class Leaderboard : InitializingBehaviour
 {
@@ -14,34 +12,36 @@ public class Leaderboard : InitializingBehaviour
     private void OnEnable()
     {
         if (LeaderboardYGMediator.Instance != null)
+        {
             LeaderboardYGMediator.Instance.DataUpdated += OnUpdatedData;
+            OnUpdatedData(LeaderboardYGMediator.Instance.Data);
+        }
     }
 
     private void OnDisable()
     {
         if (LeaderboardYGMediator.Instance != null)
-        {
             LeaderboardYGMediator.Instance.DataUpdated -= OnUpdatedData;
-            Debug.Log("LiaderboardDestroyed");
-        }
-    }
-
-    public void Activate()
-    {
-        if (LeaderboardYGMediator.Instance != null)
-            OnUpdatedData(LeaderboardYGMediator.Instance.Data);
     }
 
     protected override void OnInitialize() { }
 
-    private void OnUpdatedData(LBData lbData)
+    private void OnUpdatedData(YG.Utils.LB.LBData lbData)
     {
-        bool isNoData = lbData.entries == InfoYG.NO_DATA;
-        _noDataText.SetActive(isNoData);
+        bool hasData = YandexGameConnector.HasDataLeaderboard(lbData);
+        _noDataText.SetActive(hasData == false);
 
-        if (isNoData)
+        if (hasData == false)
         {
             DeactivateAllLines();
+
+            return;
+        }
+
+        if(lbData.players == null)
+        {
+            DeactivateAllLines();
+            Debug.Log("lbData.players is null");
 
             return;
         }
@@ -51,11 +51,11 @@ public class Leaderboard : InitializingBehaviour
 
         for (int i = 0; i < linesToActivate; i++)
         {
-            LBPlayerData player = lbData.players[i];
+            YG.Utils.LB.LBPlayerData player = lbData.players[i];
 
-            bool isCurrentPlayer = player.uniqueID == YG2.player.id;
+            bool isCurrentPlayer = player.uniqueID == YandexGameConnector.PlayerId;
 
-            LeaderboardLineConfig config = new(
+            LeaderboardLineParam config = new(
                 uniqueId: player.uniqueID,
                 rank: player.rank,
                 nickname: player.name,
@@ -71,19 +71,19 @@ public class Leaderboard : InitializingBehaviour
         for (int i = linesToActivate; i < _lines.Length; i++)
             _lines[i].Deactivate();
 
-        if (isPlayerInTop || YG2.player.auth == false)
+        if (isPlayerInTop || YandexGameConnector.IsPlayerAuth == false || YandexGameConnector.HasScore == false)
         {
             _lineOutTop.Deactivate();
             _split.SetActive(false);
         }
         else
         {
-            LBCurrentPlayerData player = lbData.currentPlayer;
+            YG.Utils.LB.LBCurrentPlayerData player = lbData.currentPlayer;
 
-            LeaderboardLineConfig config = new(
-                uniqueId: YG2.player.id,
+            LeaderboardLineParam config = new(
+                uniqueId: YandexGameConnector.PlayerId,
                 rank: player.rank,
-                nickname: YG2.player.name,
+                nickname: YandexGameConnector.PlayerName,
                 score: player.score,
                 isCurrentPlayer: true);
 
@@ -96,5 +96,8 @@ public class Leaderboard : InitializingBehaviour
     {
         foreach (LeaderboardLine line in _lines)
             line.Deactivate();
+
+        _lineOutTop.Deactivate();
+        _split.SetActive(false);
     }
 }

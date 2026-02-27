@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public readonly struct LevelUiConfig : IConfig
+public readonly struct LevelUiParam : IParam
 {
     private readonly PauseSwitcher _pauseSwitcher;
     private readonly Saver _saver;
@@ -9,7 +9,7 @@ public readonly struct LevelUiConfig : IConfig
     private readonly SceneLoader _sceneLoader;
     private readonly IReadOnlyList<SlotPurchasingButton> _slotPurchasingButtons;
 
-    public LevelUiConfig(PauseSwitcher pauseSwitcher, 
+    public LevelUiParam(PauseSwitcher pauseSwitcher, 
         Saver saver,
         LevelStatsHandler levelStatsHandler, 
         SceneLoader sceneLoader,

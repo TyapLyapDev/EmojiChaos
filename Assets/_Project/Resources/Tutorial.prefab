@@ -1753,7 +1753,7 @@ MonoBehaviour:
   _enterEase: 24
   _exitEase: 27
   _isPlaySoundPointerDown: 1
-  _tutoril: {fileID: 8703235336986330173}
+  _tutorial: {fileID: 8703235336986330173}
 --- !u!1 &5234142743721000201
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,13 +12,5 @@ public class SavesData
     public List<LevelDataInfo> Levels = new();
     public bool IsPurchsingRack = false;
     public bool IsNoAds = false;
-    public bool ShowedAuthDialog = false;
     public List<ShopData> ShopDatas = new();
-}
-
-[Serializable]
-public class ShopData
-{
-    public ShopEntityItemType EntityType;
-    public List<ShopCardItemButtonType> ButtonTypes = new();
 }

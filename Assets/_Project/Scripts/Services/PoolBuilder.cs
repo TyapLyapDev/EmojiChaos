@@ -23,9 +23,9 @@ public class PoolBuilder
 
     public Pool<TBehaviour> Build<TBehaviour, TConfig>(TBehaviour prefab, TConfig config) 
         where TBehaviour : InitializingWithConfigBehaviour<TConfig>, IPoolable<TBehaviour>
-        where TConfig : IConfig
+        where TConfig : IParam
     {
-        FactoryWithConfig<TBehaviour, TConfig> factory = new(prefab, config);
+        FactoryWithParam<TBehaviour, TConfig> factory = new(prefab, config);
         Pool<TBehaviour> pool = Build(factory);
 
         return pool;

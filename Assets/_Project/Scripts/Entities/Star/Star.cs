@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Star : InitializingWithConfigBehaviour<StarConfig>
+public class Star : InitializingWithConfigBehaviour<StarParam>
 {
     private const float FearProgressDistance = 0.1f;
     private const float RelaxProgressDistance = 0.22f;
@@ -12,7 +12,7 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
 
     private bool _isFear = false;
 
-    private StarConfig _config;
+    private StarParam _config;
 
     public event Action<Star> Destroyed;
 
@@ -39,7 +39,7 @@ public class Star : InitializingWithConfigBehaviour<StarConfig>
             Audio.Sfx.PlayStarRelax();
     }
 
-    protected override void OnInitialize(StarConfig config)
+    protected override void OnInitialize(StarParam config)
     {
         _visual.Initialize();
         _config = config;

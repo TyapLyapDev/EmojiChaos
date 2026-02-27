@@ -4,7 +4,6 @@ using System.Linq;
 using UI.CustomMiniCellsLevelSelector;
 using UI.LevelCards;
 using UnityEngine;
-using YG;
 
 public class LevelsPanel : PanelBase
 {
@@ -102,13 +101,8 @@ public class LevelsPanel : PanelBase
             _currentSelector.LevelClicked -= OnLevelClicked;
     }
 
-    private void OnLevelClicked(int levelIndex)
-    {
-        if (YG2.saves.SavesData.IsNoAds == false)
-            YG2.InterstitialAdvShow();
-
+    private void OnLevelClicked(int levelIndex) =>
         LevelClicked?.Invoke(levelIndex);
-    }
 
     protected override void OnShow()
     {

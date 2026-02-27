@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using YG;
 
 public class LanguageSprite : MonoBehaviour
 {
@@ -19,12 +18,12 @@ public class LanguageSprite : MonoBehaviour
 
     private void OnEnable()
     {
-        YG2.onSwitchLang += SwitchLanguage;
-        SwitchLanguage(YG2.lang);
+        YandexGameConnector.LangSwitched += SwitchLanguage;
+        SwitchLanguage(YandexGameConnector.Lang);
     }
 
     private void OnDisable() =>
-        YG2.onSwitchLang -= SwitchLanguage;
+        YandexGameConnector.LangSwitched -= SwitchLanguage;
 
     private void SwitchLanguage(string lang)
     {

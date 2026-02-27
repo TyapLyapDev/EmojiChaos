@@ -2,7 +2,7 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 
-public class Gun : InitializingWithConfigBehaviour<GunConfig>
+public class Gun : InitializingWithConfigBehaviour<GunParam>
 {
     private const float HiddingTime = 0.25f;
 
@@ -10,7 +10,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
     [SerializeField] private Transform _rotatingModel;
     [SerializeField] private Transform _bulletStartPosition;
 
-    private GunConfig _config;
+    private GunParam _config;
     private Aimer _aim;
     private IntervalRunner _runner;
     private Tween _deactivateTween;
@@ -44,7 +44,7 @@ public class Gun : InitializingWithConfigBehaviour<GunConfig>
         Audio.Sfx.PlayGunInstalled();
     }
 
-    protected override void OnInitialize(GunConfig config)
+    protected override void OnInitialize(GunParam config)
     {
         _config = config;
 

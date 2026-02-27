@@ -1,6 +1,4 @@
 using UnityEngine;
-using YG;
-using YG.Utils.Pay;
 
 public class MenuBootstrap : MonoBehaviour
 {
@@ -10,38 +8,12 @@ public class MenuBootstrap : MonoBehaviour
 
     private void Start()
     {
-        ConsumePurchases();
+        YandexGameConnector.ConsumePurchases(_noAds, _additionalSlot);
 
-        _menuUIHandler.Initialize(new MenuUiConfig(
+        _menuUIHandler.Initialize(new MenuUiParam(
             new Saver(Utils.CalculateLevelCountInProject()), 
             SceneLoader.Instance));
 
         Audio.Music.PlayMenu();
-
-        if (YG2.saves.SavesData.ShowedAuthDialog == false)
-        {
-            YG2.OpenAuthDialog();
-            YG2.saves.SavesData.ShowedAuthDialog = true;
-        }
-    }
-
-    private void ConsumePurchases()
-    {
-        foreach (Purchase purchase in YG2.purchases)
-        {
-            if (purchase.consumed == false)
-            {
-                if (purchase.id == _noAds.Id)
-                {
-                    YG2.saves.SavesData.IsNoAds = true;
-                    YG2.ConsumePurchaseByID(purchase.id, true);
-                }
-                else if (purchase.id == _additionalSlot.Id)
-                {
-                    YG2.saves.SavesData.IsPurchsingRack = true;
-                    YG2.ConsumePurchaseByID(purchase.id, true);
-                }
-            }
-        }
     }
 }

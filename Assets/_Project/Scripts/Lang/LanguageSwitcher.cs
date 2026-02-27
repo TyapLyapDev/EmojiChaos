@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using YG;
 
 public class LanguageSwitcher : InitializingBehaviour
 {
@@ -30,7 +29,7 @@ public class LanguageSwitcher : InitializingBehaviour
 
     private int GetCurrentLanguageIndex()
     {
-        string currentLanguage = YG2.lang;
+        string currentLanguage = YandexGameConnector.Lang;
 
         if (_languages.Contains(currentLanguage) == false)
             throw new Exception($"язык {currentLanguage} отсутствует в списке доступных");
@@ -42,13 +41,13 @@ public class LanguageSwitcher : InitializingBehaviour
     {
         int index = GetCurrentLanguageIndex();
         index = (index - 1 + _languages.Length) % _languages.Length;
-        YG2.SwitchLanguage(_languages[index]);
+        YandexGameConnector.SwitchLanguage(_languages[index]);
     }
 
     private void OnNextLanguagedClicked(NextLanguageButton _)
     {
         int index = GetCurrentLanguageIndex();
         index = (index + 1) % _languages.Length;
-        YG2.SwitchLanguage(_languages[index]);
+        YandexGameConnector.SwitchLanguage(_languages[index]);
     }
 }

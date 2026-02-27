@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public readonly struct TutorialConfig : IConfig
+public readonly struct TutorialParam : IParam
 {
     private readonly Transform _portalTarget;
     private readonly EnemySpawner _enemySpawner;
@@ -11,7 +11,7 @@ public readonly struct TutorialConfig : IConfig
     private readonly Rack[] _racks;
     private readonly Star _star;
 
-    public TutorialConfig(
+    public TutorialParam(
         Transform portalTarget, 
         EnemySpawner enemySpawner, 
         Car car, 
