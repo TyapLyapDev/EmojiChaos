@@ -61,7 +61,7 @@ namespace UI.LevelCards
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            _shaker = new(_locker.GetComponent<RectTransform>());
+            _shaker = new (_locker.GetComponent<RectTransform>());
         }
 
         protected override void OnClick()

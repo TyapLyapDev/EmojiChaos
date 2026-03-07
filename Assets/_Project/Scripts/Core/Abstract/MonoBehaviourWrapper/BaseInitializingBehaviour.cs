@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -29,14 +29,16 @@ public abstract class BaseInitializingBehaviour : MonoBehaviour
             throw new InvalidOperationException($"{gameObject.name}: Метод {methodName} был вызван до инициализации");
     }
 
-    protected T GetSafeReference<T>(T field, [CallerMemberName] string fieldName = "") where T : class
+    protected T GetSafeReference<T>(T field, [CallerMemberName] string fieldName = "")
+        where T : class
     {
         ValidateInitForField(fieldName);
 
         return field ?? throw new InvalidOperationException($"{gameObject.name}: Поле {fieldName} не назначено в инспекторе");
     }
 
-    protected T GetSafeValue<T>(T field, [CallerMemberName] string fieldName = "") where T : struct
+    protected T GetSafeValue<T>(T field, [CallerMemberName] string fieldName = "")
+        where T : struct
     {
         ValidateInitForField(fieldName);
 
@@ -74,7 +76,7 @@ public abstract class BaseInitializingBehaviour : MonoBehaviour
 
     private IEnumerable<FieldInfo> GetAllFieldsInHierarchy()
     {
-        List<FieldInfo> allFields = new();
+        List<FieldInfo> allFields = new ();
         Type currentType = GetType();
 
         while (currentType != null && currentType != typeof(BaseInitializingBehaviour) && currentType != typeof(object))

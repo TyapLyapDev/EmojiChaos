@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
@@ -61,7 +62,7 @@ public class Bullet : InitializingBehaviour, IPoolable<Bullet>
     protected override void OnInitialize()
     {
         _visual.Initialize();
-        _mover = new(transform);
+        _mover = new (transform);
         _mover.TargetReached += OnTargetReached;
     }
 

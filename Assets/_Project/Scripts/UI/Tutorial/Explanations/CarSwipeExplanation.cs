@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 
 public class CarSwipeExplanation : TutorialItem
@@ -42,7 +43,7 @@ public class CarSwipeExplanation : TutorialItem
 
     private void OnSwipe(ISwipeable swipeable, int count)
     {
-        if(IsActivated == false) 
+        if (IsActivated == false) 
             return;
 
         if (swipeable is Car == false)

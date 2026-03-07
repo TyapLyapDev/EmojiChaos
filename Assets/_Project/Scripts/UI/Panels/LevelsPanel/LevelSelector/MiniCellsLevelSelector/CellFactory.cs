@@ -9,7 +9,7 @@ namespace UI.CustomMiniCellsLevelSelector
         private readonly PageContainer _container;
         private readonly LevelCell _prefab;
         private readonly Action<LevelCell> _cellClicked;
-        private readonly List<LevelCell> _cells = new();
+        private readonly List<LevelCell> _cells = new ();
 
         public CellFactory(PageContainer container, LevelCell prefab, Action<LevelCell> cellClicked)
         {

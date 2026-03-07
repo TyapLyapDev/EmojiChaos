@@ -8,7 +8,7 @@ public class SplineNode
     private readonly Spline _spline;
     private readonly Vector3 _worldPosition;
     private readonly float _progress;
-    private readonly Dictionary<SplineNode, float> _connectedNodes = new();
+    private readonly Dictionary<SplineNode, float> _connectedNodes = new ();
 
     public SplineNode(Spline spline, Vector3 worldPosition, float progress)
     {

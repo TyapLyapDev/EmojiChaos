@@ -10,7 +10,7 @@ public class ComponentTypeDropdown : AdvancedDropdown
     private const string NoneNamespacesText = "Без пространства имён";
 
     private readonly Action<Type> _onSelected;
-    private readonly Dictionary<int, Type> _idToTypeMap = new();
+    private readonly Dictionary<int, Type> _idToTypeMap = new ();
 
     public ComponentTypeDropdown(AdvancedDropdownState state, Action<Type> onSelected) : base(state)
     {
@@ -20,7 +20,7 @@ public class ComponentTypeDropdown : AdvancedDropdown
     protected override AdvancedDropdownItem BuildRoot()
     {
         _idToTypeMap.Clear();
-        AdvancedDropdownItem root = new(Tittle);
+        AdvancedDropdownItem root = new (Tittle);
 
         IEnumerable<Type> componentTypes = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly =>
@@ -37,7 +37,7 @@ public class ComponentTypeDropdown : AdvancedDropdown
 
         foreach (IGrouping<string, Type> group in groupedTypes)
         {
-            AdvancedDropdownItem groupItem = new(group.Key);
+            AdvancedDropdownItem groupItem = new (group.Key);
 
             foreach (Type type in group.OrderBy(type => type.Name))
             {
@@ -46,7 +46,7 @@ public class ComponentTypeDropdown : AdvancedDropdown
                 _idToTypeMap[id] = type;
                 string typeNamespace = string.IsNullOrEmpty(type.Namespace) ? string.Empty : $"({type.Namespace})"; 
                 string displayName = $"{type.Name} {typeNamespace}";
-                AdvancedDropdownItem typeItem = new(displayName) { id = id };
+                AdvancedDropdownItem typeItem = new (displayName) { id = id };
                 groupItem.AddChild(typeItem);
             }
 

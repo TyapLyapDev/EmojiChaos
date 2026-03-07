@@ -1,3 +1,5 @@
+using EmojiChaos.Core.Abstract.Interface;
+
 public readonly struct LeaderboardLineParam : IParam
 {
     private readonly string _uniqueId;

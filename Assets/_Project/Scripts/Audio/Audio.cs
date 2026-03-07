@@ -1,35 +1,38 @@
 using UnityEngine;
 
-public class Audio : InitializingBehaviour
+namespace EmojiChaos.Audio
 {
-    private static Audio s_instance;
-
-    [SerializeField] private Music _music;
-    [SerializeField] private Sfx _sfx;
-
-    public static Music Music => s_instance._music;
-
-    public static Sfx Sfx => s_instance._sfx;
-
-    private void Awake()
+    public class Audio : InitializingBehaviour
     {
-        if (IsInitialized == false)
-            Initialize();
-    }
+        private static Audio s_instance;
 
-    protected override void OnInitialize()
-    {
-        if (s_instance != null)
+        [SerializeField] private Music _music;
+        [SerializeField] private Sfx _sfx;
+
+        public static Music Music => s_instance._music;
+
+        public static Sfx Sfx => s_instance._sfx;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-
-            return;
+            if (IsInitialized == false)
+                Initialize();
         }
 
-        s_instance = this;
-        DontDestroyOnLoad(gameObject);
+        protected override void OnInitialize()
+        {
+            if (s_instance != null)
+            {
+                Destroy(gameObject);
 
-        _music.Initialize();
-        _sfx.Initialize();
+                return;
+            }
+
+            s_instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            _music.Initialize();
+            _sfx.Initialize();
+        }
     }
 }

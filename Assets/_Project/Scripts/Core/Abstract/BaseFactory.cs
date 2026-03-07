@@ -1,7 +1,9 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public abstract class BaseFactory<T> : IFactory<T> where T : MonoBehaviour
+public abstract class BaseFactory<T> : IFactory<T> 
+    where T : MonoBehaviour
 {
     private readonly T _prefab;
 

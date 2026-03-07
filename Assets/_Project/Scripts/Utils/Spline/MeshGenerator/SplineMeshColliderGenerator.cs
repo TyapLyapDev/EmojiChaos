@@ -1,12 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Splines;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
-using UnityEngine.Splines;
-using System.Collections.Generic;
-using System.Linq;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(SplineContainer))]
@@ -102,7 +101,7 @@ public class SplineMeshColliderGenerator : MonoBehaviour
         _isSubscribedToSplineEvents = false;
     }
 
-    private void OnSplineChanged(Spline spline, int __, SplineModification ___)
+    private void OnSplineChanged(Spline spline, int index, SplineModification splineModification)
     {
         if (_isAutoupdate && _splineContainer.Splines.Contains(spline))
             GenerateMesh();
@@ -110,8 +109,8 @@ public class SplineMeshColliderGenerator : MonoBehaviour
 
     private void GenerateMesh()
     {
-        List<Vector3> vertices = new();
-        List<int> triangles = new();
+        List<Vector3> vertices = new ();
+        List<int> triangles = new ();
 
         for (int splineIndex = 0; splineIndex < _splineContainer.Splines.Count; splineIndex++)
         {
@@ -141,7 +140,7 @@ public class SplineMeshColliderGenerator : MonoBehaviour
                 position - right - up,
                 position + right - up,
                 position - right + up,
-                position + right + up
+                position + right + up,
             });
 
             if (i > 0)
@@ -176,16 +175,17 @@ public class SplineMeshColliderGenerator : MonoBehaviour
 
         foreach (var face in faces)
         {
-            triangles.AddRange(new[] {
-                face[0], face[1], face[2], // первый треугольник
-                face[0], face[2], face[3]  // второй треугольник
+            triangles.AddRange(new[]
+            {
+                face[0], face[1], face[2],
+                face[0], face[2], face[3],
             });
         }
     }
 
     private Mesh CreateMesh(List<Vector3> vertices, List<int> triangles)
     {
-        Mesh mesh = new();
+        Mesh mesh = new ();
         mesh.SetVertices(vertices);
         mesh.SetTriangles(triangles, 0);
         mesh.RecalculateNormals();
@@ -217,6 +217,5 @@ public class SplineMeshColliderGenerator : MonoBehaviour
     [ContextMenu("Обновить меш коллайдера")]
     public void UpdateMeshCollider() =>
         GenerateMesh();
-
 #endif
 }

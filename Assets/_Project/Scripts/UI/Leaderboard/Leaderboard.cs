@@ -38,7 +38,7 @@ public class Leaderboard : InitializingBehaviour
             return;
         }
 
-        if(lbData.players == null)
+        if (lbData.players == null)
         {
             DeactivateAllLines();
             Debug.Log("lbData.players is null");
@@ -55,7 +55,7 @@ public class Leaderboard : InitializingBehaviour
 
             bool isCurrentPlayer = player.uniqueID == YandexGameConnector.PlayerId;
 
-            LeaderboardLineParam config = new(
+            LeaderboardLineParam config = new (
                 uniqueId: player.uniqueID,
                 rank: player.rank,
                 nickname: player.name,
@@ -80,7 +80,7 @@ public class Leaderboard : InitializingBehaviour
         {
             YG.Utils.LB.LBCurrentPlayerData player = lbData.currentPlayer;
 
-            LeaderboardLineParam config = new(
+            LeaderboardLineParam config = new (
                 uniqueId: YandexGameConnector.PlayerId,
                 rank: player.rank,
                 nickname: YandexGameConnector.PlayerName,

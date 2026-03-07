@@ -1,1 +1,4 @@
-public interface IObstacle { }
+namespace EmojiChaos.Core.Abstract.Interface
+{
+    public interface IObstacle { }
+}

@@ -34,7 +34,7 @@ namespace FiXiK.SceneBrowserWindow.Editor
         private Texture2D _openEyeTexture;
         private Texture2D _closedEyeTexture;
 
-        private List<string> _hiddenScenes = new();
+        private List<string> _hiddenScenes = new ();
         private Vector2 _scrollPosition;
         private string[] _scenePaths;
         private bool _isShowHiddenScenes = false;

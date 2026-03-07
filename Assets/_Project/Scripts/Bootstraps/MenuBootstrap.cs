@@ -1,19 +1,24 @@
 using UnityEngine;
 
-public class MenuBootstrap : MonoBehaviour
+namespace EmojiChaos.Bootstraps
 {
-    [SerializeField] private MenuUIHandler _menuUIHandler;
-    [SerializeField] private InApp _noAds;
-    [SerializeField] private InApp _additionalSlot;
+    using EmojiChaos.Audio;
 
-    private void Start()
+    public class MenuBootstrap : MonoBehaviour
     {
-        YandexGameConnector.ConsumePurchases(_noAds, _additionalSlot);
+        [SerializeField] private MenuUIHandler _menuUIHandler;
+        [SerializeField] private InApp _noAds;
+        [SerializeField] private InApp _additionalSlot;
 
-        _menuUIHandler.Initialize(new MenuUiParam(
-            new Saver(Utils.CalculateLevelCountInProject()), 
-            SceneLoader.Instance));
+        private void Start()
+        {
+            YandexGameConnector.ConsumePurchases(_noAds, _additionalSlot);
 
-        Audio.Music.PlayMenu();
+            _menuUIHandler.Initialize(new MenuUiParam(
+                new Saver(Utils.CalculateLevelCountInProject()),
+                SceneLoader.Instance));
+
+            Audio.Music.PlayMenu();
+        }
     }
 }

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="be4051fe-8c90-443a-b784-0b89313068bf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PluginYourGames/Editor/SavesEditorYG2.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PluginYourGames/Editor/SavesEditorYG2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Materials/New Material.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Materials/New Material.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Materials/Yellow.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Materials/Yellow.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor 1.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor 1.blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor 1.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor 1.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor.blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Blend/Conveyor.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Fbx/Conveyor 1.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Fbx/Conveyor 1.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Fbx/Conveyor.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Fbx/Conveyor.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor 1.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor 1.mtl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor 1.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor 1.obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor.mtl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Mesh/Obj/Conveyor.obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Prefabs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Prefabs/Conveyor Legs.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Prefabs/Conveyor Legs.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Scenes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Scenes/Conveyors.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Scenes/Conveyors.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Blend text 1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Blend text 1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Conveyor Text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Conveyor Text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Conveyor Texture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Conveyor Texture.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Using Compound Colliders (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Using Compound Colliders (1).png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Using Generated Colliders.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Using Generated Colliders.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Working Conveyor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Conveyor Belt Sample/Textures/Working Conveyor.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMesh.Editor.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMesh.Editor.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMeshEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMeshEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMeshResolutionEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Editor/SplineMeshResolutionEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Blend text 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Blend text 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Fbx text 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Fbx text 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Obj Text 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Obj Text 2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Road Text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Road Creation Sample/Textures/Road Text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineBoxColliderGenerator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineBoxColliderGenerator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineCylinderColliderGenerator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineCylinderColliderGenerator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineMesh.Colliders.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Colliders/SplineMesh.Colliders.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMesh.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMesh.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMeshResolution.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMeshResolution.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMeshUtils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Core/SplineMeshUtils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Misc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Misc/AnimateTextureOffset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Misc/AnimateTextureOffset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Misc/ConveyorBeltMover.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/Misc/ConveyorBeltMover.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/SplineMesh.Runtime.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Runtime/SplineMesh.Runtime.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Blend/Track.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Blend/Track.blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Blend/Track.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Blend/Track.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Fbx/Track.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Fbx/Track.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Obj/Track.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Obj/Track.mtl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Obj/Track.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Mesh/Obj/Track.obj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Scenes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Scenes/Train Tracks.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Scenes/Train Tracks.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Blend text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Blend text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Fbx text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Fbx text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Obj Text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Obj Text.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Tracks Text (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Spline Mesh/1.4.1/Train Tracks Sample/Textures/Tracks Text (1).png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package).meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/.sample.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/AnimateCarAlongSplineEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/AnimateCarAlongSplineEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/LoftRoadEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/LoftRoadEditor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/PackageDependencyChecker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/PackageDependencyChecker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/DriftTool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/DriftTool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SpeedTiltDropdown.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SpeedTiltDropdown.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SpeedTiltTool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SpeedTiltTool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SplineDataToolBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/SplineDataToolBase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/WidthTool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Tools/WidthTool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Unity.Splines.Examples.Editor.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Editor/Unity.Splines.Examples.Editor.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Checker.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Checker.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Green.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Green.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Grey.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Grey.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/NearestPoint.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/NearestPoint.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/NearestSphere.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/NearestSphere.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/PaintControlPointDot.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/PaintControlPointDot.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/PaintSamplePointDot.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/PaintSamplePointDot.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Unlit Line.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Unlit Line.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Unlit Vertex Color.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Unlit Vertex Color.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/White.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/White.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Wire.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Materials/Wire.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Building01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Building01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Building02.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Building02.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Doors.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Doors.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Roof01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Roof01.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Roof02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Roof02.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Walls01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Walls01.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Walls02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Walls02.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Windows.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Buildings/Materials/Windows.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Car.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Car.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarBumper.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarBumper.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarChassis.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarChassis.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarWheels.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Materials/CarWheels.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarBumper.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarBumper.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarChassis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarChassis.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarWheels.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Car/Textures/CarWheels.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/CrossWalk.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/CrossWalk/Crosswalk.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/CrossWalk/Crosswalk.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/CrossWalk/White.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/CrossWalk/White.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Fence.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Fence/Fence.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Fence/Fence.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Fence/Fence.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Fence/Fence.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/Ground.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/Ground.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/GroundFlat.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/GroundFlat.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/Material.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/Material/GroundGreen.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Ground/Material/GroundGreen.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Cobblestones.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Cobblestones.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Grass01.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Grass01.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Grass02.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Grass02.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Materials/Cobblestones.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Materials/Cobblestones.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Materials/Grass.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Misc/Materials/Grass.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Materials/Sign.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Materials/Sign.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Materials/SignBase.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Materials/SignBase.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/StreetSign.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/StreetSign.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Textures/Sign.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Textures/Sign.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Textures/SignBase.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Sign/Textures/SignBase.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/Leaves.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/Leaves.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeBig.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeBig.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeMedium.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeMedium.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeSmall.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/TreeSmall.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/Trunk.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Models/Trees/Trunk.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Building01.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Building01.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Building02.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Building02.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Car.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Car.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Cobblestones.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Cobblestones.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Fence.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Fence.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Grass01.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Grass01.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Grass02.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Grass02.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Ground.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/Ground.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/StreetSign.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/StreetSign.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeBig.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeBig.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeMedium.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeMedium.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeSmall.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Prefabs/TreeSmall.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/DriftTool.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/DriftTool.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/SpeedTiltTool.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/SpeedTiltTool.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/WidthTool.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Icons/WidthTool.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Road.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Resources/Road.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/AnimateCarAlongSpline.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/AnimateCarAlongSpline.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/AnimateSplineExtrude.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/AnimateSplineExtrude.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/CameraPathExample.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/CameraPathExample.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Car.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Car.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/DriftSplineData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/DriftSplineData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/HighwayExample.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/HighwayExample.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/ItemPickup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/ItemPickup.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/LoftRoadBehaviour.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/LoftRoadBehaviour.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/NPCSplinePathExample.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/NPCSplinePathExample.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Paint.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Paint.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/PaintUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/PaintUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SelectSplinePath.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SelectSplinePath.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/ShowNearestPoint.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/ShowNearestPoint.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineCommonAPI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineCommonAPI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineOscillator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineOscillator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineRenderer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineRenderer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineRendererCompute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/SplineRendererCompute.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Unity.Splines.Examples.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Runtime/Unity.Splines.Examples.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Animate Component.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Animate Component/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Animate Component/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Animate Component/SplineAnimate.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Animate Component/SplineAnimate.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Extrude Spline and Nearest Point.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Extrude Spline and Nearest Point.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (1).asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (1).asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (2).asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (2).asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (3).asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline (3).asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Extrude Spline and Nearest Point/Spline Mesh/Spline.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/GPU Evaluation.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/GPU Evaluation/GPU Evaluation.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/GPU Evaluation/GPU Evaluation.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/GPU Evaluation/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/GPU Evaluation/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Instantiate Component.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Instantiate Component/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Instantiate Component/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Instantiate Component/SplineInstantiate.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Instantiate Component/SplineInstantiate.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Path Fitting.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Path Fitting/Paint Splines.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Path Fitting/Paint Splines.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Path Fitting/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/Path Fitting/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplineData and Generation.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplineData and Generation/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplineData and Generation/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplineData and Generation/SplineData and Generation.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplineData and Generation/SplineData and Generation.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplinePath.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplinePath/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplinePath/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplinePath/SplinePath Sample.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Scenes/SplinePath/SplinePath Sample.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/InterpolateSpline.compute" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/InterpolateSpline.compute.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/Lit.shadergraph" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/Lit.shadergraph.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/UnlitColor.shadergraph" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/UnlitColor.shadergraph.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/UnlitParticles.shadergraph" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Shader/UnlitParticles.shadergraph.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Textures.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Textures/Checker.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Textures/Checker.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Textures/Road.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/Textures/Road.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit/PanelSettings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit/PanelSettings.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit/UnityThemes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UXML.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UXML/PaintUI.uxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Samples/Splines/2.8.0/Spline Examples (requires Shader Graph package)/UXML/PaintUI.uxml.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Animation/UI/UiAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Animation/UI/UiAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Audio/AudioSourcePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Audio/AudioSourcePool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Bootstraps/CutSceneBootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Bootstraps/CutSceneBootstrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Bootstraps/LevelBootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Bootstraps/LevelBootstrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Core/Abstract/BaseFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Core/Abstract/BaseFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Core/Abstract/CarStraightMoverBaseStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Core/Abstract/CarStraightMoverBaseStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/StarsCounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/StarsCounter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/BaseClickHandlerStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/BaseClickHandlerStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/MobileClickHandlerStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/MobileClickHandlerStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/PCClickHandlerStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/Swipe/Strategy/PCClickHandlerStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/UiShaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Services/UiShaker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Buttons/GameSpeedToggleDirector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Buttons/GameSpeedToggleDirector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Buttons/TutorialSkipButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Buttons/TutorialSkipButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Containers/PageContainer/PageFlipper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Containers/PageContainer/PageFlipper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/LeaderboardLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/LeaderboardLine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/LeaderboardYGMediator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Leaderboard/LeaderboardYGMediator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Level/LevelUiHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Level/LevelUiHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Level/LevelUiParam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Level/LevelUiParam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/LevelsPanel/LevelSelector/CrowdSequenceType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/LevelsPanel/LevelSelector/CrowdSequenceType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/LevelsPanel/LevelsPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/LevelsPanel/LevelsPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/SettingsPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Panels/SettingsPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ScreenOrientationHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ScreenOrientationHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ShopContainer/TabFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ShopContainer/TabFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ShopContainer/TabPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/ShopContainer/TabPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Slider/SliderInformer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Slider/SliderInformer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/Explanations/CarSwipeExplanation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/Explanations/CarSwipeExplanation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/Tutorial.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/Tutorial.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/TutorialItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/UI/Tutorial/TutorialItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/MapSplineNodes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/MapSplineNodes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/PathContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/PathContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/SegmentBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/SegmentBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/SplineSegment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/Graph/SplineSegment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/InstallerOnSpline.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/InstallerOnSpline.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/MeshGenerator/SplineMeshColliderGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/MeshGenerator/SplineMeshColliderGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/MeshGenerator/SplineRendererMeshGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/MeshGenerator/SplineRendererMeshGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/SplineOffsetCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Spline/SplineOffsetCalculator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Static/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Static/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Static/YandexGameConnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Utils/Static/YandexGameConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="3AZdNXd8dSwH9yRbmfDHaqmpklt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be4051fe-8c90-443a-b784-0b89313068bf" name="Changes" comment="" />
+      <created>1772803991513</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772803991513</updated>
+      <workItem from="1772804045758" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

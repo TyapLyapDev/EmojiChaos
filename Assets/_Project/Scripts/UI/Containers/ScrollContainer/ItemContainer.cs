@@ -6,7 +6,7 @@ namespace UI.CustomScrollContainer
 {
     public class ItemContainer
     {
-        private readonly List<IScrolledItem> _items = new();
+        private readonly List<IScrolledItem> _items = new ();
         private readonly Transform _content;
 
         public ItemContainer(Transform content)

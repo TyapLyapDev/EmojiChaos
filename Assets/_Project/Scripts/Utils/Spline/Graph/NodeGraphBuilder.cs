@@ -7,7 +7,7 @@ public class NodeGraphBuilder
 {
     private const float ConnectionThreshold = 0.3f;
 
-    private readonly List<SplineNode> _nodes = new();
+    private readonly List<SplineNode> _nodes = new ();
     private readonly SplineContainer _splineContainer;
     private readonly SplinePositionFinder _positionFinder;
     private readonly SplineDistanceCalculator _distanceCalculator;
@@ -33,7 +33,7 @@ public class NodeGraphBuilder
 
     private List<SplineNode> CreateKeyNodes()
     {
-        List<SplineNode> keyNodes = new();
+        List<SplineNode> keyNodes = new ();
         IReadOnlyList<Spline> splines = _splineContainer.Splines;
 
         foreach (Spline spline in splines)
@@ -53,7 +53,7 @@ public class NodeGraphBuilder
 
     private List<SplineNode> CreateTransitionNodes()
     {
-        List<SplineNode> transitionNodes = new();
+        List<SplineNode> transitionNodes = new ();
         IReadOnlyList<Spline> splines = _splineContainer.Splines;
 
         foreach (SplineNode existingNode in _nodes)
@@ -95,7 +95,7 @@ public class NodeGraphBuilder
         if (existingTransitionNode != null)
             return existingTransitionNode;
 
-        SplineNode newTransitionNode = new(spline, worldPosition, progress);
+        SplineNode newTransitionNode = new (spline, worldPosition, progress);
         transitionNodes.Add(newTransitionNode);
 
         return newTransitionNode;

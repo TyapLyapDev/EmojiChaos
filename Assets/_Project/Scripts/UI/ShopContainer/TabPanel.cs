@@ -7,10 +7,10 @@ namespace UI.Shop
 {
     public class TabPanel : MonoBehaviour
     {
+        private readonly List<Card> _cards = new ();
+
         [SerializeField] private Transform _content;
         [SerializeField] private Card _prefab;
-
-        private readonly List<Card> _cards = new();
 
         public event Action<TabPanel, Card> CardClicked;
 
@@ -48,9 +48,9 @@ namespace UI.Shop
 
         public bool TryGetCard(string revardedAdvId, out Card card)
         {
-            foreach(Card tempCard in _cards)
+            foreach (Card tempCard in _cards)
             {
-                if(tempCard.RevardedAdvId == revardedAdvId)
+                if (tempCard.RevardedAdvId == revardedAdvId)
                 {
                     card = tempCard;
 
@@ -65,18 +65,20 @@ namespace UI.Shop
 
         public void DisableAds()
         {
-            foreach(Card card in _cards)
+            foreach (Card card in _cards)
+            {
                 if (card.Type == ShopCardItemButtonType.NeedViewAds)
                     card.SetType(ShopCardItemButtonType.Opened);
+            }                
         }
 
         public void SelectCard(Card card)
         {
             foreach (Card tempCard in _cards)
             {
-                if(tempCard != card)
+                if (tempCard != card)
                 {
-                    if(tempCard.Type == ShopCardItemButtonType.Selected)
+                    if (tempCard.Type == ShopCardItemButtonType.Selected)
                         tempCard.SetType(ShopCardItemButtonType.Opened);
 
                     continue;

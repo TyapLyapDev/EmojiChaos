@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+
 public class MusicMuteButton : MuteButtonBase<MusicMuteButton>
 {
     protected override void OnSliderChanged(float value)

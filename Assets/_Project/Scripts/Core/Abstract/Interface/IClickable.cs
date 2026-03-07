@@ -1,1 +1,4 @@
-public interface IClickable { }
+namespace EmojiChaos.Core.Abstract.Interface
+{
+    public interface IClickable { }
+}

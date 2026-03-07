@@ -25,10 +25,10 @@ namespace UI.LevelCards
 
         public void Init(IReadOnlyList<ICardInfo> cardInfos)
         {
-            _itemContainer = new(_content);
-            _scroller = new(_scroll, _viewport, _content as RectTransform, _itemContainer);
-            _cardClickHandler = new(OnClickLevel);
-            _cardFactory = new(_prefab, _itemContainer, cardInfos, _cardClickHandler.OnClickCard);
+            _itemContainer = new (_content);
+            _scroller = new (_scroll, _viewport, _content as RectTransform, _itemContainer);
+            _cardClickHandler = new (OnClickLevel);
+            _cardFactory = new (_prefab, _itemContainer, cardInfos, _cardClickHandler.OnClickCard);
             _cardFactory.CreateCards();
         }
 

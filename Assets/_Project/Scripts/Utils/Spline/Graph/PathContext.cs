@@ -37,11 +37,13 @@ public class PathContext
 
     public VirtualNodes CreateVirtualNodes(
         SplinePositionFinder positionFinder,
-        Spline startSpline, float startProgress,
-        Spline goalSpline, float goalProgress)
+        Spline startSpline, 
+        float startProgress,
+        Spline goalSpline, 
+        float goalProgress)
     {
-        SplineNode startNode = new(startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
-        SplineNode goalNode = new(goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
+        SplineNode startNode = new (startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
+        SplineNode goalNode = new (goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
 
         ConnectVirtualNode(startNode, _nodes.Where(n => n.Spline == startSpline).ToList(), startSpline, startProgress, true);
         ConnectVirtualNode(goalNode, _nodes.Where(n => n.Spline == goalSpline).ToList(), goalSpline, goalProgress, false);
@@ -87,17 +89,23 @@ public class PathContext
         return toProgress;
     }
 
-    private void ConnectVirtualNode(SplineNode sourceNode, List<SplineNode> targetNodes,
-        Spline spline, float referenceProgress, bool isSourceFirst)
+    private void ConnectVirtualNode(
+        SplineNode sourceNode, 
+        List<SplineNode> targetNodes,
+        Spline spline, 
+        float referenceProgress, 
+        bool isSourceFirst)
     {
         foreach (SplineNode targetNode in targetNodes)
         {
             float distance = _commonSpline != null
-                ? _distanceCalculator.CalculateDirectedDistance(spline,
+                ? _distanceCalculator.CalculateDirectedDistance(
+                    spline,
                     isSourceFirst ? referenceProgress : targetNode.Progress,
                     isSourceFirst ? targetNode.Progress : referenceProgress,
                     _expectedDirection)
-                : _distanceCalculator.CalculateMinDistance(spline,
+                : _distanceCalculator.CalculateMinDistance(
+                    spline,
                     isSourceFirst ? referenceProgress : targetNode.Progress,
                     isSourceFirst ? targetNode.Progress : referenceProgress);
 

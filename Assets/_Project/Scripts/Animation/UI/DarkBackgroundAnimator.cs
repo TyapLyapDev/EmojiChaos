@@ -1,1 +1,4 @@
-public class DarkBackgroundAnimator : PopUpAnimator { }
+namespace EmojiChaos.Animation.UI
+{
+    public class DarkBackgroundAnimator : PopUpAnimator { }
+}

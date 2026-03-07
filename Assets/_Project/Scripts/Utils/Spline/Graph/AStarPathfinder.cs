@@ -35,7 +35,7 @@ public class AStarPathfinder
     public List<SplineSegment> FindPath(Spline startSpline, float startProgress, Spline goalSpline, float goalProgress)
     {
         if (startSpline == null || goalSpline == null)
-            return new();
+            return new ();
 
         _pathContext.InitializePathContext(startSpline, startProgress, goalSpline, goalProgress);
         VirtualNodes virtualNodes = _pathContext.CreateVirtualNodes(_positionFinder, startSpline, startProgress, goalSpline, goalProgress);
@@ -43,11 +43,11 @@ public class AStarPathfinder
 
         if (nodePath.Count > 0)
         {
-            SegmentBuilder segmentBuilder = new(_splineContainer.transform, _pathContext);
+            SegmentBuilder segmentBuilder = new (_splineContainer.transform, _pathContext);
 
             return segmentBuilder.BuildSegments(nodePath, startSpline, startProgress, goalSpline, goalProgress);
         }
 
-        return new();
+        return new ();
     }
 }

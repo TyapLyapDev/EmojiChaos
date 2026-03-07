@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public abstract class MuteButtonBase<T> : ButtonClickHandler<T> where T : MuteButtonBase<T>
+public abstract class MuteButtonBase<T>
+    : ButtonClickHandler<T>
+    where T : MuteButtonBase<T>
 {
-    [SerializeField] protected GameObject _disabledIcon;
-    [SerializeField] protected SliderInformer _sliderInformer;
+    [SerializeField] private GameObject _disabledIcon;
+    [SerializeField] private SliderInformer _sliderInformer;
 
-    protected float _savedVolume;
+    private float _savedVolume;
 
     public bool IsZero => Mathf.Approximately(_sliderInformer.Value, 0);
 

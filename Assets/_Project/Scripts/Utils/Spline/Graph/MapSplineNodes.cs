@@ -10,11 +10,11 @@ public partial class MapSplineNodes
 
     public MapSplineNodes(SplineContainer splineContainer)
     {
-        if(splineContainer == null)
+        if (splineContainer == null)
             throw new ArgumentException(nameof(splineContainer));
 
-        _graphBuilder = new(splineContainer);
-        _pathfinder = new(splineContainer, _graphBuilder.Nodes);
+        _graphBuilder = new (splineContainer);
+        _pathfinder = new (splineContainer, _graphBuilder.Nodes);
     }
 
     public List<SplineSegment> GetPath(Vector3 startPosition, Vector3 targetPosition) =>

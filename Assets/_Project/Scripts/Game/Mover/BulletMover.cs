@@ -21,7 +21,7 @@ public class BulletMover
         if (_target == null)
             return;
 
-        if(deltaSpeed < 0)
+        if (deltaSpeed < 0)
             throw new ArgumentOutOfRangeException(nameof(deltaSpeed), "Значение должно быть положительным");
 
         _transform.LookAt(_target);
@@ -50,7 +50,7 @@ public class BulletMover
 
     public void SetTarget(Transform target)
     {
-        if(target == null)
+        if (target == null)
             throw new ArgumentNullException(nameof(target));
 
         _target = target;

@@ -1,3 +1,4 @@
+using EmojiChaos.Animation;
 using System;
 using UnityEngine;
 

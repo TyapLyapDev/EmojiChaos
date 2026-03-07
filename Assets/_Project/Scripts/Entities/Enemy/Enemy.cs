@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
@@ -85,11 +87,10 @@ public class Enemy : InitializingWithConfigBehaviour<EnemyParam>, IPoolable<Enem
         _config = config;
 
         _visual.Initialize();
-        _mover = new(_config.SplineContainer, transform);
+        _mover = new (_config.SplineContainer, transform);
 
         _visual.DiedCompleted += OnDiedCompleted;
     }
-
 
     private void OnDiedCompleted()
     {

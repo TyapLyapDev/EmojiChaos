@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
@@ -13,7 +14,8 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
     private float _collisionSphereRadius;
     private float _collisionCheckDistance;
 
-    public CarStraightMoverBaseStrategy(Transform transform,
+    public CarStraightMoverBaseStrategy(
+        Transform transform,
         BoxCollider self,
         Action<Vector3> obstacleCollision,
         Action<CarSplineContainer, Vector3> roadDetected)
@@ -52,8 +54,7 @@ public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
             _collisionSphereRadius,
             direction,
             hits,
-            distance
-        );
+            distance);
 
         for (int i = 0; i < hitCount; i++)
         {

@@ -1,5 +1,5 @@
 public enum CrowdSequenceType
 {
     Random,
-    Deterministic
+    Deterministic,
 }

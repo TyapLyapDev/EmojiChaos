@@ -5,5 +5,5 @@ using System.Collections.Generic;
 public class ShopData
 {
     public ShopEntityItemType EntityType;
-    public List<ShopCardItemButtonType> ButtonTypes = new();
+    public List<ShopCardItemButtonType> ButtonTypes = new ();
 }

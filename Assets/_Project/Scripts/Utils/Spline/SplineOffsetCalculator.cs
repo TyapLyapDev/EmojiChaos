@@ -11,7 +11,7 @@ public class SplineOffsetCalculator
 
     public SplineOffsetCalculator(SplineContainer splineContainer)
     {
-        if(splineContainer == null)
+        if (splineContainer == null)
             throw new ArgumentNullException(nameof(splineContainer));
 
         _splineContainer = splineContainer;
@@ -46,7 +46,7 @@ public class SplineOffsetCalculator
     private float CalculateNormalizedDistance(float distance)
     {
         float clampedDistance = Mathf.Clamp(distance, 0f, _splineLength);
-        
+
         return _splineLength > 0f ? clampedDistance / _splineLength : 0f;
     }
 }

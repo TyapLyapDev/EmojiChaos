@@ -1,3 +1,4 @@
+using EmojiChaos.Audio;
 using UnityEngine;
 
 public class VictoryPanel : PanelBase
@@ -28,7 +29,7 @@ public class VictoryPanel : PanelBase
     public void Activate(int targetScore, int starsCount, int level)
     {
         _level.SetParam((level + 1).ToString());
-        _scoreAccrualAnimator = new(targetScore);
+        _scoreAccrualAnimator = new (targetScore);
 
         foreach (GameObject star in _stars)
             star.SetActive(false);
@@ -38,7 +39,7 @@ public class VictoryPanel : PanelBase
 
         if (starsCount > 0)
         {
-            _starBonusCalculator = new(targetScore, starsCount);
+            _starBonusCalculator = new (targetScore, starsCount);
             _starBonusCalculator.OnBonusUpdated += OnStarBonusUpdated;
         }
     }

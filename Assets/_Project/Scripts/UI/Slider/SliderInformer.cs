@@ -1,3 +1,4 @@
+using EmojiChaos.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,13 +24,13 @@ public class SliderInformer : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private void OnDisable() =>
         _slider.onValueChanged.RemoveListener(OnChanged);
 
-    public void OnPointerDown(PointerEventData _)
+    public void OnPointerDown(PointerEventData eventData)
     {
         Audio.Sfx.PlayPointerDownButton();
         PointerDownPressed?.Invoke();
     }
 
-    public void OnPointerUp(PointerEventData _)
+    public void OnPointerUp(PointerEventData eventData)
     {
         Audio.Sfx.PlayPointerUpButton();
         PointerUpPressed?.Invoke();

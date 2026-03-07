@@ -16,9 +16,9 @@ namespace YG.EditorScr
     [Serializable]
     public class PluginPrefsData
     {
-        public List<StringPair> stringPrefs = new();
-        public List<IntPair> intPrefs = new();
-        public List<FloatPair> floatPrefs = new();
+        public List<StringPair> stringPrefs = new ();
+        public List<IntPair> intPrefs = new ();
+        public List<FloatPair> floatPrefs = new ();
     }
 
     public static class PluginPrefs
@@ -26,9 +26,9 @@ namespace YG.EditorScr
         private static PluginPrefsData data;
         private static readonly string savePath = Path.Combine(InfoYG.PATCH_PC_EDITOR, "PluginPrefs.json");
 
-        private static Dictionary<string, string> stringPrefs = new();
-        private static Dictionary<string, int> intPrefs = new();
-        private static Dictionary<string, float> floatPrefs = new();
+        private static Dictionary<string, string> stringPrefs = new ();
+        private static Dictionary<string, int> intPrefs = new ();
+        private static Dictionary<string, float> floatPrefs = new ();
 
         public static void Load()
         {

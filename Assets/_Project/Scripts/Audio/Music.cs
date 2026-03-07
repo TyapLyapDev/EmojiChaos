@@ -1,82 +1,85 @@
 using UnityEngine;
 
-public class Music : InitializingBehaviour
+namespace EmojiChaos.Audio
 {
-    [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _menuMusic;
-    [SerializeField] private AudioClip _levelMusic;
-
-    private bool _isMute = false;
-    private bool _isMenu = true;
-    private bool _isPause = false;
-
-    public void SetMute()
+    public class Music : InitializingBehaviour
     {
-        _isMute = true;
-        _source.Pause();
-    }
+        [SerializeField] private AudioSource _source;
+        [SerializeField] private AudioClip _menuMusic;
+        [SerializeField] private AudioClip _levelMusic;
 
-    public void ResetMute()
-    {
-        _isMute = false;
+        private bool _isMute = false;
+        private bool _isMenu = true;
+        private bool _isPause = false;
 
-        if (_isPause)
-            return;
-
-        if (_source.clip != null)
+        public void SetMute()
         {
-            UnPause();
-            return;
+            _isMute = true;
+            _source.Pause();
         }
 
-        if (_isMenu)
-            PlayMenu();
-        else
-            PlayLevel();
-    }
+        public void ResetMute()
+        {
+            _isMute = false;
 
-    public void PlayMenu()
-    {
-        _isMenu = true;
-        Play(_menuMusic);
-    }
+            if (_isPause)
+                return;
 
-    public void PlayLevel()
-    {
-        _isMenu = false;
-        Play(_levelMusic);
-    }
+            if (_source.clip != null)
+            {
+                UnPause();
+                return;
+            }
 
-    public void Pause()
-    {
-        _isPause = true;
-        _source.Pause();
-    }
+            if (_isMenu)
+                PlayMenu();
+            else
+                PlayLevel();
+        }
 
-    public void UnPause()
-    {
-        _isPause = false;
-        _source.UnPause();
+        public void PlayMenu()
+        {
+            _isMenu = true;
+            Play(_menuMusic);
+        }
 
-        if (_source.isPlaying == false)
+        public void PlayLevel()
+        {
+            _isMenu = false;
+            Play(_levelMusic);
+        }
+
+        public void Pause()
+        {
+            _isPause = true;
+            _source.Pause();
+        }
+
+        public void UnPause()
+        {
+            _isPause = false;
+            _source.UnPause();
+
+            if (_source.isPlaying == false)
+                _source.Play();
+        }
+
+        protected override void OnInitialize()
+        {
+            _source.loop = true;
+            _source.playOnAwake = false;
+        }
+
+        private void Play(AudioClip clip)
+        {
+            _isPause = false;
+            _source.clip = clip;
+            _source.time = 0f;
+
+            if (_isMute)
+                return;
+
             _source.Play();
-    }
-
-    protected override void OnInitialize()
-    {
-        _source.loop = true;
-        _source.playOnAwake = false;
-    }
-
-    private void Play(AudioClip clip)
-    {
-        _isPause = false;
-        _source.clip = clip;
-        _source.time = 0f;
-
-        if (_isMute)
-            return;
-
-        _source.Play();
+        }
     }
 }

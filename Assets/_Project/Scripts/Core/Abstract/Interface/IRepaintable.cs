@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IRepaintable
+namespace EmojiChaos.Core.Abstract.Interface
 {
-    Color Color { get; }
+    public interface IRepaintable
+    {
+        Color Color { get; }
+    }
 }

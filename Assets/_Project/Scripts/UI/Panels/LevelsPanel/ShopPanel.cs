@@ -28,7 +28,7 @@ public class ShopPanel : PanelBase
         _saver = saver;
         Initialize();
         _cardSelector = new (_saver, _tabFactory);
-        _adsListener = new(_cardSelector);
+        _adsListener = new (_cardSelector);
         _clickProcessor = new (_cardSelector, _adsListener.ShowRewardedAd);
 
         _tabFactory.CreateTabs(_infos, OnTabClick, OnCardClick);

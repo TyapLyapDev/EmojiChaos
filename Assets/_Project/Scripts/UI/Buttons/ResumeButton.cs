@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+
 public class ResumeButton : ButtonClickHandler<ResumeButton> 
 {
     protected override void OnClick() =>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TutorialSkipButton: ButtonClickHandler<TutorialSkipButton>
+public class TutorialSkipButton : ButtonClickHandler<TutorialSkipButton>
 {
     [SerializeField] private Tutorial _tutorial;
 

@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
@@ -6,9 +7,9 @@ public class BloodParticle : OneShotParticle, IPoolable<BloodParticle>
     [SerializeField] private ParticleSystem _stratched;
     [SerializeField] private ParticleSystem _circles;
 
-    ParticleSystem.MainModule _module;
-    ParticleSystem.MainModule _stratchedModule;
-    ParticleSystem.MainModule _circlesModule;
+    private ParticleSystem.MainModule _module;
+    private ParticleSystem.MainModule _stratchedModule;
+    private ParticleSystem.MainModule _circlesModule;
 
     public event Action<BloodParticle> Deactivated;
 

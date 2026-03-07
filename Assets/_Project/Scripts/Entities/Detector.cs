@@ -25,8 +25,7 @@ public class Detector : MonoBehaviour
         float radius = _sphereCollider.radius * Mathf.Max(
             transform.lossyScale.x,
             transform.lossyScale.y,
-            transform.lossyScale.z
-        );
+            transform.lossyScale.z);
 
         Collider[] colliders = new Collider[20];
         int count = Physics.OverlapSphereNonAlloc(center, radius, colliders);

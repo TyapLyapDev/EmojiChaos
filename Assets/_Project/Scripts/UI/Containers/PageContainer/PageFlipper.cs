@@ -15,16 +15,16 @@ namespace UI.CustomPageContainer
         {
             if (levelsCount < 0)
                 throw new ArgumentOutOfRangeException(
-                    nameof(levelsCount), 
-                    levelsCount, 
+                    nameof(levelsCount),
+                    levelsCount,
                     " оличество уровней не может быть отрицательным");
 
             _levelsCount = levelsCount;
 
-            if(cellsCount <= 0) 
+            if (cellsCount <= 0)
                 throw new ArgumentOutOfRangeException(
-                    nameof(cellsCount), 
-                    cellsCount, 
+                    nameof(cellsCount),
+                    cellsCount,
                     " оличество €чеек не может быть меньше единицы");
 
             _cellsCount = cellsCount;
@@ -43,7 +43,7 @@ namespace UI.CustomPageContainer
         public void SelectPageByItem(int levelIndex)
         {
             levelIndex = Mathf.Clamp(levelIndex, 0, _levelsCount - 1);
-            _currentPage = (Mathf.Min(levelIndex, _levelsCount - 1)) / _cellsCount;
+            _currentPage = Mathf.Min(levelIndex, _levelsCount - 1) / _cellsCount;
             _pageChanged?.Invoke();
         }
 

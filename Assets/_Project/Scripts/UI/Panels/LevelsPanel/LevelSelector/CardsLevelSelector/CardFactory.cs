@@ -10,7 +10,7 @@ namespace UI.LevelCards
         private readonly ItemContainer _container;
         private readonly IReadOnlyList<ICardInfo> _cardInfos;
         private readonly Action<LevelCard> _cardClicked;
-        private readonly List<LevelCard> _cards = new();
+        private readonly List<LevelCard> _cards = new ();
 
         public CardFactory(LevelCard prefab, ItemContainer container, IReadOnlyList<ICardInfo> cardInfos, Action<LevelCard> onCardClicked)
         {

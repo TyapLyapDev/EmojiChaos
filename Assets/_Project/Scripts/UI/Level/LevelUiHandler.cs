@@ -1,6 +1,7 @@
-using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using EmojiChaos.Audio;
 
 public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiParam>
 {
@@ -189,15 +190,18 @@ public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiParam>
 
     private void ShowPanelAfterDelay(PanelBase panel)
     {
-        _delayedCallTween = DOVirtual.DelayedCall(DelayAfterGameOver, () =>
-        {
-            if (panel != null && panel.gameObject != null)
+        _delayedCallTween = DOVirtual.DelayedCall(
+            DelayAfterGameOver,
+            () =>
             {
-                _darkBackgroundPanel.Show();
-                panel.Show();
-                _config.PauseSwitcher.SetPause();
-            }
-        }, false).SetUpdate(true);
+                if (panel != null && panel.gameObject != null)
+                {
+                    _darkBackgroundPanel.Show();
+                    panel.Show();
+                    _config.PauseSwitcher.SetPause();
+                }
+            }, 
+            false).SetUpdate(true);
     }
 
     private void OnPauseClicked(PauseButton _)

@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 
 public class FactoryWithParam<TBehaviour, TParam> : BaseFactory<TBehaviour>
@@ -6,7 +7,8 @@ public class FactoryWithParam<TBehaviour, TParam> : BaseFactory<TBehaviour>
 {
     private readonly TParam _config;
 
-    public FactoryWithParam(TBehaviour prefab, TParam param) : base(prefab)
+    public FactoryWithParam(TBehaviour prefab, TParam param)
+        : base(prefab)
     {
         _config = param ?? throw new ArgumentNullException(nameof(param));
     }

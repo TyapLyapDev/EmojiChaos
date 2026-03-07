@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
 
-public interface IHittable : IRepaintable
+namespace EmojiChaos.Core.Abstract.Interface
 {
-    event Action<IHittable> Disappeared;
+    public interface IHittable : IRepaintable
+    {
+        event Action<IHittable> Disappeared;
 
-    Transform CenterBody { get; }
+        Transform CenterBody { get; }
 
-    bool IsActive { get; }
+        bool IsActive { get; }
 
-    void Kill();
+        void Kill();
+    }
 }

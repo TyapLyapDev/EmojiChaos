@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+
 public class ProgressLevelOpenerButton : ButtonClickHandler<ProgressLevelOpenerButton>
 {
     protected override void OnClick()

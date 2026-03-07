@@ -1,8 +1,11 @@
 using System;
 
-public interface IDeactivatable<T>
+namespace EmojiChaos.Core.Abstract.Interface
 {
-    public event Action<T> Deactivated;
+    public interface IDeactivatable<T>
+    {
+        public event Action<T> Deactivated;
 
-    void Deactivate();
+        void Deactivate();
+    }
 }

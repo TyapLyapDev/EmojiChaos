@@ -3,11 +3,11 @@ using UnityEngine;
 
 public abstract class TutorialItem : MonoBehaviour
 {
-    public event Action<TutorialItem> Deactivated;
-
     private TutorialParam _config;
 
     protected bool IsActivated { get; private set; }
+
+    public event Action<TutorialItem> Deactivated;
 
     protected TutorialParam Config => _config;
 

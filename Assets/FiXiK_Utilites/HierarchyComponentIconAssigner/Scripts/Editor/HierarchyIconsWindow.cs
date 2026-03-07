@@ -9,7 +9,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
         private const string MenuPath = "Tools/";
         private const string WindowTitle = "»конки в иерархии сцены";
         private const float Space = 10;
-        private static readonly Vector2 s_MinSizeWindow = new(300, 200);
+        private static readonly Vector2 s_MinSizeWindow = new (300, 200);
 
         private SerializedObject _serializedObject;
         private Vector2 _scrollPos;
@@ -18,7 +18,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
         {
             if (ConfigLoader.Config != null)
             {
-                _serializedObject = new(ConfigLoader.Config);
+                _serializedObject = new (ConfigLoader.Config);
                 ConfigLoader.Config.Changed += OnChangesSettings;
             }
         }

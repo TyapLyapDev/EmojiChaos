@@ -12,7 +12,8 @@ public class SplineSegment
     private float _length;
     private bool _isReversedDirectionToRotation;
 
-    public SplineSegment(Spline spline,
+    public SplineSegment(
+        Spline spline,
         Transform splineContainerTransform,
         float startProgress,
         float endProgress)

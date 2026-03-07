@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-
 [ExecuteInEditMode]
 public class InstallerOnSpline : MonoBehaviour
 {
 #if UNITY_EDITOR
-
-    [SerializeField, Min(0)] private int _splineIndex;
-    [SerializeField, Range(0, 1)] private float _progress;
+    [SerializeField] [Min(0)] private int _splineIndex;
+    [SerializeField] [Range(0, 1)] private float _progress;
     [SerializeField] private Vector3 _additionalRotation = Vector3.zero;
     [SerializeField] private bool _isSplineDirection = true;
 
@@ -16,7 +14,6 @@ public class InstallerOnSpline : MonoBehaviour
     [SerializeField] private SplineContainer _splineContainer;
     [SerializeField] private SplineRendererMeshGenerator _splineRendererMeshGenerator;
     [SerializeField] private bool _isAutoupdate = true;
-
 
     private Spline _currentSpline;
     private bool _isSubscribedToEvents = false;
@@ -82,7 +79,7 @@ public class InstallerOnSpline : MonoBehaviour
         if (_splineIndex >= 0 && _splineIndex < _splineContainer.Splines.Count)
             _currentSpline = _splineContainer.Splines[_splineIndex];
 
-        if(_currentSpline == null)
+        if (_currentSpline == null)
         {
             Debug.LogWarning($"Не удалось получить компонент {nameof(_currentSpline)}");
 
@@ -107,7 +104,7 @@ public class InstallerOnSpline : MonoBehaviour
         if (_isSubscribedToEvents == false)
             return;
 
-        if(_splineRendererMeshGenerator != null)
+        if (_splineRendererMeshGenerator != null)
             _splineRendererMeshGenerator.Changed -= OnMeshGeneratorChanged;
 
         _isSubscribedToEvents = false;
@@ -165,7 +162,7 @@ public class InstallerOnSpline : MonoBehaviour
     {
         try
         {
-            if(_isSplineDirection == false)
+            if (_isSplineDirection == false)
             {
                 rotation = transform.rotation;
 
@@ -195,6 +192,5 @@ public class InstallerOnSpline : MonoBehaviour
             return false;
         }
     }
-
 #endif
 }

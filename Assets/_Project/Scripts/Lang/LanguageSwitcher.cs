@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LanguageSwitcher : InitializingBehaviour
 {
+    private readonly string[] _languages = new[] { Constants.LangRu, Constants.LangEn, Constants.LangTr };
+
     [SerializeField] private PreviousLanguageButton _previousLanguageButton;
     [SerializeField] private NextLanguageButton _nextLanguageButton;
     
-    private readonly string[] _languages = new[] { Constants.LangRu, Constants.LangEn, Constants.LangTr };
-
     private void OnDestroy()
     {
         if (_previousLanguageButton != null)
@@ -37,14 +37,14 @@ public class LanguageSwitcher : InitializingBehaviour
         return Array.IndexOf(_languages, currentLanguage);
     }
 
-    private void OnPreviousLanguagedClicked(PreviousLanguageButton _)
+    private void OnPreviousLanguagedClicked(PreviousLanguageButton button)
     {
         int index = GetCurrentLanguageIndex();
         index = (index - 1 + _languages.Length) % _languages.Length;
         YandexGameConnector.SwitchLanguage(_languages[index]);
     }
 
-    private void OnNextLanguagedClicked(NextLanguageButton _)
+    private void OnNextLanguagedClicked(NextLanguageButton button)
     {
         int index = GetCurrentLanguageIndex();
         index = (index + 1) % _languages.Length;

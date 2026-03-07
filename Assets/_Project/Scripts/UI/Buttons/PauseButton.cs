@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+
 public class PauseButton : ButtonClickHandler<PauseButton> 
 {
     protected override void OnClick() =>

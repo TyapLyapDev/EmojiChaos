@@ -21,7 +21,6 @@ public class Level : InitializingBehaviour
     [SerializeField] private int _difficulty;
     [SerializeField] private Sprite _preview;
 
-
     private List<Rack> _slots;
     private List<Star> _stars;
     private List<Crowd> _readyCrowds;
@@ -90,7 +89,7 @@ public class Level : InitializingBehaviour
 
     private void PrepareCrowds()
     {
-        _readyCrowds = new(_crowds);
+        _readyCrowds = new (_crowds);
 
         if (_isRandomSequence)
             Utils.Shuffle(_readyCrowds);

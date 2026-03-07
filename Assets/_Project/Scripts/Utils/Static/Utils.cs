@@ -83,7 +83,9 @@ public static class Utils
     public static void ClearContent(Transform content)
     {
         foreach (Transform child in content)
+        {
             if (child != null)
                 UnityEngine.Object.Destroy(child.gameObject);
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace UI.CustomPageContainer
 {
     public class PageContainer
     {
-        private readonly List<IPagedItem> _items = new();
+        private readonly List<IPagedItem> _items = new ();
         private readonly Transform _content;
 
         public PageContainer(Transform content)

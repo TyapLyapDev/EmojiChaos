@@ -1,6 +1,8 @@
-using DG.Tweening;
 using System;
 using UnityEngine;
+using DG.Tweening;
+using EmojiChaos.Audio;
+using EmojiChaos.Core.Abstract.Interface;
 
 public class Gun : InitializingWithConfigBehaviour<GunParam>
 {
@@ -50,8 +52,8 @@ public class Gun : InitializingWithConfigBehaviour<GunParam>
 
         _visual.Initialize();
 
-        _runner = new(OnShootTick);
-        _aim = new(_rotatingModel);
+        _runner = new (OnShootTick);
+        _aim = new (_rotatingModel);
         _config.Shooter.SetStartPosition(_bulletStartPosition);
     }
 
@@ -103,12 +105,12 @@ public class Gun : InitializingWithConfigBehaviour<GunParam>
         UnityEditor.Handles.color = Color.yellow;
         UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
 
-        GUIStyle style = new()
+        GUIStyle style = new ()
         {
             fontSize = 12,
             normal = { textColor = Color.yellow },
             alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold
+            fontStyle = FontStyle.Bold,
         };
 
         UnityEditor.Handles.Label(position, text, style);

@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+
 public class SfxMuteButton : MuteButtonBase<SfxMuteButton>
 {
     protected override void OnSliderChanged(float value)

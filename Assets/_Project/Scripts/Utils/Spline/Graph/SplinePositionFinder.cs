@@ -22,7 +22,7 @@ public class SplinePositionFinder
             return false;
 
         Vector3 localPosition = _splineContainerTransform.InverseTransformPoint(worldPosition);
-        Ray ray = new(localPosition + Vector3.up * 10f, Vector3.down);
+        Ray ray = new (localPosition + Vector3.up * 10f, Vector3.down);
 
         SplineUtility.GetNearestPoint(spline, ray, out float3 _, out float tempProgress);
         progressOnSpline = Mathf.Clamp01(tempProgress);
@@ -37,7 +37,7 @@ public class SplinePositionFinder
         bool isFound = false;
 
         Vector3 localPosition = _splineContainerTransform.InverseTransformPoint(worldPosition);
-        Ray ray = new(localPosition + Vector3.up * 10f, Vector3.down);
+        Ray ray = new (localPosition + Vector3.up * 10f, Vector3.down);
         float minimumDistance = float.MaxValue;
 
         foreach (Spline tempSpline in _splineContainer.Splines)

@@ -14,7 +14,6 @@ public class LeaderboardLine : MonoBehaviour
     [SerializeField] private Color _initialBackgroundColor;
     [SerializeField] private Color _currentPlayerBackgoundColor;
 
-
     private LeaderboardLineParam _config;
 
     public void Activate(LeaderboardLineParam config)

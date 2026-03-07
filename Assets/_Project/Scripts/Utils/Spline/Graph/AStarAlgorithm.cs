@@ -9,11 +9,11 @@ public class AStarAlgorithm
 
     private readonly PathContext _pathContext;
 
-    private readonly SortedDictionary<float, Queue<SplineNode>> _openSet = new();
-    private readonly Dictionary<SplineNode, SplineNode> _cameFrom = new();
-    private readonly Dictionary<SplineNode, float> _costFromStart = new();
-    private readonly Dictionary<SplineNode, float> _estimatedTotalCost = new();
-    private readonly HashSet<SplineNode> _openSetLookup = new();
+    private readonly SortedDictionary<float, Queue<SplineNode>> _openSet = new ();
+    private readonly Dictionary<SplineNode, SplineNode> _cameFrom = new ();
+    private readonly Dictionary<SplineNode, float> _costFromStart = new ();
+    private readonly Dictionary<SplineNode, float> _estimatedTotalCost = new ();
+    private readonly HashSet<SplineNode> _openSetLookup = new ();
 
     public AStarAlgorithm(PathContext pathContext)
     {
@@ -100,7 +100,7 @@ public class AStarAlgorithm
 
     private List<SplineNode> ReconstructPath(Dictionary<SplineNode, SplineNode> cameFrom, SplineNode current)
     {
-        List<SplineNode> path = new() { current };
+        List<SplineNode> path = new () { current };
 
         while (cameFrom.ContainsKey(current))
         {

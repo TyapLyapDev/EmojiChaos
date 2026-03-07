@@ -1,14 +1,12 @@
-using UnityEngine;
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Splines;
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.Splines;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(SplineContainer))]
@@ -17,7 +15,6 @@ using UnityEngine.Splines;
 public class SplineRendererMeshGenerator : MonoBehaviour
 {
 #if UNITY_EDITOR
-
     private const string DefaultMeshName = "UnknownMesh";
     private const string MeshAssetExtension = ".asset";
     private const string AssetsPathPrefix = "Assets/";
@@ -39,14 +36,13 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [SerializeField] private bool _isTwistMesh;
     [SerializeField] private bool _isAutoupdate;
 
+    public event Action Changed;
 
     private bool _isSubscribedToSplineEvents;
 
     public Vector3 PositionAdjustment => _positionAdjustment;
 
     public Vector3 ScaleAdjustment => _scaleAdjustment;
-
-    public event Action Changed;
 
     private void OnValidate()
     {
@@ -102,7 +98,7 @@ public class SplineRendererMeshGenerator : MonoBehaviour
         _isSubscribedToSplineEvents = false;
     }
 
-    private void OnSplineChanged(Spline spline, int __, SplineModification ___)
+    private void OnSplineChanged(Spline spline, int index, SplineModification splineModification)
     {
         if (_isAutoupdate && _splineContainer.Splines.Contains(spline))
             GenerateMesh();
@@ -110,22 +106,22 @@ public class SplineRendererMeshGenerator : MonoBehaviour
 
     private void GenerateMesh()
     {
-        if (Application.isPlaying) 
+        if (Application.isPlaying)
             return;
 
-            if (_segmentMesh == null)
+        if (_segmentMesh == null)
         {
             Debug.LogError("Меш-сегмент не назначен");
             return;
         }
 
-        List<Vector3> combinedVertices = new();
-        List<Vector3> combinedNormals = new();
-        List<Vector2> combinedUVs = new();
+        List<Vector3> combinedVertices = new ();
+        List<Vector3> combinedNormals = new ();
+        List<Vector2> combinedUVs = new ();
         List<int>[] combinedSubmeshTriangles = new List<int>[_segmentMesh.subMeshCount];
 
         for (int i = 0; i < _segmentMesh.subMeshCount; i++)
-            combinedSubmeshTriangles[i] = new();
+            combinedSubmeshTriangles[i] = new ();
 
         int combinedVertexOffset = 0;
         int splineCounter = 0;
@@ -133,12 +129,12 @@ public class SplineRendererMeshGenerator : MonoBehaviour
 
         foreach (Spline spline in _splineContainer.Splines)
         {
-            List<Vector3> vertices = new();
-            List<Vector3> normals = new();
-            List<Vector2> uvs = new();
+            List<Vector3> vertices = new ();
+            List<Vector3> normals = new ();
+            List<Vector2> uvs = new ();
 
-            List<BezierKnot> knots = new(spline.Knots);
-            List<Quaternion> knotRotations = new();
+            List<BezierKnot> knots = new (spline.Knots);
+            List<Quaternion> knotRotations = new ();
 
             foreach (BezierKnot knot in knots)
                 knotRotations.Add(knot.Rotation);
@@ -146,14 +142,14 @@ public class SplineRendererMeshGenerator : MonoBehaviour
             List<int>[] submeshTriangles = new List<int>[normalizedSegmentMesh.subMeshCount];
 
             for (int i = 0; i < normalizedSegmentMesh.subMeshCount; i++)
-                submeshTriangles[i] = new();
+                submeshTriangles[i] = new ();
 
             int segmentCount = knots.Count - 1;
 
             if (spline.Closed)
                 segmentCount++;
 
-            List<float> segmentRatios = new();
+            List<float> segmentRatios = new ();
 
             for (int i = 0; i < segmentCount; i++)
             {
@@ -165,8 +161,8 @@ public class SplineRendererMeshGenerator : MonoBehaviour
             segmentRatios.Add(1f);
 
             float meshBoundsDistance = Mathf.Abs(SplineUtils.GetRequiredAxis(normalizedSegmentMesh.bounds.size, _forwardAxis));
-            List<float> vertexRatios = new();
-            List<Vector3> vertexOffsets = new();
+            List<float> vertexRatios = new ();
+            List<Vector3> vertexOffsets = new ();
 
             foreach (Vector3 vertex in normalizedSegmentMesh.vertices)
             {
@@ -263,13 +259,13 @@ public class SplineRendererMeshGenerator : MonoBehaviour
             splineCounter++;
         }
 
-        Mesh generatedMesh = new()
+        Mesh generatedMesh = new ()
         {
             name = DefaultMeshName,
             vertices = combinedVertices.ToArray(),
             normals = combinedNormals.ToArray(),
             uv = combinedUVs.ToArray(),
-            subMeshCount = _segmentMesh.subMeshCount
+            subMeshCount = _segmentMesh.subMeshCount,
         };
 
         for (int submeshIndex = 0; submeshIndex < _segmentMesh.subMeshCount; submeshIndex++)
@@ -304,8 +300,5 @@ public class SplineRendererMeshGenerator : MonoBehaviour
     [ContextMenu("Обновить меш рендерера")]
     public void UpdateMeshCollider() =>
         GenerateMesh();
-
 #endif
 }
-
-public enum VectorAxis { X, Y }

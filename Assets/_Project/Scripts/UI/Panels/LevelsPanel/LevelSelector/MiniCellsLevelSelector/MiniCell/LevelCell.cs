@@ -57,7 +57,7 @@ namespace UI.CustomMiniCellsLevelSelector
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            _shaker = new(_model.GetComponent<RectTransform>());
+            _shaker = new (_model.GetComponent<RectTransform>());
         }
     }
 }

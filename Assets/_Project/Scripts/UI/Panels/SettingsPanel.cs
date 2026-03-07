@@ -1,3 +1,4 @@
+using EmojiChaos.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -61,8 +62,8 @@ public class SettingsPanel : PanelBase
 
     private void InitializeVolumeModifiers()
     {
-        _musicModifier = new(_mixer, _music, Constants.MusicGroup);
-        _sfxModifier = new(_mixer, _sfx, Constants.SfxGroup);
+        _musicModifier = new (_mixer, _music, Constants.MusicGroup);
+        _sfxModifier = new (_mixer, _sfx, Constants.SfxGroup);
     }
 
     private void InitializeVolumeButtons()
@@ -84,7 +85,7 @@ public class SettingsPanel : PanelBase
         _sfx.SetValue(_saver.SfxVolume);
     }
 
-    private void OnCloseClicked(SettingsPanelCloserButton _) =>
+    private void OnCloseClicked(SettingsPanelCloserButton button) =>
         SaveVolumeSettings();
 
     private void OnTestInUpResetClicked(TestInUpResetButton button)

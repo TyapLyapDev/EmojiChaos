@@ -38,7 +38,7 @@ public static class SplineUtils
         }
         else
         {
-            Mesh meshCopy = new() { name = $"{meshName}" };
+            Mesh meshCopy = new () { name = $"{meshName}" };
             CopyMeshData(generatedMesh, meshCopy);
             AssetDatabase.CreateAsset(meshCopy, meshPath);
             AssetDatabase.SaveAssets();

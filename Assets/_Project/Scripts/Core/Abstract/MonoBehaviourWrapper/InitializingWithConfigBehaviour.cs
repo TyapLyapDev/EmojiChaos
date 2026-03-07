@@ -1,3 +1,5 @@
+using EmojiChaos.Core.Abstract.Interface;
+
 public abstract class InitializingWithConfigBehaviour<TConfig> : BaseInitializingBehaviour
     where TConfig : IParam
 {

@@ -13,7 +13,7 @@ public class GameSpeedToggleDirector : MonoBehaviour
 
     private void OnEnable()
     {
-        foreach(GameSpeedSwitchButton button in _buttons)
+        foreach (GameSpeedSwitchButton button in _buttons)
             button.Clicked += OnClickButton;
     }
 

@@ -22,8 +22,8 @@ public class EnemyMover
             throw new ArgumentNullException(nameof(transform));
 
         _transform = transform;
-        _offsetCalculator = new(splineContainer);
-        _sideOffsetHandler = new();
+        _offsetCalculator = new (splineContainer);
+        _sideOffsetHandler = new ();
         _cachedSplineLength = _offsetCalculator.SplineLength;
 
         Reset();

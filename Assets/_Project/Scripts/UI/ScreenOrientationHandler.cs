@@ -7,7 +7,7 @@ public class ScreenOrientationHandler : MonoBehaviour
 
     private Vector2Int _lastResolution;
 
-    void Start()
+    private void Start()
     {
         _lastResolution = new Vector2Int(Screen.width, Screen.height);
         UpdateOrientationState();
@@ -17,7 +17,7 @@ public class ScreenOrientationHandler : MonoBehaviour
 #endif
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
 #if UNITY_ANDROID || UNITY_IOS
         Application.onBeforeRender -= HandleResolutionChanged;
@@ -29,7 +29,7 @@ public class ScreenOrientationHandler : MonoBehaviour
 
     private void HandleResolutionChanged()
     {
-        Vector2Int currentResolution = new(Screen.width, Screen.height);
+        Vector2Int currentResolution = new (Screen.width, Screen.height);
 
         if (_lastResolution != currentResolution)
         {

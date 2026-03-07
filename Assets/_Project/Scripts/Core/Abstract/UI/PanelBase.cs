@@ -1,3 +1,5 @@
+using EmojiChaos.Animation.UI;
+using EmojiChaos.Audio;
 using UnityEngine;
 
 public abstract class PanelBase : InitializingBehaviour

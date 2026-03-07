@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 
 public class StarBangParticle : OneShotParticle, IPoolable<StarBangParticle>

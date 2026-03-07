@@ -1,4 +1,7 @@
-public interface IMovementStrategy
+namespace EmojiChaos.Core.Abstract.Interface
 {
-    void Move(float deltaDistance);
+    public interface IMovementStrategy
+    {
+        void Move(float deltaDistance);
+    }
 }

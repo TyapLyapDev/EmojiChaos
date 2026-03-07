@@ -11,7 +11,7 @@ namespace YG
 {
     public static partial class YG2
     {
-        public static SavesYG saves = new();
+        public static SavesYG saves = new ();
         public static Action onDefaultSaves;
 
         private static bool isFirstSession;

@@ -32,7 +32,9 @@ public class RotatingPlatform : MonoBehaviour
     private void OnDetectTriggerExit(Collider collider)
     {
         if (collider.TryGetComponent(out Car car))
+        {
             if (car.transform.parent == _parent)
                 car.SetParent(null);
+        }
     }
 }

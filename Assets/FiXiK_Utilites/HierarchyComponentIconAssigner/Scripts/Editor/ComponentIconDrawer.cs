@@ -17,7 +17,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
         private const float VerticalPadding = 4f;
         private const float HalfValue = 0.5f;
 
-        private readonly Color _noneTextureColor = new(0.5f, 0.5f, 0.5f, 0.3f);
+        private readonly Color _noneTextureColor = new (0.5f, 0.5f, 0.5f, 0.3f);
 
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
         {
@@ -25,7 +25,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
             SerializedProperty typeNameProperty = property.FindPropertyRelative(ComponentIcon.TypePropertyName);
             EditorGUI.BeginProperty(rect, label, property);
 
-            Rect textureRect = new(rect.x, rect.y, TextureSize, TextureSize);
+            Rect textureRect = new (rect.x, rect.y, TextureSize, TextureSize);
             DrawTextureField(textureRect, iconProperty);
 
             float width = rect.width - TextureSize - SpaceBetweenFields;
@@ -33,10 +33,10 @@ namespace FiXiK.HierarchyComponentIconAssigner
             float xPosition = rect.x + TextureSize + SpaceBetweenFields;
             float yPosition = rect.y + (TextureSize - buttonHeight) * HalfValue;
 
-            Rect componentRect = new(xPosition, yPosition, width, buttonHeight);
+            Rect componentRect = new (xPosition, yPosition, width, buttonHeight);
 
             Type currentType = Type.GetType(typeNameProperty.stringValue);
-            GUIContent buttonContent = new(currentType != null ? currentType.Name : NoComponentSelectedText);
+            GUIContent buttonContent = new (currentType != null ? currentType.Name : NoComponentSelectedText);
             DrawComponentField(componentRect, buttonContent, typeNameProperty);
 
             EditorGUI.EndProperty();
@@ -75,7 +75,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
         {
             if (EditorGUI.DropdownButton(rect, content, FocusType.Keyboard))
             {
-                ComponentTypeDropdown dropdown = new(new(), selectedType =>
+                ComponentTypeDropdown dropdown = new (new (), selectedType =>
                 {
                     typeNameProperty.stringValue = selectedType.AssemblyQualifiedName;
                     typeNameProperty.serializedObject.ApplyModifiedProperties();

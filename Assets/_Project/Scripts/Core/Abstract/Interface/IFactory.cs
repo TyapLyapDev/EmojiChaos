@@ -1,4 +1,7 @@
-public interface IFactory<out TValue>
+namespace EmojiChaos.Core.Abstract.Interface
 {
-    TValue Create();
+    public interface IFactory<out TValue>
+    {
+        TValue Create();
+    }
 }

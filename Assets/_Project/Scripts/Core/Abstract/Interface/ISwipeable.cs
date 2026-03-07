@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface ISwipeable : IClickable 
-{ 
-    Transform Transform { get; }
+namespace EmojiChaos.Core.Abstract.Interface
+{
+    public interface ISwipeable : IClickable
+    {
+        Transform Transform { get; }
+    }
 }

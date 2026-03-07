@@ -1,3 +1,5 @@
+using EmojiChaos.Audio;
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -115,6 +117,7 @@ public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeab
             _roar.Stop();
             _roar = null;
         }
+
         Audio.Sfx.PlayCarAccident();
     }
 
@@ -130,13 +133,13 @@ public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeab
         _visual.ShowBackwardAccident(OnBackwardAccidentCompleted);
     }
 
-    private void OnRoadForwardDetected(CarSplineContainer _, Vector3 hitPoint)
+    private void OnRoadForwardDetected(CarSplineContainer container, Vector3 hitPoint)
     {
         FindPath(hitPoint);
         _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
     }
 
-    private void OnRoadBackwardDetected(CarSplineContainer _, Vector3 hitPoint)
+    private void OnRoadBackwardDetected(CarSplineContainer container, Vector3 hitPoint)
     {
         FindPath(hitPoint);
         _mover = new CarSplineRollBackMoverStrategy(transform, _currentPath[0], OnSplineRollBackReached);
@@ -187,12 +190,12 @@ public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeab
         UnityEditor.Handles.color = Color.yellow;
         UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
 
-        GUIStyle style = new()
+        GUIStyle style = new ()
         {
             fontSize = 12,
             normal = { textColor = Color.yellow },
             alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold
+            fontStyle = FontStyle.Bold,
         };
 
         UnityEditor.Handles.Label(position, text, style);

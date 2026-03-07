@@ -17,15 +17,18 @@ public class SegmentBuilder
         _nodeManager = nodeManager ?? throw new ArgumentNullException(nameof(nodeManager));
     }
 
-    public List<SplineSegment> BuildSegments(List<SplineNode> nodePath,
-        Spline startSpline, float startProgress,
-        Spline goalSpline, float goalProgress)
+    public List<SplineSegment> BuildSegments(
+        List<SplineNode> nodePath,
+        Spline startSpline, 
+        float startProgress,
+        Spline goalSpline, 
+        float goalProgress)
     {
         if (nodePath.Count < 3)
             return new List<SplineSegment>();
 
         RemoveVirtualNodes(nodePath);
-        List<SplineSegment> segments = new();
+        List<SplineSegment> segments = new ();
         AddStartSegment(segments, nodePath, startSpline, startProgress);
         AddIntermediateSegments(segments, nodePath);
         AddEndSegment(segments, nodePath, goalSpline, goalProgress);

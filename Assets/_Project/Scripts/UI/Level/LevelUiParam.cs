@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,8 @@ public readonly struct LevelUiParam : IParam
     private readonly SceneLoader _sceneLoader;
     private readonly IReadOnlyList<SlotPurchasingButton> _slotPurchasingButtons;
 
-    public LevelUiParam(PauseSwitcher pauseSwitcher, 
+    public LevelUiParam(
+        PauseSwitcher pauseSwitcher, 
         Saver saver,
         LevelStatsHandler levelStatsHandler, 
         SceneLoader sceneLoader,

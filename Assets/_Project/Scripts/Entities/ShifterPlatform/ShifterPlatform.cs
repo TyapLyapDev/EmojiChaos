@@ -9,8 +9,8 @@ public class ShifterPlatform : MonoBehaviour
     private Detector _detector;
     private Bubble _bubble;
     private Transform _flipperParent;
-    private List<Car> _carsToShow = new();
-    private List<Car> _carsEnter = new();
+    private List<Car> _carsToShow = new ();
+    private List<Car> _carsEnter = new ();
 
     private void Awake()
     {

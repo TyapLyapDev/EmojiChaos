@@ -6,13 +6,13 @@ namespace UI.Shop
 {
     public class TabFactory : MonoBehaviour
     {
+        private readonly List<TabPanel> _tabPanels = new ();
+        private readonly List<TabButton> _tabButtons = new ();
+
         [SerializeField] private TabButton _buttonPrefab;
         [SerializeField] private Transform _buttonContent;
         [SerializeField] private TabPanel _panelPrefab;
         [SerializeField] private Transform _panelContent;
-
-        private readonly List<TabPanel> _tabPanels = new();
-        private readonly List<TabButton> _tabButtons = new();
 
         public IReadOnlyList<TabPanel> TabPanels => _tabPanels;
 

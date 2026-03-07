@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 
 public readonly struct MenuUiParam : IParam

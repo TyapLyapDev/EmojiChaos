@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,14 +57,12 @@ public class CarSplineMoverStrategy : IMovementStrategy
         Vector3 newPosition = Vector3.MoveTowards(
             _transform.position,
             _targetPosition,
-            deltaDistance * MovementSmoothSpeedMultiplier
-        );
+            deltaDistance * MovementSmoothSpeedMultiplier);
 
         Quaternion newRotation = Quaternion.RotateTowards(
             _transform.rotation,
             _targetRotation,
-            deltaDistance * RotationSmoothSpeedMultiplier
-        );
+            deltaDistance * RotationSmoothSpeedMultiplier);
 
         _transform.SetPositionAndRotation(newPosition, newRotation);
     }

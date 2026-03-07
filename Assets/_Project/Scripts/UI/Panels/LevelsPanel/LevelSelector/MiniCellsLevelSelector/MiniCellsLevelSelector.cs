@@ -24,11 +24,11 @@ namespace UI.CustomMiniCellsLevelSelector
 
         public void Init(List<IMiniCellInfo> infos)
         {
-            _container = new(_content);
-            _cellClickHandler = new(OnLevelClick);
-            _pageFlipper = new(infos.Count, _cellCapacity, OnPageChanged);
-            _cellFactory = new(_container, _prefab, _cellClickHandler.OnClickCell);
-            _infoUpdater = new(_container, _pageFlipper, infos);
+            _container = new (_content);
+            _cellClickHandler = new (OnLevelClick);
+            _pageFlipper = new (infos.Count, _cellCapacity, OnPageChanged);
+            _cellFactory = new (_container, _prefab, _cellClickHandler.OnClickCell);
+            _infoUpdater = new (_container, _pageFlipper, infos);
 
             _container.ClearContent();
             _cellFactory.CreateCells(_cellCapacity);

@@ -8,7 +8,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
 {
     public static class HierarchyIconDrawer
     {
-        private static readonly Vector2 s_IconSize = new(16, 16);
+        private static readonly Vector2 s_IconSize = new (16, 16);
 
         private static Dictionary<Type, Texture2D> s_Cache;
         private static HashSet<Type> s_EnabledTypes;
@@ -76,9 +76,9 @@ namespace FiXiK.HierarchyComponentIconAssigner
                 s_CurrentSettings.Changed += OnSettingsChanged;
             }
 
-            s_EnabledTypes = new();
-            s_Cache = new();
-            HashSet<Type> seen = new();
+            s_EnabledTypes = new ();
+            s_Cache = new ();
+            HashSet<Type> seen = new ();
 
             foreach (ComponentIcon param in ConfigLoader.Config.ComponentIconList)
             {
@@ -122,7 +122,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
                     if (s_Cache.TryGetValue(enabledType, out Texture2D texture) == false || texture == null)
                         continue;
 
-                    Rect iconRect = new(
+                    Rect iconRect = new (
                         selectionRect.x,
                         selectionRect.y + selectionRect.height - s_IconSize.y,
                         s_IconSize.x,

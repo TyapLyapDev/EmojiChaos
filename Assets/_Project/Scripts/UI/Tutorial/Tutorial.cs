@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
 {
-    [SerializeField] TutorialCircle _circle;
-    [SerializeField] List<TutorialItem> _items;
+    [SerializeField] private TutorialCircle _circle;
+    [SerializeField] private List<TutorialItem> _items;
 
     public void Complete()
     {
-        List<TutorialItem> items = new(_items);
+        List<TutorialItem> items = new (_items);
 
         foreach (TutorialItem item in items)
             item.Deactivate();
@@ -29,7 +29,7 @@ public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
 
     private void ActivateNextItem()
     {
-        if(_items.Count == 0)
+        if (_items.Count == 0)
         {
             Complete();
 

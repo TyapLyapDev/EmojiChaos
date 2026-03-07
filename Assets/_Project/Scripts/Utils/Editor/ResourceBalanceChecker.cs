@@ -42,7 +42,7 @@ public class ResourceBalanceChecker : EditorWindow
     private static void AnalyzeLevelBalance(Level level)
     {
         string propertyName = "_crowds";
-        SerializedObject serializedLevel = new(level);
+        SerializedObject serializedLevel = new (level);
         SerializedProperty crowdsProperty = serializedLevel.FindProperty(propertyName);
 
         if (crowdsProperty == null)
@@ -53,7 +53,7 @@ public class ResourceBalanceChecker : EditorWindow
         }
 
         Car[] cars = level.GetComponentsInChildren<Car>(true);
-        SortedDictionary<int, int> enemiesByType = new();
+        SortedDictionary<int, int> enemiesByType = new ();
 
         int totalCrowds = crowdsProperty.arraySize;
         int totalEnemies = 0;
@@ -71,7 +71,7 @@ public class ResourceBalanceChecker : EditorWindow
                 enemiesByType.Add(id, quantity);
         }
 
-        Dictionary<int, CarAmmoInfo> ammoByCarType = new();
+        Dictionary<int, CarAmmoInfo> ammoByCarType = new ();
         int totalCars = cars.Length;
 
         foreach (Car car in cars)
@@ -97,7 +97,7 @@ public class ResourceBalanceChecker : EditorWindow
             }
         }
 
-        HashSet<int> allIds = new(enemiesByType.Keys);
+        HashSet<int> allIds = new (enemiesByType.Keys);
         allIds.UnionWith(ammoByCarType.Keys);
         int totalTypes = allIds.Count;
 
@@ -144,7 +144,7 @@ public class ResourceBalanceChecker : EditorWindow
     private class CarAmmoInfo
     {
         public int totalBulletCount;
-        public List<Car> cars = new();
+        public List<Car> cars = new ();
     }
 }
 #endif

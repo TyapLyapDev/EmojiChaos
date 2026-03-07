@@ -1,3 +1,4 @@
+using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
@@ -48,13 +49,13 @@ public abstract class CarStraightRollMoverBaseStrategy : IMovementStrategy
         float distance = _forwardOffset + deltaDistance;
 
         RaycastHit[] hits = new RaycastHit[10];
+
         int hitCount = Physics.SphereCastNonAlloc(
             startPosition,
             _sphereRadius,
             direction,
             hits,
-            distance
-        );
+            distance);
 
         for (int i = 0; i < hitCount; i++)
         {

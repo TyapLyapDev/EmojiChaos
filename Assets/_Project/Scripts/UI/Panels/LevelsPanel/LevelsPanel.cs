@@ -7,11 +7,12 @@ using UnityEngine;
 
 public class LevelsPanel : PanelBase
 {
+    private readonly LevelFinder _levelFinder = new ();
+
     [SerializeField] private MiniCellsLevelSelector _levelBoxContainer;
     [SerializeField] private CardsLevelSelector _cardsLevelSelector;
     [SerializeField] private LevelRepresentationSwitcherButton _levelRepresentationSwitcherButton;
 
-    private readonly LevelFinder _levelFinder = new();
     private List<ILevelSelector> _selectors;
     private ILevelSelector _currentSelector;
     private int _levelProgress;
@@ -20,7 +21,7 @@ public class LevelsPanel : PanelBase
 
     private void OnDestroy()
     {
-        if(_levelRepresentationSwitcherButton != null)
+        if (_levelRepresentationSwitcherButton != null)
             _levelRepresentationSwitcherButton.Clicked -= OnClickSwitchRepresentation;
 
         UnsubscribeSelector();
@@ -33,14 +34,14 @@ public class LevelsPanel : PanelBase
         _levelProgress = levelProgress;
 
         IReadOnlyList<Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
-        List<LevelInfo> levelInfos = new();
+        List<LevelInfo> levelInfos = new ();
 
         for (int i = 0; i < levelPrefabs.Count; i++)
         {
             Level level = levelPrefabs[i];
             CrowdSequenceType crowdSequenceType = level.IsRandomSequence ? CrowdSequenceType.Random : CrowdSequenceType.Deterministic;
 
-            LevelInfo levelInfo = new(
+            LevelInfo levelInfo = new (
                 levelNumber: i + 1,
                 starCount: starInfos[i],
                 difficulty: level.Difficulty,
@@ -52,7 +53,8 @@ public class LevelsPanel : PanelBase
         }
 
         _levelFinder.UnloadUnusedLevels();
-        _levelProgress = levelProgress;InitSelectors(levelInfos);
+        _levelProgress = levelProgress; 
+        InitSelectors(levelInfos);
 
         _levelRepresentationSwitcherButton.Clicked += OnClickSwitchRepresentation;
     }
@@ -62,10 +64,10 @@ public class LevelsPanel : PanelBase
         _levelBoxContainer.Init(levelInfos.Cast<IMiniCellInfo>().ToList());
         _cardsLevelSelector.Init(levelInfos.Cast<ICardInfo>().ToList());
 
-        _selectors = new()
+        _selectors = new ()
         {
             _cardsLevelSelector,
-            _levelBoxContainer
+            _levelBoxContainer,
         };
 
         SetSelector(_selectors[0]);
@@ -85,7 +87,7 @@ public class LevelsPanel : PanelBase
         else
             _levelRepresentationSwitcherButton.ShowCellIcon();
 
-            _currentSelector.Show();
+        _currentSelector.Show();
         _currentSelector.AlignByLevel(_levelProgress);
     }
 
@@ -115,6 +117,6 @@ public class LevelsPanel : PanelBase
         int currentIndex = _selectors.IndexOf(_currentSelector);
         int nextIndex = (currentIndex + 1) % _selectors.Count;
         ILevelSelector selector = _selectors[nextIndex];
-        SetSelector(selector);        
+        SetSelector(selector);
     }
 }

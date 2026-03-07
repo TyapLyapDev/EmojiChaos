@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class LangParams
 {
-    [SerializeField, TextArea] private string _text = "текст";
+    [SerializeField][TextArea] private string _text = "текст";
     [SerializeField] private TMP_FontAsset _font;
     [SerializeField] private Material _preset;
 

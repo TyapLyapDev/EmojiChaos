@@ -1,10 +1,18 @@
-﻿[*.cs]
-
+[*.cs]
 # IDE0180: Использовать кортеж для переключения значений
 csharp_style_prefer_tuple_swap = false
 
-[*.cs]
 #### Стили именования ####
+
+# Пробел между именем вызываемого метода и открывающей скобкой (для new работает как вызов конструктора)
+csharp_space_between_method_call_name_and_opening_parenthesis = true
+
+# Пробел перед пустыми скобками в вызове метода (new () — частный случай)
+csharp_space_between_method_call_empty_parameter_list_parentheses = true
+
+# Для конструкторов (объявление) — возможно, тоже влияет
+csharp_space_between_method_declaration_name_and_open_parenthesis = true
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = true
 
 # Правила именования
 
@@ -123,3 +131,12 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 end_of_line = crlf
+
+# Default severity for analyzer diagnostics with category 'StyleCop.CSharp.DocumentationRules'
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.DocumentationRules.severity = none
+
+# Default severity for analyzer diagnostics with category 'StyleCop.CSharp.NamingRules'
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.NamingRules.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none
