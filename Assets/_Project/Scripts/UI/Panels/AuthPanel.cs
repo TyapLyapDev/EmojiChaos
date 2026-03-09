@@ -1,1 +1,6 @@
-public class AuthPanel : PanelBase { }
+namespace EmojiChaos.UI.Panels
+{
+    using Core.Abstract.UI;
+
+    public class AuthPanel : PanelBase { }
+}

@@ -4,6 +4,9 @@ using UnityEngine.Audio;
 
 namespace EmojiChaos.Audio
 {
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Utils.Static;
+
     public class Sfx : InitializingBehaviour
     {
         private const float SlightPitchDeviation = 0.1f;

@@ -1,41 +1,46 @@
 using System;
 
-public class DefeatHandler : IDisposable
+namespace EmojiChaos.Services.GameFlow
 {
-    private readonly EnemiesMovementDirector _enemiesSpeedDirector;
-    private readonly StarsCounter _starsCounter;
+    using Services.Movement;
 
-    public DefeatHandler(EnemiesMovementDirector enemiesSpeedDirector, StarsCounter starsCounter)
+    public class DefeatHandler : IDisposable
     {
-        _enemiesSpeedDirector = enemiesSpeedDirector ?? throw new ArgumentNullException(nameof(enemiesSpeedDirector));
-        _starsCounter = starsCounter ?? throw new ArgumentNullException(nameof(starsCounter));
+        private readonly EnemiesMovementDirector _enemiesSpeedDirector;
+        private readonly StarsCounter _starsCounter;
 
-        Subscribe();
+        public DefeatHandler(EnemiesMovementDirector enemiesSpeedDirector, StarsCounter starsCounter)
+        {
+            _enemiesSpeedDirector = enemiesSpeedDirector ?? throw new ArgumentNullException(nameof(enemiesSpeedDirector));
+            _starsCounter = starsCounter ?? throw new ArgumentNullException(nameof(starsCounter));
+
+            Subscribe();
+        }
+
+        public event Action Defeat;
+
+        public void Dispose() =>
+            Unsubscribe();
+
+        private void Subscribe()
+        {
+            _starsCounter.StarsLeft += OnStarsLeft;
+            _enemiesSpeedDirector.FirstEnemyFinished += OnEnemyFirstFinished;
+        }
+
+        private void Unsubscribe()
+        {
+            if (_starsCounter != null)
+                _starsCounter.StarsLeft -= OnStarsLeft;
+
+            if (_enemiesSpeedDirector != null)
+                _enemiesSpeedDirector.FirstEnemyFinished -= OnEnemyFirstFinished;
+        }
+
+        private void OnStarsLeft() =>
+            Defeat?.Invoke();
+
+        private void OnEnemyFirstFinished() =>
+            Defeat?.Invoke();
     }
-
-    public event Action Defeat;
-
-    public void Dispose() =>
-        Unsubscribe();
-
-    private void Subscribe()
-    {
-        _starsCounter.StarsLeft += OnStarsLeft;
-        _enemiesSpeedDirector.FirstEnemyFinished += OnEnemyFirstFinished;
-    }
-
-    private void Unsubscribe()
-    {
-        if (_starsCounter != null)
-            _starsCounter.StarsLeft -= OnStarsLeft;
-
-        if (_enemiesSpeedDirector != null)
-            _enemiesSpeedDirector.FirstEnemyFinished -= OnEnemyFirstFinished;
-    }
-
-    private void OnStarsLeft() =>
-        Defeat?.Invoke();
-
-    private void OnEnemyFirstFinished() =>
-        Defeat?.Invoke();
 }

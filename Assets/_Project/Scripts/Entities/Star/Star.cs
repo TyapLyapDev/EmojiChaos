@@ -1,88 +1,93 @@
-using EmojiChaos.Audio;
 using System;
 using UnityEngine;
 
-public class Star : InitializingWithConfigBehaviour<StarParam>
+namespace EmojiChaos.Entities.Star
 {
-    private const float FearProgressDistance = 0.1f;
-    private const float RelaxProgressDistance = 0.22f;
+    using Audio;
+    using Core.Abstract.MonoBehaviourWrapper;
 
-    [SerializeField] private StarVisual _visual;
-    [SerializeField] private float _progressOnSpline = 1f;
-    [SerializeField] private Transform _centerTarget;
-
-    private bool _isFear = false;
-
-    private StarParam _config;
-
-    public event Action<Star> Destroyed;
-
-    public Transform Center => _centerTarget;
-
-    private void OnDestroy()
+    public class Star : InitializingWithConfigBehaviour<StarParam>
     {
-        if (_config.EnemySpeedDirector != null)
-            _config.EnemySpeedDirector.FirstEnemyProgressChanged -= OnFirstEnemyProgressChanged;
-    }
+        private const float FearProgressDistance = 0.1f;
+        private const float RelaxProgressDistance = 0.22f;
 
-    public void SetProgress(float progress) =>
-        _progressOnSpline = progress;
+        [SerializeField] private StarVisual _visual;
+        [SerializeField] private float _progressOnSpline = 1f;
+        [SerializeField] private Transform _centerTarget;
 
-    public void SetEnjoy()
-    {
-        if (_isFear == false)
-            return;
+        private bool _isFear = false;
 
-        _isFear = false;
-        _visual.SetEnjoy();
+        private StarParam _config;
 
-        if (Audio.Sfx != null)
-            Audio.Sfx.PlayStarRelax();
-    }
+        public event Action<Star> Destroyed;
 
-    protected override void OnInitialize(StarParam config)
-    {
-        _visual.Initialize();
-        _config = config;
-        _config.EnemySpeedDirector.FirstEnemyProgressChanged += OnFirstEnemyProgressChanged;
-    }
+        public Transform Center => _centerTarget;
 
-    private void OnFirstEnemyProgressChanged(float progress)
-    {
-        if (progress >= _progressOnSpline)
+        private void OnDestroy()
         {
-            _config.EnemySpeedDirector.FirstEnemyProgressChanged -= OnFirstEnemyProgressChanged;
-            _visual.DiedCompleted += OnDiedCompleted;
-
-            _visual.SetDied();
-            Audio.Sfx.PlayStarByeBye();
-
-            return;
+            if (_config.EnemySpeedDirector != null)
+                _config.EnemySpeedDirector.FirstEnemyProgressChanged -= OnFirstEnemyProgressChanged;
         }
 
-        if (progress >= _progressOnSpline - FearProgressDistance)
+        public void SetProgress(float progress) =>
+            _progressOnSpline = progress;
+
+        public void SetEnjoy()
         {
-            if (_isFear)
+            if (_isFear == false)
                 return;
 
-            _isFear = true;
-            _visual.SetFear();
-            Audio.Sfx.PlayStarFear();
+            _isFear = false;
+            _visual.SetEnjoy();
 
-            return;
+            if (Audio.Sfx != null)
+                Audio.Sfx.PlayStarRelax();
         }
 
-        if (progress <= _progressOnSpline - RelaxProgressDistance)
-            SetEnjoy();
-    }
+        protected override void OnInitialize(StarParam config)
+        {
+            _visual.Initialize();
+            _config = config;
+            _config.EnemySpeedDirector.FirstEnemyProgressChanged += OnFirstEnemyProgressChanged;
+        }
 
-    private void OnDiedCompleted()
-    {
-        _visual.DiedCompleted -= OnDiedCompleted;
-        _config.ParticleShower.ShowStarBang(_centerTarget.position, _centerTarget.rotation);
-        _config.CameraShaker.Shake();
-        Destroyed?.Invoke(this);
-        Audio.Sfx.PlayStarPoof();
-        Destroy(gameObject);
+        private void OnFirstEnemyProgressChanged(float progress)
+        {
+            if (progress >= _progressOnSpline)
+            {
+                _config.EnemySpeedDirector.FirstEnemyProgressChanged -= OnFirstEnemyProgressChanged;
+                _visual.DiedCompleted += OnDiedCompleted;
+
+                _visual.SetDied();
+                Audio.Sfx.PlayStarByeBye();
+
+                return;
+            }
+
+            if (progress >= _progressOnSpline - FearProgressDistance)
+            {
+                if (_isFear)
+                    return;
+
+                _isFear = true;
+                _visual.SetFear();
+                Audio.Sfx.PlayStarFear();
+
+                return;
+            }
+
+            if (progress <= _progressOnSpline - RelaxProgressDistance)
+                SetEnjoy();
+        }
+
+        private void OnDiedCompleted()
+        {
+            _visual.DiedCompleted -= OnDiedCompleted;
+            _config.ParticleShower.ShowStarBang(_centerTarget.position, _centerTarget.rotation);
+            _config.CameraShaker.Shake();
+            Destroyed?.Invoke(this);
+            Audio.Sfx.PlayStarPoof();
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,8 +1,14 @@
 using UnityEngine;
 
-public class SlotPurchasingButton : ButtonClickHandler<SlotPurchasingButton>
+namespace EmojiChaos.UI.Buttons
 {
-    [SerializeField] private InApp _inApp;
+    using Core.Abstract.UI;
+    using ScriptableObect;
 
-    public InApp InApp => _inApp;
+    public class SlotPurchasingButton : ButtonClickHandler<SlotPurchasingButton>
+    {
+        [SerializeField] private InApp _inApp;
+
+        public InApp InApp => _inApp;
+    }
 }

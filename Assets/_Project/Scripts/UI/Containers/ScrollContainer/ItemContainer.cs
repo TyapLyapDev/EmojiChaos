@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Containers.ScrollContainer
+{
+
 namespace UI.CustomScrollContainer
 {
     public class ItemContainer
@@ -41,4 +44,5 @@ namespace UI.CustomScrollContainer
                 _content.gameObject.SetActive(false);
         }
     }
+}
 }

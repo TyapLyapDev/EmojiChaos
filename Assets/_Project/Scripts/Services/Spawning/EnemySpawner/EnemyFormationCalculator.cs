@@ -1,5 +1,8 @@
 using System;
 
+namespace EmojiChaos.Services.Spawning.EnemySpawner
+{
+
 public class EnemyFormationCalculator
 {
     private const int MiddlePointDivisor = 2;
@@ -7,10 +10,10 @@ public class EnemyFormationCalculator
     public float[] Calculate(int countLines, float stepOffset)
     {
         if (countLines <= 0)
-            throw new ArgumentOutOfRangeException(nameof(countLines), "ОПАЧКИ, КОСЯК! Количество линий в толпе должно быть больше нуля!");
+            throw new ArgumentOutOfRangeException(nameof(countLines), "пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ!");
 
         if (stepOffset < 0)
-            throw new ArgumentOutOfRangeException(nameof(stepOffset), "ОПАЧКИ, КОСЯК! Отступы не могут быть отрицательными!");
+            throw new ArgumentOutOfRangeException(nameof(stepOffset), "пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
 
         float[] offsets = new float[countLines];
         float startOffset = -(countLines - 1) * stepOffset / MiddlePointDivisor;
@@ -20,4 +23,5 @@ public class EnemyFormationCalculator
 
         return offsets;
     }
+}
 }

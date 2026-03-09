@@ -2,37 +2,42 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class LanguageSwitchHandlerWithParam : MonoBehaviour
+namespace EmojiChaos.Lang
 {
-    [SerializeField] private LanguageTextsSet _texts;
+    using Utils.Static;
 
-    private TMP_Text _text;
-    private string _param = "0";
-
-    private void Awake()
+    public class LanguageSwitchHandlerWithParam : MonoBehaviour
     {
-        if (TryGetComponent(out _text) == false)
-            throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_text)}");
-    }
+        [SerializeField] private LanguageTextsSet _texts;
 
-    private void OnEnable()
-    {
-        YandexGameConnector.LangSwitched += SwitchLanguage;
-        SwitchLanguage(YandexGameConnector.Lang);
-    }
+        private TMP_Text _text;
+        private string _param = "0";
 
-    private void OnDisable() =>
-        YandexGameConnector.LangSwitched -= SwitchLanguage;
+        private void Awake()
+        {
+            if (TryGetComponent(out _text) == false)
+                throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_text)}");
+        }
 
-    public void SetParam(string param) =>
-        _param = param;
+        private void OnEnable()
+        {
+            YandexGameConnector.LangSwitched += SwitchLanguage;
+            SwitchLanguage(YandexGameConnector.Lang);
+        }
 
-    private void SwitchLanguage(string lang)
-    {
-        LangParams langParams = _texts.GetByLang(lang);
+        private void OnDisable() =>
+            YandexGameConnector.LangSwitched -= SwitchLanguage;
 
-        _text.font = langParams.Font;
-        _text.fontMaterial = langParams.Preset;
-        _text.text = string.Format(langParams.Text, _param);
+        public void SetParam(string param) =>
+            _param = param;
+
+        private void SwitchLanguage(string lang)
+        {
+            LangParams langParams = _texts.GetByLang(lang);
+
+            _text.font = langParams.Font;
+            _text.fontMaterial = langParams.Preset;
+            _text.text = string.Format(langParams.Text, _param);
+        }
     }
 }

@@ -1,26 +1,31 @@
 using UnityEngine;
 
-public abstract class BaseRepainter : InitializingBehaviour
+namespace EmojiChaos.Core.Abstract
 {
-    [SerializeField] private Renderer _renderer;
+    using MonoBehaviourWrapper;
 
-    private MaterialPropertyBlock _propertyBlock;
-
-    protected void Repaint()
+    public abstract class BaseRepainter : InitializingBehaviour
     {
-        OnGetPropertyBlock(_renderer, _propertyBlock);
-        OnRepaint(_propertyBlock);
-        OnSetPropertyBlock(_renderer, _propertyBlock);
+        [SerializeField] private Renderer _renderer;
+
+        private MaterialPropertyBlock _propertyBlock;
+
+        protected void Repaint()
+        {
+            OnGetPropertyBlock(_renderer, _propertyBlock);
+            OnRepaint(_propertyBlock);
+            OnSetPropertyBlock(_renderer, _propertyBlock);
+        }
+
+        protected virtual void OnGetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
+            renderer.GetPropertyBlock(propertyBlock);
+
+        protected abstract void OnRepaint(MaterialPropertyBlock propertyBlock);
+
+        protected virtual void OnSetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
+            renderer.SetPropertyBlock(propertyBlock);
+
+        protected override void OnInitialize() =>
+            _propertyBlock = new();
     }
-
-    protected virtual void OnGetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
-        renderer.GetPropertyBlock(propertyBlock);
-
-    protected abstract void OnRepaint(MaterialPropertyBlock propertyBlock);
-
-    protected virtual void OnSetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
-        renderer.SetPropertyBlock(propertyBlock);
-
-    protected override void OnInitialize() =>
-        _propertyBlock = new ();
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class SplineDistanceCalculator
 {
     private const float DirectionChangeThreshold = 0.5f;
@@ -44,4 +47,5 @@ public class SplineDistanceCalculator
 
         return CalculateMinDistance(nodeA.Spline, nodeA.Progress, nodeB.Progress);
     }
+}
 }

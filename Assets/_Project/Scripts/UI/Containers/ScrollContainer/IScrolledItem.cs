@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI.Containers.ScrollContainer
+{
+
 namespace UI.CustomScrollContainer
 {
     public interface IScrolledItem 
@@ -8,4 +11,5 @@ namespace UI.CustomScrollContainer
 
         RectTransform Center { get; }
     }
+}
 }

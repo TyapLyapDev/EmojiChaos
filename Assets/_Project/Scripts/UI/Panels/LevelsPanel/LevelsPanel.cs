@@ -1,122 +1,133 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.CustomMiniCellsLevelSelector;
-using UI.LevelCards;
 using UnityEngine;
 
-public class LevelsPanel : PanelBase
+namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    private readonly LevelFinder _levelFinder = new ();
+    using Buttons.LevelRepresentationSwitcherButton;
+    using Core.Abstract.UI;
+    using Data;
+    using LevelSelector;
+    using LevelSelector.CardsLevelSelector;
+    using LevelSelector.CardsLevelSelector.Card.UI.LevelCards;
+    using LevelSelector.MiniCellsLevelSelector;
+    using LevelSelector.MiniCellsLevelSelector.MiniCell.UI.CustomMiniCellsLevelSelector;
+    using Services.Level;
 
-    [SerializeField] private MiniCellsLevelSelector _levelBoxContainer;
-    [SerializeField] private CardsLevelSelector _cardsLevelSelector;
-    [SerializeField] private LevelRepresentationSwitcherButton _levelRepresentationSwitcherButton;
-
-    private List<ILevelSelector> _selectors;
-    private ILevelSelector _currentSelector;
-    private int _levelProgress;
-
-    public event Action<int> LevelClicked;
-
-    private void OnDestroy()
+    public class LevelsPanel : PanelBase
     {
-        if (_levelRepresentationSwitcherButton != null)
-            _levelRepresentationSwitcherButton.Clicked -= OnClickSwitchRepresentation;
+        private readonly LevelFinder _levelFinder = new();
 
-        UnsubscribeSelector();
-    }
+        [SerializeField] private MiniCellsLevelSelector _levelBoxContainer;
+        [SerializeField] private CardsLevelSelector _cardsLevelSelector;
+        [SerializeField] private LevelRepresentationSwitcherButton _levelRepresentationSwitcherButton;
 
-    public void Initialize(int levelProgress, List<int> starInfos)
-    {
-        Initialize();
-        _levelRepresentationSwitcherButton.Initialize();
-        _levelProgress = levelProgress;
+        private List<ILevelSelector> _selectors;
+        private ILevelSelector _currentSelector;
+        private int _levelProgress;
 
-        IReadOnlyList<Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
-        List<LevelInfo> levelInfos = new ();
+        public event Action<int> LevelClicked;
 
-        for (int i = 0; i < levelPrefabs.Count; i++)
+        private void OnDestroy()
         {
-            Level level = levelPrefabs[i];
-            CrowdSequenceType crowdSequenceType = level.IsRandomSequence ? CrowdSequenceType.Random : CrowdSequenceType.Deterministic;
+            if (_levelRepresentationSwitcherButton != null)
+                _levelRepresentationSwitcherButton.Clicked -= OnClickSwitchRepresentation;
 
-            LevelInfo levelInfo = new (
-                levelNumber: i + 1,
-                starCount: starInfos[i],
-                difficulty: level.Difficulty,
-                isLock: i > _levelProgress,
-                crowdSequenceType: crowdSequenceType,
-                preview: level.Preview);
-
-            levelInfos.Add(levelInfo);
+            UnsubscribeSelector();
         }
 
-        _levelFinder.UnloadUnusedLevels();
-        _levelProgress = levelProgress; 
-        InitSelectors(levelInfos);
+        public void Initialize(int levelProgress, List<int> starInfos)
+        {
+            Initialize();
+            _levelRepresentationSwitcherButton.Initialize();
+            _levelProgress = levelProgress;
 
-        _levelRepresentationSwitcherButton.Clicked += OnClickSwitchRepresentation;
-    }
+            IReadOnlyList<Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
+            List<LevelInfo> levelInfos = new();
 
-    private void InitSelectors(List<LevelInfo> levelInfos)
-    {
-        _levelBoxContainer.Init(levelInfos.Cast<IMiniCellInfo>().ToList());
-        _cardsLevelSelector.Init(levelInfos.Cast<ICardInfo>().ToList());
+            for (int i = 0; i < levelPrefabs.Count; i++)
+            {
+                Level level = levelPrefabs[i];
+                CrowdSequenceType crowdSequenceType = level.IsRandomSequence ? CrowdSequenceType.Random : CrowdSequenceType.Deterministic;
 
-        _selectors = new ()
+                LevelInfo levelInfo = new(
+                    levelNumber: i + 1,
+                    starCount: starInfos[i],
+                    difficulty: level.Difficulty,
+                    isLock: i > _levelProgress,
+                    crowdSequenceType: crowdSequenceType,
+                    preview: level.Preview);
+
+                levelInfos.Add(levelInfo);
+            }
+
+            _levelFinder.UnloadUnusedLevels();
+            _levelProgress = levelProgress;
+            InitSelectors(levelInfos);
+
+            _levelRepresentationSwitcherButton.Clicked += OnClickSwitchRepresentation;
+        }
+
+        private void InitSelectors(List<LevelInfo> levelInfos)
+        {
+            _levelBoxContainer.Init(levelInfos.Cast<IMiniCellInfo>().ToList());
+            _cardsLevelSelector.Init(levelInfos.Cast<ICardInfo>().ToList());
+
+            _selectors = new()
         {
             _cardsLevelSelector,
             _levelBoxContainer,
         };
 
-        SetSelector(_selectors[0]);
-    }
+            SetSelector(_selectors[0]);
+        }
 
-    private void SetSelector(ILevelSelector selector)
-    {
-        UnsubscribeSelector();
-        _currentSelector = selector;
-        SubscribeSelector();
+        private void SetSelector(ILevelSelector selector)
+        {
+            UnsubscribeSelector();
+            _currentSelector = selector;
+            SubscribeSelector();
 
-        foreach (ILevelSelector levelSelector in _selectors)
-            levelSelector.Hide();
+            foreach (ILevelSelector levelSelector in _selectors)
+                levelSelector.Hide();
 
-        if (_currentSelector is MiniCellsLevelSelector _)
-            _levelRepresentationSwitcherButton.ShowCardIcon();
-        else
-            _levelRepresentationSwitcherButton.ShowCellIcon();
+            if (_currentSelector is MiniCellsLevelSelector _)
+                _levelRepresentationSwitcherButton.ShowCardIcon();
+            else
+                _levelRepresentationSwitcherButton.ShowCellIcon();
 
-        _currentSelector.Show();
-        _currentSelector.AlignByLevel(_levelProgress);
-    }
+            _currentSelector.Show();
+            _currentSelector.AlignByLevel(_levelProgress);
+        }
 
-    private void SubscribeSelector()
-    {
-        if (_currentSelector != null)
-            _currentSelector.LevelClicked += OnLevelClicked;
-    }
+        private void SubscribeSelector()
+        {
+            if (_currentSelector != null)
+                _currentSelector.LevelClicked += OnLevelClicked;
+        }
 
-    private void UnsubscribeSelector()
-    {
-        if (_currentSelector != null)
-            _currentSelector.LevelClicked -= OnLevelClicked;
-    }
+        private void UnsubscribeSelector()
+        {
+            if (_currentSelector != null)
+                _currentSelector.LevelClicked -= OnLevelClicked;
+        }
 
-    private void OnLevelClicked(int levelIndex) =>
-        LevelClicked?.Invoke(levelIndex);
+        private void OnLevelClicked(int levelIndex) =>
+            LevelClicked?.Invoke(levelIndex);
 
-    protected override void OnShow()
-    {
-        base.OnShow();
-        _currentSelector.AlignByLevel(_levelProgress);
-    }
+        protected override void OnShow()
+        {
+            base.OnShow();
+            _currentSelector.AlignByLevel(_levelProgress);
+        }
 
-    private void OnClickSwitchRepresentation(LevelRepresentationSwitcherButton button)
-    {
-        int currentIndex = _selectors.IndexOf(_currentSelector);
-        int nextIndex = (currentIndex + 1) % _selectors.Count;
-        ILevelSelector selector = _selectors[nextIndex];
-        SetSelector(selector);
+        private void OnClickSwitchRepresentation(LevelRepresentationSwitcherButton button)
+        {
+            int currentIndex = _selectors.IndexOf(_currentSelector);
+            int nextIndex = (currentIndex + 1) % _selectors.Count;
+            ILevelSelector selector = _selectors[nextIndex];
+            SetSelector(selector);
+        }
     }
 }

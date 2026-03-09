@@ -1,21 +1,27 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable object/Shop/TempCardInfo")]
-public abstract class ShopCardInfo : ScriptableObject
+namespace EmojiChaos.ScriptableObect.Shop
 {
-    [SerializeField] private ShopCardItemButtonType _type;
-    [SerializeField] private string _revardedAdvId;
-    [SerializeField] private Sprite _preview;
-    [SerializeField] private LanguageTextsSet _tittle;
-    [SerializeField] private LanguageTextsSet _description;
+    using Lang;
+    using UI.ShopContainer.Card.Enum;
 
-    public ShopCardItemButtonType Type => _type;
+    [CreateAssetMenu(menuName = "Scriptable object/Shop/TempCardInfo")]
+    public abstract class ShopCardInfo : ScriptableObject
+    {
+        [SerializeField] private ShopCardItemButtonType _type;
+        [SerializeField] private string _revardedAdvId;
+        [SerializeField] private Sprite _preview;
+        [SerializeField] private LanguageTextsSet _tittle;
+        [SerializeField] private LanguageTextsSet _description;
 
-    public Sprite Preview => _preview;
+        public ShopCardItemButtonType Type => _type;
 
-    public LanguageTextsSet Tittle => _tittle;
+        public Sprite Preview => _preview;
 
-    public LanguageTextsSet Description => _description;
+        public LanguageTextsSet Tittle => _tittle;
 
-    public string RevardedAdvId => _revardedAdvId;
+        public LanguageTextsSet Description => _description;
+
+        public string RevardedAdvId => _revardedAdvId;
+    }
 }

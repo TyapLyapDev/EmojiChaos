@@ -1,15 +1,21 @@
 using UnityEngine;
 
-public class TutorialSkipButton : ButtonClickHandler<TutorialSkipButton>
+namespace EmojiChaos.UI.Buttons
 {
-    [SerializeField] private Tutorial _tutorial;
+    using Core.Abstract.UI;
+    using EmojiChaos.UI.Tutorial;
 
-    private void Awake() =>
-        Initialize();
-
-    protected override void OnClick()
+    public class TutorialSkipButton : ButtonClickHandler<TutorialSkipButton>
     {
-        base.OnClick();
-        _tutorial.Complete();
+        [SerializeField] private Tutorial _tutorial;
+
+        private void Awake ( ) =>
+            Initialize ( );
+
+        protected override void OnClick ( )
+        {
+            base.OnClick ( );
+            _tutorial.Complete ( );
+        }
     }
 }

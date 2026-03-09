@@ -1,31 +1,36 @@
 using System;
 
-public class LevelScore : IDisposable
+namespace EmojiChaos.Services.GameFlow
 {
-    private readonly EnemiesCounter _enemiesCounter;
-    private readonly int _level;
+    using Entities.Enemy;
 
-    private int _score;
-
-    public LevelScore(EnemiesCounter enemiesCounter, int level)
+    public class LevelScore : IDisposable
     {
-        _enemiesCounter = enemiesCounter ?? throw new ArgumentNullException(nameof(enemiesCounter));
+        private readonly EnemiesCounter _enemiesCounter;
+        private readonly int _level;
 
-        if (level <= 0)
-            throw new ArgumentOutOfRangeException(nameof(level));
+        private int _score;
 
-        _level = level;
-        _enemiesCounter.Killed += OnEnemyKilled;
+        public LevelScore(EnemiesCounter enemiesCounter, int level)
+        {
+            _enemiesCounter = enemiesCounter ?? throw new ArgumentNullException(nameof(enemiesCounter));
+
+            if (level <= 0)
+                throw new ArgumentOutOfRangeException(nameof(level));
+
+            _level = level;
+            _enemiesCounter.Killed += OnEnemyKilled;
+        }
+
+        public int Score => _score;
+
+        public void Dispose()
+        {
+            if (_enemiesCounter != null)
+                _enemiesCounter.Killed -= OnEnemyKilled;
+        }
+
+        private void OnEnemyKilled(Enemy enemy) =>
+            _score += _level;
     }
-
-    public int Score => _score;
-
-    public void Dispose()
-    {
-        if (_enemiesCounter != null)
-            _enemiesCounter.Killed -= OnEnemyKilled;
-    }
-
-    private void OnEnemyKilled(Enemy enemy) =>
-        _score += _level;
 }

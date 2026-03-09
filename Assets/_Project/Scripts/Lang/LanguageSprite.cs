@@ -2,36 +2,41 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LanguageSprite : MonoBehaviour
+namespace EmojiChaos.Lang
 {
-    [SerializeField] private Sprite _ru;
-    [SerializeField] private Sprite _en;
-    [SerializeField] private Sprite _tr;
+    using Utils.Static;
 
-    private Image _image;
-
-    private void Awake()
+    public class LanguageSprite : MonoBehaviour
     {
-        if (TryGetComponent(out _image) == false)
-            throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_image)}");
-    }
+        [SerializeField] private Sprite _ru;
+        [SerializeField] private Sprite _en;
+        [SerializeField] private Sprite _tr;
 
-    private void OnEnable()
-    {
-        YandexGameConnector.LangSwitched += SwitchLanguage;
-        SwitchLanguage(YandexGameConnector.Lang);
-    }
+        private Image _image;
 
-    private void OnDisable() =>
-        YandexGameConnector.LangSwitched -= SwitchLanguage;
-
-    private void SwitchLanguage(string lang)
-    {
-        _image.sprite = lang switch
+        private void Awake ( )
         {
-            Constants.LangRu => _ru,
-            Constants.LangTr => _tr,
-            _ => _en
-        };
+            if (TryGetComponent (out _image) == false)
+                throw new NullReferenceException ($"Object: {name}, NullComponent: {nameof (_image)}");
+        }
+
+        private void OnEnable ( )
+        {
+            YandexGameConnector.LangSwitched += SwitchLanguage;
+            SwitchLanguage (YandexGameConnector.Lang);
+        }
+
+        private void OnDisable ( ) =>
+            YandexGameConnector.LangSwitched -= SwitchLanguage;
+
+        private void SwitchLanguage (string lang)
+        {
+            _image.sprite = lang switch
+            {
+                Constants.LangRu => _ru,
+                Constants.LangTr => _tr,
+                _ => _en
+            };
+        }
     }
 }

@@ -3,148 +3,154 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class ResourceBalanceChecker : EditorWindow
+namespace EmojiChaos.Utils.Editor
 {
-    private const string MenuPath = "Tools/";
-    private const string Title = "Проверить баланс уровней";
+    using Data;
+    using Entities.Car;
 
-    [MenuItem(MenuPath + Title)]
-    public static void GenerateReport()
+    public class ResourceBalanceChecker : EditorWindow
     {
-        CustomLogger.ClearConsole();
-        CustomLogger.Log("ПРОЦЕДУРА ПРОВЕРКИ СООТВЕТСТВИЯ ВРАГОВ И БОЕПРИПАСОВ");
+        private const string MenuPath = "Tools/";
+        private const string Title = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 
-        Level[] allLevels = Resources.LoadAll<Level>(string.Empty);
-
-        if (allLevels == null || allLevels.Length == 0)
+        [MenuItem (MenuPath + Title)]
+        public static void GenerateReport ( )
         {
-            CustomLogger.LogRed($"Не найдено уровней в папке Resources/");
+            CustomLogger.ClearConsole ( );
+            CustomLogger.Log ("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
-            return;
-        }
+            Level[] allLevels = Resources.LoadAll<Level> (string.Empty);
 
-        CustomLogger.LogBlue($"Найдено уровней: {allLevels.Length}");
-
-        foreach (Level level in allLevels)
-        {
-            if (level == null)
+            if (allLevels == null || allLevels.Length == 0)
             {
-                CustomLogger.LogRed("Обнаружен null уровень в Resources");
+                CustomLogger.LogRed ($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ Resources/");
 
-                continue;
+                return;
             }
 
-            CustomLogger.LogBlue($"Уровень \"{level.name}\"");
-            AnalyzeLevelBalance(level);
-        }
-    }
+            CustomLogger.LogBlue ($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {allLevels.Length}");
 
-    private static void AnalyzeLevelBalance(Level level)
-    {
-        string propertyName = "_crowds";
-        SerializedObject serializedLevel = new (level);
-        SerializedProperty crowdsProperty = serializedLevel.FindProperty(propertyName);
-
-        if (crowdsProperty == null)
-        {
-            CustomLogger.LogRed($"Не удалось найти свойство {propertyName}");
-
-            return;
-        }
-
-        Car[] cars = level.GetComponentsInChildren<Car>(true);
-        SortedDictionary<int, int> enemiesByType = new ();
-
-        int totalCrowds = crowdsProperty.arraySize;
-        int totalEnemies = 0;
-
-        for (int i = 0; i < totalCrowds; i++)
-        {
-            SerializedProperty crowdProperty = crowdsProperty.GetArrayElementAtIndex(i);
-            int id = crowdProperty.FindPropertyRelative("_id").intValue;
-            int quantity = crowdProperty.FindPropertyRelative("_quantity").intValue;
-            totalEnemies += quantity;
-
-            if (enemiesByType.ContainsKey(id))
-                enemiesByType[id] += quantity;
-            else
-                enemiesByType.Add(id, quantity);
-        }
-
-        Dictionary<int, CarAmmoInfo> ammoByCarType = new ();
-        int totalCars = cars.Length;
-
-        foreach (Car car in cars)
-        {
-            if (car != null)
+            foreach (Level level in allLevels)
             {
-                int id = car.Id;
-                int bulletCount = car.BulletCount;
-
-                if (ammoByCarType.ContainsKey(id))
+                if (level == null)
                 {
-                    ammoByCarType[id].totalBulletCount += bulletCount;
-                    ammoByCarType[id].cars.Add(car);
+                    CustomLogger.LogRed ("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ null пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Resources");
+
+                    continue;
                 }
+
+                CustomLogger.LogBlue ($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"{level.name}\"");
+                AnalyzeLevelBalance (level);
+            }
+        }
+
+        private static void AnalyzeLevelBalance (Level level)
+        {
+            string propertyName = "_crowds";
+            SerializedObject serializedLevel = new (level);
+            SerializedProperty crowdsProperty = serializedLevel.FindProperty (propertyName);
+
+            if (crowdsProperty == null)
+            {
+                CustomLogger.LogRed ($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {propertyName}");
+
+                return;
+            }
+
+            Car[] cars = level.GetComponentsInChildren<Car> (true);
+            SortedDictionary<int, int> enemiesByType = new ( );
+
+            int totalCrowds = crowdsProperty.arraySize;
+            int totalEnemies = 0;
+
+            for (int i = 0; i < totalCrowds; i++)
+            {
+                SerializedProperty crowdProperty = crowdsProperty.GetArrayElementAtIndex (i);
+                int id = crowdProperty.FindPropertyRelative ("_id").intValue;
+                int quantity = crowdProperty.FindPropertyRelative ("_quantity").intValue;
+                totalEnemies += quantity;
+
+                if (enemiesByType.ContainsKey (id))
+                    enemiesByType[id] += quantity;
                 else
+                    enemiesByType.Add (id, quantity);
+            }
+
+            Dictionary<int, CarAmmoInfo> ammoByCarType = new ( );
+            int totalCars = cars.Length;
+
+            foreach (Car car in cars)
+            {
+                if (car != null)
                 {
-                    ammoByCarType.Add(id, new CarAmmoInfo
+                    int id = car.Id;
+                    int bulletCount = car.BulletCount;
+
+                    if (ammoByCarType.ContainsKey (id))
                     {
-                        totalBulletCount = bulletCount,
-                        cars = new List<Car> { car }
-                    });
+                        ammoByCarType[id].totalBulletCount += bulletCount;
+                        ammoByCarType[id].cars.Add (car);
+                    }
+                    else
+                    {
+                        ammoByCarType.Add (id, new CarAmmoInfo
+                        {
+                            totalBulletCount = bulletCount,
+                            cars = new List<Car> { car }
+                        });
+                    }
                 }
             }
-        }
 
-        HashSet<int> allIds = new (enemiesByType.Keys);
-        allIds.UnionWith(ammoByCarType.Keys);
-        int totalTypes = allIds.Count;
+            HashSet<int> allIds = new (enemiesByType.Keys);
+            allIds.UnionWith (ammoByCarType.Keys);
+            int totalTypes = allIds.Count;
 
-        bool hasBalanceIssues = false;
+            bool hasBalanceIssues = false;
 
-        foreach (int id in allIds)
-        {
-            bool hasEnemies = enemiesByType.TryGetValue(id, out int enemyCount);
-            bool hasCar = ammoByCarType.TryGetValue(id, out CarAmmoInfo carInfo);
-
-            if (hasEnemies == false && hasCar)
+            foreach (int id in allIds)
             {
-                CustomLogger.LogRed($"ID [{id}]: есть авто ({carInfo.totalBulletCount} припасов), но нет враговов");
-                hasBalanceIssues = true;
+                bool hasEnemies = enemiesByType.TryGetValue (id, out int enemyCount);
+                bool hasCar = ammoByCarType.TryGetValue (id, out CarAmmoInfo carInfo);
 
-                continue;
-            }
-
-
-            if (hasEnemies && hasCar == false)
-            {
-                CustomLogger.LogRed($"ID [{id}]: есть враги ({enemyCount}), но нет авто");
-                hasBalanceIssues = true;
-
-                continue;
-            }
-
-            if (hasEnemies && hasCar)
-            {
-                if (enemyCount != carInfo.totalBulletCount)
+                if (hasEnemies == false && hasCar)
                 {
-                    CustomLogger.LogRed($"ID [{id}]: Дисбаланс врагов ({enemyCount}) и припасов({carInfo.totalBulletCount})");
+                    CustomLogger.LogRed ($"ID [{id}]: пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ({carInfo.totalBulletCount} пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ), пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                     hasBalanceIssues = true;
+
+                    continue;
+                }
+
+
+                if (hasEnemies && hasCar == false)
+                {
+                    CustomLogger.LogRed ($"ID [{id}]: пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ ({enemyCount}), пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+                    hasBalanceIssues = true;
+
+                    continue;
+                }
+
+                if (hasEnemies && hasCar)
+                {
+                    if (enemyCount != carInfo.totalBulletCount)
+                    {
+                        CustomLogger.LogRed ($"ID [{id}]: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ({enemyCount}) пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ({carInfo.totalBulletCount})");
+                        hasBalanceIssues = true;
+                    }
                 }
             }
+
+            CustomLogger.Log ($"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: {totalCrowds}, пїЅпїЅпїЅпїЅпїЅпїЅ: {totalEnemies}, пїЅпїЅпїЅпїЅ: {totalCars}, пїЅпїЅпїЅпїЅпїЅ: {totalTypes}");
+
+            if (hasBalanceIssues == false)
+                CustomLogger.LogGreen ($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
         }
 
-        CustomLogger.Log($"Всего толп: {totalCrowds}, врагов: {totalEnemies}, авто: {totalCars}, типов: {totalTypes}");
-
-        if (hasBalanceIssues == false)
-            CustomLogger.LogGreen($"Баланс проверен, проблем не обнаружено");
-    }
-
-    private class CarAmmoInfo
-    {
-        public int totalBulletCount;
-        public List<Car> cars = new ();
+        private class CarAmmoInfo
+        {
+            public int totalBulletCount;
+            public List<Car> cars = new ( );
+        }
     }
 }
 #endif

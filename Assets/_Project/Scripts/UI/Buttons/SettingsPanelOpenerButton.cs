@@ -1,1 +1,6 @@
-public class SettingsPanelOpenerButton : ButtonClickHandler<SettingsPanelOpenerButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using EmojiChaos.Core.Abstract.UI;
+
+    public class SettingsPanelOpenerButton : ButtonClickHandler<SettingsPanelOpenerButton> { }
+}

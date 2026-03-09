@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.Entities
+{
+
 [RequireComponent(typeof(SphereCollider))]
 public class Detector : MonoBehaviour
 {
@@ -34,4 +37,5 @@ public class Detector : MonoBehaviour
             if (colliders[i] != _sphereCollider)
                 Entered?.Invoke(colliders[i]);
     }
+}
 }

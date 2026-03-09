@@ -1,5 +1,8 @@
 using System;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector
+{
+
 public interface ILevelSelector
 {
     event Action<int> LevelClicked;
@@ -9,4 +12,5 @@ public interface ILevelSelector
     void Show();
 
     void AlignByLevel(int levelIndex);
+}
 }

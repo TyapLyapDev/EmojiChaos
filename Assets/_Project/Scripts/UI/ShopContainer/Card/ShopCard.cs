@@ -1,8 +1,13 @@
 using UnityEngine;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer.Card
 {
-    public class Card : ButtonClickHandler<Card>
+    using Core.Abstract.UI;
+    using Enum;
+    using ScriptableObect.Shop;
+    using UI.Shop;
+
+    public class ShopCard : ButtonClickHandler<ShopCard>
     {
         [SerializeField] private CardButtonTypeSwitcher _buttonTypeSwitcher;
         [SerializeField] private CardPreview _preview;

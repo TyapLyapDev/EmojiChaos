@@ -1,14 +1,19 @@
 using System;
 using UnityEngine;
 
-public class CarStraightRollBackwardMoverStrategy : CarStraightRollMoverBaseStrategy
+namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    public CarStraightRollBackwardMoverStrategy(
-        Transform transform, 
-        BoxCollider self, 
-        Action completed)
-        : base(transform, self, completed) { }
+    using Core.Abstract;
 
-    protected override Vector3 GetDirection() => 
-        -Transform.forward;
+    public class CarStraightRollBackwardMoverStrategy : CarStraightRollMoverBaseStrategy
+    {
+        public CarStraightRollBackwardMoverStrategy(
+            Transform transform,
+            BoxCollider self,
+            Action completed)
+            : base(transform, self, completed) { }
+
+        protected override Vector3 GetDirection() =>
+            -Transform.forward;
+    }
 }

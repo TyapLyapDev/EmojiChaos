@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
+{
+
 namespace UI.LevelCards
 {
     public class LevelNumber : MonoBehaviour
@@ -10,4 +13,5 @@ namespace UI.LevelCards
         public void SetText(string text) =>
             _text.text = text;
     }
+}
 }

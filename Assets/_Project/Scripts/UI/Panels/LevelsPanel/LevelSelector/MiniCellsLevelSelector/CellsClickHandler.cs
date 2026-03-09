@@ -1,8 +1,10 @@
-using EmojiChaos.Audio;
 using System;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
+    using Audio;
+    using MiniCell;
+
     public class CellsClickHandler
     {
         private readonly Action<int> _levelClicked;

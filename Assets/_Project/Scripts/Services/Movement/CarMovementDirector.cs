@@ -3,63 +3,68 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-public class CarMovementDirector : IDisposable
+namespace EmojiChaos.Services.Movement
 {
-    private readonly float _speed = 5f;
+    using Entities.Car;
 
-    private readonly List<Car> _cars = new ();
-    private IDisposable _updateSubscription;
-
-    public CarMovementDirector(float speed)
+    public class CarMovementDirector : IDisposable
     {
-        if (speed < 0)
-            throw new ArgumentOutOfRangeException(nameof(speed), speed, "Значение должно быть положительным");
+        private readonly float _speed = 5f;
 
-        _speed = speed;
-    }
+        private readonly List<Car> _cars = new();
+        private IDisposable _updateSubscription;
 
-    public void Dispose()
-    {
-        _updateSubscription?.Dispose();
-        _cars.Clear();
-    }
+        public CarMovementDirector(float speed)
+        {
+            if (speed < 0)
+                throw new ArgumentOutOfRangeException(nameof(speed), speed, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
-    public void Register(Car car)
-    {
-        if (_cars.Contains(car))
-            return;
+            _speed = speed;
+        }
 
-        _cars.Add(car);
-        car.EnableSmoke();
-
-        if (_cars.Count == 1)
-            _updateSubscription = Observable.EveryUpdate().Subscribe(_ => ProcessMovement());
-    }
-
-    public void Unregister(Car car)
-    {
-        _cars.Remove(car);
-        car.DisableSmoke();
-
-        if (_cars.Count == 0)
+        public void Dispose()
         {
             _updateSubscription?.Dispose();
-            _updateSubscription = null;
+            _cars.Clear();
         }
-    }
 
-    private void ProcessMovement()
-    {
-        float deltaDistance = _speed * Time.deltaTime;
-
-        for (int i = _cars.Count - 1; i >= 0; i--)
+        public void Register(Car car)
         {
-            Car car = _cars[i];
+            if (_cars.Contains(car))
+                return;
 
-            if (car != null)
-                car.Move(deltaDistance);
-            else
-                Unregister(car);
-        }            
+            _cars.Add(car);
+            car.EnableSmoke();
+
+            if (_cars.Count == 1)
+                _updateSubscription = Observable.EveryUpdate().Subscribe(_ => ProcessMovement());
+        }
+
+        public void Unregister(Car car)
+        {
+            _cars.Remove(car);
+            car.DisableSmoke();
+
+            if (_cars.Count == 0)
+            {
+                _updateSubscription?.Dispose();
+                _updateSubscription = null;
+            }
+        }
+
+        private void ProcessMovement()
+        {
+            float deltaDistance = _speed * Time.deltaTime;
+
+            for (int i = _cars.Count - 1; i >= 0; i--)
+            {
+                Car car = _cars[i];
+
+                if (car != null)
+                    car.Move(deltaDistance);
+                else
+                    Unregister(car);
+            }
+        }
     }
 }

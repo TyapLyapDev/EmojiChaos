@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI.Tutorial.Explanations
+{
+
 public class PortalExplanation : TutorialItem
 {
     [SerializeField] private TutorialCircle _circle;
@@ -34,4 +37,5 @@ public class PortalExplanation : TutorialItem
         _circle.AnyClicked += Deactivate;
         _circle.Show(_circleSize, Config.PortalTarget.position);
     }
+}
 }

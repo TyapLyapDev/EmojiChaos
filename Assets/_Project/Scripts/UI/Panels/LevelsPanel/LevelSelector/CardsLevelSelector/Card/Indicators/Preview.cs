@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
+{
+
 namespace UI.LevelCards
 {
     public class Preview : MonoBehaviour
@@ -10,4 +13,5 @@ namespace UI.LevelCards
         public void SetPreview(Sprite sprite) =>
             _image.sprite = sprite;
     }
+}
 }

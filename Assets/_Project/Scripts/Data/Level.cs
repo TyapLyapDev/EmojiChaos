@@ -4,94 +4,109 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class Level : InitializingBehaviour
+namespace EmojiChaos.Data
 {
-    [SerializeField] private EnemySplineContainer _enemySplineContainer;
-    [SerializeField] private CarSplineContainer _carSplineContainer;
-    [SerializeField] private Bullet _bulletPrefab;
-    [SerializeField] private SmokeParticle _smokeParticlePrefab;
-    [SerializeField] private BloodParticle _bloodParticlePrefab;
-    [SerializeField] private StarBangParticle _starBangParticlePrefab;
-    [SerializeField] private HitParticle _hitParticlePrefab;
-    [SerializeField] private ColorSet _colorSet;
-    [SerializeField] private List<Crowd> _crowds;
-    [SerializeField] private Color _backgroundColor;
-    [SerializeField] private float _speed;
-    [SerializeField] private bool _isRandomSequence;
-    [SerializeField] private int _difficulty;
-    [SerializeField] private Sprite _preview;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Entities.Bullet;
+    using Entities.Car;
+    using Entities.Markers;
+    using Entities.Portal;
+    using Entities.Rack;
+    using Entities.Star;
+    using Particles;
+    using ScriptableObect;
+    using Services.Spawning.EnemySpawner;
+    using Utils.Static;
 
-    private List<Rack> _slots;
-    private List<Star> _stars;
-    private List<Crowd> _readyCrowds;
-    private List<int> _ids;
-    private Portal _portal;
-
-    public int Difficulty => _difficulty;
-
-    public bool IsRandomSequence => _isRandomSequence;
-
-    public Sprite Preview => _preview;
-
-    public SplineContainer EnemySplineContainer => GetSafeReference(_enemySplineContainer.SplineContainer);
-
-    public SplineContainer CarSplineContainer => GetSafeReference(_carSplineContainer.SplineContainer);
-
-    public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
-
-    public BloodParticle BloodParticlePrefab => GetSafeReference(_bloodParticlePrefab);
-
-    public StarBangParticle StarBangParticlePrefab => GetSafeReference(_starBangParticlePrefab);
-
-    public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
-
-    public Portal Portal => GetSafeReference(_portal);
-
-    public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
-
-    public Color BackgroundColor => _backgroundColor;
-
-    public IReadOnlyList<Color> Colors => GetSafeReference(_colorSet.Colors);
-
-    public float Speed => GetSafeValue(_speed);
-
-    public IReadOnlyList<Rack> Slots => GetSafeReference(_slots);
-
-    public IReadOnlyList<Star> Stars => GetSafeReference(_stars);
-
-    public IReadOnlyList<Crowd> Crowds => GetSafeReference(_readyCrowds);
-
-    public IReadOnlyList<int> Ids => GetSafeReference(_ids);
-
-    protected override void OnInitialize()
+    public class Level : InitializingBehaviour
     {
-        _slots = GetComponentsInChildren<Rack>(true).ToList();
-        _stars = GetComponentsInChildren<Star>(true).ToList();
-        _portal = GetComponentInChildren<Portal>(true);
+        [SerializeField] private EnemySplineContainer _enemySplineContainer;
+        [SerializeField] private CarSplineContainer _carSplineContainer;
+        [SerializeField] private Bullet _bulletPrefab;
+        [SerializeField] private SmokeParticle _smokeParticlePrefab;
+        [SerializeField] private BloodParticle _bloodParticlePrefab;
+        [SerializeField] private StarBangParticle _starBangParticlePrefab;
+        [SerializeField] private HitParticle _hitParticlePrefab;
+        [SerializeField] private ColorSet _colorSet;
+        [SerializeField] private List<Crowd> _crowds;
+        [SerializeField] private Color _backgroundColor;
+        [SerializeField] private float _speed;
+        [SerializeField] private bool _isRandomSequence;
+        [SerializeField] private int _difficulty;
+        [SerializeField] private Sprite _preview;
 
-        _enemySplineContainer.Initialize();
-        _carSplineContainer.Initialize();
-        _ids = GetIds();
+        private List<Rack> _slots;
+        private List<Star> _stars;
+        private List<Crowd> _readyCrowds;
+        private List<int> _ids;
+        private Portal _portal;
 
-        PrepareCrowds();
+        public int Difficulty => _difficulty;
 
-        if (_colorSet.Colors == null || _colorSet.Colors.Count < _ids.Count)
-            throw new Exception($"Размер {nameof(_colorSet.Colors)} должен быть не меньше размера {nameof(_ids)}");
-    }
+        public bool IsRandomSequence => _isRandomSequence;
 
-    private List<int> GetIds()
-    {
-        IEnumerable<int> crowdIds = _crowds.Select(c => c.Id);
-        IEnumerable<int> carIds = GetComponentsInChildren<Car>(true).Select(c => c.Id);
+        public Sprite Preview => _preview;
 
-        return crowdIds.Concat(carIds).Distinct().ToList();
-    }
+        public SplineContainer EnemySplineContainer => GetSafeReference(_enemySplineContainer.SplineContainer);
 
-    private void PrepareCrowds()
-    {
-        _readyCrowds = new (_crowds);
+        public SplineContainer CarSplineContainer => GetSafeReference(_carSplineContainer.SplineContainer);
 
-        if (_isRandomSequence)
-            Utils.Shuffle(_readyCrowds);
+        public SmokeParticle SmokeParticlePrefab => GetSafeReference(_smokeParticlePrefab);
+
+        public BloodParticle BloodParticlePrefab => GetSafeReference(_bloodParticlePrefab);
+
+        public StarBangParticle StarBangParticlePrefab => GetSafeReference(_starBangParticlePrefab);
+
+        public HitParticle HitParticlePrefab => GetSafeReference(_hitParticlePrefab);
+
+        public Portal Portal => GetSafeReference(_portal);
+
+        public Bullet BulletPrefab => GetSafeReference(_bulletPrefab);
+
+        public Color BackgroundColor => _backgroundColor;
+
+        public IReadOnlyList<Color> Colors => GetSafeReference(_colorSet.Colors);
+
+        public float Speed => GetSafeValue(_speed);
+
+        public IReadOnlyList<Rack> Slots => GetSafeReference(_slots);
+
+        public IReadOnlyList<Star> Stars => GetSafeReference(_stars);
+
+        public IReadOnlyList<Crowd> Crowds => GetSafeReference(_readyCrowds);
+
+        public IReadOnlyList<int> Ids => GetSafeReference(_ids);
+
+        protected override void OnInitialize()
+        {
+            _slots = GetComponentsInChildren<Rack>(true).ToList();
+            _stars = GetComponentsInChildren<Star>(true).ToList();
+            _portal = GetComponentInChildren<Portal>(true);
+
+            _enemySplineContainer.Initialize();
+            _carSplineContainer.Initialize();
+            _ids = GetIds();
+
+            PrepareCrowds();
+
+            if (_colorSet.Colors == null || _colorSet.Colors.Count < _ids.Count)
+                throw new Exception($"пїЅпїЅпїЅпїЅпїЅпїЅ {nameof(_colorSet.Colors)} пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof(_ids)}");
+        }
+
+        private List<int> GetIds()
+        {
+            IEnumerable<int> crowdIds = _crowds.Select(c => c.Id);
+            IEnumerable<int> carIds = GetComponentsInChildren<Car>(true).Select(c => c.Id);
+
+            return crowdIds.Concat(carIds).Distinct().ToList();
+        }
+
+        private void PrepareCrowds()
+        {
+            _readyCrowds = new(_crowds);
+
+            if (_isRandomSequence)
+                Utils.Shuffle(_readyCrowds);
+        }
     }
 }

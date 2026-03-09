@@ -1,1 +1,6 @@
-public class AuthPanelCloserButton : ButtonClickHandler<AuthPanelCloserButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using Core.Abstract.UI;
+
+    public class AuthPanelCloserButton : ButtonClickHandler<AuthPanelCloserButton> { }
+}

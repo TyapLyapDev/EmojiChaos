@@ -2,82 +2,92 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CarSkinReplacer : MonoBehaviour
+namespace EmojiChaos.Services.Movement
 {
-    private readonly List<Car> _cars = new ();
+    using Data;
+    using Entities.Enemy;
+    using Entities.Car;
+    using Entities.Car.Types;
+    using ScriptableObect.Shop;
+    using EmojiChaos.UI.ShopContainer.Card.Enum;
 
-    [SerializeField] private ShopCardInfos _carInfos;
-
-    private float _speed = 5;
-
-    public IReadOnlyList<Car> Cars => _cars;
-
-    public float Speed => _speed;
-
-    public void Init(Level level, IReadOnlyList<ShopCardItemButtonType> saves)
+    public class CarSkinReplacer : MonoBehaviour
     {
-        List<Car> cars = level.GetComponentsInChildren<Car>(true).ToList();
-        Replace(cars, saves);
-    }
+        private readonly List<Car> _cars = new();
 
-    private void Replace(List<Car> cars, IReadOnlyList<ShopCardItemButtonType> saves)
-    {
-        List<CarShopCardInfo> cardInfos = _carInfos.CardInfos.OfType<CarShopCardInfo>().ToList();
+        [SerializeField] private ShopCardInfos _carInfos;
 
-        for (int i = 0; i < saves.Count; i++)
+        private float _speed = 5;
+
+        public IReadOnlyList<Car> Cars => _cars;
+
+        public float Speed => _speed;
+
+        public void Init(Level level, IReadOnlyList<ShopCardItemButtonType> saves)
         {
-            if (saves[i] == ShopCardItemButtonType.Selected)
-            {
-                _speed = cardInfos[i].Speed;
-                ReplaceCars(cars, cardInfos[i]);
+            List<Car> cars = level.GetComponentsInChildren<Car>(true).ToList();
+            Replace(cars, saves);
+        }
 
-                return;
+        private void Replace(List<Car> cars, IReadOnlyList<ShopCardItemButtonType> saves)
+        {
+            List<CarShopCardInfo> cardInfos = _carInfos.CardInfos.OfType<CarShopCardInfo>().ToList();
+
+            for (int i = 0; i < saves.Count; i++)
+            {
+                if (saves[i] == ShopCardItemButtonType.Selected)
+                {
+                    _speed = cardInfos[i].Speed;
+                    ReplaceCars(cars, cardInfos[i]);
+
+                    return;
+                }
             }
         }
-    }
 
-    private void ReplaceCars(List<Car> cars, CarShopCardInfo cardInfo)
-    {
-        if (cars == null)
-            return;
-
-        _cars.Clear();
-
-        for (int i = 0; i < cars.Count; i++)
+        private void ReplaceCars(List<Car> cars, CarShopCardInfo cardInfo)
         {
-            Car currentCar = cars[i];
-            Car prefab = GetPrefab(currentCar.Visual, cardInfo);
+            if (cars == null)
+                return;
 
-            if (prefab != null)
-                ReplaceCar(currentCar, prefab);
-            else
-                _cars.Add(currentCar);
+            _cars.Clear();
+
+            for (int i = 0; i < cars.Count; i++)
+            {
+                Car currentCar = cars[i];
+                Car prefab = GetPrefab(currentCar.Visual, cardInfo);
+
+                if (prefab != null)
+                    ReplaceCar(currentCar, prefab);
+                else
+                    _cars.Add(currentCar);
+            }
         }
-    }
 
-    private Car GetPrefab(CarVisual carVisual, CarShopCardInfo cardInfo)
-    {
-        return carVisual switch
+        private Car GetPrefab(CarVisual carVisual, CarShopCardInfo cardInfo)
         {
-            CarMiniTypeVisual => cardInfo.MiniCarPrefab,
-            CarMiddleTypeVisual => cardInfo.MiddleCarPrefab,
-            CarMaxTypeVisual => cardInfo.MaxCarPrefab,
-            _ => null
-        };
-    }
+            return carVisual switch
+            {
+                CarMiniTypeVisual => cardInfo.MiniCarPrefab,
+                CarMiddleTypeVisual => cardInfo.MiddleCarPrefab,
+                CarMaxTypeVisual => cardInfo.MaxCarPrefab,
+                _ => null
+            };
+        }
 
-    private void ReplaceCar(Car oldCar, Car prefab)
-    {
-        Car newCar = Instantiate(prefab, oldCar.transform.parent);
-        newCar.gameObject.SetActive(false);
+        private void ReplaceCar(Car oldCar, Car prefab)
+        {
+            Car newCar = Instantiate(prefab, oldCar.transform.parent);
+            newCar.gameObject.SetActive(false);
 
-        newCar.SetPositionAndRotation(oldCar.transform.position, oldCar.transform.rotation);
-        newCar.SetId(oldCar.Id);
-        newCar.SetBulletCount(oldCar.BulletCount);
-        newCar.gameObject.SetActive(oldCar.gameObject.activeSelf);
+            newCar.transform.SetPositionAndRotation(oldCar.transform.position, oldCar.transform.rotation);
+            newCar.SetId(oldCar.Id);
+            newCar.SetBulletCount(oldCar.BulletCount);
+            newCar.gameObject.SetActive(oldCar.gameObject.activeSelf);
 
-        _cars.Add(newCar);
-        oldCar.MarkReplacement();
-        Destroy(oldCar.gameObject);
+            _cars.Add(newCar);
+            oldCar.MarkReplacement();
+            Destroy(oldCar.gameObject);
+        }
     }
 }

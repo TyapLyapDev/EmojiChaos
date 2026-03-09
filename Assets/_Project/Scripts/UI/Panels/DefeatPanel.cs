@@ -1,16 +1,22 @@
-using EmojiChaos.Audio;
 using UnityEngine;
 
-public class DefeatPanel : PanelBase 
+namespace EmojiChaos.UI.Panels
 {
-    [SerializeField] private LanguageSwitchHandlerWithParam _level;
+    using Audio;
+    using Core.Abstract.UI;
+    using Lang;
 
-    public void Activate(int level) =>
-        _level.SetParam((level + 1).ToString());
-
-    protected override void OnShow()
+    public class DefeatPanel : PanelBase
     {
-        base.OnShow();
-        Audio.Sfx.PlayFail();
+        [SerializeField] private LanguageSwitchHandlerWithParam _level;
+
+        public void Activate(int level) =>
+            _level.SetParam((level + 1).ToString());
+
+        protected override void OnShow()
+        {
+            base.OnShow();
+            Audio.Sfx.PlayFail();
+        }
     }
 }

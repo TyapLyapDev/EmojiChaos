@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer.Card
 {
+    using Enum;
+
     public class CardButtonTypeSwitcher : MonoBehaviour
     {
         [SerializeField] private Image _frame;

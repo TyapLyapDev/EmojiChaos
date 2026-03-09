@@ -1,86 +1,92 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public class Bullet : InitializingBehaviour, IPoolable<Bullet>
+namespace EmojiChaos.Entities.Bullet
 {
-    [SerializeField] private BulletVisual _visual;
+    using Core.Abstract.Interface;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Game.Mover;
 
-    private BulletMover _mover;
-    private IHittable _target;
-
-    public event Action<Bullet> Deactivated;
-
-    public IHittable Target => GetSafeReference(_target);
-
-    private void OnDestroy()
+    public class Bullet : InitializingBehaviour, IPoolable<Bullet>
     {
-        if (_mover != null)
-            _mover.TargetReached -= OnTargetReached;
+        [SerializeField] private BulletVisual _visual;
 
-        UnsubscribeFromTarget();
-    }
+        private BulletMover _mover;
+        private IHittable _target;
 
-    public void Activate(IHittable target, Vector3 startPosition)
-    {
-        ValidateInit(nameof(Activate));
+        public event Action<Bullet> Deactivated;
 
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
+        public IHittable Target => GetSafeReference(_target);
 
-        if (target.IsActive == false)
-            throw new InvalidOperationException("Невозможно активировать пулю при неактивной цели");
+        private void OnDestroy()
+        {
+            if (_mover != null)
+                _mover.TargetReached -= OnTargetReached;
 
-        _target = target;
-        _visual.SetColor(target.Color);
-        _mover.SetStartPosition(startPosition);
-        _mover.SetTarget(_target.CenterBody);
+            UnsubscribeFromTarget();
+        }
 
-        _target.Disappeared += OnTargetDeactivated;
+        public void Activate(IHittable target, Vector3 startPosition)
+        {
+            ValidateInit(nameof(Activate));
 
-        gameObject.SetActive(true);
-    }
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
 
-    public void Deactivate()
-    {
-        ValidateInit(nameof(Deactivate));
+            if (target.IsActive == false)
+                throw new InvalidOperationException("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
-        gameObject.SetActive(false);
-        UnsubscribeFromTarget();
-        _mover.ResetTarget();
+            _target = target;
+            _visual.SetColor(target.Color);
+            _mover.SetStartPosition(startPosition);
+            _mover.SetTarget(_target.CenterBody);
 
-        Deactivated?.Invoke(this);
-    }
+            _target.Disappeared += OnTargetDeactivated;
 
-    public void Move(float deltaDistance)
-    {
-        ValidateInit(nameof(Move));
+            gameObject.SetActive(true);
+        }
 
-        _mover.Move(deltaDistance);
-    }
+        public void Deactivate()
+        {
+            ValidateInit(nameof(Deactivate));
 
-    protected override void OnInitialize()
-    {
-        _visual.Initialize();
-        _mover = new (transform);
-        _mover.TargetReached += OnTargetReached;
-    }
+            gameObject.SetActive(false);
+            UnsubscribeFromTarget();
+            _mover.ResetTarget();
 
-    private void OnTargetReached()
-    {
-        _target?.Kill();
-        Deactivate();
-    }
+            Deactivated?.Invoke(this);
+        }
 
-    private void OnTargetDeactivated(IHittable hittable) =>
-        Deactivate();
+        public void Move(float deltaDistance)
+        {
+            ValidateInit(nameof(Move));
 
-    private void UnsubscribeFromTarget()
-    {
-        if (_target == null)
-            return;
+            _mover.Move(deltaDistance);
+        }
 
-        _target.Disappeared -= OnTargetDeactivated;
-        _target = null;
+        protected override void OnInitialize()
+        {
+            _visual.Initialize();
+            _mover = new(transform);
+            _mover.TargetReached += OnTargetReached;
+        }
+
+        private void OnTargetReached()
+        {
+            _target?.Kill();
+            Deactivate();
+        }
+
+        private void OnTargetDeactivated(IHittable hittable) =>
+            Deactivate();
+
+        private void UnsubscribeFromTarget()
+        {
+            if (_target == null)
+                return;
+
+            _target.Disappeared -= OnTargetDeactivated;
+            _target = null;
+        }
     }
 }

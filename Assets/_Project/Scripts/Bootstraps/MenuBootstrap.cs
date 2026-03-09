@@ -2,7 +2,12 @@ using UnityEngine;
 
 namespace EmojiChaos.Bootstraps
 {
-    using EmojiChaos.Audio;
+    using Audio;
+    using ScriptableObect;
+    using Services.Core;
+    using Services.Save;
+    using UI.Menu;
+    using Utils.Static;
 
     public class MenuBootstrap : MonoBehaviour
     {

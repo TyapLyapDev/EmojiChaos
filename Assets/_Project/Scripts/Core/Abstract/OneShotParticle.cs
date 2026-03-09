@@ -1,47 +1,52 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class OneShotParticle : InitializingBehaviour
+namespace EmojiChaos.Core.Abstract
 {
-    [SerializeField] private ParticleSystem _particleSystem;
+    using MonoBehaviourWrapper;
 
-    private WaitUntil _waitUntil;
-    private Coroutine _coroutine;
-
-    protected ParticleSystem ParticleSystem => _particleSystem;
-
-    public void Play()
+    public abstract class OneShotParticle : InitializingBehaviour
     {
-        ValidateInit(nameof(Play));
+        [SerializeField] private ParticleSystem _particleSystem;
 
-        _particleSystem.Play();
-        StartCoroutine();
-    }
+        private WaitUntil _waitUntil;
+        private Coroutine _coroutine;
 
-    protected abstract void OnCompleted();
+        protected ParticleSystem ParticleSystem => _particleSystem;
 
-    protected override void OnInitialize() =>
-        _waitUntil = new (() => _particleSystem.isStopped);
+        public void Play()
+        {
+            ValidateInit(nameof(Play));
 
-    private void StartCoroutine()
-    {
-        StopCoroutine();
-        _coroutine = StartCoroutine(WaitForCompletion());
-    }
+            _particleSystem.Play();
+            StartCoroutine();
+        }
 
-    private void StopCoroutine()
-    {
-        if (_coroutine == null)
-            return;
+        protected abstract void OnCompleted();
 
-        StopCoroutine(_coroutine);
-        _coroutine = null;
-    }
+        protected override void OnInitialize() =>
+            _waitUntil = new(() => _particleSystem.isStopped);
 
-    private IEnumerator WaitForCompletion()
-    {
-        yield return _waitUntil;
+        private void StartCoroutine()
+        {
+            StopCoroutine();
+            _coroutine = StartCoroutine(WaitForCompletion());
+        }
 
-        OnCompleted();
+        private void StopCoroutine()
+        {
+            if (_coroutine == null)
+                return;
+
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
+
+        private IEnumerator WaitForCompletion()
+        {
+            yield return _waitUntil;
+
+            OnCompleted();
+        }
     }
 }

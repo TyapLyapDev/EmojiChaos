@@ -1,7 +1,11 @@
-using EmojiChaos.Audio;
-
-public class PauseButton : ButtonClickHandler<PauseButton> 
+namespace EmojiChaos.UI.Buttons
 {
-    protected override void OnClick() =>
-        Audio.Sfx.PlayPause();
+    using Audio;
+    using Core.Abstract.UI;
+
+    public class PauseButton : ButtonClickHandler<PauseButton>
+    {
+        protected override void OnClick() =>
+            Audio.Sfx.PlayPause();
+    }
 }

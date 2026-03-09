@@ -2,57 +2,63 @@ using EmojiChaos.Animation;
 using System;
 using UnityEngine;
 
-public class EnemyVisual : InitializingBehaviour
+namespace EmojiChaos.Entities.Enemy
 {
-    [SerializeField] private EnemyAnimator _animator;
-    [SerializeField] private SimpleRepainter _repainter;
-    [SerializeField] private AlphaMaskTextureReplacer _replacer;
-    [SerializeField] private Texture2D[] _deathTextures;
-    [SerializeField] private Texture2D[] _fearTextures;
-    [SerializeField] private Texture2D[] _angryTextures;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Core.Repainters;
 
-    public event Action DiedCompleted;
-
-    private void OnDestroy()
+    public class EnemyVisual : InitializingBehaviour
     {
-        _animator.DiedComleted -= OnDiedCompleted;
+        [SerializeField] private EnemyAnimator _animator;
+        [SerializeField] private SimpleRepainter _repainter;
+        [SerializeField] private AlphaMaskTextureReplacer _replacer;
+        [SerializeField] private Texture2D[] _deathTextures;
+        [SerializeField] private Texture2D[] _fearTextures;
+        [SerializeField] private Texture2D[] _angryTextures;
+
+        public event Action DiedCompleted;
+
+        private void OnDestroy()
+        {
+            _animator.DiedComleted -= OnDiedCompleted;
+        }
+
+        public void SetColor(Color color)
+        {
+            ValidateInit(nameof(SetColor));
+            _repainter.SetColor(color);
+        }
+
+        public void SetDied()
+        {
+            _animator.PlayDied();
+            SetRandom(_deathTextures);
+        }
+
+        public void ResetDied()
+        {
+            _animator.PlayIdle();
+            SetRandom(_angryTextures);
+        }
+
+        public void SetFear()
+        {
+            SetRandom(_fearTextures);
+        }
+
+        protected override void OnInitialize()
+        {
+            _repainter.Initialize();
+            _replacer.Initialize();
+            _animator.Initialize();
+
+            _animator.DiedComleted += OnDiedCompleted;
+        }
+
+        private void OnDiedCompleted() =>
+            DiedCompleted?.Invoke();
+
+        private void SetRandom(Texture2D[] textures) =>
+            _replacer.SetTexture(textures[UnityEngine.Random.Range(0, textures.Length)]);
     }
-
-    public void SetColor(Color color)
-    {
-        ValidateInit(nameof(SetColor));
-        _repainter.SetColor(color);
-    }
-
-    public void SetDied()
-    {
-        _animator.PlayDied();
-        SetRandom(_deathTextures);
-    }
-
-    public void ResetDied()
-    {
-        _animator.PlayIdle();
-        SetRandom(_angryTextures);
-    }
-
-    public void SetFear()
-    {
-        SetRandom(_fearTextures);
-    }
-
-    protected override void OnInitialize()
-    {
-        _repainter.Initialize();
-        _replacer.Initialize();
-        _animator.Initialize();
-
-        _animator.DiedComleted += OnDiedCompleted;
-    }
-
-    private void OnDiedCompleted() =>
-        DiedCompleted?.Invoke();
-
-    private void SetRandom(Texture2D[] textures) =>
-        _replacer.SetTexture(textures[UnityEngine.Random.Range(0, textures.Length)]);
 }

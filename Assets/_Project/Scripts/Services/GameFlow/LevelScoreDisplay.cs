@@ -1,26 +1,31 @@
-using EmojiChaos.Audio;
 using TMPro;
 using UnityEngine;
 
-public class LevelScoreDisplay : InitializingBehaviour
+namespace EmojiChaos.Services.GameFlow
 {
-    private static readonly int s_levelScoreBonusAddingId = Animator.StringToHash("LevelScoreBonusAdding");
+    using Audio;
+    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 
-    [SerializeField] private TextMeshProUGUI _score;
-    [SerializeField] private Animator _animator;
-
-    protected override void OnInitialize() { }
-
-    public void SetBonus(int score)
+    public class LevelScoreDisplay : InitializingBehaviour
     {
-        SetScore(score);
-        _animator.Play(s_levelScoreBonusAddingId, -1, 0f);
-        Audio.Sfx.PlayStarCollected();
-    }
+        private static readonly int s_levelScoreBonusAddingId = Animator.StringToHash("LevelScoreBonusAdding");
 
-    public void SetScore(int score)
-    {
-        _score.text = score.ToString();
-        Audio.Sfx.PlayScoreIncreased();
+        [SerializeField] private TextMeshProUGUI _score;
+        [SerializeField] private Animator _animator;
+
+        protected override void OnInitialize() { }
+
+        public void SetBonus(int score)
+        {
+            SetScore(score);
+            _animator.Play(s_levelScoreBonusAddingId, -1, 0f);
+            Audio.Sfx.PlayStarCollected();
+        }
+
+        public void SetScore(int score)
+        {
+            _score.text = score.ToString();
+            Audio.Sfx.PlayScoreIncreased();
+        }
     }
 }

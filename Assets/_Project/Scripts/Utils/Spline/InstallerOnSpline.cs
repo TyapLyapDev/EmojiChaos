@@ -1,196 +1,202 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-[ExecuteInEditMode]
-public class InstallerOnSpline : MonoBehaviour
+namespace EmojiChaos.Utils.Splines
 {
+    using Entities.Star;
+    using MeshGenerator;
+
+    [ExecuteInEditMode]
+    public class InstallerOnSpline : MonoBehaviour
+    {
 #if UNITY_EDITOR
-    [SerializeField] [Min(0)] private int _splineIndex;
-    [SerializeField] [Range(0, 1)] private float _progress;
-    [SerializeField] private Vector3 _additionalRotation = Vector3.zero;
-    [SerializeField] private bool _isSplineDirection = true;
+        [SerializeField][Min (0)] private int _splineIndex;
+        [SerializeField][Range (0, 1)] private float _progress;
+        [SerializeField] private Vector3 _additionalRotation = Vector3.zero;
+        [SerializeField] private bool _isSplineDirection = true;
 
-    [Header("Компоненты")]
-    [SerializeField] private SplineContainer _splineContainer;
-    [SerializeField] private SplineRendererMeshGenerator _splineRendererMeshGenerator;
-    [SerializeField] private bool _isAutoupdate = true;
+        [Header ("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
+        [SerializeField] private SplineContainer _splineContainer;
+        [SerializeField] private SplineRendererMeshGenerator _splineRendererMeshGenerator;
+        [SerializeField] private bool _isAutoupdate = true;
 
-    private Spline _currentSpline;
-    private bool _isSubscribedToEvents = false;
+        private Spline _currentSpline;
+        private bool _isSubscribedToEvents = false;
 
-    private void OnValidate()
-    {
-        if (IsValid() == false)
-            FindComponents();
-
-        if (_isAutoupdate)
-            UpdateTransform();
-    }
-
-    private void Reset() =>
-        FindComponents();
-
-    private void OnEnable() =>
-        SubscribeToEvents();
-
-    private void OnDisable() =>
-        UnsubscribeFromEvents();
-
-    private bool IsValid()
-    {
-        bool isValid = true;
-
-        if (_splineContainer == null)
-            isValid = false;
-
-        if (_currentSpline == null)
-            isValid = false;
-
-        if (_splineRendererMeshGenerator == null)
-            isValid = false;
-
-        return isValid;
-    }
-
-    private void FindComponents()
-    {
-        _splineContainer = null;
-        _splineRendererMeshGenerator = null;
-        _currentSpline = null;
-
-        _splineContainer = GetComponentInParent<SplineContainer>(true);
-
-        if (_splineContainer == null)
+        private void OnValidate ( )
         {
-            Debug.LogWarning($"Не удалось получить компонент {nameof(_splineContainer)}");
+            if (IsValid ( ) == false)
+                FindComponents ( );
 
-            return;
+            if (_isAutoupdate)
+                UpdateTransform ( );
         }
 
-        _splineRendererMeshGenerator = _splineContainer.GetComponent<SplineRendererMeshGenerator>();
+        private void Reset ( ) =>
+            FindComponents ( );
 
-        if (_splineRendererMeshGenerator == null)
+        private void OnEnable ( ) =>
+            SubscribeToEvents ( );
+
+        private void OnDisable ( ) =>
+            UnsubscribeFromEvents ( );
+
+        private bool IsValid ( )
         {
-            Debug.LogWarning($"Не удалось получить компонент {nameof(_splineRendererMeshGenerator)}");
+            bool isValid = true;
 
-            return;
+            if (_splineContainer == null)
+                isValid = false;
+
+            if (_currentSpline == null)
+                isValid = false;
+
+            if (_splineRendererMeshGenerator == null)
+                isValid = false;
+
+            return isValid;
         }
 
-        if (_splineIndex >= 0 && _splineIndex < _splineContainer.Splines.Count)
-            _currentSpline = _splineContainer.Splines[_splineIndex];
-
-        if (_currentSpline == null)
+        private void FindComponents ( )
         {
-            Debug.LogWarning($"Не удалось получить компонент {nameof(_currentSpline)}");
+            _splineContainer = null;
+            _splineRendererMeshGenerator = null;
+            _currentSpline = null;
 
-            return;
-        }
-    }
+            _splineContainer = GetComponentInParent<SplineContainer> (true);
 
-    private void SubscribeToEvents()
-    {
-        if (IsValid() == false)
-            return;
-
-        if (_isSubscribedToEvents)
-            return;
-
-        _splineRendererMeshGenerator.Changed += OnMeshGeneratorChanged;
-        _isSubscribedToEvents = true;
-    }
-
-    private void UnsubscribeFromEvents()
-    {
-        if (_isSubscribedToEvents == false)
-            return;
-
-        if (_splineRendererMeshGenerator != null)
-            _splineRendererMeshGenerator.Changed -= OnMeshGeneratorChanged;
-
-        _isSubscribedToEvents = false;
-    }
-
-    private void OnMeshGeneratorChanged()
-    {
-        if (IsValid() && _isAutoupdate)
-            UpdateTransform();
-    }
-
-    [ContextMenu("Обновить позицию и поворот")]
-    public void UpdateTransform()
-    {
-        if (IsValid() == false)
-        {
-            Debug.LogWarning("Невозможно обновить, отсутствуют ссылки на необходимые компоненты");
-
-            return;
-        }
-
-        if (TryCalculatePosition(out Vector3 position) == false)
-            return;
-
-        if (TryCalculateRotation(out Quaternion rotation) == false)
-            return;
-
-        if (position != null && rotation != null)
-            transform.SetPositionAndRotation(position, rotation);
-
-        transform.localScale = _splineRendererMeshGenerator.ScaleAdjustment;
-
-        if (TryGetComponent(out Star star))
-            star.SetProgress(_progress);
-    }
-
-    private bool TryCalculatePosition(out Vector3 position)
-    {
-        try
-        {
-            position = (Vector3)_splineContainer.EvaluatePosition(_splineIndex, _progress) + _splineRendererMeshGenerator.PositionAdjustment;
-
-            return true;
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Ошибка при оценке положения сплайна: {e.Message}", this);
-            position = Vector3.zero;
-
-            return false;
-        }
-    }
-
-    private bool TryCalculateRotation(out Quaternion rotation)
-    {
-        try
-        {
-            if (_isSplineDirection == false)
+            if (_splineContainer == null)
             {
-                rotation = transform.rotation;
+                Debug.LogWarning ($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof (_splineContainer)}");
+
+                return;
+            }
+
+            _splineRendererMeshGenerator = _splineContainer.GetComponent<SplineRendererMeshGenerator> ( );
+
+            if (_splineRendererMeshGenerator == null)
+            {
+                Debug.LogWarning ($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof (_splineRendererMeshGenerator)}");
+
+                return;
+            }
+
+            if (_splineIndex >= 0 && _splineIndex < _splineContainer.Splines.Count)
+                _currentSpline = _splineContainer.Splines[_splineIndex];
+
+            if (_currentSpline == null)
+            {
+                Debug.LogWarning ($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof (_currentSpline)}");
+
+                return;
+            }
+        }
+
+        private void SubscribeToEvents ( )
+        {
+            if (IsValid ( ) == false)
+                return;
+
+            if (_isSubscribedToEvents)
+                return;
+
+            _splineRendererMeshGenerator.Changed += OnMeshGeneratorChanged;
+            _isSubscribedToEvents = true;
+        }
+
+        private void UnsubscribeFromEvents ( )
+        {
+            if (_isSubscribedToEvents == false)
+                return;
+
+            if (_splineRendererMeshGenerator != null)
+                _splineRendererMeshGenerator.Changed -= OnMeshGeneratorChanged;
+
+            _isSubscribedToEvents = false;
+        }
+
+        private void OnMeshGeneratorChanged ( )
+        {
+            if (IsValid ( ) && _isAutoupdate)
+                UpdateTransform ( );
+        }
+
+        [ContextMenu ("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
+        public void UpdateTransform ( )
+        {
+            if (IsValid ( ) == false)
+            {
+                Debug.LogWarning ("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+
+                return;
+            }
+
+            if (TryCalculatePosition (out Vector3 position) == false)
+                return;
+
+            if (TryCalculateRotation (out Quaternion rotation) == false)
+                return;
+
+            if (position != null && rotation != null)
+                transform.SetPositionAndRotation (position, rotation);
+
+            transform.localScale = _splineRendererMeshGenerator.ScaleAdjustment;
+
+            if (TryGetComponent (out Star star))
+                star.SetProgress (_progress);
+        }
+
+        private bool TryCalculatePosition (out Vector3 position)
+        {
+            try
+            {
+                position = (Vector3)_splineContainer.EvaluatePosition (_splineIndex, _progress) + _splineRendererMeshGenerator.PositionAdjustment;
 
                 return true;
             }
-
-            Vector3 localTangent = _splineContainer.EvaluateTangent(_splineIndex, _progress);
-            Vector3 worldTangent = _splineContainer.transform.TransformDirection(localTangent);
-
-            if (worldTangent == Vector3.zero)
+            catch (System.Exception e)
             {
-                rotation = transform.rotation;
+                Debug.LogError ($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {e.Message}", this);
+                position = Vector3.zero;
+
+                return false;
+            }
+        }
+
+        private bool TryCalculateRotation (out Quaternion rotation)
+        {
+            try
+            {
+                if (_isSplineDirection == false)
+                {
+                    rotation = transform.rotation;
+
+                    return true;
+                }
+
+                Vector3 localTangent = _splineContainer.EvaluateTangent (_splineIndex, _progress);
+                Vector3 worldTangent = _splineContainer.transform.TransformDirection (localTangent);
+
+                if (worldTangent == Vector3.zero)
+                {
+                    rotation = transform.rotation;
+
+                    return true;
+                }
+
+                Quaternion baseRotation = Quaternion.LookRotation (worldTangent);
+                rotation = baseRotation * Quaternion.Euler (_additionalRotation);
 
                 return true;
             }
+            catch (System.Exception e)
+            {
+                Debug.LogError ($"Error evaluating spline rotation: {e.Message}", this);
+                rotation = Quaternion.identity;
 
-            Quaternion baseRotation = Quaternion.LookRotation(worldTangent);
-            rotation = baseRotation * Quaternion.Euler(_additionalRotation);
-
-            return true;
+                return false;
+            }
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Error evaluating spline rotation: {e.Message}", this);
-            rotation = Quaternion.identity;
-
-            return false;
-        }
-    }
 #endif
+    }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Containers.ScrollContainer
+{
+
 namespace UI.CustomScrollContainer
 {
     public class ScrollNavigator
@@ -49,4 +52,5 @@ namespace UI.CustomScrollContainer
             return normalized;
         }
     }
+}
 }

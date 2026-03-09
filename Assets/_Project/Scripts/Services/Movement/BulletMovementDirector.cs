@@ -4,77 +4,82 @@ using System.Linq;
 using UnityEngine;
 using UniRx;
 
-public class BulletMovementDirector : IDisposable
+namespace EmojiChaos.Services.Movement
 {
-    private readonly float _speed;
+    using Entities.Bullet;
 
-    private readonly List<Bullet> _bullets = new ();
-    private readonly CompositeDisposable _disposables = new ();
-
-    public BulletMovementDirector(float speed)
+    public class BulletMovementDirector : IDisposable
     {
-        if (speed <= 0)
-            throw new ArgumentOutOfRangeException(nameof(speed), speed, "Значение должно быть больше нуля");
+        private readonly float _speed;
 
-        _speed = speed;
-    }
+        private readonly List<Bullet> _bullets = new();
+        private readonly CompositeDisposable _disposables = new();
 
-    public void Run()
-    {
-        Observable.EveryUpdate()
-            .Where(_ => _bullets.Count > 0)
-            .Subscribe(_ => UpdateMovement())
-            .AddTo(_disposables);
-    }
-
-    public void Dispose()
-    {
-        List<Bullet> bullets = _bullets;
-
-        foreach (Bullet bullet in bullets)
-            if (bullet != null)
-                bullet.Deactivated -= OnBulletDeactivated;
-
-        _bullets.Clear();
-        _disposables?.Dispose();
-    }
-
-    public void RegisterBullet(Bullet bullet)
-    {
-        if (bullet == null)
-            throw new ArgumentNullException(nameof(bullet));
-
-        if (_bullets.Contains(bullet))
-            throw new InvalidOperationException($"{nameof(RegisterBullet)} Попытка повторной регистрации пули");
-
-        _bullets.Add(bullet);
-        bullet.Deactivated += OnBulletDeactivated;
-    }
-
-    private void UpdateMovement()
-    {
-        float deltaDistance = _speed * Time.deltaTime;
-
-        for (int i = _bullets.Count - 1; i >= 0; i--)
+        public BulletMovementDirector(float speed)
         {
-            Bullet bullet = _bullets[i];
+            if (speed <= 0)
+                throw new ArgumentOutOfRangeException(nameof(speed), speed, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
-            if (bullet == null)
-            {
-                _bullets.RemoveAt(i);
-                continue;
-            }
-
-            bullet.Move(deltaDistance);
+            _speed = speed;
         }
-    }
 
-    private void OnBulletDeactivated(Bullet bullet)
-    {
-        if (bullet == null)
-            throw new ArgumentNullException(nameof(bullet));
+        public void Run()
+        {
+            Observable.EveryUpdate()
+                .Where(_ => _bullets.Count > 0)
+                .Subscribe(_ => UpdateMovement())
+                .AddTo(_disposables);
+        }
 
-        bullet.Deactivated -= OnBulletDeactivated;
-        _bullets.Remove(bullet);
+        public void Dispose()
+        {
+            List<Bullet> bullets = _bullets;
+
+            foreach (Bullet bullet in bullets)
+                if (bullet != null)
+                    bullet.Deactivated -= OnBulletDeactivated;
+
+            _bullets.Clear();
+            _disposables?.Dispose();
+        }
+
+        public void RegisterBullet(Bullet bullet)
+        {
+            if (bullet == null)
+                throw new ArgumentNullException(nameof(bullet));
+
+            if (_bullets.Contains(bullet))
+                throw new InvalidOperationException($"{nameof(RegisterBullet)} пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+
+            _bullets.Add(bullet);
+            bullet.Deactivated += OnBulletDeactivated;
+        }
+
+        private void UpdateMovement()
+        {
+            float deltaDistance = _speed * Time.deltaTime;
+
+            for (int i = _bullets.Count - 1; i >= 0; i--)
+            {
+                Bullet bullet = _bullets[i];
+
+                if (bullet == null)
+                {
+                    _bullets.RemoveAt(i);
+                    continue;
+                }
+
+                bullet.Move(deltaDistance);
+            }
+        }
+
+        private void OnBulletDeactivated(Bullet bullet)
+        {
+            if (bullet == null)
+                throw new ArgumentNullException(nameof(bullet));
+
+            bullet.Deactivated -= OnBulletDeactivated;
+            _bullets.Remove(bullet);
+        }
     }
 }

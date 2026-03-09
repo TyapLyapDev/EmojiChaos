@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class SplineNode
 {
     private readonly Spline _spline;
@@ -33,4 +36,5 @@ public class SplineNode
         if (_connectedNodes.ContainsKey(node) == false)
             _connectedNodes[node] = distance;
     }
+}
 }

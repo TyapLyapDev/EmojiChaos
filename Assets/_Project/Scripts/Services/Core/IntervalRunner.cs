@@ -2,6 +2,9 @@ using System;
 using UniRx;
 using UnityEngine;
 
+namespace EmojiChaos.Services.Core
+{
+
 public class IntervalRunner : IDisposable
 {
     private readonly Action _onIntervalElapsed;
@@ -21,10 +24,10 @@ public class IntervalRunner : IDisposable
     public void StartRunning(float intervalInSeconds)
     {
         if (intervalInSeconds <= 0f)
-            throw new ArgumentOutOfRangeException(nameof(intervalInSeconds), "Значение должно быть больше нуля");
+            throw new ArgumentOutOfRangeException(nameof(intervalInSeconds), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
         if (_isRunning)
-            throw new InvalidOperationException($"{nameof(StartRunning)}: попытка повторного запуска");
+            throw new InvalidOperationException($"{nameof(StartRunning)}: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
         _isRunning = true;
         _interval = intervalInSeconds;
@@ -52,4 +55,5 @@ public class IntervalRunner : IDisposable
         _updateSubscription?.Dispose();
         _updateSubscription = null;
     }
+}
 }

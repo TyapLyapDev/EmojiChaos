@@ -1,69 +1,74 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarSplineMoverStrategy : IMovementStrategy
+namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    private const float MovementSmoothSpeedMultiplier = 1f;
-    private const float RotationSmoothSpeedMultiplier = 140;
-    private const float SqrThrieshold = 0.005f;
-    private const float StartMargin = 0.2f;
+    using Core.Abstract.Interface;
+    using Utils.Splines.Graph;
 
-    private readonly Transform _transform;
-    private readonly Action _destinationReached;
-    private readonly SegmentProcessor _segmentProcessor;
-
-    private Quaternion _targetRotation;
-    private Vector3 _targetPosition;
-
-    public CarSplineMoverStrategy(Transform transform, List<SplineSegment> path, Action destinationReached)
+    public class CarSplineMoverStrategy : IMovementStrategy
     {
-        _transform = transform != null ? transform : throw new ArgumentNullException(nameof(transform));
-        _destinationReached = destinationReached;
-        _segmentProcessor = new SegmentProcessor(path ?? throw new ArgumentNullException(nameof(path)));
+        private const float MovementSmoothSpeedMultiplier = 1f;
+        private const float RotationSmoothSpeedMultiplier = 140;
+        private const float SqrThrieshold = 0.005f;
+        private const float StartMargin = 0.2f;
 
-        _segmentProcessor.ProcessMovement(StartMargin);
-    }
+        private readonly Transform _transform;
+        private readonly Action _destinationReached;
+        private readonly SegmentProcessor _segmentProcessor;
 
-    public void Move(float deltaDistance)
-    {
-        if (_segmentProcessor.HasPath == false && (_transform.position - _targetPosition).sqrMagnitude <= SqrThrieshold)
+        private Quaternion _targetRotation;
+        private Vector3 _targetPosition;
+
+        public CarSplineMoverStrategy(Transform transform, List<SplineSegment> path, Action destinationReached)
         {
-            _destinationReached?.Invoke();
-            return;
+            _transform = transform != null ? transform : throw new ArgumentNullException(nameof(transform));
+            _destinationReached = destinationReached;
+            _segmentProcessor = new(path ?? throw new ArgumentNullException(nameof(path)));
+
+            _segmentProcessor.ProcessMovement(StartMargin);
         }
 
-        _segmentProcessor.ProcessMovement(deltaDistance);
-        UpdateTargetTransform();
-        ApplySmoothTransform(deltaDistance);
-    }
+        public void Move(float deltaDistance)
+        {
+            if (_segmentProcessor.HasPath == false && (_transform.position - _targetPosition).sqrMagnitude <= SqrThrieshold)
+            {
+                _destinationReached?.Invoke();
+                return;
+            }
 
-    private void UpdateTargetTransform()
-    {
-        SplineSegment currentSegment = _segmentProcessor.GetCurrentSegment();
+            _segmentProcessor.ProcessMovement(deltaDistance);
+            UpdateTargetTransform();
+            ApplySmoothTransform(deltaDistance);
+        }
 
-        if (currentSegment == null)
-            return;
+        private void UpdateTargetTransform()
+        {
+            SplineSegment currentSegment = _segmentProcessor.GetCurrentSegment();
 
-        _targetPosition = currentSegment.GetWorldPositionBySegmentProgress(_segmentProcessor.GetCurrentProgress());
+            if (currentSegment == null)
+                return;
 
-        Vector3 worldTangent = currentSegment.GetWorldTangentBySegmentProgress(_segmentProcessor.GetCurrentProgress());
-        _targetRotation = Quaternion.LookRotation(worldTangent);
-    }
+            _targetPosition = currentSegment.GetWorldPositionBySegmentProgress(_segmentProcessor.GetCurrentProgress());
 
-    private void ApplySmoothTransform(float deltaDistance)
-    {
-        Vector3 newPosition = Vector3.MoveTowards(
-            _transform.position,
-            _targetPosition,
-            deltaDistance * MovementSmoothSpeedMultiplier);
+            Vector3 worldTangent = currentSegment.GetWorldTangentBySegmentProgress(_segmentProcessor.GetCurrentProgress());
+            _targetRotation = Quaternion.LookRotation(worldTangent);
+        }
 
-        Quaternion newRotation = Quaternion.RotateTowards(
-            _transform.rotation,
-            _targetRotation,
-            deltaDistance * RotationSmoothSpeedMultiplier);
+        private void ApplySmoothTransform(float deltaDistance)
+        {
+            Vector3 newPosition = Vector3.MoveTowards(
+                _transform.position,
+                _targetPosition,
+                deltaDistance * MovementSmoothSpeedMultiplier);
 
-        _transform.SetPositionAndRotation(newPosition, newRotation);
+            Quaternion newRotation = Quaternion.RotateTowards(
+                _transform.rotation,
+                _targetRotation,
+                deltaDistance * RotationSmoothSpeedMultiplier);
+
+            _transform.SetPositionAndRotation(newPosition, newRotation);
+        }
     }
 }

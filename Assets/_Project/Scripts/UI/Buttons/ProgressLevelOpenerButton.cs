@@ -1,9 +1,14 @@
-using EmojiChaos.Audio;
 
-public class ProgressLevelOpenerButton : ButtonClickHandler<ProgressLevelOpenerButton>
+namespace EmojiChaos.UI.Buttons
 {
-    protected override void OnClick()
+    using Audio;
+    using Core.Abstract.UI;
+
+    public class ProgressLevelOpenerButton : ButtonClickHandler<ProgressLevelOpenerButton>
     {
-        Audio.Sfx.PlayLevelSelected();
+        protected override void OnClick()
+        {
+            Audio.Sfx.PlayLevelSelected();
+        }
     }
 }

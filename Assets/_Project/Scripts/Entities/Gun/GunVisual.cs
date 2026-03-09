@@ -1,43 +1,49 @@
-using EmojiChaos.Animation;
 using TMPro;
 using UnityEngine;
 
-public class GunVisual : InitializingBehaviour
+namespace EmojiChaos.Entities.Gun
 {
-    [SerializeField] private SimpleRepainter[] _repainters;
-    [SerializeField] private TextMeshProUGUI _countText;
-    [SerializeField] private GunAnimator _animator;
+    using Animation;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Core.Repainters;
 
-    public void SetColor(Color color)
+    public class GunVisual : InitializingBehaviour
     {
-        ValidateInit(nameof(SetColor));
+        [SerializeField] private SimpleRepainter[] _repainters;
+        [SerializeField] private TextMeshProUGUI _countText;
+        [SerializeField] private GunAnimator _animator;
 
-        foreach (SimpleRepainter repainter in _repainters)
-            repainter.SetColor(color);
+        public void SetColor(Color color)
+        {
+            ValidateInit(nameof(SetColor));
 
-        _countText.color = color;
-    }
+            foreach (SimpleRepainter repainter in _repainters)
+                repainter.SetColor(color);
 
-    public void DisplayBulletCount(int bulletCount)
-    {
-        ValidateInit(nameof(DisplayBulletCount));
-        _countText.text = bulletCount.ToString();
-    }
+            _countText.color = color;
+        }
 
-    public void SetHidding()
-    {
-        _animator.PlayHidding();
-        _countText.text = string.Empty;
-    }
+        public void DisplayBulletCount(int bulletCount)
+        {
+            ValidateInit(nameof(DisplayBulletCount));
+            _countText.text = bulletCount.ToString();
+        }
 
-    public void SetShooting() =>
-        _animator.PlayShooting();
+        public void SetHidding()
+        {
+            _animator.PlayHidding();
+            _countText.text = string.Empty;
+        }
 
-    protected override void OnInitialize()
-    {
-        foreach (SimpleRepainter repainter in _repainters)
-            repainter.Initialize();
+        public void SetShooting() =>
+            _animator.PlayShooting();
 
-        _animator.Initialize();
+        protected override void OnInitialize()
+        {
+            foreach (SimpleRepainter repainter in _repainters)
+                repainter.Initialize();
+
+            _animator.Initialize();
+        }
     }
 }

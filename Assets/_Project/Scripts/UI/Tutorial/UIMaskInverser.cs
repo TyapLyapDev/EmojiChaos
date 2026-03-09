@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Tutorial
+{
+
 public class UIMaskInverser : Image
 {
     private Material _cachedMaterial;
@@ -34,4 +37,5 @@ public class UIMaskInverser : Image
         else
             DestroyImmediate(_cachedMaterial);
     }
+}
 }

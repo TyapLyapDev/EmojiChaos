@@ -2,6 +2,9 @@ using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.Core.Abstract
+{
+
 public abstract class BaseFactory<T> : IFactory<T> 
     where T : MonoBehaviour
 {
@@ -21,4 +24,5 @@ public abstract class BaseFactory<T> : IFactory<T>
     }
 
     protected abstract void OnCreate(T element);
+}
 }

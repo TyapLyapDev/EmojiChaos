@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Tutorial
+{
+
 public abstract class TutorialItem : MonoBehaviour
 {
     private TutorialParam _config;
@@ -48,4 +51,5 @@ public abstract class TutorialItem : MonoBehaviour
 
     public void Show() =>
         gameObject.SetActive(true);
+}
 }

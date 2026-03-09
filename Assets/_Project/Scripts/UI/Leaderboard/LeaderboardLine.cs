@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Leaderboard
+{
+
 public class LeaderboardLine : MonoBehaviour
 {
     [SerializeField] private Image[] _bakgrounds;
@@ -52,4 +55,5 @@ public class LeaderboardLine : MonoBehaviour
         foreach (Image image in _backgrounds)
             image.color = color;
     }
+}
 }

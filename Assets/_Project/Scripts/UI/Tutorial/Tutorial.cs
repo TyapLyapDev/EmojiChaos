@@ -2,50 +2,55 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
+namespace EmojiChaos.UI.Tutorial
 {
-    [SerializeField] private TutorialCircle _circle;
-    [SerializeField] private List<TutorialItem> _items;
+    using Core.Abstract.MonoBehaviourWrapper;
 
-    public void Complete()
+    public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
     {
-        List<TutorialItem> items = new (_items);
+        [SerializeField] private TutorialCircle _circle;
+        [SerializeField] private List<TutorialItem> _items;
 
-        foreach (TutorialItem item in items)
-            item.Deactivate();
-
-        _items.Clear();
-        Destroy(gameObject);
-    }
-
-    protected override void OnInitialize(TutorialParam config)
-    {
-        foreach (TutorialItem item in _items)
-            item.Initilize(config);
-
-        _circle.Initialize();
-        ActivateNextItem();
-    }
-
-    private void ActivateNextItem()
-    {
-        if (_items.Count == 0)
+        public void Complete()
         {
-            Complete();
+            List<TutorialItem> items = new(_items);
 
-            return;
+            foreach (TutorialItem item in items)
+                item.Deactivate();
+
+            _items.Clear();
+            Destroy(gameObject);
         }
 
-        TutorialItem item = _items.First();
-        item.Activate();
-        item.Deactivated += OnItemDeactivated;
-    }
+        protected override void OnInitialize(TutorialParam config)
+        {
+            foreach (TutorialItem item in _items)
+                item.Initilize(config);
 
-    private void OnItemDeactivated(TutorialItem item)
-    {
-        item.Deactivated -= OnItemDeactivated;
-        _items.Remove(item);
-        Destroy(item.gameObject);
-        ActivateNextItem();
+            _circle.Initialize();
+            ActivateNextItem();
+        }
+
+        private void ActivateNextItem()
+        {
+            if (_items.Count == 0)
+            {
+                Complete();
+
+                return;
+            }
+
+            TutorialItem item = _items.First();
+            item.Activate();
+            item.Deactivated += OnItemDeactivated;
+        }
+
+        private void OnItemDeactivated(TutorialItem item)
+        {
+            item.Deactivated -= OnItemDeactivated;
+            _items.Remove(item);
+            Destroy(item.gameObject);
+            ActivateNextItem();
+        }
     }
 }

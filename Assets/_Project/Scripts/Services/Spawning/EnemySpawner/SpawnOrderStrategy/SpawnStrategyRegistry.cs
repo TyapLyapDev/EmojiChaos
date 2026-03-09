@@ -1,25 +1,30 @@
 using System;
 using System.Collections.Generic;
 
-public class SpawnStrategyRegistry
+namespace EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy
 {
-    private readonly Dictionary<SpawnOrderStrategyType, IEnemySpawnOrderStrategy> _strategies;
+    using EmojiChaos.Core.Enum;
 
-    public SpawnStrategyRegistry()
+    public class SpawnStrategyRegistry
     {
-        _strategies = new Dictionary<SpawnOrderStrategyType, IEnemySpawnOrderStrategy>
+        private readonly Dictionary<SpawnOrderStrategyType, IEnemySpawnOrderStrategy> _strategies;
+
+        public SpawnStrategyRegistry ( )
         {
-            [SpawnOrderStrategyType.CenterFirst] = new CenterFirstSpawnOrderStrategy(),
-            [SpawnOrderStrategyType.LeftToRight] = new LeftToRightSpawnStrategy(),
-            [SpawnOrderStrategyType.RightToLeft] = new RightToLeftSpawnStrategy(),
-        };
-    }
+            _strategies = new Dictionary<SpawnOrderStrategyType, IEnemySpawnOrderStrategy>
+            {
+                [SpawnOrderStrategyType.CenterFirst] = new CenterFirstSpawnOrderStrategy ( ),
+                [SpawnOrderStrategyType.LeftToRight] = new LeftToRightSpawnStrategy ( ),
+                [SpawnOrderStrategyType.RightToLeft] = new RightToLeftSpawnStrategy ( ),
+            };
+        }
 
-    public int[] CalculateSpawnOrder(SpawnOrderStrategyType orderType, int countLines)
-    {
-        if (_strategies.TryGetValue(orderType, out IEnemySpawnOrderStrategy strategy) == false) 
-            throw new ArgumentNullException(nameof(strategy));
+        public int[] CalculateSpawnOrder (SpawnOrderStrategyType orderType, int countLines)
+        {
+            if (_strategies.TryGetValue (orderType, out IEnemySpawnOrderStrategy strategy) == false)
+                throw new ArgumentNullException (nameof (strategy));
 
-        return strategy.Calculate(countLines);
+            return strategy.Calculate (countLines);
+        }
     }
 }

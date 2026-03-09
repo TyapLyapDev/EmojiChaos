@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.CustomPageContainer;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
+    using Containers.PageContainer.UI.CustomPageContainer;
+    using MiniCell;
+    using MiniCell.UI.CustomMiniCellsLevelSelector;
+
     public class PageInfoUpdater
     {
         private readonly PageContainer _container;

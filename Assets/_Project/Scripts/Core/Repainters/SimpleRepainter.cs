@@ -1,31 +1,36 @@
 using System;
 using UnityEngine;
 
-public class SimpleRepainter : BaseRepainter
+namespace EmojiChaos.Core.Repainters
 {
-    [SerializeField] private string _propertyColor = "_BackgroundColor";
+    using Core.Abstract;
 
-    private Color _color;
-    private int _shaderId;
-
-    public void SetColor(Color color)
+    public class SimpleRepainter : BaseRepainter
     {
-        ValidateInit(nameof(SetColor));
+        [SerializeField] private string _propertyColor = "_BackgroundColor";
 
-        _color = color;
-        Repaint();
-    }
+        private Color _color;
+        private int _shaderId;
 
-    protected override void OnRepaint(MaterialPropertyBlock propertyBlock) =>
-        propertyBlock.SetColor(_shaderId, _color);
+        public void SetColor(Color color)
+        {
+            ValidateInit(nameof(SetColor));
 
-    protected override void OnInitialize()
-    {
-        base.OnInitialize();
+            _color = color;
+            Repaint();
+        }
 
-        if (string.IsNullOrEmpty(_propertyColor))
-            throw new InvalidOperationException(nameof(_propertyColor));
+        protected override void OnRepaint(MaterialPropertyBlock propertyBlock) =>
+            propertyBlock.SetColor(_shaderId, _color);
 
-        _shaderId = Shader.PropertyToID(_propertyColor);
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            if (string.IsNullOrEmpty(_propertyColor))
+                throw new InvalidOperationException(nameof(_propertyColor));
+
+            _shaderId = Shader.PropertyToID(_propertyColor);
+        }
     }
 }

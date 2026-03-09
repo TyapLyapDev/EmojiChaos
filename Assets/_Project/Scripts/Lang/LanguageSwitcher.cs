@@ -2,52 +2,59 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class LanguageSwitcher : InitializingBehaviour
+namespace EmojiChaos.Lang
 {
-    private readonly string[] _languages = new[] { Constants.LangRu, Constants.LangEn, Constants.LangTr };
+    using Core.Abstract.MonoBehaviourWrapper;
+    using UI.Buttons;
+    using Utils.Static;
 
-    [SerializeField] private PreviousLanguageButton _previousLanguageButton;
-    [SerializeField] private NextLanguageButton _nextLanguageButton;
-    
-    private void OnDestroy()
+    public class LanguageSwitcher : InitializingBehaviour
     {
-        if (_previousLanguageButton != null)
-            _previousLanguageButton.Clicked -= OnPreviousLanguagedClicked;
+        private readonly string[] _languages = new[] { Constants.LangRu, Constants.LangEn, Constants.LangTr };
 
-        if (_nextLanguageButton != null)
-            _nextLanguageButton.Clicked -= OnNextLanguagedClicked;
-    }
+        [SerializeField] private PreviousLanguageButton _previousLanguageButton;
+        [SerializeField] private NextLanguageButton _nextLanguageButton;
 
-    protected override void OnInitialize()
-    {
-        _previousLanguageButton.Initialize();
-        _nextLanguageButton.Initialize();
+        private void OnDestroy()
+        {
+            if (_previousLanguageButton != null)
+                _previousLanguageButton.Clicked -= OnPreviousLanguagedClicked;
 
-        _previousLanguageButton.Clicked += OnPreviousLanguagedClicked;
-        _nextLanguageButton.Clicked += OnNextLanguagedClicked;
-    }
+            if (_nextLanguageButton != null)
+                _nextLanguageButton.Clicked -= OnNextLanguagedClicked;
+        }
 
-    private int GetCurrentLanguageIndex()
-    {
-        string currentLanguage = YandexGameConnector.Lang;
+        protected override void OnInitialize()
+        {
+            _previousLanguageButton.Initialize();
+            _nextLanguageButton.Initialize();
 
-        if (_languages.Contains(currentLanguage) == false)
-            throw new Exception($"Язык {currentLanguage} отсутствует в списке доступных");
+            _previousLanguageButton.Clicked += OnPreviousLanguagedClicked;
+            _nextLanguageButton.Clicked += OnNextLanguagedClicked;
+        }
 
-        return Array.IndexOf(_languages, currentLanguage);
-    }
+        private int GetCurrentLanguageIndex()
+        {
+            string currentLanguage = YandexGameConnector.Lang;
 
-    private void OnPreviousLanguagedClicked(PreviousLanguageButton button)
-    {
-        int index = GetCurrentLanguageIndex();
-        index = (index - 1 + _languages.Length) % _languages.Length;
-        YandexGameConnector.SwitchLanguage(_languages[index]);
-    }
+            if (_languages.Contains(currentLanguage) == false)
+                throw new Exception($"пїЅпїЅпїЅпїЅ {currentLanguage} пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
-    private void OnNextLanguagedClicked(NextLanguageButton button)
-    {
-        int index = GetCurrentLanguageIndex();
-        index = (index + 1) % _languages.Length;
-        YandexGameConnector.SwitchLanguage(_languages[index]);
+            return Array.IndexOf(_languages, currentLanguage);
+        }
+
+        private void OnPreviousLanguagedClicked(PreviousLanguageButton button)
+        {
+            int index = GetCurrentLanguageIndex();
+            index = (index - 1 + _languages.Length) % _languages.Length;
+            YandexGameConnector.SwitchLanguage(_languages[index]);
+        }
+
+        private void OnNextLanguagedClicked(NextLanguageButton button)
+        {
+            int index = GetCurrentLanguageIndex();
+            index = (index + 1) % _languages.Length;
+            YandexGameConnector.SwitchLanguage(_languages[index]);
+        }
     }
 }

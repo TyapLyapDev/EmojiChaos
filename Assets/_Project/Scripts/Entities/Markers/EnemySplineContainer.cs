@@ -1,16 +1,21 @@
 using UnityEngine;
 using UnityEngine.Splines;
 
-[RequireComponent(typeof(SplineContainer))]
-public class EnemySplineContainer : InitializingBehaviour
+namespace EmojiChaos.Entities.Markers
 {
-    [SerializeField] private SplineContainer _splineContainer;
+    using Core.Abstract.MonoBehaviourWrapper;
 
-    public SplineContainer SplineContainer => GetSafeReference(_splineContainer);
-
-    protected override void OnInitialize()
+    [RequireComponent(typeof(SplineContainer))]
+    public class EnemySplineContainer : InitializingBehaviour
     {
-        if (_splineContainer == null)
-            throw new System.NullReferenceException(nameof(CarSplineContainer));
+        [SerializeField] private SplineContainer _splineContainer;
+
+        public SplineContainer SplineContainer => GetSafeReference(_splineContainer);
+
+        protected override void OnInitialize()
+        {
+            if (_splineContainer == null)
+                throw new System.NullReferenceException(nameof(CarSplineContainer));
+        }
     }
 }

@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell.Indicators
+{
+
 namespace UI.CustomMiniCellsLevelSelector
 {
     public class LevelNumber : MonoBehaviour
@@ -10,4 +13,5 @@ namespace UI.CustomMiniCellsLevelSelector
         public void SetText(string text) =>
             _text.text = text;
     }
+}
 }

@@ -1,5 +1,8 @@
 using System;
 
+namespace EmojiChaos.Services.GameFlow
+{
+
 public class VictoryHandler : IDisposable
 {
     private readonly EnemiesCounter _enemyCounter;
@@ -21,4 +24,5 @@ public class VictoryHandler : IDisposable
 
     private void OnAllEnemiesDefeated() =>
         Victory?.Invoke();
+}
 }

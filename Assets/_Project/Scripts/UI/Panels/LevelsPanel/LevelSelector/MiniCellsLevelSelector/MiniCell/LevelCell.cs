@@ -1,9 +1,15 @@
-using UI.CustomPageContainer;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell
 {
+    using Containers.PageContainer.UI.CustomPageContainer;
+    using Core.Abstract.UI;
+    using Indicators;
+    using Indicators.UI.CustomMiniCellsLevelSelector;
+    using Services.UI;
+    using UI.CustomMiniCellsLevelSelector;
+
     public class LevelCell : ButtonClickHandler<LevelCell>, IPagedItem
     {
         [SerializeField] private GameObject _model;

@@ -1,7 +1,11 @@
-using EmojiChaos.Audio;
-
-public class ResumeButton : ButtonClickHandler<ResumeButton> 
+namespace EmojiChaos.UI.Buttons
 {
-    protected override void OnClick() =>
-        Audio.Sfx.PlayResume();
+    using Audio;
+    using Core.Abstract.UI;
+
+    public class ResumeButton : ButtonClickHandler<ResumeButton>
+    {
+        protected override void OnClick() =>
+            Audio.Sfx.PlayResume();
+    }
 }

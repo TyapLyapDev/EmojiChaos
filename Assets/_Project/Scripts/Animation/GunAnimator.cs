@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace EmojiChaos.Animation
 {
+    using Core.Abstract.MonoBehaviourWrapper;
+
     public class GunAnimator : InitializingBehaviour
     {
         private static readonly int s_hashDisappearance = Animator.StringToHash("GunDisappearance");

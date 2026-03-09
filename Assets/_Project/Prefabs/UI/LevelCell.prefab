@@ -633,6 +633,7 @@ MonoBehaviour:
   _animationExitDuration: 0.25
   _enterEase: 24
   _exitEase: 27
+  _isPlaySoundPointerDown: 1
   _model: {fileID: 4135931135597528007}
   _levelNumber: {fileID: 5856228246150409144}
   _starsIndicator: {fileID: 2934880491538951228}

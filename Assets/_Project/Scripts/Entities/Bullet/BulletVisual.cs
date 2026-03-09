@@ -1,20 +1,26 @@
 using UnityEngine;
 
-public class BulletVisual : InitializingBehaviour
+namespace EmojiChaos.Entities.Bullet
 {
-    [SerializeField] private SimpleRepainter[] _repainters;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Core.Repainters;
 
-    public void SetColor(Color color)
+    public class BulletVisual : InitializingBehaviour
     {
-        ValidateInit(nameof(SetColor));
+        [SerializeField] private SimpleRepainter[] _repainters;
 
-        foreach (SimpleRepainter repainter in _repainters)
-            repainter.SetColor(color);
-    }
+        public void SetColor(Color color)
+        {
+            ValidateInit(nameof(SetColor));
 
-    protected override void OnInitialize()
-    {
-        foreach (SimpleRepainter repainter in _repainters)
-            repainter.Initialize();
+            foreach (SimpleRepainter repainter in _repainters)
+                repainter.SetColor(color);
+        }
+
+        protected override void OnInitialize()
+        {
+            foreach (SimpleRepainter repainter in _repainters)
+                repainter.Initialize();
+        }
     }
 }

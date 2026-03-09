@@ -1,97 +1,108 @@
-using EmojiChaos.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SettingsPanel : PanelBase
+namespace EmojiChaos.UI.Panels
 {
-    [SerializeField] private SettingsPanelCloserButton _closerButton;
-    [SerializeField] private AudioMixer _mixer;
-    [SerializeField] private SliderInformer _music;
-    [SerializeField] private SliderInformer _sfx;
-    [SerializeField] private SfxMuteButton _sfxMuteButton;
-    [SerializeField] private MusicMuteButton _musicMuteButton;
-    [SerializeField] private LanguageSwitcher _languageSwitcher;
-    [SerializeField] private TestInUpResetButton _testInUpResetButton;
+    using Audio;
+    using Core.Abstract.UI;
+    using Lang;
+    using Buttons;
+    using Sliders;
+    using Services.Core;
+    using Services.Save;
+    using Utils.Static;
 
-    private Saver _saver;
-    private VolumeModifier _musicModifier;
-    private VolumeModifier _sfxModifier;
-    private SceneLoader _sceneLoader;
-
-    private void OnDestroy()
+    public class SettingsPanel : PanelBase
     {
-        _musicModifier?.Dispose();
-        _sfxModifier?.Dispose();
+        [SerializeField] private SettingsPanelCloserButton _closerButton;
+        [SerializeField] private AudioMixer _mixer;
+        [SerializeField] private SliderInformer _music;
+        [SerializeField] private SliderInformer _sfx;
+        [SerializeField] private SfxMuteButton _sfxMuteButton;
+        [SerializeField] private MusicMuteButton _musicMuteButton;
+        [SerializeField] private LanguageSwitcher _languageSwitcher;
+        [SerializeField] private TestInUpResetButton _testInUpResetButton;
 
-        if (_closerButton != null)
-            _closerButton.Clicked -= OnCloseClicked;
+        private Saver _saver;
+        private VolumeModifier _musicModifier;
+        private VolumeModifier _sfxModifier;
+        private SceneLoader _sceneLoader;
 
-        if (_testInUpResetButton != null)
-            _testInUpResetButton.Clicked -= OnTestInUpResetClicked;
-    }
+        private void OnDestroy()
+        {
+            _musicModifier?.Dispose();
+            _sfxModifier?.Dispose();
 
-    public void Initialize(Saver saver, SceneLoader sceneLoader)
-    {
-        Initialize();
+            if (_closerButton != null)
+                _closerButton.Clicked -= OnCloseClicked;
 
-        _saver = saver ?? throw new ArgumentNullException(nameof(saver));
-        _sceneLoader = sceneLoader != null ? sceneLoader : throw new ArgumentNullException(nameof(sceneLoader));
+            if (_testInUpResetButton != null)
+                _testInUpResetButton.Clicked -= OnTestInUpResetClicked;
+        }
 
-        InitializeVolumeSliders();
-        InitializeVolumeModifiers();
-        InitializeVolumeButtons();
+        public void Initialize(Saver saver, SceneLoader sceneLoader)
+        {
+            Initialize();
 
-        _languageSwitcher.Initialize();
-        _testInUpResetButton.Initialize();
+            _saver = saver ?? throw new ArgumentNullException(nameof(saver));
+            _sceneLoader = sceneLoader != null ? sceneLoader : throw new ArgumentNullException(nameof(sceneLoader));
 
-        _closerButton.Clicked += OnCloseClicked;
-        _testInUpResetButton.Clicked += OnTestInUpResetClicked;
-    }
+            InitializeVolumeSliders();
+            InitializeVolumeModifiers();
+            InitializeVolumeButtons();
 
-    public void ResetProgress()
-    {
-        _saver.ResetProgress();
-        _saver.Save();
+            _languageSwitcher.Initialize();
+            _testInUpResetButton.Initialize();
 
-        ResetSlidersToSavedValues();
-    }
+            _closerButton.Clicked += OnCloseClicked;
+            _testInUpResetButton.Clicked += OnTestInUpResetClicked;
+        }
 
-    private void InitializeVolumeSliders() =>
-        ResetSlidersToSavedValues();
+        public void ResetProgress()
+        {
+            _saver.ResetProgress();
+            _saver.Save();
 
-    private void InitializeVolumeModifiers()
-    {
-        _musicModifier = new (_mixer, _music, Constants.MusicGroup);
-        _sfxModifier = new (_mixer, _sfx, Constants.SfxGroup);
-    }
+            ResetSlidersToSavedValues();
+        }
 
-    private void InitializeVolumeButtons()
-    {
-        _sfxMuteButton.Initialize();
-        _musicMuteButton.Initialize();
-    }
+        private void InitializeVolumeSliders() =>
+            ResetSlidersToSavedValues();
 
-    private void SaveVolumeSettings()
-    {
-        _saver.SetMusicVolume(_music.Value);
-        _saver.SetSfxVolume(_sfx.Value);
-        _saver.Save();
-    }
+        private void InitializeVolumeModifiers()
+        {
+            _musicModifier = new(_mixer, _music, Constants.MusicGroup);
+            _sfxModifier = new(_mixer, _sfx, Constants.SfxGroup);
+        }
 
-    private void ResetSlidersToSavedValues()
-    {
-        _music.SetValue(_saver.MusicVolume);
-        _sfx.SetValue(_saver.SfxVolume);
-    }
+        private void InitializeVolumeButtons()
+        {
+            _sfxMuteButton.Initialize();
+            _musicMuteButton.Initialize();
+        }
 
-    private void OnCloseClicked(SettingsPanelCloserButton button) =>
-        SaveVolumeSettings();
+        private void SaveVolumeSettings()
+        {
+            _saver.SetMusicVolume(_music.Value);
+            _saver.SetSfxVolume(_sfx.Value);
+            _saver.Save();
+        }
 
-    private void OnTestInUpResetClicked(TestInUpResetButton button)
-    {
-        _saver.ResetInUp();
-        _saver.Save();
-        _sceneLoader.LoadScene(Constants.MenuSceneName);
+        private void ResetSlidersToSavedValues()
+        {
+            _music.SetValue(_saver.MusicVolume);
+            _sfx.SetValue(_saver.SfxVolume);
+        }
+
+        private void OnCloseClicked(SettingsPanelCloserButton button) =>
+            SaveVolumeSettings();
+
+        private void OnTestInUpResetClicked(TestInUpResetButton button)
+        {
+            _saver.ResetInUp();
+            _saver.Save();
+            _sceneLoader.LoadScene(Constants.MenuSceneName);
+        }
     }
 }

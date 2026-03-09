@@ -1,22 +1,28 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public readonly struct StarParam : IParam
+namespace EmojiChaos.Entities.Star
 {
-    private readonly EnemiesMovementDirector _enemySpeedDirector;
-    private readonly ParticleShower _particleShower;
-    private readonly CameraShaker _cameraShaker;
+    using Core.Abstract.Interface;
+    using Services.Core;
+    using Services.Movement;
 
-    public StarParam(EnemiesMovementDirector enemySpeedDirector, ParticleShower particleShower, CameraShaker cameraShaker)
+    public readonly struct StarParam : IParam
     {
-        _enemySpeedDirector = enemySpeedDirector != null ? enemySpeedDirector : throw new ArgumentNullException(nameof(enemySpeedDirector));
-        _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
-        _cameraShaker = cameraShaker ?? throw new ArgumentNullException(nameof(cameraShaker));
+        private readonly EnemiesMovementDirector _enemySpeedDirector;
+        private readonly ParticleShower _particleShower;
+        private readonly CameraShaker _cameraShaker;
+
+        public StarParam(EnemiesMovementDirector enemySpeedDirector, ParticleShower particleShower, CameraShaker cameraShaker)
+        {
+            _enemySpeedDirector = enemySpeedDirector != null ? enemySpeedDirector : throw new ArgumentNullException(nameof(enemySpeedDirector));
+            _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
+            _cameraShaker = cameraShaker ?? throw new ArgumentNullException(nameof(cameraShaker));
+        }
+
+        public EnemiesMovementDirector EnemySpeedDirector => _enemySpeedDirector;
+
+        public ParticleShower ParticleShower => _particleShower;
+
+        public CameraShaker CameraShaker => _cameraShaker;
     }
-
-    public EnemiesMovementDirector EnemySpeedDirector => _enemySpeedDirector;
-
-    public ParticleShower ParticleShower => _particleShower;
-
-    public CameraShaker CameraShaker => _cameraShaker;
 }

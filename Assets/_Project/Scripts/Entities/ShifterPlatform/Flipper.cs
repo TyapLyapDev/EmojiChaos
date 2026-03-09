@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+namespace EmojiChaos.Entities.ShifterPlatform
+{
+
 public class Flipper : MonoBehaviour
 {
     private const float AngleStep = 180;
@@ -46,4 +49,5 @@ public class Flipper : MonoBehaviour
         _transform.Rotate(_axis, rotationThisFrame, Space.World);
         _currentAngle += rotationThisFrame;
     }
+}
 }

@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
+namespace EmojiChaos.Services.UI
+{
+
 public class UiShaker : IDisposable
 {
     private readonly RectTransform _targetTransform;
@@ -96,4 +99,5 @@ public class UiShaker : IDisposable
         _targetTransform.localRotation = _originalLocalRotation;
         _targetTransform.localScale = _originalLocalScale;
     }
+}
 }

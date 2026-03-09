@@ -2,27 +2,34 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemySelector : MonoBehaviour
+namespace EmojiChaos.Services.Spawning.Selectors
 {
-    [SerializeField] private ShopCardInfos _enemyInfos;
+    using EmojiChaos.UI.ShopContainer.Card.Enum;
+    using Entities.Enemy;
+    using ScriptableObect.Shop;
 
-    public Enemy Prefab { get; private set; }
-
-    public float Speed { get; private set; }
-
-    public void Init(IReadOnlyList<ShopCardItemButtonType> saves, float levelSpeed)
+    public class EnemySelector : MonoBehaviour
     {
-        List<EnemyShopCardInfo> cardInfos = _enemyInfos.CardInfos.OfType<EnemyShopCardInfo>().ToList();
+        [SerializeField] private ShopCardInfos _enemyInfos;
 
-        for (int i = 0; i < saves.Count; i++)
+        public Enemy Prefab { get; private set; }
+
+        public float Speed { get; private set; }
+
+        public void Init(IReadOnlyList<ShopCardItemButtonType> saves, float levelSpeed)
         {
-            if (saves[i] == ShopCardItemButtonType.Selected)
-            {
-                EnemyShopCardInfo info = cardInfos[i];
-                Prefab = info.Prefab;
-                Speed = info.Speed * levelSpeed;
+            List<EnemyShopCardInfo> cardInfos = _enemyInfos.CardInfos.OfType<EnemyShopCardInfo>().ToList();
 
-                return;
+            for (int i = 0; i < saves.Count; i++)
+            {
+                if (saves[i] == ShopCardItemButtonType.Selected)
+                {
+                    EnemyShopCardInfo info = cardInfos[i];
+                    Prefab = info.Prefab;
+                    Speed = info.Speed * levelSpeed;
+
+                    return;
+                }
             }
         }
     }

@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Containers.PageContainer
+{
+
 namespace UI.CustomPageContainer
 {
     public class PageFlipper : IPageFlipper
@@ -17,7 +20,7 @@ namespace UI.CustomPageContainer
                 throw new ArgumentOutOfRangeException(
                     nameof(levelsCount),
                     levelsCount,
-                    "Количество уровней не может быть отрицательным");
+                    "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
             _levelsCount = levelsCount;
 
@@ -25,7 +28,7 @@ namespace UI.CustomPageContainer
                 throw new ArgumentOutOfRangeException(
                     nameof(cellsCount),
                     cellsCount,
-                    "Количество ячеек не может быть меньше единицы");
+                    "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
             _cellsCount = cellsCount;
 
@@ -59,4 +62,5 @@ namespace UI.CustomPageContainer
             _pageChanged?.Invoke();
         }
     }
+}
 }

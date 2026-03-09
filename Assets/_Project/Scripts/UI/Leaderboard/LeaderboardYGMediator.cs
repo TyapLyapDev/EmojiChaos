@@ -1,3 +1,5 @@
+using EmojiChaos.UI.Leaderboard;
+using EmojiChaos.Utils.Static;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,116 +8,119 @@ using UnityEngine;
 using UnityEngine.Networking;
 using YG.Utils.LB;
 
-public class LeaderboardYGMediator : MonoBehaviour
+namespace EmojiChaos.UI.Leaderboard
 {
-    private const string PhotoSize = "small";
-    private const int QuantityTop = 10;
-
-    private static LeaderboardYGMediator s_instance;
-
-    private readonly List<AvatarInfo> _avatars = new ();
-
-    [SerializeField] private Texture2D _anonymousAvatar;
-
-    private LBData _data = new ();
-
-    public event Action<AvatarInfo> AvatarLoaded;
-    public event Action<LBData> DataUpdated;
-
-    public static LeaderboardYGMediator Instance => s_instance;
-
-    public LBData Data => _data;
-
-    private void Awake()
+    public class LeaderboardYGMediator : MonoBehaviour
     {
-        if (s_instance != null && s_instance != this)
+        private const string PhotoSize = "small";
+        private const int QuantityTop = 10;
+
+        private static LeaderboardYGMediator s_instance;
+
+        private readonly List<AvatarInfo> _avatars = new();
+
+        [SerializeField] private Texture2D _anonymousAvatar;
+
+        private LBData _data = new();
+
+        public event Action<AvatarInfo> AvatarLoaded;
+        public event Action<LBData> DataUpdated;
+
+        public static LeaderboardYGMediator Instance => s_instance;
+
+        public LBData Data => _data;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (s_instance != null && s_instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            s_instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        s_instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        private void Start() =>
+            RequestAnUpdate();
 
-    private void Start() =>
-        RequestAnUpdate();
-
-    private void OnEnable()
-    {
-        YandexGameConnector.GettedLeaderboard += OnUpdateLeaderboard;
-        YandexGameConnector.GettedSDKData += OnGetSDKData;
-    }
-
-    private void OnDisable()
-    {
-        YandexGameConnector.GettedLeaderboard -= OnUpdateLeaderboard;
-        YandexGameConnector.GettedSDKData -= OnGetSDKData;
-    }
-
-    public void RequestAnUpdate() =>
-        YandexGameConnector.GetLeaderboard(Constants.LeaderboardTechnoName, QuantityTop, 0, PhotoSize);
-
-    public bool TryGetAvatar(string uniqueId, out AvatarInfo avatarInfo)
-    {
-        avatarInfo = _avatars.FirstOrDefault(v => v.UniqueId == uniqueId);
-
-        return avatarInfo.UniqueId == uniqueId;
-    }
-
-    private IEnumerator LoadAvatarCoroutine(string url, string uniqueId)
-    {
-        if (TryGetAvatar(uniqueId, out AvatarInfo _))
-            yield break;
-
-        using UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
-
-        yield return webRequest.SendWebRequest();
-
-        Texture2D loadedTexture = null;
-
-        if (webRequest.result == UnityWebRequest.Result.Success)
+        private void OnEnable()
         {
-            DownloadHandlerTexture handler = webRequest.downloadHandler as DownloadHandlerTexture;
-            loadedTexture = handler?.texture;
+            YandexGameConnector.GettedLeaderboard += OnUpdateLeaderboard;
+            YandexGameConnector.GettedSDKData += OnGetSDKData;
         }
 
-        loadedTexture = loadedTexture != null ? loadedTexture : _anonymousAvatar;
-
-        Sprite sprite = Sprite.Create(
-                loadedTexture,
-                new Rect(0, 0, loadedTexture.width, loadedTexture.height),
-                new Vector2(0.5f, 0.5f));
-
-        AvatarInfo avatarInfo = new ()
+        private void OnDisable()
         {
-            UniqueId = uniqueId,
-            Texture = loadedTexture,
-            Sprite = sprite,
-        };
+            YandexGameConnector.GettedLeaderboard -= OnUpdateLeaderboard;
+            YandexGameConnector.GettedSDKData -= OnGetSDKData;
+        }
 
-        _avatars.Add(avatarInfo);
-        AvatarLoaded?.Invoke(avatarInfo);
-    }
+        public void RequestAnUpdate() =>
+            YandexGameConnector.GetLeaderboard(Constants.LeaderboardTechnoName, QuantityTop, 0, PhotoSize);
 
-    private void OnUpdateLeaderboard(LBData data)
-    {
-        if (data.technoName != Constants.LeaderboardTechnoName)
-            return;
+        public bool TryGetAvatar(string uniqueId, out AvatarInfo avatarInfo)
+        {
+            avatarInfo = _avatars.FirstOrDefault(v => v.UniqueId == uniqueId);
 
-        _data = data;
+            return avatarInfo.UniqueId == uniqueId;
+        }
 
-        foreach (LBPlayerData player in data.players)
-            StartCoroutine(LoadAvatarCoroutine(player.photo, player.uniqueID));
+        private IEnumerator LoadAvatarCoroutine(string url, string uniqueId)
+        {
+            if (TryGetAvatar(uniqueId, out AvatarInfo _))
+                yield break;
 
-        StartCoroutine(LoadAvatarCoroutine(YandexGameConnector.PlayerPhoto, YandexGameConnector.PlayerId));
+            using UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(url);
 
-        DataUpdated?.Invoke(_data);
-    }
+            yield return webRequest.SendWebRequest();
 
-    private void OnGetSDKData()
-    {
-        if (YandexGameConnector.IsPlayerAuth)
-            YandexGameConnector.SetLeaderboard(Constants.LeaderboardTechnoName);
+            Texture2D loadedTexture = null;
+
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                DownloadHandlerTexture handler = webRequest.downloadHandler as DownloadHandlerTexture;
+                loadedTexture = handler?.texture;
+            }
+
+            loadedTexture = loadedTexture != null ? loadedTexture : _anonymousAvatar;
+
+            Sprite sprite = Sprite.Create(
+                    loadedTexture,
+                    new Rect(0, 0, loadedTexture.width, loadedTexture.height),
+                    new Vector2(0.5f, 0.5f));
+
+            AvatarInfo avatarInfo = new()
+            {
+                UniqueId = uniqueId,
+                Texture = loadedTexture,
+                Sprite = sprite,
+            };
+
+            _avatars.Add(avatarInfo);
+            AvatarLoaded?.Invoke(avatarInfo);
+        }
+
+        private void OnUpdateLeaderboard(LBData data)
+        {
+            if (data.technoName != Constants.LeaderboardTechnoName)
+                return;
+
+            _data = data;
+
+            foreach (LBPlayerData player in data.players)
+                StartCoroutine(LoadAvatarCoroutine(player.photo, player.uniqueID));
+
+            StartCoroutine(LoadAvatarCoroutine(YandexGameConnector.PlayerPhoto, YandexGameConnector.PlayerId));
+
+            DataUpdated?.Invoke(_data);
+        }
+
+        private void OnGetSDKData()
+        {
+            if (YandexGameConnector.IsPlayerAuth)
+                YandexGameConnector.SetLeaderboard(Constants.LeaderboardTechnoName);
+        }
     }
 }

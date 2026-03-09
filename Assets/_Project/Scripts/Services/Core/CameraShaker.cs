@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
+namespace EmojiChaos.Services.Core
+{
+
 public class CameraShaker : IDisposable
 {
     private const float DefaultDuration = 0.5f;
@@ -76,4 +79,5 @@ public class CameraShaker : IDisposable
         if (_cameraTransform != null)
             _cameraTransform.SetPositionAndRotation(_originalPosition, _originalRotation);
     }
+}
 }

@@ -1,48 +1,54 @@
 using UnityEngine;
 
-public abstract class MuteButtonBase<T>
-    : ButtonClickHandler<T>
-    where T : MuteButtonBase<T>
+namespace EmojiChaos.Core.Abstract
 {
-    [SerializeField] private GameObject _disabledIcon;
-    [SerializeField] private SliderInformer _sliderInformer;
+    using EmojiChaos.UI.Sliders;
+    using UI;
 
-    private float _savedVolume;
-
-    public bool IsZero => Mathf.Approximately(_sliderInformer.Value, 0);
-
-    protected override void OnDestroy()
+    public abstract class MuteButtonBase<T>
+        : ButtonClickHandler<T>
+        where T : MuteButtonBase<T>
     {
-        base.OnDestroy();
+        [SerializeField] private GameObject _disabledIcon;
+        [SerializeField] private SliderInformer _sliderInformer;
 
-        if (_sliderInformer != null)
-            _sliderInformer.Changed -= OnSliderChanged;
-    }
+        private float _savedVolume;
 
-    protected override void OnInitialize()
-    {
-        base.OnInitialize();
-        _sliderInformer.Changed += OnSliderChanged;
+        public bool IsZero => Mathf.Approximately(_sliderInformer.Value, 0);
 
-        _savedVolume = Mathf.Approximately(_sliderInformer.Value, 0) ? 0.5f : _sliderInformer.Value;
-        OnSliderChanged(_sliderInformer.Value);
-    }
-
-    protected override void OnClick()
-    {
-        if (IsZero)
+        protected override void OnDestroy()
         {
-            _sliderInformer.SetValue(_savedVolume);
-        }
-        else
-        {
-            _savedVolume = _sliderInformer.Value;
-            _sliderInformer.SetValue(0);
+            base.OnDestroy();
+
+            if (_sliderInformer != null)
+                _sliderInformer.Changed -= OnSliderChanged;
         }
 
-        base.OnClick();
-    }
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            _sliderInformer.Changed += OnSliderChanged;
 
-    protected virtual void OnSliderChanged(float value) =>
-        _disabledIcon.SetActive(IsZero);
+            _savedVolume = Mathf.Approximately(_sliderInformer.Value, 0) ? 0.5f : _sliderInformer.Value;
+            OnSliderChanged(_sliderInformer.Value);
+        }
+
+        protected override void OnClick()
+        {
+            if (IsZero)
+            {
+                _sliderInformer.SetValue(_savedVolume);
+            }
+            else
+            {
+                _savedVolume = _sliderInformer.Value;
+                _sliderInformer.SetValue(0);
+            }
+
+            base.OnClick();
+        }
+
+        protected virtual void OnSliderChanged(float value) =>
+            _disabledIcon.SetActive(IsZero);
+    }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell.Indicators
+{
+
 namespace UI.CustomMiniCellsLevelSelector
 {
     public class LockIndicator : MonoBehaviour
@@ -12,4 +15,5 @@ namespace UI.CustomMiniCellsLevelSelector
         internal void SetLockStatus(bool isLock) =>
             _image.sprite = isLock ? _closed : _open;
     }
+}
 }

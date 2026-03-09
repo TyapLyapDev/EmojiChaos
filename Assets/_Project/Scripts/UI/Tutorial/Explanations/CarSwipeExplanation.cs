@@ -1,55 +1,60 @@
-using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 
-public class CarSwipeExplanation : TutorialItem
+namespace EmojiChaos.UI.Tutorial.Explanations
 {
-    [SerializeField] private RectTransform _canvas;
+    using Core.Abstract.Interface;
+    using Entities.Car;
 
-    protected override void OnActivated()
+    public class CarSwipeExplanation : TutorialItem
     {
-        SetPosition(Config.Car.GetPosition());
-        Config.SwipeStrategy.HasSwipe += OnSwipe;
+        [SerializeField] private RectTransform _canvas;
 
-        Config.EnemySpawner.Pause(); 
-        Config.EnemiesSpeedDirector.Pause();
-        Show();
-    }
+        protected override void OnActivated ( )
+        {
+            SetPosition (Config.Car.transform.position);
+            Config.SwipeStrategy.HasSwipe += OnSwipe;
 
-    protected override void OnDeactivated()
-    {
-        Config.SwipeStrategy.HasSwipe -= OnSwipe;
-        Config.EnemySpawner.Resume();
-        Config.EnemiesSpeedDirector.Resume();
-        Hide();
-    }
+            Config.EnemySpawner.Pause ( );
+            Config.EnemiesSpeedDirector.Pause ( );
+            Show ( );
+        }
 
-    private void SetPosition(Vector3 worldPosition)
-    {
-        if (IsActivated == false)
-            return;
+        protected override void OnDeactivated ( )
+        {
+            Config.SwipeStrategy.HasSwipe -= OnSwipe;
+            Config.EnemySpawner.Resume ( );
+            Config.EnemiesSpeedDirector.Resume ( );
+            Hide ( );
+        }
 
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(worldPosition);
+        private void SetPosition (Vector3 worldPosition)
+        {
+            if (IsActivated == false)
+                return;
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvas,
-            screenPoint,
-            null,
-            out Vector2 localPoint);
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint (worldPosition);
 
-        RectTransform rect = transform as RectTransform;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle (
+                _canvas,
+                screenPoint,
+                null,
+                out Vector2 localPoint);
 
-        rect.anchoredPosition = localPoint;
-    }
+            RectTransform rect = transform as RectTransform;
 
-    private void OnSwipe(ISwipeable swipeable, int count)
-    {
-        if (IsActivated == false) 
-            return;
+            rect.anchoredPosition = localPoint;
+        }
 
-        if (swipeable is Car == false)
-            return;
+        private void OnSwipe (ISwipeable swipeable, int count)
+        {
+            if (IsActivated == false)
+                return;
 
-        Config.SwipeStrategy.HasSwipe -= OnSwipe;        
-        Deactivate();
+            if (swipeable is Car == false)
+                return;
+
+            Config.SwipeStrategy.HasSwipe -= OnSwipe;
+            Deactivate ( );
+        }
     }
 }

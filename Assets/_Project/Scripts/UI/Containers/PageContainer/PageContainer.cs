@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace EmojiChaos.UI.Containers.PageContainer
+{
+
 namespace UI.CustomPageContainer
 {
     public class PageContainer
@@ -43,4 +46,5 @@ namespace UI.CustomPageContainer
                 _content.gameObject.SetActive(false);
         }
     }
+}
 }

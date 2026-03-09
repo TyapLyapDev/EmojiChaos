@@ -2,35 +2,40 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TypeColorRandomizer
+namespace EmojiChaos.Services.Combat
 {
-    private readonly Dictionary<int, Color> _colorsMap = new ();
+    using Utils.Static;
 
-    public TypeColorRandomizer(List<Color> colors, List<int> ids)
+    public class TypeColorRandomizer
     {
-        InitDictionary(colors, ids);
-    }
+        private readonly Dictionary<int, Color> _colorsMap = new ( );
 
-    public bool TryGetColor(int id, out Color color) =>
-        _colorsMap.TryGetValue(id, out color);
+        public TypeColorRandomizer (List<Color> colors, List<int> ids)
+        {
+            InitDictionary (colors, ids);
+        }
 
-    private void InitDictionary(List<Color> colors, List<int> ids)
-    {
-        if (colors == null)
-            throw new System.ArgumentNullException(nameof(colors));
+        public bool TryGetColor (int id, out Color color) =>
+            _colorsMap.TryGetValue (id, out color);
 
-        if (ids == null)
-            throw new System.ArgumentNullException(nameof(ids));
+        private void InitDictionary (List<Color> colors, List<int> ids)
+        {
+            if (colors == null)
+                throw new System.ArgumentNullException (nameof (colors));
 
-        ids = ids.Distinct().ToList();
+            if (ids == null)
+                throw new System.ArgumentNullException (nameof (ids));
 
-        if (colors.Count < ids.Count)
-            throw new System.Exception($"Количество {nameof(colors)} должно быть не меньше количества {nameof(ids)}");
+            ids = ids.Distinct ( ).ToList ( );
 
-        Utils.Shuffle(colors);
-        _colorsMap.Clear();
+            if (colors.Count < ids.Count)
+                throw new System.Exception ($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof (colors)} пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {nameof (ids)}");
 
-        for (int i = 0; i < ids.Count; i++)
-            _colorsMap[ids[i]] = colors[i];
+            Utils.Shuffle (colors);
+            _colorsMap.Clear ( );
+
+            for (int i = 0; i < ids.Count; i++)
+                _colorsMap[ids[i]] = colors[i];
+        }
     }
 }

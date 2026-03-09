@@ -3,69 +3,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrowdSpawnCoordinator : IDisposable
+namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-    private readonly EnemySpawner _enemySpawner;
-    private readonly CrowdSequencer _crowdSequencer;
-    private readonly MonoBehaviour _runner;
-    private readonly Portal _portal;
+    using Entities.Enemy;
+    using Entities.Portal;
 
-    private Coroutine _crowdCoroutine;
-    private Coroutine _enemySpawningCoroutine;
-    private bool _isSpawning;
-
-    public CrowdSpawnCoordinator(MonoBehaviour runner, EnemySpawner enemySpawner, List<Crowd> crowdSequence, Portal portal)
+    public class CrowdSpawnCoordinator : IDisposable
     {
-        _runner = runner != null ? runner : throw new ArgumentNullException(nameof(runner));
-        _enemySpawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
-        _crowdSequencer = new (crowdSequence);
-        _portal = portal != null ? portal : throw new ArgumentNullException(nameof(portal));
-        _isSpawning = true;
+        private readonly EnemySpawner _enemySpawner;
+        private readonly CrowdSequencer _crowdSequencer;
+        private readonly MonoBehaviour _runner;
+        private readonly Portal _portal;
 
-        _enemySpawner.Spawned += OnEnemySpawned;
-    }
+        private Coroutine _crowdCoroutine;
+        private Coroutine _enemySpawningCoroutine;
+        private bool _isSpawning;
 
-    public event Action<Enemy> EnemySpawned;
-    public event Action Completed;
-
-    public bool IsSpawning => _isSpawning;
-
-    public void Dispose()
-    {
-        if (_enemySpawner != null)
+        public CrowdSpawnCoordinator(MonoBehaviour runner, EnemySpawner enemySpawner, List<Crowd> crowdSequence, Portal portal)
         {
-            _enemySpawner.Spawned -= OnEnemySpawned;
-            _enemySpawner.Dispose();
+            _runner = runner != null ? runner : throw new ArgumentNullException(nameof(runner));
+            _enemySpawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
+            _crowdSequencer = new(crowdSequence);
+            _portal = portal != null ? portal : throw new ArgumentNullException(nameof(portal));
+            _isSpawning = true;
+
+            _enemySpawner.Spawned += OnEnemySpawned;
         }
 
-        StopRunning();
+        public event Action<Enemy> EnemySpawned;
+        public event Action Completed;
+
+        public bool IsSpawning => _isSpawning;
+
+        public void Dispose()
+        {
+            if (_enemySpawner != null)
+            {
+                _enemySpawner.Spawned -= OnEnemySpawned;
+                _enemySpawner.Dispose();
+            }
+
+            StopRunning();
+        }
+
+        public void Run()
+        {
+            StopRunning();
+            _crowdCoroutine = _runner.StartCoroutine(Spawning());
+        }
+
+        public void StopRunning()
+        {
+            if (_crowdCoroutine != null)
+                _runner.StopCoroutine(_crowdCoroutine);
+
+            if (_enemySpawningCoroutine != null)
+                _runner.StopCoroutine(_enemySpawningCoroutine);
+        }
+
+        private IEnumerator Spawning()
+        {
+            while (_crowdSequencer.TryGiveNextCrowd(out Crowd crowd))
+                yield return _enemySpawningCoroutine = _runner.StartCoroutine(_enemySpawner.SpawnCrowd(crowd));
+
+            _isSpawning = false;
+            _portal.Hide();
+            Completed?.Invoke();
+        }
+
+        private void OnEnemySpawned(Enemy enemy) =>
+            EnemySpawned?.Invoke(enemy);
     }
-
-    public void Run()
-    {
-        StopRunning();
-        _crowdCoroutine = _runner.StartCoroutine(Spawning());
-    }
-
-    public void StopRunning()
-    {
-        if (_crowdCoroutine != null)
-            _runner.StopCoroutine(_crowdCoroutine);
-
-        if (_enemySpawningCoroutine != null)
-            _runner.StopCoroutine(_enemySpawningCoroutine);
-    }
-
-    private IEnumerator Spawning()
-    {
-        while (_crowdSequencer.TryGiveNextCrowd(out Crowd crowd))
-            yield return _enemySpawningCoroutine = _runner.StartCoroutine(_enemySpawner.SpawnCrowd(crowd));
-
-        _isSpawning = false;
-        _portal.Hide();
-        Completed?.Invoke();
-    }
-
-    private void OnEnemySpawned(Enemy enemy) =>
-        EnemySpawned?.Invoke(enemy);
 }

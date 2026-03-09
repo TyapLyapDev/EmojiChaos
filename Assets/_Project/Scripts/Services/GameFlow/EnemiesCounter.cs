@@ -1,92 +1,98 @@
 using System;
 using System.Collections.Generic;
 
-public class EnemiesCounter : IDisposable
+namespace EmojiChaos.Services.GameFlow
 {
-    private readonly CrowdSpawnCoordinator _crowdSpawnCoordinator;
-    private readonly List<Enemy> _enemies = new ();
-    private bool _isDisposed;
+    using Entities.Enemy;
+    using Services.Spawning.EnemySpawner;
 
-    public EnemiesCounter(CrowdSpawnCoordinator crowdSpawnCoordinator)
+    public class EnemiesCounter : IDisposable
     {
-        _crowdSpawnCoordinator = crowdSpawnCoordinator ?? throw new ArgumentNullException(nameof(crowdSpawnCoordinator));
+        private readonly CrowdSpawnCoordinator _crowdSpawnCoordinator;
+        private readonly List<Enemy> _enemies = new();
+        private bool _isDisposed;
 
-        Subscribe();
-    }
-
-    public event Action<Enemy> Killed;
-    public event Action<int> EnemyCountChanged;
-    public event Action AllEnemiesDefeated;
-
-    public int EnemyCount => _enemies.Count;
-
-    public bool HasEnemies => _enemies.Count > 0;
-
-    public bool IsSpawningComplete => _crowdSpawnCoordinator.IsSpawning == false;
-
-    public void Dispose()
-    {
-        if (_isDisposed)
-            return;
-
-        Unsubscribe();
-        _enemies.Clear();
-        _isDisposed = true;
-    }
-
-    private void Subscribe()
-    {
-        _crowdSpawnCoordinator.EnemySpawned += OnEnemySpawned;
-        _crowdSpawnCoordinator.Completed += OnSpawnCompleted;
-    }
-
-    private void Unsubscribe()
-    {
-        if (_crowdSpawnCoordinator != null)
+        public EnemiesCounter(CrowdSpawnCoordinator crowdSpawnCoordinator)
         {
-            _crowdSpawnCoordinator.EnemySpawned -= OnEnemySpawned;
-            _crowdSpawnCoordinator.Completed -= OnSpawnCompleted;
+            _crowdSpawnCoordinator = crowdSpawnCoordinator ?? throw new ArgumentNullException(nameof(crowdSpawnCoordinator));
+
+            Subscribe();
         }
-    }
 
-    private void ProcessDiedEnemy(Enemy enemy)
-    {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+        public event Action<Enemy> Killed;
+        public event Action<int> EnemyCountChanged;
+        public event Action AllEnemiesDefeated;
 
-        enemy.Killed -= OnEnemyKilled;
-        _enemies.Remove(enemy);
+        public int EnemyCount => _enemies.Count;
 
-        EnemyCountChanged?.Invoke(_enemies.Count);
+        public bool HasEnemies => _enemies.Count > 0;
 
-        if (_enemies.Count == 0 && IsSpawningComplete)
-            AllEnemiesDefeated?.Invoke();
-    }
+        public bool IsSpawningComplete => _crowdSpawnCoordinator.IsSpawning == false;
 
-    private void OnEnemySpawned(Enemy enemy)
-    {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+        public void Dispose()
+        {
+            if (_isDisposed)
+                return;
 
-        _enemies.Add(enemy);
-        enemy.Killed += OnEnemyKilled;
+            Unsubscribe();
+            _enemies.Clear();
+            _isDisposed = true;
+        }
 
-        EnemyCountChanged?.Invoke(_enemies.Count);
-    }
+        private void Subscribe()
+        {
+            _crowdSpawnCoordinator.EnemySpawned += OnEnemySpawned;
+            _crowdSpawnCoordinator.Completed += OnSpawnCompleted;
+        }
 
-    private void OnSpawnCompleted()
-    {
-        if (_enemies.Count == 0)
-            AllEnemiesDefeated?.Invoke();
-    }
+        private void Unsubscribe()
+        {
+            if (_crowdSpawnCoordinator != null)
+            {
+                _crowdSpawnCoordinator.EnemySpawned -= OnEnemySpawned;
+                _crowdSpawnCoordinator.Completed -= OnSpawnCompleted;
+            }
+        }
 
-    private void OnEnemyKilled(Enemy enemy)
-    {
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+        private void ProcessDiedEnemy(Enemy enemy)
+        {
+            if (enemy == null)
+                throw new ArgumentNullException(nameof(enemy));
 
-        ProcessDiedEnemy(enemy);
+            enemy.Killed -= OnEnemyKilled;
+            _enemies.Remove(enemy);
 
-        Killed?.Invoke(enemy);
+            EnemyCountChanged?.Invoke(_enemies.Count);
+
+            if (_enemies.Count == 0 && IsSpawningComplete)
+                AllEnemiesDefeated?.Invoke();
+        }
+
+        private void OnEnemySpawned(Enemy enemy)
+        {
+            if (enemy == null)
+                throw new ArgumentNullException(nameof(enemy));
+
+            _enemies.Add(enemy);
+            enemy.Killed += OnEnemyKilled;
+
+            EnemyCountChanged?.Invoke(_enemies.Count);
+        }
+
+        private void OnSpawnCompleted()
+        {
+            if (_enemies.Count == 0)
+                AllEnemiesDefeated?.Invoke();
+        }
+
+        private void OnEnemyKilled(Enemy enemy)
+        {
+            if (enemy == null)
+                throw new ArgumentNullException(nameof(enemy));
+
+            ProcessDiedEnemy(enemy);
+
+            Killed?.Invoke(enemy);
+        }
     }
 }

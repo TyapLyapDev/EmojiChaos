@@ -1,35 +1,38 @@
 using TMPro;
 using UnityEngine;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer.Card
 {
+    using Lang;
+    using Utils.Static;
+
     public class ButtonText : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;
 
         private LanguageTextsSet _textsSet;
 
-        private void OnEnable()
+        private void OnEnable ( )
         {
             YandexGameConnector.LangSwitched += OnSwitchLanguage;
-            OnSwitchLanguage(YandexGameConnector.Lang);
+            OnSwitchLanguage (YandexGameConnector.Lang);
         }
 
-        private void OnDisable() =>
+        private void OnDisable ( ) =>
             YandexGameConnector.LangSwitched -= OnSwitchLanguage;
 
-        public void SetText(LanguageTextsSet textsSet)
+        public void SetText (LanguageTextsSet textsSet)
         {
             _textsSet = textsSet;
-            OnSwitchLanguage(YandexGameConnector.Lang);
+            OnSwitchLanguage (YandexGameConnector.Lang);
         }
 
-        private void OnSwitchLanguage(string lang)
+        private void OnSwitchLanguage (string lang)
         {
             if (_textsSet == null)
                 return;
 
-            LangParams langParams = _textsSet.GetByLang(lang);
+            LangParams langParams = _textsSet.GetByLang (lang);
             _text.font = langParams.Font;
             _text.fontMaterial = langParams.Preset;
             _text.text = langParams.Text;

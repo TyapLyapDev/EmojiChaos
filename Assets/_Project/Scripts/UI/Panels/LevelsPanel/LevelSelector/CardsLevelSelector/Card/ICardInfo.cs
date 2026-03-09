@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card
+{
+
 namespace UI.LevelCards
 {
     public interface ICardInfo
@@ -16,4 +19,5 @@ namespace UI.LevelCards
 
         bool IsLock { get; }
     }
+}
 }

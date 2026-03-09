@@ -1,1 +1,6 @@
-public class LevelsPanelOpenerButton : ButtonClickHandler<LevelsPanelOpenerButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using Core.Abstract.UI;
+
+    public class LevelsPanelOpenerButton : ButtonClickHandler<LevelsPanelOpenerButton> { }
+}

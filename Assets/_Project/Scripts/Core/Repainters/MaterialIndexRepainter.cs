@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.Core.Repainters
+{
+
 public class MaterialIndexRepainter : SimpleRepainter
 {
     [SerializeField] private int _materialIndex;
@@ -9,4 +12,5 @@ public class MaterialIndexRepainter : SimpleRepainter
 
     protected override void OnSetPropertyBlock(Renderer renderer, MaterialPropertyBlock propertyBlock) =>
         renderer.SetPropertyBlock(propertyBlock, _materialIndex);
+}
 }

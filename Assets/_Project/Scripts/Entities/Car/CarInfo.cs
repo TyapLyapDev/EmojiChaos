@@ -1,27 +1,34 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public readonly struct CarInfo : IParam
+namespace EmojiChaos.Entities.Car
 {
-    private readonly CarMovementDirector _speedDirector;
-    private readonly ParticleShower _particleShower;
-    private readonly MapSplineNodes _mapSplineNodes;
-    private readonly Color _color;
+    using Core.Abstract.Interface;
+    using Services.Core;
+    using Services.Movement;
+    using Utils.Splines.Graph;
 
-    public CarInfo(CarMovementDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
+    public readonly struct CarInfo : IParam
     {
-        _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
-        _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
-        _mapSplineNodes = mapSplineNodes ?? throw new ArgumentNullException(nameof(mapSplineNodes));
-        _color = color;
+        private readonly CarMovementDirector _speedDirector;
+        private readonly ParticleShower _particleShower;
+        private readonly MapSplineNodes _mapSplineNodes;
+        private readonly Color _color;
+
+        public CarInfo(CarMovementDirector speedDirector, ParticleShower particleShower, MapSplineNodes mapSplineNodes, Color color)
+        {
+            _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
+            _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
+            _mapSplineNodes = mapSplineNodes ?? throw new ArgumentNullException(nameof(mapSplineNodes));
+            _color = color;
+        }
+
+        public CarMovementDirector SpeedDirector => _speedDirector;
+
+        public ParticleShower ParticleShower => _particleShower;
+
+        public MapSplineNodes MapSplineNodes => _mapSplineNodes;
+
+        public Color Color => _color;
     }
-
-    public CarMovementDirector SpeedDirector => _speedDirector;
-
-    public ParticleShower ParticleShower => _particleShower;
-
-    public MapSplineNodes MapSplineNodes => _mapSplineNodes;
-
-    public Color Color => _color;
 }

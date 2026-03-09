@@ -1,1 +1,6 @@
-public class LevelsPanelCloserButton : ButtonClickHandler<LevelsPanelCloserButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using Core.Abstract.UI;
+
+    public class LevelsPanelCloserButton : ButtonClickHandler<LevelsPanelCloserButton> { }
+}

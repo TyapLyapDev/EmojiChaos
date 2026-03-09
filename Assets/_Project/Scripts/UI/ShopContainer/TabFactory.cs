@@ -2,71 +2,80 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer
 {
-    public class TabFactory : MonoBehaviour
+    using Card;
+    using ScriptableObect.Shop;
+    using Services.Save;
+    using ShopContainer.Card.Enum;
+    using Utils.Static;
+
+    namespace UI.Shop
     {
-        private readonly List<TabPanel> _tabPanels = new ();
-        private readonly List<TabButton> _tabButtons = new ();
-
-        [SerializeField] private TabButton _buttonPrefab;
-        [SerializeField] private Transform _buttonContent;
-        [SerializeField] private TabPanel _panelPrefab;
-        [SerializeField] private Transform _panelContent;
-
-        public IReadOnlyList<TabPanel> TabPanels => _tabPanels;
-
-        public IReadOnlyList<TabButton> TabButtons => _tabButtons;
-
-        public void CreateTabs(ShopCardInfos[] infos, Action<TabButton> onTabClick, Action<TabPanel, Card> onCardClick)
+        public class TabFactory : MonoBehaviour
         {
-            ClearAll();
+            private readonly List<TabPanel> _tabPanels = new();
+            private readonly List<TabButton> _tabButtons = new();
 
-            foreach (ShopCardInfos info in infos)
+            [SerializeField] private TabButton _buttonPrefab;
+            [SerializeField] private Transform _buttonContent;
+            [SerializeField] private TabPanel _panelPrefab;
+            [SerializeField] private Transform _panelContent;
+
+            public IReadOnlyList<TabPanel> TabPanels => _tabPanels;
+
+            public IReadOnlyList<TabButton> TabButtons => _tabButtons;
+
+            public void CreateTabs(ShopCardInfos[] infos, Action<TabButton> onTabClick, Action<TabPanel, ShopCard> onCardClick)
             {
-                TabPanel tabPanel = Instantiate(_panelPrefab, _panelContent);
-                TabButton tabButton = Instantiate(_buttonPrefab, _buttonContent);
+                ClearAll();
 
-                tabButton.Init(tabPanel, info.TabName);
-                tabPanel.Init(info.CardInfos, info.EntityType);
+                foreach (ShopCardInfos info in infos)
+                {
+                    TabPanel tabPanel = Instantiate(_panelPrefab, _panelContent);
+                    TabButton tabButton = Instantiate(_buttonPrefab, _buttonContent);
 
-                tabButton.Clicked += onTabClick;
-                tabPanel.CardClicked += onCardClick;
+                    tabButton.Init(tabPanel, info.TabName);
+                    tabPanel.Init(info.CardInfos, info.EntityType);
 
-                _tabPanels.Add(tabPanel);
-                _tabButtons.Add(tabButton);
+                    tabButton.Clicked += onTabClick;
+                    tabPanel.CardClicked += onCardClick;
+
+                    _tabPanels.Add(tabPanel);
+                    _tabButtons.Add(tabButton);
+                }
+
+                if (_tabButtons.Count > 0)
+                    onTabClick?.Invoke(_tabButtons[0]);
             }
 
-            if (_tabButtons.Count > 0)
-                onTabClick?.Invoke(_tabButtons[0]);
-        }
-
-        public void ActivateTab(TabButton selectedTab)
-        {
-            foreach (TabButton tab in _tabButtons)
-                tab.SetSelectStatus(tab == selectedTab);
-        }
-
-        public void ApplySavedData(Saver saver)
-        {
-            foreach (TabPanel tabPanel in _tabPanels)
+            public void ActivateTab(TabButton selectedTab)
             {
-                IReadOnlyList<ShopCardItemButtonType> buttonTypes = saver.GetShopButtonTypes(tabPanel.EntityType);
-                
-                for (int i = 0; i < buttonTypes.Count; i++)
-                    tabPanel.SelCardType(i, buttonTypes[i]);
-
-                if (saver.IsNoAds)
-                    tabPanel.DisableAds();
+                foreach (TabButton tab in _tabButtons)
+                    tab.SetSelectStatus(tab == selectedTab);
             }
-        }
 
-        private void ClearAll()
-        {
-            _tabPanels.Clear();
-            _tabButtons.Clear();
-            Utils.ClearContent(_buttonContent);
-            Utils.ClearContent(_panelContent);
+            public void ApplySavedData(Saver saver)
+            {
+                foreach (TabPanel tabPanel in _tabPanels)
+                {
+                    IReadOnlyList<ShopCardItemButtonType> buttonTypes = saver.GetShopButtonTypes(tabPanel.EntityType);
+
+                    for (int i = 0; i < buttonTypes.Count; i++)
+                        tabPanel.SelCardType(i, buttonTypes[i]);
+
+                    if (saver.IsNoAds)
+                        tabPanel.DisableAds();
+                }
+            }
+
+            private void ClearAll()
+            {
+                _tabPanels.Clear();
+                _tabButtons.Clear();
+                Utils.ClearContent(_buttonContent);
+                Utils.ClearContent(_panelContent);
+            }
         }
     }
 }

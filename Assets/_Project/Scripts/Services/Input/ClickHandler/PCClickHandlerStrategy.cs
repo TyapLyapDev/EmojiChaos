@@ -1,40 +1,44 @@
-using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PCClickHandlerStrategy : BaseClickHandlerStrategy
+namespace EmojiChaos.Services.Input.ClickHandler
 {
-    public override Vector2 GetCurrentPosition() =>
-        Input.mousePosition;
+    using EmojiChaos.Core.Abstract.Interface;
 
-    protected override void Update()
+    public class PCClickHandlerStrategy : BaseClickHandlerStrategy
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Input.mousePosition;
+        public override Vector2 GetCurrentPosition ( ) =>
+            UnityEngine.Input.mousePosition;
 
-            if (IsUiElement(mousePosition, out RaycastResult result))
+        protected override void Update ( )
+        {
+            if (UnityEngine.Input.GetMouseButtonDown (0))
             {
-                if (IsClickableUiElement(result, out IClickable clickable))
+                Vector2 mousePosition = UnityEngine.Input.mousePosition;
+
+                if (IsUiElement (mousePosition, out RaycastResult result))
                 {
-                    InvokeClicked(clickable, mousePosition);
+                    if (IsClickableUiElement (result, out IClickable clickable))
+                    {
+                        InvokeClicked (clickable, mousePosition);
+
+                        return;
+                    }
 
                     return;
                 }
 
-                return;
+                Ray ray = CameraMain.ScreenPointToRay (mousePosition);
+
+                if (Physics.Raycast (ray, out RaycastHit hitInfo) == false)
+                    return;
+
+                if (hitInfo.collider.TryGetComponent (out IClickable clickableObject))
+                    InvokeClicked (clickableObject, mousePosition);
             }
 
-            Ray ray = CameraMain.ScreenPointToRay(mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo) == false)
-                return;
-
-            if (hitInfo.collider.TryGetComponent(out IClickable clickableObject))
-                InvokeClicked(clickableObject, mousePosition);
+            if (UnityEngine.Input.GetMouseButtonUp (0))
+                InvokeUnclicked ( );
         }
-
-        if (Input.GetMouseButtonUp(0))
-            InvokeUnclicked();
     }
 }

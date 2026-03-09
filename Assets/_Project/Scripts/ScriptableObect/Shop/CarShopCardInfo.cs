@@ -1,18 +1,23 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable object/Shop/CarCardInfo")]
-public class CarShopCardInfo : ShopCardInfo
+namespace EmojiChaos.ScriptableObect.Shop
 {
-    [SerializeField] private Car _miniCarPrefab;
-    [SerializeField] private Car _middleCarPrefab;
-    [SerializeField] private Car _maxCarPrefab;
-    [SerializeField] private float _speed;
+    using Entities.Car;
 
-    public Car MiniCarPrefab => _miniCarPrefab;
+    [CreateAssetMenu(menuName = "Scriptable object/Shop/CarCardInfo")]
+    public class CarShopCardInfo : ShopCardInfo
+    {
+        [SerializeField] private Car _miniCarPrefab;
+        [SerializeField] private Car _middleCarPrefab;
+        [SerializeField] private Car _maxCarPrefab;
+        [SerializeField] private float _speed;
 
-    public Car MiddleCarPrefab => _middleCarPrefab;
+        public Car MiniCarPrefab => _miniCarPrefab;
 
-    public Car MaxCarPrefab => _maxCarPrefab;
+        public Car MiddleCarPrefab => _middleCarPrefab;
 
-    public float Speed => _speed;
+        public Car MaxCarPrefab => _maxCarPrefab;
+
+        public float Speed => _speed;
+    }
 }

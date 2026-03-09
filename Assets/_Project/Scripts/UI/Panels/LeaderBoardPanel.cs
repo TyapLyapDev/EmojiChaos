@@ -1,12 +1,18 @@
 using UnityEngine;
 
-public class LeaderBoardPanel : PanelBase 
+namespace EmojiChaos.UI.Panels
 {
-    [SerializeField] private Leaderboard _leaderboard;
+    using Core.Abstract.UI;
+    using Leaderboard;
 
-    protected override void OnInitialize()
+    public class LeaderBoardPanel : PanelBase
     {
-        base.OnInitialize();
-        _leaderboard.Initialize();
+        [SerializeField] private Leaderboard _leaderboard;
+
+        protected override void OnInitialize ( )
+        {
+            base.OnInitialize ( );
+            _leaderboard.Initialize ( );
+        }
     }
 }

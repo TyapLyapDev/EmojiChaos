@@ -1,6 +1,11 @@
-public class DarkBackgroundPanel : PanelBase 
+namespace EmojiChaos.UI.Panels
 {
-    protected override void OnShow() { }
+    using Core.Abstract.UI;
 
-    protected override void OnHide() { }
+    public class DarkBackgroundPanel : PanelBase
+    {
+        protected override void OnShow() { }
+
+        protected override void OnHide() { }
+    }
 }

@@ -1,18 +1,23 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public class HitParticle : OneShotParticle, IPoolable<HitParticle>
+namespace EmojiChaos.Particles
 {
-    public event Action<HitParticle> Deactivated;
+    using Core.Abstract;
+    using Core.Abstract.Interface;
 
-    public void Deactivate()
+    public class HitParticle : OneShotParticle, IPoolable<HitParticle>
     {
-        ValidateInit(nameof(Deactivate));
+        public event Action<HitParticle> Deactivated;
 
-        gameObject.SetActive(false);
-        Deactivated?.Invoke(this);
+        public void Deactivate()
+        {
+            ValidateInit(nameof(Deactivate));
+
+            gameObject.SetActive(false);
+            Deactivated?.Invoke(this);
+        }
+
+        protected override void OnCompleted() =>
+            Deactivate();
     }
-
-    protected override void OnCompleted() =>
-        Deactivate();
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace EmojiChaos.Animation.UI
 {
+    using Core.Abstract.MonoBehaviourWrapper;
+    using ScriptableObect;
+
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class UiAnimator : InitializingBehaviour
     {

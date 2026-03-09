@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class PathContext
 {
     private const float NoPenalty = 1f;
@@ -128,4 +131,5 @@ public class PathContext
 
         return NoPenalty;
     }
+}
 }

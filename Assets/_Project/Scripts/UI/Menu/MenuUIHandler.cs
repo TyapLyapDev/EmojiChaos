@@ -1,287 +1,297 @@
 using UnityEngine;
 
-public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiParam>
+namespace EmojiChaos.UI.Menu
 {
-    [SerializeField] private LevelsPanel _levelsPanel;
-    [SerializeField] private ShopPanel _shopPanel;
-    [SerializeField] private SettingsPanel _settingsPanel;
-    [SerializeField] private ProgressResetterPanel _progressResetterPanel;
-    [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
-    [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
-    [SerializeField] private PurchasePanel _purchasePanel;
-    [SerializeField] private AuthPanel _authPanel;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using EmojiChaos.Services.Core;
+    using EmojiChaos.UI.Buttons;
+    using EmojiChaos.UI.Panels;
+    using EmojiChaos.UI.Panels.LevelsPanel;
+    using EmojiChaos.Utils.Static;
 
-    [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
-    [SerializeField] private LevelsPanelCloserButton _levelsPanelCloserButton;
-    [SerializeField] private ShopPanelOpenerButton _shopPanelOpenerButton;
-    [SerializeField] private ShopPanelCloserButton _shopPanelCloserButton;
-    [SerializeField] private SettingsPanelOpenerButton _settingsPanelOpenerButton;
-    [SerializeField] private SettingsPanelCloserButton _settingsPanelCloserButton;
-    [SerializeField] private ProgressLevelOpenerButton _progressLevelOpenerButton;
-    [SerializeField] private LeaderboardOpenerButton _leaderboardOpenerButton;
-    [SerializeField] private LeaderboardPanelCloserButton _leaderboardCloserButton;
-    [SerializeField] private NoAdsButton _noAdsButton;
-    [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
-    [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
-    [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
-    [SerializeField] private PurchasePanelCloserButton _purchasePanelCloserButton;
-    [SerializeField] private PurchaseApplierButton _purchaseApplierButton;
-    [SerializeField] private AuthPanelCloserButton _authPanelCloserButton;
-    [SerializeField] private AuthButton _authButton;
-
-    private MenuUiParam _config;
-
-    private void OnDestroy()
+    public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiParam>
     {
-        if (_levelsPanel != null)
-            _levelsPanel.LevelClicked -= OnLevelClicked;
+        [SerializeField] private LevelsPanel _levelsPanel;
+        [SerializeField] private ShopPanel _shopPanel;
+        [SerializeField] private SettingsPanel _settingsPanel;
+        [SerializeField] private ProgressResetterPanel _progressResetterPanel;
+        [SerializeField] private LeaderBoardPanel _leaderBoardPanel;
+        [SerializeField] private DarkBackgroundPanel _darkBackgroundPanel;
+        [SerializeField] private PurchasePanel _purchasePanel;
+        [SerializeField] private AuthPanel _authPanel;
 
-        if (_levelsPanelOpenerButton != null)
-            _levelsPanelOpenerButton.Clicked -= OnLevelsPanelOpenClicked;
+        [SerializeField] private LevelsPanelOpenerButton _levelsPanelOpenerButton;
+        [SerializeField] private LevelsPanelCloserButton _levelsPanelCloserButton;
+        [SerializeField] private ShopPanelOpenerButton _shopPanelOpenerButton;
+        [SerializeField] private ShopPanelCloserButton _shopPanelCloserButton;
+        [SerializeField] private SettingsPanelOpenerButton _settingsPanelOpenerButton;
+        [SerializeField] private SettingsPanelCloserButton _settingsPanelCloserButton;
+        [SerializeField] private ProgressLevelOpenerButton _progressLevelOpenerButton;
+        [SerializeField] private LeaderboardOpenerButton _leaderboardOpenerButton;
+        [SerializeField] private LeaderboardPanelCloserButton _leaderboardCloserButton;
+        [SerializeField] private NoAdsButton _noAdsButton;
+        [SerializeField] private ProgressResetOpenerButton _progressResetOpenerButton;
+        [SerializeField] private ProgressResetAcceptButton _progressResetAcceptButton;
+        [SerializeField] private ProgressResetCancelButton _progressResetCancelButton;
+        [SerializeField] private PurchasePanelCloserButton _purchasePanelCloserButton;
+        [SerializeField] private PurchaseApplierButton _purchaseApplierButton;
+        [SerializeField] private AuthPanelCloserButton _authPanelCloserButton;
+        [SerializeField] private AuthButton _authButton;
 
-        if (_levelsPanelCloserButton != null)
-            _levelsPanelCloserButton.Clicked -= OnLevelsPanelCloseClicked;
+        private MenuUiParam _config;
 
-        if (_shopPanelOpenerButton != null)
-            _shopPanelOpenerButton.Clicked -= OnShopPanelOpenClicked;
-
-        if (_shopPanelCloserButton != null)
-            _shopPanelCloserButton.Clicked -= OnShopPanelCloseClicked;
-
-        if (_settingsPanelOpenerButton != null)
-            _settingsPanelOpenerButton.Clicked -= OnSettingsPanelOpenClicked;
-
-        if (_settingsPanelCloserButton != null)
-            _settingsPanelCloserButton.Clicked -= OnSettingsPanelCloseClicked;
-
-        if (_progressLevelOpenerButton != null)
-            _progressLevelOpenerButton.Clicked -= OnProgressLevelOpenClicked;
-
-        if (_leaderboardOpenerButton != null)
-            _leaderboardOpenerButton.Clicked -= OnLeaderboardOpenClicked;
-
-        if (_leaderboardCloserButton != null)
-            _leaderboardCloserButton.Clicked -= OnLeaderboardCloseClicked;
-
-        if (_progressResetOpenerButton != null)
-            _progressResetOpenerButton.Clicked -= OnProgressResetOpenerClicked;
-
-        if (_progressResetAcceptButton != null)
-            _progressResetAcceptButton.Clicked -= OnProgresResetAcceptClicked;
-
-        if (_progressResetCancelButton != null)
-            _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
-
-        if (_purchasePanelCloserButton != null)
-            _purchasePanelCloserButton.Clicked -= OnPurchasePanelCloseClicked;
-
-        if (_noAdsButton != null)
-            _noAdsButton.Clicked -= OnNoAdsButtonClicked;
-
-        if (_purchaseApplierButton != null)
-            _purchaseApplierButton.Clicked -= OnPurchaseApplierButtonClicked;
-
-        if (_authPanelCloserButton != null)
-            _authPanelCloserButton.Clicked -= OnAuthPanelCloseButtonClicked;
-
-        if (_authButton != null)
-            _authButton.Clicked -= OnAuthButtonClicked;
-
-        YandexGameConnector.SuccessPurchased -= OnPurchaseSuccess;
-    }
-
-    protected override void OnInitialize(MenuUiParam config)
-    {
-        _config = config;
-
-        _levelsPanel.Initialize(_config.Saver.LevelProgress, _config.Saver.GetStarInfos());
-        _shopPanel.Initialize(_config.Saver);
-        _settingsPanel.Initialize(_config.Saver, _config.SceneLoader);
-        _progressResetterPanel.Initialize();
-        _leaderBoardPanel.Initialize();
-        _darkBackgroundPanel.Initialize();
-        _purchasePanel.Initialize();
-        _authPanel.Initialize();
-
-        _levelsPanelOpenerButton.Initialize();
-        _levelsPanelCloserButton.Initialize();
-        _shopPanelOpenerButton.Initialize();
-        _shopPanelCloserButton.Initialize();
-        _settingsPanelOpenerButton.Initialize();
-        _settingsPanelCloserButton.Initialize();
-        _progressLevelOpenerButton.Initialize();
-        _leaderboardOpenerButton.Initialize();
-        _leaderboardCloserButton.Initialize();
-        _noAdsButton.Initialize();
-        _progressResetAcceptButton.Initialize();
-        _progressResetCancelButton.Initialize();
-        _progressResetOpenerButton.Initialize();
-        _purchasePanelCloserButton.Initialize();
-        _authPanelCloserButton.Initialize();
-        _authButton.Initialize();
-
-        _levelsPanel.LevelClicked += OnLevelClicked;
-        _levelsPanelOpenerButton.Clicked += OnLevelsPanelOpenClicked;
-        _levelsPanelCloserButton.Clicked += OnLevelsPanelCloseClicked;
-        _shopPanelOpenerButton.Clicked += OnShopPanelOpenClicked;
-        _shopPanelCloserButton.Clicked += OnShopPanelCloseClicked;
-        _settingsPanelOpenerButton.Clicked += OnSettingsPanelOpenClicked;
-        _settingsPanelCloserButton.Clicked += OnSettingsPanelCloseClicked;
-        _progressLevelOpenerButton.Clicked += OnProgressLevelOpenClicked;
-        _leaderboardOpenerButton.Clicked += OnLeaderboardOpenClicked;
-        _leaderboardCloserButton.Clicked += OnLeaderboardCloseClicked;
-        _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
-        _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
-        _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
-        _noAdsButton.Clicked += OnNoAdsButtonClicked;
-        _purchasePanelCloserButton.Clicked += OnPurchasePanelCloseClicked;
-        _purchaseApplierButton.Clicked += OnPurchaseApplierButtonClicked;
-        _authPanelCloserButton.Clicked += OnAuthPanelCloseButtonClicked;
-        _authButton.Clicked += OnAuthButtonClicked;
-
-        YandexGameConnector.SuccessPurchased += OnPurchaseSuccess;
-
-        bool isNoAds = _config.Saver.IsNoAds;
-        YandexGameConnector.StickyAdActivity(isNoAds == false);
-        _noAdsButton.SetActive(isNoAds == false);
-        _noAdsButton.transform.parent.gameObject.SetActive(isNoAds == false);
-    }
-
-    private void OnLevelsPanelOpenClicked(LevelsPanelOpenerButton _)
-    {
-        _levelsPanel.Show();
-        _darkBackgroundPanel.Show();
-    }
-
-    private void OnLevelsPanelCloseClicked(LevelsPanelCloserButton _)
-    {
-        _levelsPanel.Hide();
-        _darkBackgroundPanel.Hide();
-    }
-
-    private void OnShopPanelOpenClicked(ShopPanelOpenerButton button)
-    {
-        _shopPanel.Show();
-        _darkBackgroundPanel.Show();
-    }
-
-    private void OnShopPanelCloseClicked(ShopPanelCloserButton button)
-    {
-        _shopPanel.Hide();
-        _darkBackgroundPanel.Hide();
-    }
-
-    private void OnSettingsPanelOpenClicked(SettingsPanelOpenerButton _)
-    {
-        _darkBackgroundPanel.Show();
-        _settingsPanel.Show();
-    }
-
-    private void OnSettingsPanelCloseClicked(SettingsPanelCloserButton _)
-    {
-        _darkBackgroundPanel.Hide();
-        _settingsPanel.Hide();
-    }
-
-    private void OnProgressLevelOpenClicked(ProgressLevelOpenerButton _)
-    {
-        int levelIndex = Mathf.Min(_config.Saver.LevelProgress, _config.Saver.TotalLevelsCount - 1);
-        _config.Saver.SetSelectedLevel(levelIndex);
-        _config.Saver.Save();
-
-        if (_config.Saver.IsNoAds == false)
-            YandexGameConnector.InterstitialAdvShow();
-
-        SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
-    }
-
-    private void OnLeaderboardOpenClicked(LeaderboardOpenerButton _)
-    {
-        _darkBackgroundPanel.Show();
-        _leaderBoardPanel.Show();
-
-        if (YandexGameConnector.IsAuthorized == false)
-            _authPanel.Show();
-    }
-
-    private void OnLeaderboardCloseClicked(LeaderboardPanelCloserButton _)
-    {
-        _darkBackgroundPanel.Hide();
-        _leaderBoardPanel.Hide();
-    }
-
-    private void OnProgressResetOpenerClicked(ProgressResetOpenerButton _)
-    {
-        _settingsPanel.Hide();
-        _progressResetterPanel.Show();
-    }
-
-    private void OnNoAdsButtonClicked(NoAdsButton button)
-    {
-        _purchasePanel.SetInfo(button.InApp);
-        _purchasePanel.Show();
-        _darkBackgroundPanel.Show();
-    }
-
-    private void OnPurchasePanelCloseClicked(PurchasePanelCloserButton button)
-    {
-        _purchasePanel.Hide();
-        _darkBackgroundPanel.Hide();
-    }
-
-    private void OnAuthPanelCloseButtonClicked(AuthPanelCloserButton button)
-    {
-        _authPanel.Hide();
-    }
-
-    private void OnAuthButtonClicked(AuthButton button)
-    {
-        _authPanel.Hide();
-        YandexGameConnector.OpenAuthDialog();
-    }
-
-    private void OnPurchaseApplierButtonClicked(PurchaseApplierButton button)
-    {
-        _purchasePanel.Hide();
-        _darkBackgroundPanel.Hide();
-    }
-
-    private void OnProgresResetAcceptClicked(ProgressResetAcceptButton _)
-    {
-        _progressResetterPanel.Hide();
-        _settingsPanel.Show();
-        _settingsPanel.ResetProgress();
-
-        _config.SceneLoader.LoadScene(Constants.MenuSceneName);
-    }
-
-    private void OnProgresResetCancelClicked(ProgressResetCancelButton _)
-    {
-        _progressResetterPanel.Hide();
-        _settingsPanel.Show();
-    }
-
-    private void OnLevelClicked(int levelIndex)
-    {
-        _config.Saver.SetSelectedLevel(levelIndex);
-        _config.Saver.Save();
-
-        if (_config.Saver.IsNoAds == false)
-            YandexGameConnector.InterstitialAdvShow();
-
-        SceneLoader.Instance.LoadScene(Constants.LevelSceneName);
-    }
-
-    private void OnPurchaseSuccess(string id)
-    {
-        if (id == _noAdsButton.InApp.Id)
+        private void OnDestroy ( )
         {
-            _config.Saver.DisableAds();
+            if (_levelsPanel != null)
+                _levelsPanel.LevelClicked -= OnLevelClicked;
 
-            YandexGameConnector.StickyAdActivity(false);
-            _noAdsButton.SetActive(false);
-            _noAdsButton.transform.parent.gameObject.SetActive(false);
-            _shopPanel.DisableAds();
+            if (_levelsPanelOpenerButton != null)
+                _levelsPanelOpenerButton.Clicked -= OnLevelsPanelOpenClicked;
+
+            if (_levelsPanelCloserButton != null)
+                _levelsPanelCloserButton.Clicked -= OnLevelsPanelCloseClicked;
+
+            if (_shopPanelOpenerButton != null)
+                _shopPanelOpenerButton.Clicked -= OnShopPanelOpenClicked;
+
+            if (_shopPanelCloserButton != null)
+                _shopPanelCloserButton.Clicked -= OnShopPanelCloseClicked;
+
+            if (_settingsPanelOpenerButton != null)
+                _settingsPanelOpenerButton.Clicked -= OnSettingsPanelOpenClicked;
+
+            if (_settingsPanelCloserButton != null)
+                _settingsPanelCloserButton.Clicked -= OnSettingsPanelCloseClicked;
+
+            if (_progressLevelOpenerButton != null)
+                _progressLevelOpenerButton.Clicked -= OnProgressLevelOpenClicked;
+
+            if (_leaderboardOpenerButton != null)
+                _leaderboardOpenerButton.Clicked -= OnLeaderboardOpenClicked;
+
+            if (_leaderboardCloserButton != null)
+                _leaderboardCloserButton.Clicked -= OnLeaderboardCloseClicked;
+
+            if (_progressResetOpenerButton != null)
+                _progressResetOpenerButton.Clicked -= OnProgressResetOpenerClicked;
+
+            if (_progressResetAcceptButton != null)
+                _progressResetAcceptButton.Clicked -= OnProgresResetAcceptClicked;
+
+            if (_progressResetCancelButton != null)
+                _progressResetCancelButton.Clicked -= OnProgresResetCancelClicked;
+
+            if (_purchasePanelCloserButton != null)
+                _purchasePanelCloserButton.Clicked -= OnPurchasePanelCloseClicked;
+
+            if (_noAdsButton != null)
+                _noAdsButton.Clicked -= OnNoAdsButtonClicked;
+
+            if (_purchaseApplierButton != null)
+                _purchaseApplierButton.Clicked -= OnPurchaseApplierButtonClicked;
+
+            if (_authPanelCloserButton != null)
+                _authPanelCloserButton.Clicked -= OnAuthPanelCloseButtonClicked;
+
+            if (_authButton != null)
+                _authButton.Clicked -= OnAuthButtonClicked;
+
+            YandexGameConnector.SuccessPurchased -= OnPurchaseSuccess;
+        }
+
+        protected override void OnInitialize (MenuUiParam config)
+        {
+            _config = config;
+
+            _levelsPanel.Initialize (_config.Saver.LevelProgress, _config.Saver.GetStarInfos ( ));
+            _shopPanel.Initialize (_config.Saver);
+            _settingsPanel.Initialize (_config.Saver, _config.SceneLoader);
+            _progressResetterPanel.Initialize ( );
+            _leaderBoardPanel.Initialize ( );
+            _darkBackgroundPanel.Initialize ( );
+            _purchasePanel.Initialize ( );
+            _authPanel.Initialize ( );
+
+            _levelsPanelOpenerButton.Initialize ( );
+            _levelsPanelCloserButton.Initialize ( );
+            _shopPanelOpenerButton.Initialize ( );
+            _shopPanelCloserButton.Initialize ( );
+            _settingsPanelOpenerButton.Initialize ( );
+            _settingsPanelCloserButton.Initialize ( );
+            _progressLevelOpenerButton.Initialize ( );
+            _leaderboardOpenerButton.Initialize ( );
+            _leaderboardCloserButton.Initialize ( );
+            _noAdsButton.Initialize ( );
+            _progressResetAcceptButton.Initialize ( );
+            _progressResetCancelButton.Initialize ( );
+            _progressResetOpenerButton.Initialize ( );
+            _purchasePanelCloserButton.Initialize ( );
+            _authPanelCloserButton.Initialize ( );
+            _authButton.Initialize ( );
+
+            _levelsPanel.LevelClicked += OnLevelClicked;
+            _levelsPanelOpenerButton.Clicked += OnLevelsPanelOpenClicked;
+            _levelsPanelCloserButton.Clicked += OnLevelsPanelCloseClicked;
+            _shopPanelOpenerButton.Clicked += OnShopPanelOpenClicked;
+            _shopPanelCloserButton.Clicked += OnShopPanelCloseClicked;
+            _settingsPanelOpenerButton.Clicked += OnSettingsPanelOpenClicked;
+            _settingsPanelCloserButton.Clicked += OnSettingsPanelCloseClicked;
+            _progressLevelOpenerButton.Clicked += OnProgressLevelOpenClicked;
+            _leaderboardOpenerButton.Clicked += OnLeaderboardOpenClicked;
+            _leaderboardCloserButton.Clicked += OnLeaderboardCloseClicked;
+            _progressResetAcceptButton.Clicked += OnProgresResetAcceptClicked;
+            _progressResetCancelButton.Clicked += OnProgresResetCancelClicked;
+            _progressResetOpenerButton.Clicked += OnProgressResetOpenerClicked;
+            _noAdsButton.Clicked += OnNoAdsButtonClicked;
+            _purchasePanelCloserButton.Clicked += OnPurchasePanelCloseClicked;
+            _purchaseApplierButton.Clicked += OnPurchaseApplierButtonClicked;
+            _authPanelCloserButton.Clicked += OnAuthPanelCloseButtonClicked;
+            _authButton.Clicked += OnAuthButtonClicked;
+
+            YandexGameConnector.SuccessPurchased += OnPurchaseSuccess;
+
+            bool isNoAds = _config.Saver.IsNoAds;
+            YandexGameConnector.StickyAdActivity (isNoAds == false);
+            _noAdsButton.SetActive (isNoAds == false);
+            _noAdsButton.transform.parent.gameObject.SetActive (isNoAds == false);
+        }
+
+        private void OnLevelsPanelOpenClicked (LevelsPanelOpenerButton _)
+        {
+            _levelsPanel.Show ( );
+            _darkBackgroundPanel.Show ( );
+        }
+
+        private void OnLevelsPanelCloseClicked (LevelsPanelCloserButton _)
+        {
+            _levelsPanel.Hide ( );
+            _darkBackgroundPanel.Hide ( );
+        }
+
+        private void OnShopPanelOpenClicked (ShopPanelOpenerButton button)
+        {
+            _shopPanel.Show ( );
+            _darkBackgroundPanel.Show ( );
+        }
+
+        private void OnShopPanelCloseClicked (ShopPanelCloserButton button)
+        {
+            _shopPanel.Hide ( );
+            _darkBackgroundPanel.Hide ( );
+        }
+
+        private void OnSettingsPanelOpenClicked (SettingsPanelOpenerButton _)
+        {
+            _darkBackgroundPanel.Show ( );
+            _settingsPanel.Show ( );
+        }
+
+        private void OnSettingsPanelCloseClicked (SettingsPanelCloserButton _)
+        {
+            _darkBackgroundPanel.Hide ( );
+            _settingsPanel.Hide ( );
+        }
+
+        private void OnProgressLevelOpenClicked (ProgressLevelOpenerButton _)
+        {
+            int levelIndex = Mathf.Min (_config.Saver.LevelProgress, _config.Saver.TotalLevelsCount - 1);
+            _config.Saver.SetSelectedLevel (levelIndex);
+            _config.Saver.Save ( );
+
+            if (_config.Saver.IsNoAds == false)
+                YandexGameConnector.InterstitialAdvShow ( );
+
+            SceneLoader.Instance.LoadScene (Constants.LevelSceneName);
+        }
+
+        private void OnLeaderboardOpenClicked (LeaderboardOpenerButton _)
+        {
+            _darkBackgroundPanel.Show ( );
+            _leaderBoardPanel.Show ( );
+
+            if (YandexGameConnector.IsAuthorized == false)
+                _authPanel.Show ( );
+        }
+
+        private void OnLeaderboardCloseClicked (LeaderboardPanelCloserButton _)
+        {
+            _darkBackgroundPanel.Hide ( );
+            _leaderBoardPanel.Hide ( );
+        }
+
+        private void OnProgressResetOpenerClicked (ProgressResetOpenerButton _)
+        {
+            _settingsPanel.Hide ( );
+            _progressResetterPanel.Show ( );
+        }
+
+        private void OnNoAdsButtonClicked (NoAdsButton button)
+        {
+            _purchasePanel.SetInfo (button.InApp);
+            _purchasePanel.Show ( );
+            _darkBackgroundPanel.Show ( );
+        }
+
+        private void OnPurchasePanelCloseClicked (PurchasePanelCloserButton button)
+        {
+            _purchasePanel.Hide ( );
+            _darkBackgroundPanel.Hide ( );
+        }
+
+        private void OnAuthPanelCloseButtonClicked (AuthPanelCloserButton button)
+        {
+            _authPanel.Hide ( );
+        }
+
+        private void OnAuthButtonClicked (AuthButton button)
+        {
+            _authPanel.Hide ( );
+            YandexGameConnector.OpenAuthDialog ( );
+        }
+
+        private void OnPurchaseApplierButtonClicked (PurchaseApplierButton button)
+        {
+            _purchasePanel.Hide ( );
+            _darkBackgroundPanel.Hide ( );
+        }
+
+        private void OnProgresResetAcceptClicked (ProgressResetAcceptButton _)
+        {
+            _progressResetterPanel.Hide ( );
+            _settingsPanel.Show ( );
+            _settingsPanel.ResetProgress ( );
+
+            _config.SceneLoader.LoadScene (Constants.MenuSceneName);
+        }
+
+        private void OnProgresResetCancelClicked (ProgressResetCancelButton _)
+        {
+            _progressResetterPanel.Hide ( );
+            _settingsPanel.Show ( );
+        }
+
+        private void OnLevelClicked (int levelIndex)
+        {
+            _config.Saver.SetSelectedLevel (levelIndex);
+            _config.Saver.Save ( );
+
+            if (_config.Saver.IsNoAds == false)
+                YandexGameConnector.InterstitialAdvShow ( );
+
+            SceneLoader.Instance.LoadScene (Constants.LevelSceneName);
+        }
+
+        private void OnPurchaseSuccess (string id)
+        {
+            if (id == _noAdsButton.InApp.Id)
+            {
+                _config.Saver.DisableAds ( );
+
+                YandexGameConnector.StickyAdActivity (false);
+                _noAdsButton.SetActive (false);
+                _noAdsButton.transform.parent.gameObject.SetActive (false);
+                _shopPanel.DisableAds ( );
+            }
         }
     }
 }

@@ -1,47 +1,56 @@
-using UI.Shop;
 using UnityEngine;
 
-public class ShopPanel : PanelBase
+namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    [SerializeField] private TabFactory _tabFactory;
-    [SerializeField] private ShopCardInfos[] _infos;
-    
-    private Saver _saver;
-    private CardSelector _cardSelector;
-    private CardClickProcessor _clickProcessor;    
-    private AdsRewardListener _adsListener;
+    using Core.Abstract.UI;
+    using ScriptableObect.Shop;
+    using Services.Save;
+    using ShopContainer;
+    using ShopContainer.Card;
+    using ShopContainer.UI.Shop;
 
-    private void OnDestroy()
+    public class ShopPanel : PanelBase
     {
-        _clickProcessor?.Dispose();
-        _adsListener?.Dispose();
+        [SerializeField] private TabFactory _tabFactory;
+        [SerializeField] private ShopCardInfos[] _infos;
+
+        private Saver _saver;
+        private CardSelector _cardSelector;
+        private CardClickProcessor _clickProcessor;
+        private AdsRewardListener _adsListener;
+
+        private void OnDestroy()
+        {
+            _clickProcessor?.Dispose();
+            _adsListener?.Dispose();
+        }
+
+        private void OnEnable() =>
+            _adsListener.Subscribe();
+
+        private void OnDisable() =>
+            _adsListener.Unsubscribe();
+
+        public void Initialize(Saver saver)
+        {
+            _saver = saver;
+            Initialize();
+            _cardSelector = new(_saver, _tabFactory);
+            _adsListener = new(_cardSelector);
+            _clickProcessor = new(_cardSelector, _adsListener.ShowRewardedAd);
+
+            _tabFactory.CreateTabs(_infos, OnTabClick, OnCardClick);
+            _tabFactory.ApplySavedData(_saver);
+            _saver.AddShopCardInfos(_infos);
+        }
+
+        public void DisableAds() =>
+            _cardSelector.DisableAds();
+
+        private void OnTabClick(TabButton tabButton) =>
+            _tabFactory.ActivateTab(tabButton);
+
+        private void OnCardClick(TabPanel tabPanel, ShopCard card) =>
+            _clickProcessor.ProcessCardClick(tabPanel, card);
     }
-
-    private void OnEnable() =>
-        _adsListener.Subscribe();
-
-    private void OnDisable() =>
-        _adsListener.Unsubscribe();
-
-    public void Initialize(Saver saver)
-    {
-        _saver = saver;
-        Initialize();
-        _cardSelector = new (_saver, _tabFactory);
-        _adsListener = new (_cardSelector);
-        _clickProcessor = new (_cardSelector, _adsListener.ShowRewardedAd);
-
-        _tabFactory.CreateTabs(_infos, OnTabClick, OnCardClick);
-        _tabFactory.ApplySavedData(_saver);
-        _saver.AddShopCardInfos(_infos);
-    }
-
-    public void DisableAds() =>
-        _cardSelector.DisableAds();
-
-    private void OnTabClick(UI.Shop.TabButton tabButton) =>
-        _tabFactory.ActivateTab(tabButton);
-
-    private void OnCardClick(TabPanel tabPanel, Card card) =>
-        _clickProcessor.ProcessCardClick(tabPanel, card);
 }

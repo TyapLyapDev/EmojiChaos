@@ -1,62 +1,69 @@
-using EmojiChaos.Audio;
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 
-public class SlotReservator : IDisposable
+namespace EmojiChaos.Services.Combat
 {
-    private readonly IReadOnlyList<Rack> _slots;
-    private readonly ISwipeStrategy _carSwipeStrategy;
+    using Audio;
+    using EmojiChaos.Core.Abstract.Interface;
+    using Entities.Car;
+    using Entities.Rack;
+    using Services.Input;
 
-    public SlotReservator(IReadOnlyList<Rack> slots, ISwipeStrategy carSwipeStrategy)
+    public class SlotReservator : IDisposable
     {
-        _slots = slots ?? throw new ArgumentNullException(nameof(slots));
-        _carSwipeStrategy = carSwipeStrategy ?? throw new ArgumentNullException(nameof(carSwipeStrategy));
+        private readonly IReadOnlyList<Rack> _slots;
+        private readonly ISwipeStrategy _carSwipeStrategy;
 
-        _carSwipeStrategy.HasSwipe += OnSwipe;
-    }
-
-    public event Action<Car> SlotReserved;
-
-    public void Dispose()
-    {
-        _carSwipeStrategy.HasSwipe -= OnSwipe;
-    }
-
-    public void ReserveSlot(ISwipeable swipeableObject, int direction) =>
-        OnSwipe(swipeableObject, direction);
-
-    private void OnSwipe(ISwipeable swipeableObject, int direction)
-    {
-        if (swipeableObject is Car car == false)
-            return;
-
-        if (TryGetAvailableSlot(out Rack attackSlot))
+        public SlotReservator(IReadOnlyList<Rack> slots, ISwipeStrategy carSwipeStrategy)
         {
-            if (car.TryReservationSlot(attackSlot, direction))
-                SlotReserved?.Invoke(car);
+            _slots = slots ?? throw new ArgumentNullException(nameof(slots));
+            _carSwipeStrategy = carSwipeStrategy ?? throw new ArgumentNullException(nameof(carSwipeStrategy));
+
+            _carSwipeStrategy.HasSwipe += OnSwipe;
         }
-        else
-        {
-            car.HandleUnavailableStatus();
-            Audio.Sfx.PlayCarCantDrive();
-        }
-    }
 
-    private bool TryGetAvailableSlot(out Rack attackSlot)
-    {
-        foreach (Rack slot in _slots)
+        public event Action<Car> SlotReserved;
+
+        public void Dispose()
         {
-            if (slot.IsAvailable)
+            _carSwipeStrategy.HasSwipe -= OnSwipe;
+        }
+
+        public void ReserveSlot(ISwipeable swipeableObject, int direction) =>
+            OnSwipe(swipeableObject, direction);
+
+        private void OnSwipe(ISwipeable swipeableObject, int direction)
+        {
+            if (swipeableObject is Car car == false)
+                return;
+
+            if (TryGetAvailableSlot(out Rack attackSlot))
             {
-                attackSlot = slot;
-
-                return true;
+                if (car.TryReservationSlot(attackSlot, direction))
+                    SlotReserved?.Invoke(car);
+            }
+            else
+            {
+                car.HandleUnavailableStatus();
+                Audio.Sfx.PlayCarCantDrive();
             }
         }
 
-        attackSlot = null;
+        private bool TryGetAvailableSlot(out Rack attackSlot)
+        {
+            foreach (Rack slot in _slots)
+            {
+                if (slot.IsAvailable)
+                {
+                    attackSlot = slot;
 
-        return false;
+                    return true;
+                }
+            }
+
+            attackSlot = null;
+
+            return false;
+        }
     }
 }

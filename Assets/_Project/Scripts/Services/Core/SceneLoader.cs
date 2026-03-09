@@ -2,97 +2,102 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+namespace EmojiChaos.Services.Core
 {
-    private const string FaderPath = "Fader";
+    using EmojiChaos.UI;
 
-    private static SceneLoader s_instance;
-
-    [SerializeField] private Fader _fader;
-
-    private bool _isLoading;
-
-    public static SceneLoader Instance
+    public class SceneLoader : MonoBehaviour
     {
-        get
+        private const string FaderPath = "Fader";
+
+        private static SceneLoader s_instance;
+
+        [SerializeField] private Fader _fader;
+
+        private bool _isLoading;
+
+        public static SceneLoader Instance
         {
-            if (s_instance == null)
+            get
             {
-                SceneLoader prefab = Resources.Load<SceneLoader>(FaderPath);
+                if (s_instance == null)
+                {
+                    SceneLoader prefab = Resources.Load<SceneLoader>(FaderPath);
 
-                if (prefab == null)
-                    throw new System.Exception($"SceneLoader prefab not found at path: {FaderPath}");
+                    if (prefab == null)
+                        throw new System.Exception($"SceneLoader prefab not found at path: {FaderPath}");
 
-                s_instance = Instantiate(prefab);
-                DontDestroyOnLoad(s_instance.gameObject);
-                s_instance.gameObject.SetActive(false);
+                    s_instance = Instantiate(prefab);
+                    DontDestroyOnLoad(s_instance.gameObject);
+                    s_instance.gameObject.SetActive(false);
+                }
+
+                return s_instance;
+            }
+        }
+
+        private void Awake()
+        {
+            if (s_instance != null && s_instance != this)
+            {
+                Destroy(gameObject);
+
+                return;
             }
 
-            return s_instance;
+            s_instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-    }
 
-    private void Awake()
-    {
-        if (s_instance != null && s_instance != this)
+        public void ReloadCurrentScene()
         {
-            Destroy(gameObject);
+            if (_isLoading)
+                return;
 
-            return;
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            string name = GetSceneNameByIndex(currentScene);
+            LoadScene(name);
         }
 
-        s_instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        public void LoadScene(string name)
+        {
+            if (_isLoading)
+                return;
 
-    public void ReloadCurrentScene()
-    {
-        if (_isLoading)
-            return;
+            gameObject.SetActive(true);
+            StartCoroutine(LoadSceneRoutine(name));
+        }
 
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        string name = GetSceneNameByIndex(currentScene);
-        LoadScene(name);
-    }
+        private IEnumerator LoadSceneRoutine(string sceneName)
+        {
+            _isLoading = true;
+            bool waitFading = true;
+            _fader.PlayFadeIn(() => waitFading = false);
+            AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
+            async.allowSceneActivation = false;
 
-    public void LoadScene(string name)
-    {
-        if (_isLoading)
-            return;
+            while (waitFading || async.progress < 0.9f)
+                yield return null;
 
-        gameObject.SetActive(true);
-        StartCoroutine(LoadSceneRoutine(name));
-    }
+            async.allowSceneActivation = true;
+            waitFading = true;
+            _fader.PlayFadeOut(() => waitFading = false);
 
-    private IEnumerator LoadSceneRoutine(string sceneName)
-    {
-        _isLoading = true;
-        bool waitFading = true;
-        _fader.PlayFadeIn(() => waitFading = false);
-        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
-        async.allowSceneActivation = false;
+            while (waitFading)
+                yield return null;
 
-        while (waitFading || async.progress < 0.9f)
-            yield return null;
+            _isLoading = false;
+            gameObject.SetActive(false);
+        }
 
-        async.allowSceneActivation = true;
-        waitFading = true;
-        _fader.PlayFadeOut(() => waitFading = false);
+        private string GetSceneNameByIndex(int buildIndex)
+        {
+            if (buildIndex < 0 || buildIndex >= SceneManager.sceneCountInBuildSettings)
+                throw new System.ArgumentOutOfRangeException(nameof(buildIndex));
 
-        while (waitFading)
-            yield return null;
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(buildIndex);
 
-        _isLoading = false;
-        gameObject.SetActive(false);
-    }
-
-    private string GetSceneNameByIndex(int buildIndex)
-    {
-        if (buildIndex < 0 || buildIndex >= SceneManager.sceneCountInBuildSettings)
-            throw new System.ArgumentOutOfRangeException(nameof(buildIndex));
-
-        string scenePath = SceneUtility.GetScenePathByBuildIndex(buildIndex);
-
-        return System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            return System.IO.Path.GetFileNameWithoutExtension(scenePath);
+        }
     }
 }

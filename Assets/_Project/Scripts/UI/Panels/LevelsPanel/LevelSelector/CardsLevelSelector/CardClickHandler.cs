@@ -1,8 +1,10 @@
-using EmojiChaos.Audio;
 using System;
 
-namespace UI.LevelCards
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 {
+    using Audio;
+    using Card;
+
     public class CardClickHandler
     {
         private readonly Action<int> _levelClicked;

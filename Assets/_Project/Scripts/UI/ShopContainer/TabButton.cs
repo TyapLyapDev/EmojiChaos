@@ -2,43 +2,50 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer
 {
-    public class TabButton : MonoBehaviour
+    using Card;
+    using Card.UI.Shop;
+    using Lang;
+
+    namespace UI.Shop
     {
-        [SerializeField] private Button _button;
-        [SerializeField] private ButtonText _buttonText;
-        [SerializeField] private Image _image;
-        [SerializeField] private Color _selected;
-        [SerializeField] private Color _unselected;
-
-        private TabPanel _tabPanel;
-
-        public event Action<TabButton> Clicked;
-
-        private void OnEnable() =>
-            _button.onClick.AddListener(OnClick);
-
-        private void OnDisable() =>
-            _button.onClick.RemoveListener(OnClick);
-
-        public void Init(TabPanel tabPanel, LanguageTextsSet buttonText)
+        public class TabButton : MonoBehaviour
         {
-            _buttonText.SetText(buttonText);
-            _tabPanel = tabPanel;
+            [SerializeField] private Button _button;
+            [SerializeField] private ButtonText _buttonText;
+            [SerializeField] private Image _image;
+            [SerializeField] private Color _selected;
+            [SerializeField] private Color _unselected;
+
+            private TabPanel _tabPanel;
+
+            public event Action<TabButton> Clicked;
+
+            private void OnEnable ( ) =>
+                _button.onClick.AddListener (OnClick);
+
+            private void OnDisable ( ) =>
+                _button.onClick.RemoveListener (OnClick);
+
+            public void Init (TabPanel tabPanel, LanguageTextsSet buttonText)
+            {
+                _buttonText.SetText (buttonText);
+                _tabPanel = tabPanel;
+            }
+
+            public void SetSelectStatus (bool isSelected)
+            {
+                _image.color = isSelected ? _selected : _unselected;
+
+                if (isSelected)
+                    _tabPanel.Show ( );
+                else
+                    _tabPanel.Hide ( );
+            }
+
+            private void OnClick ( ) =>
+                Clicked?.Invoke (this);
         }
-
-        public void SetSelectStatus(bool isSelected)
-        {
-            _image.color = isSelected ? _selected : _unselected;
-
-            if (isSelected)
-                _tabPanel.Show();
-            else
-                _tabPanel.Hide();
-        }
-
-        private void OnClick() =>
-            Clicked?.Invoke(this);
     }
 }

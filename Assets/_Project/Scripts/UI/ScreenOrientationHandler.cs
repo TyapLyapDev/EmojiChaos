@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI
+{
+
 public class ScreenOrientationHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _horizontalBackground;
@@ -48,4 +51,5 @@ public class ScreenOrientationHandler : MonoBehaviour
         if (_verticalBackground != null)
             _verticalBackground.SetActive(isHorizontal == false);
     }
+}
 }

@@ -1,56 +1,61 @@
 using UnityEngine;
 
-public class EnemyExplanation : TutorialItem
+namespace EmojiChaos.UI.Tutorial.Explanations
 {
-    [SerializeField] private TutorialCircle _circle;
-    [SerializeField] private float _circleSize = 1;
-    [SerializeField] private float _delay = 1;
+    using Entities.Enemy;
 
-    private Enemy _enemy;
-
-    protected override void OnInitialized()
+    public class EnemyExplanation : TutorialItem
     {
-        base.OnInitialized();
+        [SerializeField] private TutorialCircle _circle;
+        [SerializeField] private float _circleSize = 1;
+        [SerializeField] private float _delay = 1;
 
-        Config.EnemySpawner.Spawned += OnEnemySpawned;
-    }
+        private Enemy _enemy;
 
-    protected override void OnActivated()
-    {        
-        Config.SwipeStrategy.Pause();
-        Invoke(nameof(HandleActivation), _delay);
-    }
+        protected override void OnInitialized ( )
+        {
+            base.OnInitialized ( );
 
-    protected override void OnDeactivated()
-    {
-        Config.EnemySpawner.Spawned -= OnEnemySpawned;
-        _circle.AnyClicked -= Deactivate;
+            Config.EnemySpawner.Spawned += OnEnemySpawned;
+        }
 
-        Config.EnemySpawner.Resume();
-        Config.EnemiesSpeedDirector.Resume();
-        Config.SwipeStrategy.Resume();
-        _circle.Hide();
-        Hide();
-    }
+        protected override void OnActivated ( )
+        {
+            Config.SwipeStrategy.Pause ( );
+            Invoke (nameof (HandleActivation), _delay);
+        }
 
-    private void HandleActivation()
-    {
-        if (IsActivated == false)
-            return;
+        protected override void OnDeactivated ( )
+        {
+            Config.EnemySpawner.Spawned -= OnEnemySpawned;
+            _circle.AnyClicked -= Deactivate;
 
-        _circle.AnyClicked += Deactivate;
-        Config.EnemySpawner.Pause();
-        Config.EnemiesSpeedDirector.Pause();
-        _circle.Show(_circleSize, _enemy.CenterBody.position);
-        Show();
-    }
+            Config.EnemySpawner.Resume ( );
+            Config.EnemiesSpeedDirector.Resume ( );
+            Config.SwipeStrategy.Resume ( );
+            _circle.Hide ( );
+            Hide ( );
+        }
 
-    private void OnEnemySpawned(Enemy enemy)
-    {
-        if (IsActivated == false)
-            return;
+        private void HandleActivation ( )
+        {
+            if (IsActivated == false)
+                return;
 
-        Config.EnemySpawner.Spawned -= OnEnemySpawned;
-        _enemy = enemy;
+            _circle.AnyClicked += Deactivate;
+            Config.EnemySpawner.Pause ( );
+            Config.EnemiesSpeedDirector.Pause ( );
+            _circle.Show (_circleSize, _enemy.CenterBody.position);
+            Show ( );
+        }
+
+        private void OnEnemySpawned (Enemy enemy)
+        {
+            if (IsActivated == false)
+                return;
+
+            Config.EnemySpawner.Spawned -= OnEnemySpawned;
+            _enemy = enemy;
+        }
     }
 }

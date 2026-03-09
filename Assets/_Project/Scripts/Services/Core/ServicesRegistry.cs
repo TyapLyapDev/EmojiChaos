@@ -1,40 +1,43 @@
 using System;
 using System.Collections.Generic;
 
-public class ServicesRegistry
+namespace EmojiChaos.Services.Core
 {
-    private readonly Dictionary<Type, object> _services = new ();
-    private readonly List<IDisposable> _disposables = new ();
-
-    public void Add<T>(T service) 
-        where T : class
+    public class ServicesRegistry
     {
-        Type type = typeof(T);
+        private readonly Dictionary<Type, object> _services = new();
+        private readonly List<IDisposable> _disposables = new();
 
-        if (_services.ContainsKey(type))
-            throw new InvalidOperationException($"Service {type.Name} already registered");
+        public void Add<T>(T service)
+            where T : class
+        {
+            Type type = typeof(T);
 
-        _services[typeof(T)] = service;
+            if (_services.ContainsKey(type))
+                throw new InvalidOperationException($"Service {type.Name} already registered");
 
-        if (service is IDisposable disposable)
-            _disposables.Add(disposable);
-    }
+            _services[typeof(T)] = service;
 
-    public T Get<T>() 
-        where T : class
-    {
-        if (_services.TryGetValue(typeof(T), out var service))
-            return (T)service;
+            if (service is IDisposable disposable)
+                _disposables.Add(disposable);
+        }
 
-        throw new InvalidOperationException($"Service {typeof(T).Name} not registered");
-    }
+        public T Get<T>()
+            where T : class
+        {
+            if (_services.TryGetValue(typeof(T), out var service))
+                return (T)service;
 
-    public void Dispose()
-    {
-        for (int i = _disposables.Count - 1; i >= 0; i--)
-            _disposables[i]?.Dispose();
+            throw new InvalidOperationException($"Service {typeof(T).Name} not registered");
+        }
 
-        _disposables.Clear();
-        _services.Clear();
+        public void Dispose()
+        {
+            for (int i = _disposables.Count - 1; i >= 0; i--)
+                _disposables[i]?.Dispose();
+
+            _disposables.Clear();
+            _services.Clear();
+        }
     }
 }

@@ -1,56 +1,63 @@
 using System;
 using System.Collections.Generic;
-using UI.CustomPageContainer;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
-    public class CellFactory : IDisposable
+
+    namespace UI.CustomMiniCellsLevelSelector
     {
-        private readonly PageContainer _container;
-        private readonly LevelCell _prefab;
-        private readonly Action<LevelCell> _cellClicked;
-        private readonly List<LevelCell> _cells = new ();
+        using Containers.PageContainer.UI.CustomPageContainer;
+        using MiniCell;
+        using MiniCell.UI.CustomMiniCellsLevelSelector;
 
-        public CellFactory(PageContainer container, LevelCell prefab, Action<LevelCell> cellClicked)
+        public class CellFactory : IDisposable
         {
-            _container = container ?? throw new ArgumentNullException(nameof(container));
-            _prefab = prefab != null ? prefab : throw new ArgumentNullException(nameof(prefab));
-            _cellClicked = cellClicked;
-        }
+            private readonly PageContainer _container;
+            private readonly LevelCell _prefab;
+            private readonly Action<LevelCell> _cellClicked;
+            private readonly List<LevelCell> _cells = new();
 
-        public void Dispose() =>
-            ClearCells();
-
-        public void CreateCells(int count)
-        {
-            ClearCells();
-
-            for (int i = 0; i < count; i++)
-                Create();
-        }
-
-        private void Create()
-        {
-            LevelCell levelCell = UnityEngine.Object.Instantiate(_prefab);
-            levelCell.SetActiveCell(false);
-            levelCell.Initialize();
-            levelCell.Clicked += _cellClicked;
-            _cells.Add(levelCell);
-            _container.AddItem(levelCell);
-        }
-
-        private void ClearCells()
-        {
-            for (int i = _cells.Count - 1; i >= 0; i--)
+            public CellFactory(PageContainer container, LevelCell prefab, Action<LevelCell> cellClicked)
             {
-                LevelCell card = _cells[i];
-
-                if (card != null)
-                    card.Clicked -= _cellClicked;
+                _container = container ?? throw new ArgumentNullException(nameof(container));
+                _prefab = prefab != null ? prefab : throw new ArgumentNullException(nameof(prefab));
+                _cellClicked = cellClicked;
             }
 
-            _cells.Clear();
-            _container.ClearContent();
+            public void Dispose() =>
+                ClearCells();
+
+            public void CreateCells(int count)
+            {
+                ClearCells();
+
+                for (int i = 0; i < count; i++)
+                    Create();
+            }
+
+            private void Create()
+            {
+                LevelCell levelCell = UnityEngine.Object.Instantiate(_prefab);
+                levelCell.SetActiveCell(false);
+                levelCell.Initialize();
+                levelCell.Clicked += _cellClicked;
+                _cells.Add(levelCell);
+                _container.AddItem(levelCell);
+            }
+
+            private void ClearCells()
+            {
+                for (int i = _cells.Count - 1; i >= 0; i--)
+                {
+                    LevelCell card = _cells[i];
+
+                    if (card != null)
+                        card.Clicked -= _cellClicked;
+                }
+
+                _cells.Clear();
+                _container.ClearContent();
+            }
         }
     }
 }

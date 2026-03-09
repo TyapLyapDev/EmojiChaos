@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI
+{
+
 public class RawImageScroller : MonoBehaviour
 {
     [SerializeField] private RawImage _rawImage;
@@ -17,4 +20,5 @@ public class RawImageScroller : MonoBehaviour
         rect.y += _verticalSpeed * Time.deltaTime;
         _rawImage.uvRect = rect;
     }
+}
 }

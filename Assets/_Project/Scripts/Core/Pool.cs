@@ -3,56 +3,59 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pool<T> 
-    where T : MonoBehaviour, IPoolable<T>
+namespace EmojiChaos.Core
 {
-    private const int MaximumSize = 500;
-
-    private readonly IFactory<T> _factory;
-    private readonly Transform _parent;
-    private readonly Stack<T> _elements = new ();
-    private readonly int _size;
-
-    private int _count;
-
-    public Pool(IFactory<T> factory, Transform parent, int size = MaximumSize)
+    public class Pool<T>
+        where T : MonoBehaviour, IPoolable<T>
     {
-        _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        private const int MaximumSize = 500;
 
-        _parent = parent;
-        _size = size;
-    }
+        private readonly IFactory<T> _factory;
+        private readonly Transform _parent;
+        private readonly Stack<T> _elements = new();
+        private readonly int _size;
 
-    public bool TryGive(out T element)
-    {
-        element = null;
+        private int _count;
 
-        if (_elements.Count == 0 && _count >= _size)
-            return false;
+        public Pool(IFactory<T> factory, Transform parent, int size = MaximumSize)
+        {
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
-        element = _elements.Count > 0 ? _elements.Pop() : Create();
-        element.Deactivated += Return;
+            _parent = parent;
+            _size = size;
+        }
 
-        return true;
-    }
+        public bool TryGive(out T element)
+        {
+            element = null;
 
-    public void Return(T element)
-    {
-        if (element == null)
-            return;
+            if (_elements.Count == 0 && _count >= _size)
+                return false;
 
-        element.Deactivated -= Return;
-        element.SetActive(false);
-        _elements.Push(element);
-    }
+            element = _elements.Count > 0 ? _elements.Pop() : Create();
+            element.Deactivated += Return;
 
-    private T Create()
-    {
-        _count++;
+            return true;
+        }
 
-        T element = _factory.Create();
-        element.SetParent(_parent);
+        public void Return(T element)
+        {
+            if (element == null)
+                return;
 
-        return element;
+            element.Deactivated -= Return;
+            element.gameObject.SetActive(false);
+            _elements.Push(element);
+        }
+
+        private T Create()
+        {
+            _count++;
+
+            T element = _factory.Create();
+            element.transform.SetParent(_parent);
+
+            return element;
+        }
     }
 }

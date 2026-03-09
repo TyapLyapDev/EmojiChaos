@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 
+namespace EmojiChaos.Services.Spawning.EnemySpawner
+{
+
 public class CrowdSequencer
 {
     private readonly Queue<Crowd> _crowdsQueue;
@@ -24,4 +27,5 @@ public class CrowdSequencer
 
         return true;
     }
+}
 }

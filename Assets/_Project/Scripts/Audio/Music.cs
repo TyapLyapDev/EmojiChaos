@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace EmojiChaos.Audio
 {
+    using Core.Abstract.MonoBehaviourWrapper;
+
     public class Music : InitializingBehaviour
     {
         [SerializeField] private AudioSource _source;

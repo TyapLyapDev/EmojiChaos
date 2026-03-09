@@ -2,33 +2,38 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class LanguageSwitchHandler : MonoBehaviour
+namespace EmojiChaos.Lang
 {
-    [SerializeField] private LanguageTextsSet _texts;
+    using Utils.Static;
 
-    private TMP_Text _text;
-
-    private void Awake()
+    public class LanguageSwitchHandler : MonoBehaviour
     {
-        if (TryGetComponent(out _text) == false)
-            throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_text)}");
-    }
+        [SerializeField] private LanguageTextsSet _texts;
 
-    private void OnEnable()
-    {
-        YandexGameConnector.LangSwitched += OnSwitchLanguage;
-        OnSwitchLanguage(YandexGameConnector.Lang);
-    }
+        private TMP_Text _text;
 
-    private void OnDisable() =>
-        YandexGameConnector.LangSwitched -= OnSwitchLanguage;
+        private void Awake ( )
+        {
+            if (TryGetComponent (out _text) == false)
+                throw new NullReferenceException ($"Object: {name}, NullComponent: {nameof (_text)}");
+        }
 
-    private void OnSwitchLanguage(string lang)
-    {
-        LangParams langParams = _texts.GetByLang(lang);
+        private void OnEnable ( )
+        {
+            YandexGameConnector.LangSwitched += OnSwitchLanguage;
+            OnSwitchLanguage (YandexGameConnector.Lang);
+        }
 
-        _text.font = langParams.Font;
-        _text.fontMaterial = langParams.Preset;
-        _text.text = langParams.Text;
+        private void OnDisable ( ) =>
+            YandexGameConnector.LangSwitched -= OnSwitchLanguage;
+
+        private void OnSwitchLanguage (string lang)
+        {
+            LangParams langParams = _texts.GetByLang (lang);
+
+            _text.font = langParams.Font;
+            _text.fontMaterial = langParams.Preset;
+            _text.text = langParams.Text;
+        }
     }
 }

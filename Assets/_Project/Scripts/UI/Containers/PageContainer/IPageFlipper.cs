@@ -1,3 +1,5 @@
+namespace EmojiChaos.UI.Containers.PageContainer
+{
 namespace UI.CustomPageContainer
 {
     public interface IPageFlipper
@@ -12,4 +14,5 @@ namespace UI.CustomPageContainer
 
         void ShowPreviousPage();
     }
+}
 }

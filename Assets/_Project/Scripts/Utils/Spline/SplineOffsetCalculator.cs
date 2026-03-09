@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines
+{
+
 public class SplineOffsetCalculator
 {
     private const float MinimumTangentMagnitude = 0.001f;
@@ -18,7 +21,7 @@ public class SplineOffsetCalculator
         _splineLength = splineContainer.CalculateLength();
 
         if (_splineLength <= 0f)
-            throw new InvalidOperationException("Длина сплайна должна быть больше нуля");
+            throw new InvalidOperationException("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
     }
 
     public float SplineLength => _splineLength;
@@ -49,4 +52,5 @@ public class SplineOffsetCalculator
 
         return _splineLength > 0f ? clampedDistance / _splineLength : 0f;
     }
+}
 }

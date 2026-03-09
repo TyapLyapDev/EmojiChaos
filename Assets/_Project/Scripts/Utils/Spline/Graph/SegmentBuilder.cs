@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class SegmentBuilder
 {
     private readonly Transform _splineContainerTransform;
@@ -68,4 +71,5 @@ public class SegmentBuilder
         float adjustedEnd = _nodeManager.GetAdjustedProgress(goalSpline, nodePath[^1].Progress, goalProgress);
         segments.Add(new SplineSegment(goalSpline, _splineContainerTransform, nodePath[^1].Progress, adjustedEnd));
     }
+}
 }

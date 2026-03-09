@@ -1,6 +1,9 @@
 using System;
 using DG.Tweening;
 
+namespace EmojiChaos.Services.GameFlow
+{
+
 public class StarBonusCalculator
 {
     private const float DelayBeforeBonus = 0.5f;
@@ -51,4 +54,5 @@ public class StarBonusCalculator
         _bonusSequence?.Kill();
         _bonusSequence = null;
     }
+}
 }

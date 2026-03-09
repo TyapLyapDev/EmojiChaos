@@ -1,34 +1,40 @@
 using UnityEngine;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Buttons
 {
-    public class LevelsPreviousPageButton : ButtonClickHandler<LevelsPreviousPageButton>
+    using Core.Abstract.UI;
+    using Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector;
+
+    namespace UI.CustomMiniCellsLevelSelector
     {
-        [SerializeField] private MiniCellsLevelSelector _selector;
-        [SerializeField] private GameObject _model;
-
-        private void Awake() =>
-            Initialize();
-
-        private void OnEnable()
+        public class LevelsPreviousPageButton : ButtonClickHandler<LevelsPreviousPageButton>
         {
-            OnPageChanged();
-            _selector.PageChanged += OnPageChanged;
-        }
+            [SerializeField] private MiniCellsLevelSelector _selector;
+            [SerializeField] private GameObject _model;
 
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            _selector.PageChanged -= OnPageChanged;
-        }
+            private void Awake() =>
+                Initialize();
 
-        protected override void OnClick()
-        {
-            base.OnClick();
-            _selector.PageFlipper.ShowPreviousPage();
-        }
+            private void OnEnable()
+            {
+                OnPageChanged();
+                _selector.PageChanged += OnPageChanged;
+            }
 
-        private void OnPageChanged() =>
-            _model.SetActive(_selector.PageFlipper.IsFirstPage == false);
+            protected override void OnDisable()
+            {
+                base.OnDisable();
+                _selector.PageChanged -= OnPageChanged;
+            }
+
+            protected override void OnClick()
+            {
+                base.OnClick();
+                _selector.PageFlipper.ShowPreviousPage();
+            }
+
+            private void OnPageChanged() =>
+                _model.SetActive(_selector.PageFlipper.IsFirstPage == false);
+        }
     }
 }

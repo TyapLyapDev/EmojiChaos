@@ -1,63 +1,69 @@
 using System;
 using UnityEngine;
 
-public class ParticleShower
+namespace EmojiChaos.Services.Core
 {
-    private readonly Pool<SmokeParticle> _smokeParticlePool;
-    private readonly Pool<BloodParticle> _bloodParticlePool;
-    private readonly Pool<StarBangParticle> _starBangParticlePool;
-    private readonly Pool<HitParticle> _hitParticlePool;
+    using EmojiChaos.Core;
+    using Particles;
 
-    public ParticleShower(
-        Pool<SmokeParticle> smokeParticlePool,
-        Pool<BloodParticle> bloodParticlePool,
-        Pool<StarBangParticle> starBangParticlePool,
-        Pool<HitParticle> hitParticlePool)
+    public class ParticleShower
     {
-        _smokeParticlePool = smokeParticlePool ?? throw new ArgumentNullException(nameof(smokeParticlePool));
-        _bloodParticlePool = bloodParticlePool ?? throw new ArgumentNullException(nameof(bloodParticlePool));
-        _starBangParticlePool = starBangParticlePool ?? throw new ArgumentNullException(nameof(starBangParticlePool));
-        _hitParticlePool = hitParticlePool ?? throw new ArgumentNullException(nameof(hitParticlePool));
-    }
+        private readonly Pool<SmokeParticle> _smokeParticlePool;
+        private readonly Pool<BloodParticle> _bloodParticlePool;
+        private readonly Pool<StarBangParticle> _starBangParticlePool;
+        private readonly Pool<HitParticle> _hitParticlePool;
 
-    public void ShowSmoke(Vector3 position, Quaternion direction)
-    {
-        if (_smokeParticlePool.TryGive(out SmokeParticle particle))
+        public ParticleShower(
+            Pool<SmokeParticle> smokeParticlePool,
+            Pool<BloodParticle> bloodParticlePool,
+            Pool<StarBangParticle> starBangParticlePool,
+            Pool<HitParticle> hitParticlePool)
         {
-            particle.SetPositionAndRotation(position, direction);
-            particle.SetActive(true);
-            particle.Play();
+            _smokeParticlePool = smokeParticlePool ?? throw new ArgumentNullException(nameof(smokeParticlePool));
+            _bloodParticlePool = bloodParticlePool ?? throw new ArgumentNullException(nameof(bloodParticlePool));
+            _starBangParticlePool = starBangParticlePool ?? throw new ArgumentNullException(nameof(starBangParticlePool));
+            _hitParticlePool = hitParticlePool ?? throw new ArgumentNullException(nameof(hitParticlePool));
         }
-    }
 
-    public void ShowBlood(Vector3 position, Quaternion direction, Color color)
-    {
-        if (_bloodParticlePool.TryGive(out BloodParticle particle))
+        public void ShowSmoke(Vector3 position, Quaternion direction)
         {
-            particle.SetPositionAndRotation(position, direction);
-            particle.SetColor(color);
-            particle.SetActive(true);
-            particle.Play();
+            if (_smokeParticlePool.TryGive(out SmokeParticle particle))
+            {
+                particle.transform.SetPositionAndRotation(position, direction);
+                particle.gameObject.SetActive(true);
+                particle.Play();
+            }
         }
-    }
 
-    public void ShowStarBang(Vector3 position, Quaternion direction)
-    {
-        if (_starBangParticlePool.TryGive(out StarBangParticle particle))
+        public void ShowBlood(Vector3 position, Quaternion direction, Color color)
         {
-            particle.SetPositionAndRotation(position, direction);
-            particle.SetActive(true);
-            particle.Play();
+            if (_bloodParticlePool.TryGive(out BloodParticle particle))
+            {
+                particle.transform.SetPositionAndRotation(position, direction);
+                particle.SetColor(color);
+                particle.gameObject.SetActive(true);
+                particle.Play();
+            }
         }
-    }
 
-    public void ShowHit(Vector3 position)
-    {
-        if (_hitParticlePool.TryGive(out HitParticle particle))
+        public void ShowStarBang(Vector3 position, Quaternion direction)
         {
-            particle.SetPositionAndRotation(position, Quaternion.identity);
-            particle.SetActive(true);
-            particle.Play();
+            if (_starBangParticlePool.TryGive(out StarBangParticle particle))
+            {
+                particle.transform.SetPositionAndRotation(position, direction);
+                particle.gameObject.SetActive(true);
+                particle.Play();
+            }
+        }
+
+        public void ShowHit(Vector3 position)
+        {
+            if (_hitParticlePool.TryGive(out HitParticle particle))
+            {
+                particle.transform.SetPositionAndRotation(position, Quaternion.identity);
+                particle.gameObject.SetActive(true);
+                particle.Play();
+            }
         }
     }
 }

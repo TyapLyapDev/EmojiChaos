@@ -3,6 +3,9 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
+namespace EmojiChaos.Utils
+{
+
 public static class CustomLogger
 {
     private const string White = "#ffffff";
@@ -37,3 +40,4 @@ public static class CustomLogger
         $"<b>{text}</b>";
 }
 #endif
+}

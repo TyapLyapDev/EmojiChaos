@@ -2,10 +2,13 @@ using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public interface IClickHandlerStrategy : IDisposable
+namespace EmojiChaos.Services.Input.ClickHandler
 {
-    event Action<IClickable, Vector2> Clicked;
-    event Action Unclicked;
+    public interface IClickHandlerStrategy : IDisposable
+    {
+        event Action<IClickable, Vector2> Clicked;
+        event Action Unclicked;
 
-    Vector2 GetCurrentPosition();
+        Vector2 GetCurrentPosition ( );
+    }
 }

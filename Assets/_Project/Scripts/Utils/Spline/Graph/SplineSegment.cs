@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class SplineSegment
 {
     private readonly Spline _spline;
@@ -88,4 +91,5 @@ public class SplineSegment
 
     private float CalculateSplineProgress(float segmentProgress) =>
         Mathf.Lerp(_startProgress, _endProgress, segmentProgress);
+}
 }

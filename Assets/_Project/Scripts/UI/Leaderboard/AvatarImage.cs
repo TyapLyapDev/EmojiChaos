@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Leaderboard
+{
+
 public class AvatarImage : MonoBehaviour
 {
     [SerializeField] private Image _image;
@@ -57,4 +60,5 @@ public class AvatarImage : MonoBehaviour
         if (_uniqueId == info.UniqueId)
             UpdateTexture();
     }
+}
 }

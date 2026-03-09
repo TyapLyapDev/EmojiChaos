@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
-using UI.CustomScrollContainer;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.LevelCards
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 {
+    using Card;
+    using Card.UI.LevelCards;
+    using Containers.ScrollContainer.UI.CustomScrollContainer;
+
     public class CardsLevelSelector : MonoBehaviour, ILevelSelector
     {
         [SerializeField] private ScrollRect _scroll;

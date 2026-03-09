@@ -1,16 +1,21 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public class StarBangParticle : OneShotParticle, IPoolable<StarBangParticle>
+namespace EmojiChaos.Particles
 {
-    public event Action<StarBangParticle> Deactivated;
+    using Core.Abstract;
+    using Core.Abstract.Interface;
 
-    public void Deactivate()
+    public class StarBangParticle : OneShotParticle, IPoolable<StarBangParticle>
     {
-        gameObject.SetActive(false);
-        Deactivated?.Invoke(this);
-    }
+        public event Action<StarBangParticle> Deactivated;
 
-    protected override void OnCompleted() =>
-        Deactivate();
+        public void Deactivate()
+        {
+            gameObject.SetActive(false);
+            Deactivated?.Invoke(this);
+        }
+
+        protected override void OnCompleted() =>
+            Deactivate();
+    }
 }

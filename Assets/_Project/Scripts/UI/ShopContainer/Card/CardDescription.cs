@@ -2,8 +2,10 @@ using TMPro;
 using UnityEngine;
 using YG;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer.Card
 {
+    using Lang;
+
     public class CardDescription : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;

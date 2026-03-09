@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.Game.Mover
+{
+
 public class BulletMover
 {
     private const float Threshold = 0.001f;
@@ -22,7 +25,7 @@ public class BulletMover
             return;
 
         if (deltaSpeed < 0)
-            throw new ArgumentOutOfRangeException(nameof(deltaSpeed), "Значение должно быть положительным");
+            throw new ArgumentOutOfRangeException(nameof(deltaSpeed), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
         _transform.LookAt(_target);
 
@@ -59,4 +62,5 @@ public class BulletMover
 
     public void ResetTarget() =>
         _target = null;
+}
 }

@@ -1,79 +1,86 @@
-using EmojiChaos.Audio;
 using UnityEngine;
 
-public class VictoryPanel : PanelBase
+namespace EmojiChaos.UI.Panels
 {
-    [SerializeField] private LevelScoreDisplay _scoreDisplay;
-    [SerializeField] private LanguageSwitchHandlerWithParam _level;
-    [SerializeField] private GameObject[] _stars;
+    using Audio;
+    using Core.Abstract.UI;
+    using Lang;
+    using Services.GameFlow;
 
-    private ScoreAccrualAnimator _scoreAccrualAnimator;
-    private StarBonusCalculator _starBonusCalculator;
-
-    private void OnDestroy()
+    public class VictoryPanel : PanelBase
     {
-        if (_scoreAccrualAnimator != null)
+        [SerializeField] private LevelScoreDisplay _scoreDisplay;
+        [SerializeField] private LanguageSwitchHandlerWithParam _level;
+        [SerializeField] private GameObject[] _stars;
+
+        private ScoreAccrualAnimator _scoreAccrualAnimator;
+        private StarBonusCalculator _starBonusCalculator;
+
+        private void OnDestroy()
         {
-            _scoreAccrualAnimator.ScoreUpdated -= UpdateScoreDisplay;
-            _scoreAccrualAnimator.Completed -= OnCompletedAccrual;
-            _scoreAccrualAnimator.StopAccrual();
+            if (_scoreAccrualAnimator != null)
+            {
+                _scoreAccrualAnimator.ScoreUpdated -= UpdateScoreDisplay;
+                _scoreAccrualAnimator.Completed -= OnCompletedAccrual;
+                _scoreAccrualAnimator.StopAccrual();
+            }
+
+            if (_starBonusCalculator != null)
+            {
+                _starBonusCalculator.OnBonusUpdated -= OnStarBonusUpdated;
+                _starBonusCalculator.StopBonus();
+            }
         }
 
-        if (_starBonusCalculator != null)
+        public void Activate(int targetScore, int starsCount, int level)
         {
-            _starBonusCalculator.OnBonusUpdated -= OnStarBonusUpdated;
-            _starBonusCalculator.StopBonus();
+            _level.SetParam((level + 1).ToString());
+            _scoreAccrualAnimator = new(targetScore);
+
+            foreach (GameObject star in _stars)
+                star.SetActive(false);
+
+            _scoreAccrualAnimator.ScoreUpdated += UpdateScoreDisplay;
+            _scoreAccrualAnimator.Completed += OnCompletedAccrual;
+
+            if (starsCount > 0)
+            {
+                _starBonusCalculator = new(targetScore, starsCount);
+                _starBonusCalculator.OnBonusUpdated += OnStarBonusUpdated;
+            }
         }
-    }
 
-    public void Activate(int targetScore, int starsCount, int level)
-    {
-        _level.SetParam((level + 1).ToString());
-        _scoreAccrualAnimator = new (targetScore);
-
-        foreach (GameObject star in _stars)
-            star.SetActive(false);
-
-        _scoreAccrualAnimator.ScoreUpdated += UpdateScoreDisplay;
-        _scoreAccrualAnimator.Completed += OnCompletedAccrual;
-
-        if (starsCount > 0)
+        protected override void OnInitialize()
         {
-            _starBonusCalculator = new (targetScore, starsCount);
-            _starBonusCalculator.OnBonusUpdated += OnStarBonusUpdated;
+            base.OnInitialize();
+            _scoreDisplay.Initialize();
         }
-    }
 
-    protected override void OnInitialize()
-    {
-        base.OnInitialize();
-        _scoreDisplay.Initialize();
-    }
-
-    protected override void OnShow()
-    {
-        base.OnShow();
-        _scoreAccrualAnimator.StartAccrual();
-        Audio.Sfx.PlayVictory();
-    }
-
-    private void UpdateScoreDisplay(int score) =>
-        _scoreDisplay.SetScore(score);
-
-    private void OnStarBonusUpdated(int score)
-    {
-        foreach (GameObject star in _stars)
+        protected override void OnShow()
         {
-            if (star.activeSelf)
-                continue;
-
-            _scoreDisplay.SetBonus(score);
-            star.SetActive(true);
-
-            return;
+            base.OnShow();
+            _scoreAccrualAnimator.StartAccrual();
+            Audio.Sfx.PlayVictory();
         }
-    }
 
-    private void OnCompletedAccrual() =>
-        _starBonusCalculator?.StartBonus();
+        private void UpdateScoreDisplay(int score) =>
+            _scoreDisplay.SetScore(score);
+
+        private void OnStarBonusUpdated(int score)
+        {
+            foreach (GameObject star in _stars)
+            {
+                if (star.activeSelf)
+                    continue;
+
+                _scoreDisplay.SetBonus(score);
+                star.SetActive(true);
+
+                return;
+            }
+        }
+
+        private void OnCompletedAccrual() =>
+            _starBonusCalculator?.StartBonus();
+    }
 }

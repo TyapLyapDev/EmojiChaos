@@ -4,6 +4,8 @@ using UnityEngine.Audio;
 
 namespace EmojiChaos.Audio
 {
+    using UI.Sliders;
+
     public class VolumeModifier : IDisposable
     {
         private const float MinimumLevel = -80;

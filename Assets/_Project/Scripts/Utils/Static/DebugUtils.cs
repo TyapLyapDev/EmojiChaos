@@ -1,6 +1,9 @@
 #if UNITY_EDITOR
 using UnityEngine;
 
+namespace EmojiChaos.Utils.Static
+{
+
 public static class DebugUtils
 {
     public static void DrawSphere(Vector3 center, float radius, Color color, float duration)
@@ -46,3 +49,4 @@ public static class DebugUtils
     }
 }
 #endif
+}

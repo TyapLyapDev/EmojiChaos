@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.Services.Core
+{
+
 public class Aimer
 {
     private readonly Transform _rotatingModel;
@@ -20,4 +23,5 @@ public class Aimer
 
     public void ResetRotation() =>
         _rotatingModel.rotation = Quaternion.identity;
+}
 }

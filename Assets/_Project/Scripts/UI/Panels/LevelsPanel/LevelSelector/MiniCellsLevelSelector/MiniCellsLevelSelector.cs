@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
-using UI.CustomPageContainer;
 using UnityEngine;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
+    using Containers.PageContainer.UI.CustomPageContainer;
+    using MiniCell;
+    using MiniCell.UI.CustomMiniCellsLevelSelector;
+    using UI.CustomMiniCellsLevelSelector;
+
     public class MiniCellsLevelSelector : MonoBehaviour, ILevelSelector
     {
         [SerializeField] private Transform _content;

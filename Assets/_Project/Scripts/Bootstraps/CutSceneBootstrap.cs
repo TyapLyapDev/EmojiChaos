@@ -4,7 +4,29 @@ using UnityEngine;
 
 namespace EmojiChaos.Bootstraps
 {
-    using EmojiChaos.Audio;
+    using Audio;
+    using Core;
+    using Data;
+    using Entities.Bullet;
+    using Entities.Car;
+    using Entities.Enemy;
+    using Entities.Gun;
+    using Entities.Rack;
+    using Entities.Star;
+    using Particles;
+    using Services.Combat;
+    using Services.Core;
+    using Services.GameFlow;
+    using Services.Input;
+    using Services.Movement;
+    using Services.Save;
+    using Services.Spawning.EnemySpawner;
+    using Services.Spawning.Selectors;
+    using UI.Buttons;
+    using UI.Level;
+    using UI.ShopContainer.Card.Enum;
+    using Utils.Splines.Graph;
+    using Utils.Static;
 
     public class CutSceneBootstrap : MonoBehaviour
     {
@@ -106,7 +128,7 @@ namespace EmojiChaos.Bootstraps
             {
                 Shooter shooter = new(bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
                 Gun gun = Instantiate(_gunSelector.Prefab);
-                gun.Initialize(new GunParam(shooter, particleShower, _gunSelector.TimeReload));
+                gun.Initialize(new(shooter, particleShower, _gunSelector.TimeReload));
                 slot.Initialize(new(gun, saver));
             }
         }
@@ -126,7 +148,7 @@ namespace EmojiChaos.Bootstraps
                     continue;
 
                 if (colorRandomizer.TryGetColor(car.Id, out Color color))
-                    car.Initialize(new CarInfo(carSpeedDirector, particleShower, mapSplineNodes, color));
+                    car.Initialize(new(carSpeedDirector, particleShower, mapSplineNodes, color));
             }
         }
 
@@ -137,7 +159,7 @@ namespace EmojiChaos.Bootstraps
             CameraShaker cameraShaker = _services.Get<CameraShaker>();
 
             foreach (Star star in _level.Stars)
-                star.Initialize(new StarParam(enemySpeedDirector, particleShower, cameraShaker));
+                star.Initialize(new(enemySpeedDirector, particleShower, cameraShaker));
         }
 
         private void InitializeUIHandler()

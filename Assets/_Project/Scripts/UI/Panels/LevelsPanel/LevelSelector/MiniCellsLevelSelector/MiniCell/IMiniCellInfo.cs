@@ -1,3 +1,5 @@
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell
+{
 namespace UI.CustomMiniCellsLevelSelector
 {
     public interface IMiniCellInfo
@@ -8,4 +10,5 @@ namespace UI.CustomMiniCellsLevelSelector
 
         bool IsLock { get; }
     }
+}
 }

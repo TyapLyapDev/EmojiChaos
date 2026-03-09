@@ -1,26 +1,32 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public readonly struct GunParam : IParam
+namespace EmojiChaos.Entities.Gun
 {
-    private readonly Shooter _shooter;
-    private readonly ParticleShower _particleShower;
-    private readonly float _timeReload;
+    using Core.Abstract.Interface;
+    using Services.Combat;
+    using Services.Core;
 
-    public GunParam(Shooter shooter, ParticleShower particleShower, float timeReload)
+    public readonly struct GunParam : IParam
     {
-        _shooter = shooter ?? throw new ArgumentNullException(nameof(shooter));
-        _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
+        private readonly Shooter _shooter;
+        private readonly ParticleShower _particleShower;
+        private readonly float _timeReload;
 
-        if (timeReload <= 0)
-            throw new ArgumentOutOfRangeException(nameof(timeReload), timeReload, "Значение должно быть больше нуля");
+        public GunParam(Shooter shooter, ParticleShower particleShower, float timeReload)
+        {
+            _shooter = shooter ?? throw new ArgumentNullException(nameof(shooter));
+            _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
 
-        _timeReload = timeReload;
+            if (timeReload <= 0)
+                throw new ArgumentOutOfRangeException(nameof(timeReload), timeReload, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+
+            _timeReload = timeReload;
+        }
+
+        public Shooter Shooter => _shooter;
+
+        public ParticleShower ParticleShower => _particleShower;
+
+        public float TimeReload => _timeReload;
     }
-
-    public Shooter Shooter => _shooter;
-
-    public ParticleShower ParticleShower => _particleShower;
-
-    public float TimeReload => _timeReload;
 }

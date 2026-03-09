@@ -1,78 +1,86 @@
 using System;
 using UnityEngine;
 
-public class Shooter
+namespace EmojiChaos.Services.Combat
 {
-    private readonly Pool<Bullet> _bulletPool;
-    private readonly EnemyRegistryToAttack _enemyRegistry;
-    private readonly BulletMovementDirector _bulletSpeedDirector;
+    using EmojiChaos.Core;
+    using Entities.Enemy;
+    using Entities.Bullet;
+    using Services.Movement;
 
-    private Transform _bulletStartPosition;
-    private int _bulletCount;
-    private int _bulletType;
-
-    public Shooter(Pool<Bullet> bulletPool, EnemyRegistryToAttack enemyRegistry, BulletMovementDirector bulletSpeedDirector)
+    public class Shooter
     {
-        _bulletPool = bulletPool ?? throw new ArgumentNullException(nameof(bulletPool));
-        _enemyRegistry = enemyRegistry ?? throw new ArgumentNullException(nameof(enemyRegistry));
-        _bulletSpeedDirector = bulletSpeedDirector ?? throw new ArgumentNullException(nameof(bulletSpeedDirector));
-    }
+        private readonly Pool<Bullet> _bulletPool;
+        private readonly EnemyRegistryToAttack _enemyRegistry;
+        private readonly BulletMovementDirector _bulletSpeedDirector;
 
-    public int BulletCount => _bulletCount;
+        private Transform _bulletStartPosition;
+        private int _bulletCount;
+        private int _bulletType;
 
-    public bool IsHaveBullet => _bulletCount > 0;
-
-    public void SetStartPosition(Transform position)
-    {
-        if (position == null)
-            throw new ArgumentNullException(nameof(position));
-
-        _bulletStartPosition = position;
-    }
-
-    public void Activate(int bulletCount, int bulletType)
-    {
-        if (bulletCount < 0)
-            throw new ArgumentOutOfRangeException(nameof(bulletCount), "Количество патронов не может быть отрицательным");
-
-        _bulletCount = bulletCount;
-        _bulletType = bulletType;
-        _enemyRegistry.Scare(_bulletType, bulletCount);
-    }        
-
-    public bool TryShoot(out Bullet bullet)
-    {
-        bullet = null;
-
-        if (IsHaveBullet == false)
-            return false;
-
-        if (_bulletPool.TryGive(out bullet) == false)
-            return false;
-
-        if (_enemyRegistry.TryGiveEnemy(_bulletType, out Enemy enemy) == false)
+        public Shooter(Pool<Bullet> bulletPool, EnemyRegistryToAttack enemyRegistry, BulletMovementDirector bulletSpeedDirector)
         {
-            _bulletPool.Return(bullet);
-
-            return false;
+            _bulletPool = bulletPool ?? throw new ArgumentNullException(nameof(bulletPool));
+            _enemyRegistry = enemyRegistry ?? throw new ArgumentNullException(nameof(enemyRegistry));
+            _bulletSpeedDirector = bulletSpeedDirector ?? throw new ArgumentNullException(nameof(bulletSpeedDirector));
         }
 
-        PerformShot(bullet, enemy);
+        public int BulletCount => _bulletCount;
 
-        return true;
-    }
+        public bool IsHaveBullet => _bulletCount > 0;
 
-    private void PerformShot(Bullet bullet, Enemy enemy)
-    {
-        if (bullet == null)
-            throw new ArgumentNullException(nameof(bullet));
+        public void SetStartPosition(Transform position)
+        {
+            if (position == null)
+                throw new ArgumentNullException(nameof(position));
 
-        if (enemy == null)
-            throw new ArgumentNullException(nameof(enemy));
+            _bulletStartPosition = position;
+        }
 
-        bullet.Activate(enemy, _bulletStartPosition.position);
-        _bulletCount--;
+        public void Activate(int bulletCount, int bulletType)
+        {
+            if (bulletCount < 0)
+                throw new ArgumentOutOfRangeException(nameof(bulletCount), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
-        _bulletSpeedDirector?.RegisterBullet(bullet);
+            _bulletCount = bulletCount;
+            _bulletType = bulletType;
+            _enemyRegistry.Scare(_bulletType, bulletCount);
+        }
+
+        public bool TryShoot(out Bullet bullet)
+        {
+            bullet = null;
+
+            if (IsHaveBullet == false)
+                return false;
+
+            if (_bulletPool.TryGive(out bullet) == false)
+                return false;
+
+            if (_enemyRegistry.TryGiveEnemy(_bulletType, out Enemy enemy) == false)
+            {
+                _bulletPool.Return(bullet);
+
+                return false;
+            }
+
+            PerformShot(bullet, enemy);
+
+            return true;
+        }
+
+        private void PerformShot(Bullet bullet, Enemy enemy)
+        {
+            if (bullet == null)
+                throw new ArgumentNullException(nameof(bullet));
+
+            if (enemy == null)
+                throw new ArgumentNullException(nameof(enemy));
+
+            bullet.Activate(enemy, _bulletStartPosition.position);
+            _bulletCount--;
+
+            _bulletSpeedDirector?.RegisterBullet(bullet);
+        }
     }
 }

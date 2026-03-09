@@ -1,5 +1,8 @@
 using EmojiChaos.Core.Abstract.Interface;
 
+namespace EmojiChaos.UI.Leaderboard
+{
+
 public readonly struct LeaderboardLineParam : IParam
 {
     private readonly string _uniqueId;
@@ -26,4 +29,5 @@ public readonly struct LeaderboardLineParam : IParam
     public string Score => _score;
 
     public bool IsCurrentPlayer => _isCurrentPlayer;
+}
 }

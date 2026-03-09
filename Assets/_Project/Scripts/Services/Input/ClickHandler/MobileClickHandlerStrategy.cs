@@ -1,45 +1,49 @@
-using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MobileClickHandlerStrategy : BaseClickHandlerStrategy
+namespace EmojiChaos.Services.Input.ClickHandler
 {
-    public override Vector2 GetCurrentPosition() =>
-        Input.touchCount > 0 ? Input.GetTouch(0).position : Vector2.zero;
+    using EmojiChaos.Core.Abstract.Interface;
 
-    protected override void Update()
+    public class MobileClickHandlerStrategy : BaseClickHandlerStrategy
     {
-        if (Input.touchCount == 0)
-            return;
+        public override Vector2 GetCurrentPosition ( ) =>
+            UnityEngine.Input.touchCount > 0 ? UnityEngine.Input.GetTouch (0).position : Vector2.zero;
 
-        Touch touch = Input.GetTouch(0);
-
-        if (touch.phase == TouchPhase.Began)
+        protected override void Update ( )
         {
-            Vector2 touchPosition = touch.position;
+            if (UnityEngine.Input.touchCount == 0)
+                return;
 
-            if (IsUiElement(touchPosition, out RaycastResult result))
+            Touch touch = UnityEngine.Input.GetTouch (0);
+
+            if (touch.phase == TouchPhase.Began)
             {
-                if (IsClickableUiElement(result, out IClickable clickable))
+                Vector2 touchPosition = touch.position;
+
+                if (IsUiElement (touchPosition, out RaycastResult result))
                 {
-                    InvokeClicked(clickable, touchPosition);
+                    if (IsClickableUiElement (result, out IClickable clickable))
+                    {
+                        InvokeClicked (clickable, touchPosition);
+
+                        return;
+                    }
 
                     return;
                 }
 
-                return;
+                Ray ray = CameraMain.ScreenPointToRay (touchPosition);
+
+                if (Physics.Raycast (ray, out RaycastHit hitInfo) == false)
+                    return;
+
+                if (hitInfo.collider.TryGetComponent (out IClickable clickableObject))
+                    InvokeClicked (clickableObject, touchPosition);
             }
 
-            Ray ray = CameraMain.ScreenPointToRay(touchPosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo) == false)
-                return;
-
-            if (hitInfo.collider.TryGetComponent(out IClickable clickableObject))
-                InvokeClicked(clickableObject, touchPosition);
+            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                InvokeUnclicked ( );
         }
-
-        if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-            InvokeUnclicked();
     }
 }

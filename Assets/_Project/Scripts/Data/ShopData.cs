@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-[Serializable]
-public class ShopData
+namespace EmojiChaos.Data
 {
-    public ShopEntityItemType EntityType;
-    public List<ShopCardItemButtonType> ButtonTypes = new ();
+    using UI.ShopContainer.Card.Enum;
+
+    [Serializable]
+    public class ShopData
+    {
+        public ShopEntityItemType EntityType;
+        public List<ShopCardItemButtonType> ButtonTypes = new();
+    }
 }

@@ -1,20 +1,25 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class LanguageTextsSet
+namespace EmojiChaos.Lang
 {
-    [SerializeField] private LangParams _ru;
-    [SerializeField] private LangParams _en;
-    [SerializeField] private LangParams _tr;
+    using Utils.Static;
 
-    public LangParams GetByLang(string lang)
+    [Serializable]
+    public class LanguageTextsSet
     {
-        return lang switch
+        [SerializeField] private LangParams _ru;
+        [SerializeField] private LangParams _en;
+        [SerializeField] private LangParams _tr;
+
+        public LangParams GetByLang(string lang)
         {
-            Constants.LangRu => _ru,
-            Constants.LangTr => _tr,
-            _ => _en
-        };
+            return lang switch
+            {
+                Constants.LangRu => _ru,
+                Constants.LangTr => _tr,
+                _ => _en
+            };
+        }
     }
 }

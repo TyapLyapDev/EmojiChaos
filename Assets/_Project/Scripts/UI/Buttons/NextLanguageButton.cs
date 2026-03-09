@@ -1,1 +1,6 @@
-public class NextLanguageButton : ButtonClickHandler<NextLanguageButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using EmojiChaos.Core.Abstract.UI;
+
+    public class NextLanguageButton : ButtonClickHandler<NextLanguageButton> { }
+}

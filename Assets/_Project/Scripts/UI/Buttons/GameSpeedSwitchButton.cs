@@ -1,20 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class GameSpeedSwitchButton : ButtonClickHandler<GameSpeedSwitchButton>
+namespace EmojiChaos.UI.Buttons
 {
-    [SerializeField] private float _timeScale = 1f;
+    using Core.Abstract.UI;
 
-    private CanvasGroup _canvasGroup;
-
-    public float TimeScale => _timeScale;
-
-    protected override void OnInitialize()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class GameSpeedSwitchButton : ButtonClickHandler<GameSpeedSwitchButton>
     {
-        base.OnInitialize();
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
+        [SerializeField] private float _timeScale = 1f;
 
-    public void SetAlpha(float value) =>
-        _canvasGroup.alpha = value;
+        private CanvasGroup _canvasGroup;
+
+        public float TimeScale => _timeScale;
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        public void SetAlpha(float value) =>
+            _canvasGroup.alpha = value;
+    }
 }

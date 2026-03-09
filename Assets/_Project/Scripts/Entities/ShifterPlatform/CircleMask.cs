@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.Entities.ShifterPlatform
+{
+
 public class CircleMask : MonoBehaviour
 {
     [SerializeField] private Color _color = Color.magenta;
@@ -28,4 +31,5 @@ public class CircleMask : MonoBehaviour
             angle += 2 * Mathf.PI / _segments;
         }
     }
+}
 }

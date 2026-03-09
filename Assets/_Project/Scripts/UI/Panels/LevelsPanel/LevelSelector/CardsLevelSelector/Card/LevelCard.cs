@@ -1,9 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.LevelCards
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card
 {
-    public class LevelCard : ButtonClickHandler<LevelCard>, CustomScrollContainer.IScrolledItem
+    using Containers.ScrollContainer.UI.CustomScrollContainer;
+    using Core.Abstract.UI;
+    using Indicators.UI.LevelCards;
+    using Services.UI;
+    using UI.LevelCards;
+
+    public class LevelCard : ButtonClickHandler<LevelCard>, IScrolledItem
     {
         [SerializeField] private LevelNumber _levelNumber;
         [SerializeField] private StarsIndiator _starsIndicator;

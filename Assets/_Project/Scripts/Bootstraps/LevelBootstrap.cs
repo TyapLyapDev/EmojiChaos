@@ -5,6 +5,31 @@ using UnityEngine;
 namespace EmojiChaos.Bootstraps
 {
     using Audio;
+    using Core.Factory;
+    using Data;
+    using Core;
+    using Entities.Bullet;
+    using Entities.Car;
+    using Entities.Enemy;
+    using Entities.Gun;
+    using Entities.Rack;
+    using Entities.Star;
+    using Particles;
+    using Services.Combat;
+    using Services.Core;
+    using Services.GameFlow;
+    using Services.Input;
+    using Services.Level;
+    using Services.Movement;
+    using Services.Save;
+    using Services.Spawning.EnemySpawner;
+    using Services.Spawning.Selectors;
+    using UI.Buttons;
+    using UI.Level;
+    using UI.ShopContainer.Card.Enum;
+    using UI.Tutorial;
+    using Utils.Splines.Graph;
+    using Utils.Static;
 
     public class LevelBootstrap : MonoBehaviour
     {

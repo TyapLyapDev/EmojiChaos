@@ -1,5 +1,8 @@
 using System;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class VirtualNodes
 {
     private SplineNode _start;
@@ -14,4 +17,5 @@ public class VirtualNodes
     public SplineNode Start => _start;
 
     public SplineNode Goal => _goal;
+}
 }

@@ -1,10 +1,13 @@
-public abstract class InitializingBehaviour : BaseInitializingBehaviour
+namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
 {
-    public void Initialize()
+    public abstract class InitializingBehaviour : BaseInitializingBehaviour
     {
-        BaseInitialize();
-        OnInitialize();
-    }
+        public void Initialize()
+        {
+            BaseInitialize();
+            OnInitialize();
+        }
 
-    protected abstract void OnInitialize();
+        protected abstract void OnInitialize();
+    }
 }

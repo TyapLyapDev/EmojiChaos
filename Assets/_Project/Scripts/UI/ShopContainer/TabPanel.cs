@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer
 {
+    using Card.Enum;
+    using ScriptableObect.Shop;
+    using ShopContainer.Card;
+
     public class TabPanel : MonoBehaviour
     {
-        private readonly List<Card> _cards = new ();
+        private readonly List<ShopCard> _cards = new();
 
         [SerializeField] private Transform _content;
-        [SerializeField] private Card _prefab;
+        [SerializeField] private ShopCard _prefab;
 
-        public event Action<TabPanel, Card> CardClicked;
+        public event Action<TabPanel, ShopCard> CardClicked;
 
         public ShopEntityItemType EntityType { get; private set; }
 
@@ -26,7 +30,7 @@ namespace UI.Shop
 
             foreach (ShopCardInfo info in cardInfos)
             {
-                Card card = Instantiate(_prefab, _content);
+                ShopCard card = Instantiate(_prefab, _content);
                 card.Initialize();
                 card.SetInfo(info);
                 card.Clicked += OnClickCard;
@@ -36,7 +40,7 @@ namespace UI.Shop
 
         public void ClearContent()
         {
-            foreach (Card card in _cards)
+            foreach (ShopCard card in _cards)
                 if (card != null)
                     card.Clicked -= OnClickCard;
 
@@ -46,9 +50,9 @@ namespace UI.Shop
                 Destroy(child.gameObject);
         }
 
-        public bool TryGetCard(string revardedAdvId, out Card card)
+        public bool TryGetCard(string revardedAdvId, out ShopCard card)
         {
-            foreach (Card tempCard in _cards)
+            foreach (ShopCard tempCard in _cards)
             {
                 if (tempCard.RevardedAdvId == revardedAdvId)
                 {
@@ -65,16 +69,16 @@ namespace UI.Shop
 
         public void DisableAds()
         {
-            foreach (Card card in _cards)
+            foreach (ShopCard card in _cards)
             {
                 if (card.Type == ShopCardItemButtonType.NeedViewAds)
                     card.SetType(ShopCardItemButtonType.Opened);
-            }                
+            }
         }
 
-        public void SelectCard(Card card)
+        public void SelectCard(ShopCard card)
         {
-            foreach (Card tempCard in _cards)
+            foreach (ShopCard tempCard in _cards)
             {
                 if (tempCard != card)
                 {
@@ -93,7 +97,7 @@ namespace UI.Shop
             if (cardIndex < 0 || cardIndex >= _cards.Count)
                 return;
 
-            Card card = _cards[cardIndex];
+            ShopCard card = _cards[cardIndex];
             card.SetType(type);
         }
 
@@ -103,7 +107,7 @@ namespace UI.Shop
         public void Hide() =>
             gameObject.SetActive(false);
 
-        private void OnClickCard(Card card) =>
+        private void OnClickCard(ShopCard card) =>
             CardClicked?.Invoke(this, card);
     }
 }

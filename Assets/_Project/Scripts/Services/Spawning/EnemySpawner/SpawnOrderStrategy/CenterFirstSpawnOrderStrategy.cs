@@ -1,5 +1,8 @@
 using System;
 
+namespace EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy
+{
+
 public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
 {
     private const int MiddlePointDivisor = 2;
@@ -7,7 +10,7 @@ public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
     public int[] Calculate(int countLines)
     {
         if (countLines <= 0)
-            throw new ArgumentOutOfRangeException(nameof(countLines), "ОБАНА! Количество линий должно быть больше нуля");
+            throw new ArgumentOutOfRangeException(nameof(countLines), "пїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
         if (countLines == 1)
             return new int[] { 0 };
@@ -70,4 +73,5 @@ public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
 
         return false;
     }
+}
 }

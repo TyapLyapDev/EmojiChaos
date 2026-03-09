@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.CustomMiniCellsLevelSelector
+namespace EmojiChaos.UI
 {
     public class Star : MonoBehaviour
     {
@@ -9,7 +9,7 @@ namespace UI.CustomMiniCellsLevelSelector
         [SerializeField] private Color _openColor;
         [SerializeField] private Color _closedColor;
 
-        public void SetStatus(bool isOpen) =>
+        public void SetStatus (bool isOpen) =>
             _icon.color = isOpen ? _openColor : _closedColor;
     }
 }

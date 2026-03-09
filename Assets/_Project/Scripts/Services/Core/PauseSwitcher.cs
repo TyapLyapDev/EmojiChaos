@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+namespace EmojiChaos.Services.Core
+{
+
 public class PauseSwitcher
 {
     private float _timeScale = 1f;
@@ -21,7 +24,7 @@ public class PauseSwitcher
     public void SetTimeScale(float timeScale)
     {
         if (timeScale < 0)
-            throw new ArgumentOutOfRangeException(nameof(timeScale), timeScale, "Значение должно быть положительным");
+            throw new ArgumentOutOfRangeException(nameof(timeScale), timeScale, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 
         _timeScale = timeScale;
 
@@ -35,4 +38,5 @@ public class PauseSwitcher
         else
             Time.timeScale = 0;
     }
+}
 }

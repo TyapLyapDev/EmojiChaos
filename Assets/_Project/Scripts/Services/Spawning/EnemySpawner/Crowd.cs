@@ -1,24 +1,30 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class Crowd
+namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-    [SerializeField] private BattleFormationCrowd _battleFormationCrowd;
-    [SerializeField] private int _id;
-    [SerializeField] [Min(1)] private int _quantity;
+    using EmojiChaos.Core.Enum;
+    using ScriptableObect;
 
-    public SpawnOrderStrategyType SpawnOrder => _battleFormationCrowd.SpawnOrder;
+    [Serializable]
+    public class Crowd
+    {
+        [SerializeField] private BattleFormationCrowd _battleFormationCrowd;
+        [SerializeField] private int _id;
+        [SerializeField][Min(1)] private int _quantity;
 
-    public float DelayLine => _battleFormationCrowd.DelayLine;
+        public SpawnOrderStrategyType SpawnOrder => _battleFormationCrowd.SpawnOrder;
 
-    public float DelayRow => _battleFormationCrowd.DelayRow;
+        public float DelayLine => _battleFormationCrowd.DelayLine;
 
-    public float StepOffset => _battleFormationCrowd.StepOffset;
+        public float DelayRow => _battleFormationCrowd.DelayRow;
 
-    public int CountLines => _battleFormationCrowd.CountLines;
+        public float StepOffset => _battleFormationCrowd.StepOffset;
 
-    public int Id => _id;
+        public int CountLines => _battleFormationCrowd.CountLines;
 
-    public int Quantity => _quantity;
+        public int Id => _id;
+
+        public int Quantity => _quantity;
+    }
 }

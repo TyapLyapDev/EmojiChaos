@@ -1,16 +1,21 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public class SmokeParticle : OneShotParticle, IPoolable<SmokeParticle>
+namespace EmojiChaos.Particles
 {
-    public event Action<SmokeParticle> Deactivated;
+    using EmojiChaos.Core.Abstract;
+    using EmojiChaos.Core.Abstract.Interface;
 
-    public void Deactivate()
+    public class SmokeParticle : OneShotParticle, IPoolable<SmokeParticle>
     {
-        gameObject.SetActive(false);
-        Deactivated?.Invoke(this);
-    }
+        public event Action<SmokeParticle> Deactivated;
 
-    protected override void OnCompleted() =>
-        Deactivate();
+        public void Deactivate()
+        {
+            gameObject.SetActive(false);
+            Deactivated?.Invoke(this);
+        }
+
+        protected override void OnCompleted() =>
+            Deactivate();
+    }
 }

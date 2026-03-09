@@ -2,26 +2,32 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelFinder
-{ 
-    public Level Find(int index)
-    {
-        Level level = GetLevelPrefabs()[index];
-        UnloadUnusedLevels();
+namespace EmojiChaos.Services.Level
+{
+    using Data;
+    using Utils.Static;
 
-        return level;
-    }
-
-    public IReadOnlyList<Level> GetLevelPrefabs()
+    public class LevelFinder
     {
-        IReadOnlyList<Level> levels = Resources.LoadAll<Level>(Constants.LevelsPath);
-        
-        return levels;
-    }
+        public Level Find(int index)
+        {
+            Level level = GetLevelPrefabs()[index];
+            UnloadUnusedLevels();
 
-    public void UnloadUnusedLevels()
-    {
-        Resources.UnloadUnusedAssets();
-        GC.Collect();
+            return level;
+        }
+
+        public IReadOnlyList<Level> GetLevelPrefabs()
+        {
+            IReadOnlyList<Level> levels = Resources.LoadAll<Level>(Constants.LevelsPath);
+
+            return levels;
+        }
+
+        public void UnloadUnusedLevels()
+        {
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
+        }
     }
 }

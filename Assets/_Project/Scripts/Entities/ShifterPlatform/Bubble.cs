@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.Entities.ShifterPlatform
+{
+
 public class Bubble : MonoBehaviour 
 { 
     public void Enable() =>
@@ -7,4 +10,5 @@ public class Bubble : MonoBehaviour
 
     public void Disable() =>
         gameObject.SetActive(false);
+}
 }

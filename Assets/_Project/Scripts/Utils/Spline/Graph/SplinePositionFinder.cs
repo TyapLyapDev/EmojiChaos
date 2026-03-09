@@ -3,6 +3,9 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class SplinePositionFinder
 {
     private readonly SplineContainer _splineContainer;
@@ -64,4 +67,5 @@ public class SplinePositionFinder
 
         return _splineContainerTransform.TransformPoint(localPosition);
     }
+}
 }

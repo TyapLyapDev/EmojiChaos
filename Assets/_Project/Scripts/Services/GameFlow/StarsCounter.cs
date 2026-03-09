@@ -1,61 +1,66 @@
 using System;
 using System.Collections.Generic;
 
-public class StarsCounter : IDisposable
+namespace EmojiChaos.Services.GameFlow
 {
-    private readonly List<Star> _stars = new ();
+    using Entities.Star;
 
-    public StarsCounter(IReadOnlyList<Star> stars)
+    public class StarsCounter : IDisposable
     {
-        _stars = new List<Star>(stars) ?? throw new ArgumentNullException(nameof(stars));
+        private readonly List<Star> _stars = new();
 
-        foreach (Star star in _stars)
+        public StarsCounter(IReadOnlyList<Star> stars)
         {
-			if (star == null)
-				throw new ArgumentNullException(nameof(star));
-		}            
+            _stars = new List<Star>(stars) ?? throw new ArgumentNullException(nameof(stars));
 
-        Subscribe();
-    }
+            foreach (Star star in _stars)
+            {
+                if (star == null)
+                    throw new ArgumentNullException(nameof(star));
+            }
 
-    public event Action<int> StarCountChanged;
-    public event Action StarsLeft;
+            Subscribe();
+        }
 
-    public int StarCount => _stars.Count;
+        public event Action<int> StarCountChanged;
+        public event Action StarsLeft;
 
-    public IReadOnlyList<Star> Stars => _stars;
+        public int StarCount => _stars.Count;
 
-    public void Dispose()
-    {
-        Unsubscribe();
-        _stars.Clear();
-    }
+        public IReadOnlyList<Star> Stars => _stars;
 
-    private void Subscribe()
-    {
-        foreach (Star star in _stars)
-            if (star != null)
-                star.Destroyed += OnStarDestroyed;
-    }
+        public void Dispose()
+        {
+            Unsubscribe();
+            _stars.Clear();
+        }
 
-    private void Unsubscribe()
-    {
-        foreach (Star star in _stars)
-            if (star != null)
-                star.Destroyed -= OnStarDestroyed;
-    }
+        private void Subscribe()
+        {
+            foreach (Star star in _stars)
+                if (star != null)
+                    star.Destroyed += OnStarDestroyed;
+        }
 
-    private void OnStarDestroyed(Star star)
-    {
-        if (star == null) 
-            return;
+        private void Unsubscribe()
+        {
+            foreach (Star star in _stars)
+                if (star != null)
+                    star.Destroyed -= OnStarDestroyed;
+        }
 
-        star.Destroyed -= OnStarDestroyed;
-        _stars.Remove(star);
+        private void OnStarDestroyed(Star star)
+        {
+            if (star == null)
+                return;
 
-        StarCountChanged?.Invoke(_stars.Count);
+            star.Destroyed -= OnStarDestroyed;
+            _stars.Remove(star);
 
-        if (_stars.Count == 0)
-            StarsLeft?.Invoke();
+            StarCountChanged?.Invoke(_stars.Count);
+
+            if (_stars.Count == 0)
+                StarsLeft?.Invoke();
+        }
     }
 }

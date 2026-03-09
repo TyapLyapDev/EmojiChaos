@@ -1,3 +1,5 @@
+namespace EmojiChaos.Utils.Static
+{
 public static class Constants
 {
     public const string LevelsPath = "Levels";
@@ -18,4 +20,5 @@ public static class Constants
 #else
     public const string LeaderboardTechnoName = "Score";
 #endif
+}
 }

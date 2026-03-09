@@ -1,21 +1,27 @@
 using System;
 
-public class CarMovementInitiator : IDisposable
+namespace EmojiChaos.Services.Movement
 {
-    private readonly SlotReservator _slotReservator;
-    private readonly CarMovementDirector _speedDirector;
+    using Entities.Car;
+    using Services.Combat;
 
-    public CarMovementInitiator(SlotReservator swipeCoordinator, CarMovementDirector speedDirector)
+    public class CarMovementInitiator : IDisposable
     {
-        _slotReservator = swipeCoordinator ?? throw new ArgumentNullException(nameof(swipeCoordinator));
-        _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
+        private readonly SlotReservator _slotReservator;
+        private readonly CarMovementDirector _speedDirector;
 
-        _slotReservator.SlotReserved += OnSlotReserved;
+        public CarMovementInitiator(SlotReservator swipeCoordinator, CarMovementDirector speedDirector)
+        {
+            _slotReservator = swipeCoordinator ?? throw new ArgumentNullException(nameof(swipeCoordinator));
+            _speedDirector = speedDirector ?? throw new ArgumentNullException(nameof(speedDirector));
+
+            _slotReservator.SlotReserved += OnSlotReserved;
+        }
+
+        public void Dispose() =>
+            _slotReservator.SlotReserved -= OnSlotReserved;
+
+        private void OnSlotReserved(Car car) =>
+            _speedDirector.Register(car);
     }
-
-    public void Dispose() =>
-        _slotReservator.SlotReserved -= OnSlotReserved;
-
-    private void OnSlotReserved(Car car) =>
-        _speedDirector.Register(car);
 }

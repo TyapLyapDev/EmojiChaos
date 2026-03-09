@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+namespace EmojiChaos.Utils.Splines.Graph
+{
+
 public class AStarAlgorithm
 {
     private const float TieBreaker = 0.0001f;
@@ -119,4 +122,5 @@ public class AStarAlgorithm
         _costFromStart.Clear();
         _estimatedTotalCost.Clear();
     }
+}
 }

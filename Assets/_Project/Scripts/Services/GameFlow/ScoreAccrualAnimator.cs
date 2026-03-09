@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
+namespace EmojiChaos.Services.GameFlow
+{
+
 public class ScoreAccrualAnimator
 {
     private const float DelayBeforeAccrual = 1.5f;
@@ -70,4 +73,5 @@ public class ScoreAccrualAnimator
         ScoreUpdated?.Invoke(_currentScore);
         Completed?.Invoke();
     }
+}
 }

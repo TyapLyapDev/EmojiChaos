@@ -1,11 +1,14 @@
 using System;
 
+namespace EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy
+{
+
 public class RightToLeftSpawnStrategy : IEnemySpawnOrderStrategy
 {
     public int[] Calculate(int countLines)
     {
         if (countLines <= 0)
-            throw new ArgumentOutOfRangeException(nameof(countLines), "Значение должно быть больше нуля");
+            throw new ArgumentOutOfRangeException(nameof(countLines), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
         int[] order = new int[countLines];
 
@@ -14,4 +17,5 @@ public class RightToLeftSpawnStrategy : IEnemySpawnOrderStrategy
 
         return order;
     }
+}
 }

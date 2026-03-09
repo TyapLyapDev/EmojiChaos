@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell.Indicators
+{
+
 namespace UI.CustomMiniCellsLevelSelector
 {
     public class Locker : MonoBehaviour
@@ -20,4 +23,5 @@ namespace UI.CustomMiniCellsLevelSelector
                 obj.SetActive(IsLock == false);
         }
     }
+}
 }

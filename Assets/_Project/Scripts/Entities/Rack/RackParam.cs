@@ -1,18 +1,24 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public readonly struct RackParam : IParam
+namespace EmojiChaos.Entities.Rack
 {
-    private readonly Gun _gun;
-    private readonly Saver _saver;
+    using Core.Abstract.Interface;
+    using Entities.Gun;
+    using Services.Save;
 
-    public RackParam(Gun gun, Saver saver)
+    public readonly struct RackParam : IParam
     {
-        _gun = gun != null ? gun : throw new ArgumentNullException(nameof(gun));
-        _saver = saver ?? throw new ArgumentNullException(nameof(saver));
+        private readonly Gun _gun;
+        private readonly Saver _saver;
+
+        public RackParam(Gun gun, Saver saver)
+        {
+            _gun = gun != null ? gun : throw new ArgumentNullException(nameof(gun));
+            _saver = saver ?? throw new ArgumentNullException(nameof(saver));
+        }
+
+        public Gun Gun => _gun;
+
+        public Saver Saver => _saver;
     }
-
-    public Gun Gun => _gun;
-
-    public Saver Saver => _saver;
 }

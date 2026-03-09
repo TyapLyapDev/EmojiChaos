@@ -1,204 +1,213 @@
-using EmojiChaos.Audio;
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeable
+namespace EmojiChaos.Entities.Car
 {
-    [SerializeField] private CarVisual _visual;
-    [SerializeField] private BoxCollider _selfCollider;
-    [SerializeField] private int _id;
-    [SerializeField] private int _bulletCount;
+    using Audio;
+    using Core.Abstract.Interface;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Entities.Markers;
+    using Entities.Rack;
+    using Game.Mover.CarMovementStrategies;
+    using Utils.Splines.Graph;
 
-    private AudioSource _roar;
-    private ParticleSystem _smoke;
-    private Rack _targetRack;
-    private CarInfo _config;
-    private IMovementStrategy _mover;
-    private List<SplineSegment> _currentPath;
-
-    public event Action<Car> MarkedReplacement;
-
-    public int Id => _id;
-
-    public int BulletCount => _bulletCount;
-
-    public Transform Transform => transform;
-
-    public CarVisual Visual => _visual;
-
-    public Color Color => _config.Color;
-
-    public void MarkReplacement() =>
-        MarkedReplacement?.Invoke(this);
-
-    public void SetId(int id) =>
-        _id = id;
-
-    public void SetBulletCount(int count) => 
-        _bulletCount = count;
-
-    public void Move(float deltaDistance)
+    [RequireComponent(typeof(Collider))]
+    public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeable
     {
-        ValidateInit(nameof(Move));
-        _mover?.Move(deltaDistance);
-    }
+        [SerializeField] private CarVisual _visual;
+        [SerializeField] private BoxCollider _selfCollider;
+        [SerializeField] private int _id;
+        [SerializeField] private int _bulletCount;
 
-    public bool TryReservationSlot(Rack targetRack, int direction)
-    {
-        ValidateInit(nameof(TryReservationSlot));
+        private AudioSource _roar;
+        private ParticleSystem _smoke;
+        private Rack _targetRack;
+        private CarInfo _config;
+        private IMovementStrategy _mover;
+        private List<SplineSegment> _currentPath;
 
-        if (_mover != null)
-            return false;
+        public event Action<Car> MarkedReplacement;
 
-        _targetRack = targetRack;
-        _targetRack.SetReservation();
+        public int Id => _id;
 
-        if (direction < 0)
-            _mover = new CarStraightBackwardMoverStrategy(
-                transform,
-                _selfCollider,
-                OnBackwardObstacleCollision,
-                OnRoadBackwardDetected);
-        else
-            _mover = new CarStraightForwardMoverStrategy(
-                transform,
-                _selfCollider,
-                OnForwardObstacleCollision,
-                OnRoadForwardDetected);
+        public int BulletCount => _bulletCount;
 
-        _roar = Audio.Sfx.PlayCarRoar();
-        EnableSmoke();
+        public Transform Transform => transform;
 
-        return true;
-    }
+        public CarVisual Visual => _visual;
 
-    public void HandleUnavailableStatus() =>
-        _visual.ShowUnavailable();
+        public Color Color => _config.Color;
 
-    public void DisableSmoke()
-    {
-        if (_smoke != null)
-            _smoke.gameObject.SetActive(false);
-    }
+        public void MarkReplacement() =>
+            MarkedReplacement?.Invoke(this);
 
-    public void EnableSmoke()
-    {
-        if (_smoke != null)
-            _smoke.gameObject.SetActive(true);
-    }
+        public void SetId(int id) =>
+            _id = id;
 
-    protected override void OnInitialize(CarInfo config)
-    {
-        _config = config;
+        public void SetBulletCount(int count) =>
+            _bulletCount = count;
 
-        _visual.Initialize();
-        _visual.SetColor(_config.Color);
-
-        _smoke = GetComponentInChildren<ParticleSystem>();
-        DisableSmoke();
-    }
-
-    private void FindPath(Vector3 hitPoint) =>
-        _currentPath = _config.MapSplineNodes.GetPath(hitPoint, _targetRack.GetPosition());
-
-    private void HandleObstacleCollision(Vector3 hitPoint)
-    {
-        _targetRack.ResetReservation();
-        _targetRack = null;
-        _config.ParticleShower.ShowHit(hitPoint);
-        _mover = null;
-        DisableSmoke();
-
-        if (_roar != null)
+        public void Move(float deltaDistance)
         {
-            _roar.Stop();
-            _roar = null;
+            ValidateInit(nameof(Move));
+            _mover?.Move(deltaDistance);
         }
 
-        Audio.Sfx.PlayCarAccident();
-    }
+        public bool TryReservationSlot(Rack targetRack, int direction)
+        {
+            ValidateInit(nameof(TryReservationSlot));
 
-    private void OnForwardObstacleCollision(Vector3 hitPoint)
-    {
-        HandleObstacleCollision(hitPoint);
-        _visual.ShowForwardAccident(OnForwardAccidentCompleted);
-    }
+            if (_mover != null)
+                return false;
 
-    private void OnBackwardObstacleCollision(Vector3 hitPoint)
-    {
-        HandleObstacleCollision(hitPoint);
-        _visual.ShowBackwardAccident(OnBackwardAccidentCompleted);
-    }
+            _targetRack = targetRack;
+            _targetRack.SetReservation();
 
-    private void OnRoadForwardDetected(CarSplineContainer container, Vector3 hitPoint)
-    {
-        FindPath(hitPoint);
-        _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
-    }
+            if (direction < 0)
+                _mover = new CarStraightBackwardMoverStrategy(
+                    transform,
+                    _selfCollider,
+                    OnBackwardObstacleCollision,
+                    OnRoadBackwardDetected);
+            else
+                _mover = new CarStraightForwardMoverStrategy(
+                    transform,
+                    _selfCollider,
+                    OnForwardObstacleCollision,
+                    OnRoadForwardDetected);
 
-    private void OnRoadBackwardDetected(CarSplineContainer container, Vector3 hitPoint)
-    {
-        FindPath(hitPoint);
-        _mover = new CarSplineRollBackMoverStrategy(transform, _currentPath[0], OnSplineRollBackReached);
-    }
+            _roar = Audio.Sfx.PlayCarRoar();
+            EnableSmoke();
 
-    private void OnForwardAccidentCompleted()
-    {
-        _mover = new CarStraightRollForwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
-        _config.SpeedDirector.Register(this);
-    }
+            return true;
+        }
 
-    private void OnBackwardAccidentCompleted()
-    {
-        _mover = new CarStraightRollBackwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
-        _config.SpeedDirector.Register(this);
-    }
+        public void HandleUnavailableStatus() =>
+            _visual.ShowUnavailable();
 
-    private void OnRollBackCompleted() =>
-        _mover = null;
+        public void DisableSmoke()
+        {
+            if (_smoke != null)
+                _smoke.gameObject.SetActive(false);
+        }
 
-    private void OnSplineRollBackReached() =>
-        _mover = new CarForwardToSplineMoverStrategy(transform, _currentPath[0], OnForwardToSplineMovementCompleted);
+        public void EnableSmoke()
+        {
+            if (_smoke != null)
+                _smoke.gameObject.SetActive(true);
+        }
 
-    private void OnForwardToSplineMovementCompleted() =>
-        _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
+        protected override void OnInitialize(CarInfo config)
+        {
+            _config = config;
 
-    private void OnDestinationReached()
-    {
-        if (_targetRack.TryActivateGun(_id, _bulletCount, _config.Color) == false)
-            throw new Exception($"Не удалось активировать пушку для машины {_id}");
+            _visual.Initialize();
+            _visual.SetColor(_config.Color);
 
-        if (_roar != null)
-            _roar.Stop();
+            _smoke = GetComponentInChildren<ParticleSystem>();
+            DisableSmoke();
+        }
 
-        Destroy(gameObject);
-    }
+        private void FindPath(Vector3 hitPoint) =>
+            _currentPath = _config.MapSplineNodes.GetPath(hitPoint, _targetRack.transform.position);
+
+        private void HandleObstacleCollision(Vector3 hitPoint)
+        {
+            _targetRack.ResetReservation();
+            _targetRack = null;
+            _config.ParticleShower.ShowHit(hitPoint);
+            _mover = null;
+            DisableSmoke();
+
+            if (_roar != null)
+            {
+                _roar.Stop();
+                _roar = null;
+            }
+
+            Audio.Sfx.PlayCarAccident();
+        }
+
+        private void OnForwardObstacleCollision(Vector3 hitPoint)
+        {
+            HandleObstacleCollision(hitPoint);
+            _visual.ShowForwardAccident(OnForwardAccidentCompleted);
+        }
+
+        private void OnBackwardObstacleCollision(Vector3 hitPoint)
+        {
+            HandleObstacleCollision(hitPoint);
+            _visual.ShowBackwardAccident(OnBackwardAccidentCompleted);
+        }
+
+        private void OnRoadForwardDetected(CarSplineContainer container, Vector3 hitPoint)
+        {
+            FindPath(hitPoint);
+            _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
+        }
+
+        private void OnRoadBackwardDetected(CarSplineContainer container, Vector3 hitPoint)
+        {
+            FindPath(hitPoint);
+            _mover = new CarSplineRollBackMoverStrategy(transform, _currentPath[0], OnSplineRollBackReached);
+        }
+
+        private void OnForwardAccidentCompleted()
+        {
+            _mover = new CarStraightRollForwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
+            _config.SpeedDirector.Register(this);
+        }
+
+        private void OnBackwardAccidentCompleted()
+        {
+            _mover = new CarStraightRollBackwardMoverStrategy(transform, _selfCollider, OnRollBackCompleted);
+            _config.SpeedDirector.Register(this);
+        }
+
+        private void OnRollBackCompleted() =>
+            _mover = null;
+
+        private void OnSplineRollBackReached() =>
+            _mover = new CarForwardToSplineMoverStrategy(transform, _currentPath[0], OnForwardToSplineMovementCompleted);
+
+        private void OnForwardToSplineMovementCompleted() =>
+            _mover = new CarSplineMoverStrategy(transform, _currentPath, OnDestinationReached);
+
+        private void OnDestinationReached()
+        {
+            if (_targetRack.TryActivateGun(_id, _bulletCount, _config.Color) == false)
+                throw new Exception($"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ {_id}");
+
+            if (_roar != null)
+                _roar.Stop();
+
+            Destroy(gameObject);
+        }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Vector3 position = transform.position + Vector3.up * 0.3f + Vector3.forward * -0.14f;
-        string text = _id.ToString();
-
-        float bgRadius = 0.1f;
-        UnityEditor.Handles.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-        UnityEditor.Handles.DrawSolidDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
-
-        UnityEditor.Handles.color = Color.yellow;
-        UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
-
-        GUIStyle style = new ()
+        private void OnDrawGizmos()
         {
-            fontSize = 12,
-            normal = { textColor = Color.yellow },
-            alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold,
-        };
+            Vector3 position = transform.position + Vector3.up * 0.3f + Vector3.forward * -0.14f;
+            string text = _id.ToString();
 
-        UnityEditor.Handles.Label(position, text, style);
-    }
+            float bgRadius = 0.1f;
+            UnityEditor.Handles.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+            UnityEditor.Handles.DrawSolidDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
+
+            UnityEditor.Handles.color = Color.yellow;
+            UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
+
+            GUIStyle style = new()
+            {
+                fontSize = 12,
+                normal = { textColor = Color.yellow },
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold,
+            };
+
+            UnityEditor.Handles.Label(position, text, style);
+        }
 #endif
+    }
 }

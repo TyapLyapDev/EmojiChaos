@@ -1,5 +1,9 @@
-namespace UI.Shop
+namespace EmojiChaos.UI.ShopContainer
 {
+    using UI.Shop;
+    using Services.Save;
+    using Card;
+
     public class CardSelector
     {
         private readonly Saver _saver;
@@ -11,7 +15,7 @@ namespace UI.Shop
             _tabFactory = tabFactory;
         }
 
-        public void SelectCard(TabPanel tabPanel, Card card)
+        public void SelectCard(TabPanel tabPanel, ShopCard card)
         {
             tabPanel.SelectCard(card);
             _saver.SetShopCards(tabPanel.EntityType, tabPanel.ButtonTypes);
@@ -28,7 +32,7 @@ namespace UI.Shop
         {
             foreach (TabPanel tabPanel in _tabFactory.TabPanels)
             {
-                if (tabPanel.TryGetCard(rewardId, out Card card))
+                if (tabPanel.TryGetCard(rewardId, out ShopCard card))
                 {
                     if (needSelect)
                         SelectCard(tabPanel, card);

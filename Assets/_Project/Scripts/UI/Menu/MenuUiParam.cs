@@ -1,18 +1,24 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 
-public readonly struct MenuUiParam : IParam
+namespace EmojiChaos.UI.Menu
 {
-    private readonly Saver _saver;
-    private readonly SceneLoader _sceneLoader;
+    using Core.Abstract.Interface;
+    using Services.Core;
+    using Services.Save;
 
-    public MenuUiParam(Saver saver, SceneLoader sceneLoader)
+    public readonly struct MenuUiParam : IParam
     {
-        _saver = saver ?? throw new ArgumentNullException(nameof(saver));
-        _sceneLoader = sceneLoader ?? throw new ArgumentNullException(nameof(sceneLoader));
+        private readonly Saver _saver;
+        private readonly SceneLoader _sceneLoader;
+
+        public MenuUiParam(Saver saver, SceneLoader sceneLoader)
+        {
+            _saver = saver ?? throw new ArgumentNullException(nameof(saver));
+            _sceneLoader = sceneLoader ?? throw new ArgumentNullException(nameof(sceneLoader));
+        }
+
+        public Saver Saver => _saver;
+
+        public SceneLoader SceneLoader => _sceneLoader;
     }
-
-    public Saver Saver => _saver;
-
-    public SceneLoader SceneLoader => _sceneLoader;
 }

@@ -1,27 +1,31 @@
 using UnityEngine;
 
-public class CarExplanation : TutorialItem
+namespace EmojiChaos.UI.Tutorial.Explanations
 {
-    [SerializeField] private TutorialCircle _circle;
-    [SerializeField] private float _circleSize = 1;
 
-    protected override void OnActivated()
+    public class CarExplanation : TutorialItem
     {
-        Config.SwipeStrategy.Pause();
-        Config.EnemySpawner.Pause();
-        Config.EnemiesSpeedDirector.Pause();
-        _circle.Show(_circleSize, Config.Car.GetPosition());
-        _circle.AnyClicked += Deactivate;
-        Show();
-    }
+        [SerializeField] private TutorialCircle _circle;
+        [SerializeField] private float _circleSize = 1;
 
-    protected override void OnDeactivated()
-    {
-        _circle.AnyClicked -= Deactivate;
-        Config.SwipeStrategy.Resume();
-        Config.EnemySpawner.Resume();
-        Config.EnemiesSpeedDirector.Resume();
-        _circle.Hide();
-        Hide();
+        protected override void OnActivated ( )
+        {
+            Config.SwipeStrategy.Pause ( );
+            Config.EnemySpawner.Pause ( );
+            Config.EnemiesSpeedDirector.Pause ( );
+            _circle.Show (_circleSize, Config.Car.transform.position);
+            _circle.AnyClicked += Deactivate;
+            Show ( );
+        }
+
+        protected override void OnDeactivated ( )
+        {
+            _circle.AnyClicked -= Deactivate;
+            Config.SwipeStrategy.Resume ( );
+            Config.EnemySpawner.Resume ( );
+            Config.EnemiesSpeedDirector.Resume ( );
+            _circle.Hide ( );
+            Hide ( );
+        }
     }
 }

@@ -1,49 +1,56 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public class PoolBuilder
+namespace EmojiChaos.Services.Core
 {
-    private const string PoolParentName = "Pools";
-    private const string SecondaryPoolSuffix = "Pool";
+    using EmojiChaos.Core;
+    using EmojiChaos.Core.Abstract.Interface;
+    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+    using EmojiChaos.Core.Factory;
 
-    private readonly Transform _registryParent;
-
-    public PoolBuilder()
+    public class PoolBuilder
     {
-        _registryParent = new GameObject(PoolParentName).transform;
-    }
+        private const string PoolParentName = "Pools";
+        private const string SecondaryPoolSuffix = "Pool";
 
-    public Pool<TBehaviour> Build<TBehaviour>(TBehaviour prefab) 
-        where TBehaviour : InitializingBehaviour, IPoolable<TBehaviour>
-    {
-        Factory<TBehaviour> factory = new (prefab);
-        Pool<TBehaviour> pool = Build(factory);
+        private readonly Transform _registryParent;
 
-        return pool;
-    }
+        public PoolBuilder()
+        {
+            _registryParent = new GameObject(PoolParentName).transform;
+        }
 
-    public Pool<TBehaviour> Build<TBehaviour, TConfig>(TBehaviour prefab, TConfig config) 
-        where TBehaviour : InitializingWithConfigBehaviour<TConfig>, IPoolable<TBehaviour>
-        where TConfig : IParam
-    {
-        FactoryWithParam<TBehaviour, TConfig> factory = new (prefab, config);
-        Pool<TBehaviour> pool = Build(factory);
+        public Pool<TBehaviour> Build<TBehaviour>(TBehaviour prefab)
+            where TBehaviour : InitializingBehaviour, IPoolable<TBehaviour>
+        {
+            Factory<TBehaviour> factory = new(prefab);
+            Pool<TBehaviour> pool = Build(factory);
 
-        return pool;
-    }
+            return pool;
+        }
 
-    private Pool<T> Build<T>(IFactory<T> factory) 
-        where T : MonoBehaviour, IPoolable<T>
-    {
-        if (factory == null)
-            throw new ArgumentNullException(nameof(factory));
+        public Pool<TBehaviour> Build<TBehaviour, TConfig>(TBehaviour prefab, TConfig config)
+            where TBehaviour : InitializingWithConfigBehaviour<TConfig>, IPoolable<TBehaviour>
+            where TConfig : IParam
+        {
+            FactoryWithParam<TBehaviour, TConfig> factory = new(prefab, config);
+            Pool<TBehaviour> pool = Build(factory);
 
-        string poolName = $"{typeof(T).Name}{SecondaryPoolSuffix}";
-        Transform poolParent = new GameObject($"{poolName}{SecondaryPoolSuffix}").transform;
-        poolParent.SetParent(_registryParent);
-        Pool<T> pool = new (factory, poolParent);
+            return pool;
+        }
 
-        return pool;
+        private Pool<T> Build<T>(IFactory<T> factory)
+            where T : MonoBehaviour, IPoolable<T>
+        {
+            if (factory == null)
+                throw new ArgumentNullException(nameof(factory));
+
+            string poolName = $"{typeof(T).Name}{SecondaryPoolSuffix}";
+            Transform poolParent = new GameObject($"{poolName}{SecondaryPoolSuffix}").transform;
+            poolParent.SetParent(_registryParent);
+            Pool<T> pool = new(factory, poolParent);
+
+            return pool;
+        }
     }
 }

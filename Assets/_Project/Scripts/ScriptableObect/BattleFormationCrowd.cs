@@ -1,22 +1,27 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable object/Battle formation crowd")]
-public class BattleFormationCrowd : ScriptableObject
+namespace EmojiChaos.ScriptableObect
 {
-    [SerializeField] private SpawnOrderStrategyType _spawnOrder;
+    using Core.Enum;
 
-    [SerializeField][Min(0.01f)] private float _delayLine;
-    [SerializeField][Min(0)] private float _delayRow;
-    [SerializeField][Min(0.01f)] private float _stepOffset;
-    [SerializeField][Min(1)] private int _countLines;
+    [CreateAssetMenu(menuName = "Scriptable object/Battle formation crowd")]
+    public class BattleFormationCrowd : ScriptableObject
+    {
+        [SerializeField] private SpawnOrderStrategyType _spawnOrder;
 
-    public SpawnOrderStrategyType SpawnOrder => _spawnOrder;
+        [SerializeField][Min(0.01f)] private float _delayLine;
+        [SerializeField][Min(0)] private float _delayRow;
+        [SerializeField][Min(0.01f)] private float _stepOffset;
+        [SerializeField][Min(1)] private int _countLines;
 
-    public float DelayLine => _delayLine;
+        public SpawnOrderStrategyType SpawnOrder => _spawnOrder;
 
-    public float DelayRow => _delayRow;
+        public float DelayLine => _delayLine;
 
-    public float StepOffset => _stepOffset;
+        public float DelayRow => _delayRow;
 
-    public int CountLines => _countLines;
+        public float StepOffset => _stepOffset;
+
+        public int CountLines => _countLines;
+    }
 }

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.Entities.RotatibgPlatform
+{
+
 [RequireComponent(typeof(Rigidbody))]
 public class Rotator : MonoBehaviour
 {
@@ -15,4 +18,5 @@ public class Rotator : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(0, _speed * Time.fixedDeltaTime, 0);
         _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
     }
+}
 }

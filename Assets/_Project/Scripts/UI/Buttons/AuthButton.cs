@@ -1,1 +1,6 @@
-public class AuthButton : ButtonClickHandler<AuthButton> { }
+namespace EmojiChaos.UI.Buttons
+{
+    using Core.Abstract.UI;
+
+    public class AuthButton : ButtonClickHandler<AuthButton> { }
+}

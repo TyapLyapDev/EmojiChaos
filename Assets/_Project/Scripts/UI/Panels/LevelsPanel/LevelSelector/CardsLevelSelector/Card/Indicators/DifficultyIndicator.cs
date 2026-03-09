@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
+{
+
 namespace UI.LevelCards
 {
     public class DifficultyIndicator : MonoBehaviour
@@ -15,4 +18,5 @@ namespace UI.LevelCards
                 _images[i].gameObject.SetActive(i < value);
         }
     }
+}
 }

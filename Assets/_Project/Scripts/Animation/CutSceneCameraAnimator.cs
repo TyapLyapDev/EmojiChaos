@@ -1,8 +1,10 @@
-using EmojiChaos.Bootstraps;
 using UnityEngine;
 
 namespace EmojiChaos.Animation
 {
+    using Bootstraps;
+    using Entities.Car;
+
     public class CutSceneCameraAnimator : MonoBehaviour
     {
         [SerializeField] private CutSceneBootstrap _sceneBootstrap;

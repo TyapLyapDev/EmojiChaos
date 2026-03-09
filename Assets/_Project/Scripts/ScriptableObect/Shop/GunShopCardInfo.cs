@@ -1,15 +1,20 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable object/Shop/GunCardInfo")]
-public class GunShopCardInfo : ShopCardInfo
+namespace EmojiChaos.ScriptableObect.Shop
 {
-    [SerializeField] private Gun _prefab;
-    [SerializeField] private float _bulletSpeed;
-    [SerializeField] private float _timeReload;
+    using Entities.Gun;
 
-    public Gun Prefab => _prefab;
+    [CreateAssetMenu(menuName = "Scriptable object/Shop/GunCardInfo")]
+    public class GunShopCardInfo : ShopCardInfo
+    {
+        [SerializeField] private Gun _prefab;
+        [SerializeField] private float _bulletSpeed;
+        [SerializeField] private float _timeReload;
 
-    public float BulletSpeed => _bulletSpeed;
+        public Gun Prefab => _prefab;
 
-    public float TimeReload => _timeReload;
+        public float BulletSpeed => _bulletSpeed;
+
+        public float TimeReload => _timeReload;
+    }
 }

@@ -1,100 +1,106 @@
-using EmojiChaos.Audio;
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
-public class Enemy : InitializingWithConfigBehaviour<EnemyParam>, IPoolable<Enemy>, IHittable
+namespace EmojiChaos.Entities.Enemy
 {
-    [SerializeField] private EnemyVisual _visual;
-    [SerializeField] private Transform _centerBody;
+    using Audio;
+    using Core.Abstract.Interface;
+    using Core.Abstract.MonoBehaviourWrapper;
+    using Game.Mover;
 
-    private EnemyParam _config;
-    private EnemyMover _mover;
-    private int _id;
-    private Color _color;
-
-    public event Action<Enemy> Killed;
-    public event Action<Enemy> Deactivated;
-    public event Action<IHittable> Disappeared;
-
-    public int Type => _id;
-
-    public float SplineDistance => _mover?.CurrentDistance ?? 0f;
-
-    public bool IsActive => GetSafeValue(gameObject.activeInHierarchy);
-
-    public Transform CenterBody => _centerBody;
-
-    public Color Color => _color;
-
-    public float Progress => _mover?.Progress ?? 0f;
-
-    private void OnDestroy()
+    public class Enemy : InitializingWithConfigBehaviour<EnemyParam>, IPoolable<Enemy>, IHittable
     {
-        _visual.DiedCompleted -= OnDiedCompleted;
-        Deactivated?.Invoke(this);
-    }
+        [SerializeField] private EnemyVisual _visual;
+        [SerializeField] private Transform _centerBody;
 
-    public void Activate(int id, float sideOffset, Color color)
-    {
-        ValidateInit(nameof(Activate));
+        private EnemyParam _config;
+        private EnemyMover _mover;
+        private int _id;
+        private Color _color;
 
-        _id = id;
-        _mover.SetSideOffset(sideOffset);
-        _visual.SetColor(color);
-        _visual.ResetDied();
-        _color = color;
-        gameObject.SetActive(true);
-    }
+        public event Action<Enemy> Killed;
+        public event Action<Enemy> Deactivated;
+        public event Action<IHittable> Disappeared;
 
-    public void Deactivate()
-    {
-        ValidateInit(nameof(Deactivate));
+        public int Type => _id;
 
-        _mover.Reset();
-        gameObject.SetActive(false);
-        Disappeared?.Invoke(this);
-        Deactivated?.Invoke(this);
-    }
+        public float SplineDistance => _mover?.CurrentDistance ?? 0f;
 
-    public void Move(float deltaSpeed)
-    {
-        ValidateInit(nameof(Move));
+        public bool IsActive => GetSafeValue(gameObject.activeInHierarchy);
 
-        _mover?.Move(deltaSpeed);
-    }
+        public Transform CenterBody => _centerBody;
 
-    public void Scare()
-    {
-        _visual.SetFear();
-    }
+        public Color Color => _color;
 
-    public void Kill()
-    {
-        ValidateInit(nameof(Kill));
+        public float Progress => _mover?.Progress ?? 0f;
 
-        if (IsActive == false)
-            throw new InvalidOperationException($"Объект неактивен");
+        private void OnDestroy()
+        {
+            _visual.DiedCompleted -= OnDiedCompleted;
+            Deactivated?.Invoke(this);
+        }
 
-        _visual.SetDied();
-        Killed?.Invoke(this);
+        public void Activate(int id, float sideOffset, Color color)
+        {
+            ValidateInit(nameof(Activate));
 
-        Audio.Sfx.PlayEnemyHit();
-    }
+            _id = id;
+            _mover.SetSideOffset(sideOffset);
+            _visual.SetColor(color);
+            _visual.ResetDied();
+            _color = color;
+            gameObject.SetActive(true);
+        }
 
-    protected override void OnInitialize(EnemyParam config)
-    {
-        _config = config;
+        public void Deactivate()
+        {
+            ValidateInit(nameof(Deactivate));
 
-        _visual.Initialize();
-        _mover = new (_config.SplineContainer, transform);
+            _mover.Reset();
+            gameObject.SetActive(false);
+            Disappeared?.Invoke(this);
+            Deactivated?.Invoke(this);
+        }
 
-        _visual.DiedCompleted += OnDiedCompleted;
-    }
+        public void Move(float deltaSpeed)
+        {
+            ValidateInit(nameof(Move));
 
-    private void OnDiedCompleted()
-    {
-        _config.ParticleShower.ShowBlood(_centerBody.position, _centerBody.rotation, _color);
-        Deactivate();
+            _mover?.Move(deltaSpeed);
+        }
+
+        public void Scare()
+        {
+            _visual.SetFear();
+        }
+
+        public void Kill()
+        {
+            ValidateInit(nameof(Kill));
+
+            if (IsActive == false)
+                throw new InvalidOperationException($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+
+            _visual.SetDied();
+            Killed?.Invoke(this);
+
+            Audio.Sfx.PlayEnemyHit();
+        }
+
+        protected override void OnInitialize(EnemyParam config)
+        {
+            _config = config;
+
+            _visual.Initialize();
+            _mover = new(_config.SplineContainer, transform);
+
+            _visual.DiedCompleted += OnDiedCompleted;
+        }
+
+        private void OnDiedCompleted()
+        {
+            _config.ParticleShower.ShowBlood(_centerBody.position, _centerBody.rotation, _color);
+            Deactivate();
+        }
     }
 }

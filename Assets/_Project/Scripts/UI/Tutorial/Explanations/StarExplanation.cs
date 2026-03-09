@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.UI.Tutorial.Explanations
+{
+
 public class StarExplanation : TutorialItem
 {
     [SerializeField] private TutorialCircle _circle;
@@ -24,4 +27,5 @@ public class StarExplanation : TutorialItem
         _circle.Hide();
         Hide();
     }
+}
 }

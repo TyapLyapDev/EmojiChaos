@@ -1,27 +1,33 @@
 using System.Collections;
 using UnityEngine;
 
-public class SportCarMovementParticle : MonoBehaviour
+namespace EmojiChaos.Particles
 {
-    [SerializeField] private SimpleRepainter[] _repainters;
-    [SerializeField] private Car _car;
+    using Core.Repainters;
+    using Entities.Car;
 
-    private void Awake()
+    public class SportCarMovementParticle : MonoBehaviour
     {
-        foreach (var repainter in _repainters)
-            repainter.Initialize();
-    }
+        [SerializeField] private SimpleRepainter[] _repainters;
+        [SerializeField] private Car _car;
 
-    private IEnumerator Start()
-    {
-        yield return null;
+        private void Awake()
+        {
+            foreach (var repainter in _repainters)
+                repainter.Initialize();
+        }
 
-        SetColor(_car.Color);
-    }
+        private IEnumerator Start()
+        {
+            yield return null;
 
-    private void SetColor(Color color)
-    {
-        foreach (var repainter in _repainters)
-            repainter.SetColor(color);
+            SetColor(_car.Color);
+        }
+
+        private void SetColor(Color color)
+        {
+            foreach (var repainter in _repainters)
+                repainter.SetColor(color);
+        }
     }
 }

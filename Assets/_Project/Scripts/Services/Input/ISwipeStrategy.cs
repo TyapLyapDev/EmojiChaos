@@ -1,6 +1,9 @@
 using EmojiChaos.Core.Abstract.Interface;
 using System;
 
+namespace EmojiChaos.Services.Input
+{
+
 public interface ISwipeStrategy : IDisposable
 {
     event Action<ISwipeable, int> HasSwipe;
@@ -8,4 +11,5 @@ public interface ISwipeStrategy : IDisposable
     void Pause();
 
     void Resume();
+}
 }

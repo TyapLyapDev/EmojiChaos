@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace EmojiChaos.Utils.Splines
+{
+
 public class SideOffsetHandler
 {
     private const float InterpolationDuration = 0.5f;
@@ -48,4 +51,5 @@ public class SideOffsetHandler
         _startOffset = _targetOffset;
         _isInterpolationActive = false;
     }
+}
 }
