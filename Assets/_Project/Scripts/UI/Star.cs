@@ -9,7 +9,7 @@ namespace EmojiChaos.UI
         [SerializeField] private Color _openColor;
         [SerializeField] private Color _closedColor;
 
-        public void SetStatus (bool isOpen) =>
+        public void SetStatus(bool isOpen) =>
             _icon.color = isOpen ? _openColor : _closedColor;
     }
 }

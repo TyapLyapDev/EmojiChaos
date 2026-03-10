@@ -11,7 +11,7 @@ namespace EmojiChaos.UI.ShopContainer
 
     public class TabPanel : MonoBehaviour
     {
-        private readonly List<ShopCard> _cards = new();
+        private readonly List<ShopCard> _cards = new ();
 
         [SerializeField] private Transform _content;
         [SerializeField] private ShopCard _prefab;

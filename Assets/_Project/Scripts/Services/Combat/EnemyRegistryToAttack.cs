@@ -9,7 +9,7 @@ namespace EmojiChaos.Services.Combat
 
     public class EnemyRegistryToAttack : IDisposable
     {
-        private readonly Dictionary<int, List<Enemy>> _availableEnemiesByType = new();
+        private readonly Dictionary<int, List<Enemy>> _availableEnemiesByType = new ();
         private readonly EnemySpawner _spawner;
 
         public EnemyRegistryToAttack(EnemySpawner enemySpawner)
@@ -73,12 +73,12 @@ namespace EmojiChaos.Services.Combat
                 throw new ArgumentNullException(nameof(enemy));
 
             if (enemy.IsActive == false)
-                throw new InvalidOperationException($"{nameof(enemy)} ������ ���� �������� ��� �����������");
+                throw new InvalidOperationException($"{nameof(enemy)} Accessing an inactive object");
 
             List<Enemy> enemies = GetOrCreateEnemiesList(enemy.Type);
 
             if (enemies.Contains(enemy))
-                throw new InvalidOperationException($"{nameof(enemy)} ��� ��� ���������������");
+                throw new InvalidOperationException($"{nameof(enemy)} Not found in the list");
 
             enemies.Add(enemy);
             enemy.Deactivated += OnEnemyDeactivated;
@@ -103,7 +103,7 @@ namespace EmojiChaos.Services.Combat
         {
             if (_availableEnemiesByType.TryGetValue(enemyType, out List<Enemy> enemies) == false)
             {
-                enemies = new();
+                enemies = new ();
                 _availableEnemiesByType[enemyType] = enemies;
             }
 

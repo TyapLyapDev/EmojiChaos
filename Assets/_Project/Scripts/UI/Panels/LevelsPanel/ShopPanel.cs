@@ -7,7 +7,6 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
     using Services.Save;
     using ShopContainer;
     using ShopContainer.Card;
-    using ShopContainer.UI.Shop;
 
     public class ShopPanel : PanelBase
     {

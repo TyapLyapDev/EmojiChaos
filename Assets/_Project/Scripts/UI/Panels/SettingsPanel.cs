@@ -5,12 +5,12 @@ using UnityEngine.Audio;
 namespace EmojiChaos.UI.Panels
 {
     using Audio;
+    using Buttons;
     using Core.Abstract.UI;
     using Lang;
-    using Buttons;
-    using Sliders;
     using Services.Core;
     using Services.Save;
+    using Sliders;
     using Utils.Static;
 
     public class SettingsPanel : PanelBase

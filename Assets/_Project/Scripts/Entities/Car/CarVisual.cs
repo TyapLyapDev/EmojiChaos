@@ -1,9 +1,9 @@
-using EmojiChaos.Animation;
 using System;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Car
 {
+    using Animation;
     using Core.Abstract.MonoBehaviourWrapper;
     using Core.Repainters;
 

@@ -67,10 +67,10 @@ namespace EmojiChaos.Services.Save
         public void SetSelectedLevel(int level)
         {
             if (Data.SelectedLevel < 0)
-                throw new ArgumentOutOfRangeException(nameof(Data.SelectedLevel), level, "��������� ������� �� ����� ���� ������ ����");
+                throw new ArgumentOutOfRangeException(nameof(Data.SelectedLevel), level, "The value must be positive");
 
             if (level > Data.LevelProgress)
-                throw new ArgumentOutOfRangeException(nameof(SelectedLevel), level, "��������� ������� �� ����� ���� ������ ����������� ���������");
+                throw new ArgumentOutOfRangeException(nameof(SelectedLevel), level, "The level index was higher than the progress");
 
             Data.SelectedLevel = level;
         }
@@ -123,7 +123,7 @@ namespace EmojiChaos.Services.Save
 
                 if (existingData == null)
                 {
-                    ShopData shopData = new()
+                    ShopData shopData = new ()
                     {
                         EntityType = info.EntityType,
                         ButtonTypes = newButtonTypes,
@@ -187,7 +187,7 @@ namespace EmojiChaos.Services.Save
             Data.SelectedLevel = 0;
             Data.LevelProgress = 0;
             Data.Score = 0;
-            Data.ShopDatas = new();
+            Data.ShopDatas = new ();
 
             foreach (LevelDataInfo level in Data.Levels)
                 level.CountStars = 0;

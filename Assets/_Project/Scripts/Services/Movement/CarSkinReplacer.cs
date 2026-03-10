@@ -5,15 +5,14 @@ using UnityEngine;
 namespace EmojiChaos.Services.Movement
 {
     using Data;
-    using Entities.Enemy;
+    using EmojiChaos.UI.ShopContainer.Card.Enum;
     using Entities.Car;
     using Entities.Car.Types;
     using ScriptableObect.Shop;
-    using EmojiChaos.UI.ShopContainer.Card.Enum;
 
     public class CarSkinReplacer : MonoBehaviour
     {
-        private readonly List<Car> _cars = new();
+        private readonly List<Car> _cars = new ();
 
         [SerializeField] private ShopCardInfos _carInfos;
 

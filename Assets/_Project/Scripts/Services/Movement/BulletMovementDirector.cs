@@ -12,13 +12,13 @@ namespace EmojiChaos.Services.Movement
     {
         private readonly float _speed;
 
-        private readonly List<Bullet> _bullets = new();
-        private readonly CompositeDisposable _disposables = new();
+        private readonly List<Bullet> _bullets = new ();
+        private readonly CompositeDisposable _disposables = new ();
 
         public BulletMovementDirector(float speed)
         {
             if (speed <= 0)
-                throw new ArgumentOutOfRangeException(nameof(speed), speed, "�������� ������ ���� ������ ����");
+                throw new ArgumentOutOfRangeException(nameof(speed), speed, "The value must be greater than zero");
 
             _speed = speed;
         }
@@ -49,7 +49,7 @@ namespace EmojiChaos.Services.Movement
                 throw new ArgumentNullException(nameof(bullet));
 
             if (_bullets.Contains(bullet))
-                throw new InvalidOperationException($"{nameof(RegisterBullet)} ������� ��������� ����������� ����");
+                throw new InvalidOperationException($"{nameof(RegisterBullet)} Attempt to re-register a bullet");
 
             _bullets.Add(bullet);
             bullet.Deactivated += OnBulletDeactivated;

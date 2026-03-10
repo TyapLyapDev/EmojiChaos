@@ -23,6 +23,7 @@ namespace EmojiChaos.Bootstraps
                 new Saver(Utils.CalculateLevelCountInProject()),
                 SceneLoader.Instance));
 
+            Audio.Music.UnPause();
             Audio.Music.PlayMenu();
         }
     }

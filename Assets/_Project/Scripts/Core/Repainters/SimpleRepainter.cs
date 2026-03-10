@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EmojiChaos.Core.Repainters
 {
-    using Core.Abstract;
+    using Abstract;
 
     public class SimpleRepainter : BaseRepainter
     {

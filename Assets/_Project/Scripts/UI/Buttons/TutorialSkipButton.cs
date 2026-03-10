@@ -9,13 +9,13 @@ namespace EmojiChaos.UI.Buttons
     {
         [SerializeField] private Tutorial _tutorial;
 
-        private void Awake ( ) =>
-            Initialize ( );
+        private void Awake() =>
+            Initialize();
 
-        protected override void OnClick ( )
+        protected override void OnClick()
         {
-            base.OnClick ( );
-            _tutorial.Complete ( );
+            base.OnClick();
+            _tutorial.Complete();
         }
     }
 }

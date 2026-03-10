@@ -2,8 +2,8 @@ using System;
 
 namespace EmojiChaos.Particles
 {
-    using EmojiChaos.Core.Abstract;
-    using EmojiChaos.Core.Abstract.Interface;
+    using Core.Abstract;
+    using Core.Abstract.Interface;
 
     public class SmokeParticle : OneShotParticle, IPoolable<SmokeParticle>
     {

@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
 {
-
-namespace UI.LevelCards
-{
     public class LockIndicator : MonoBehaviour
     {
         [SerializeField] private Image _image;
@@ -15,5 +12,4 @@ namespace UI.LevelCards
         internal void SetLockStatus(bool isLock) =>
             _image.sprite = isLock ? _closed : _open;
     }
-}
 }

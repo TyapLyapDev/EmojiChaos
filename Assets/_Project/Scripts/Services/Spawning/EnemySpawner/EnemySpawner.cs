@@ -13,8 +13,8 @@ namespace EmojiChaos.Services.Spawning.EnemySpawner
     {
         private readonly Pool<Enemy> _pool;
         private readonly TypeColorRandomizer _colorRandomizer;
-        private readonly EnemyFormationCalculator _formationCalculator = new();
-        private readonly SpawnStrategyRegistry _spawnStrategy = new();
+        private readonly EnemyFormationCalculator _formationCalculator = new ();
+        private readonly SpawnStrategyRegistry _spawnStrategy = new ();
         private readonly float _gameSpeed;
         private bool _isPause;
 

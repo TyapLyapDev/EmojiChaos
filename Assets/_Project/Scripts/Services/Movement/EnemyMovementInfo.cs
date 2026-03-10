@@ -7,7 +7,7 @@ namespace EmojiChaos.Services.Movement
         private readonly Enemy _enemy;
         private float _distance;
 
-        public EnemyMovementInfo (Enemy enemy, float distance)
+        public EnemyMovementInfo(Enemy enemy, float distance)
         {
             _enemy = enemy;
             _distance = distance;
@@ -17,7 +17,7 @@ namespace EmojiChaos.Services.Movement
 
         public float Distance => _distance;
 
-        public void SetDistance (float distance) =>
+        public void SetDistance(float distance) =>
             _distance = distance;
     }
 }

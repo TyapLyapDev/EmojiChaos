@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
 {
-
-namespace UI.LevelCards
-{
     public class StarsIndiator : MonoBehaviour
     {
         [SerializeField] private Star[] _stars;
@@ -17,5 +14,4 @@ namespace UI.LevelCards
                 _stars[i].SetStatus(i < count);
         }
     }
-}
 }

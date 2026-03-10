@@ -3,62 +3,61 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Leaderboard
 {
-
-public class AvatarImage : MonoBehaviour
-{
-    [SerializeField] private Image _image;
-
-    private string _uniqueId;
-
-    private void OnEnable()
+    public class AvatarImage : MonoBehaviour
     {
-        if (LeaderboardYGMediator.Instance != null)
-            LeaderboardYGMediator.Instance.AvatarLoaded += OnLoadedAvatar;
+        [SerializeField] private Image _image;
 
-        UpdateTexture();
-    }
+        private string _uniqueId;
 
-    private void OnDisable()
-    {
-        if (LeaderboardYGMediator.Instance != null)
-            LeaderboardYGMediator.Instance.AvatarLoaded -= OnLoadedAvatar;
-    }
-
-    public void Activate(string uniqueId)
-    {
-        if (uniqueId == _uniqueId)
-            return;
-
-        _uniqueId = uniqueId;
-        UpdateTexture();
-    }
-
-    public void Deactivate()
-    {
-        _uniqueId = string.Empty;
-        _image.sprite = null;
-    }
-
-    private void UpdateTexture()
-    {
-        if (LeaderboardYGMediator.Instance == null)
-            return;
-
-        if (string.IsNullOrEmpty(_uniqueId) || _uniqueId == "null")
+        private void OnEnable()
         {
-            _image.sprite = null;
+            if (LeaderboardYGMediator.Instance != null)
+                LeaderboardYGMediator.Instance.AvatarLoaded += OnLoadedAvatar;
 
-            return;
+            UpdateTexture();
         }
 
-        if (LeaderboardYGMediator.Instance.TryGetAvatar(_uniqueId, out AvatarInfo avatarInfo))
-            _image.sprite = avatarInfo.Sprite;
-    }
+        private void OnDisable()
+        {
+            if (LeaderboardYGMediator.Instance != null)
+                LeaderboardYGMediator.Instance.AvatarLoaded -= OnLoadedAvatar;
+        }
 
-    private void OnLoadedAvatar(AvatarInfo info)
-    {
-        if (_uniqueId == info.UniqueId)
+        public void Activate(string uniqueId)
+        {
+            if (uniqueId == _uniqueId)
+                return;
+
+            _uniqueId = uniqueId;
             UpdateTexture();
+        }
+
+        public void Deactivate()
+        {
+            _uniqueId = string.Empty;
+            _image.sprite = null;
+        }
+
+        private void UpdateTexture()
+        {
+            if (LeaderboardYGMediator.Instance == null)
+                return;
+
+            if (string.IsNullOrEmpty(_uniqueId) || _uniqueId == "null")
+            {
+                _image.sprite = null;
+
+                return;
+            }
+
+            if (LeaderboardYGMediator.Instance.TryGetAvatar(_uniqueId, out AvatarInfo avatarInfo))
+                _image.sprite = avatarInfo.Sprite;
+        }
+
+        private void OnLoadedAvatar(AvatarInfo info)
+        {
+            if (_uniqueId == info.UniqueId)
+                UpdateTexture();
+        }
     }
-}
 }

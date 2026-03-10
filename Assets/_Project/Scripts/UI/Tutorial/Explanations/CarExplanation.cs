@@ -2,30 +2,29 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Tutorial.Explanations
 {
-
     public class CarExplanation : TutorialItem
     {
         [SerializeField] private TutorialCircle _circle;
         [SerializeField] private float _circleSize = 1;
 
-        protected override void OnActivated ( )
+        protected override void OnActivated()
         {
-            Config.SwipeStrategy.Pause ( );
-            Config.EnemySpawner.Pause ( );
-            Config.EnemiesSpeedDirector.Pause ( );
-            _circle.Show (_circleSize, Config.Car.transform.position);
+            Config.SwipeStrategy.Pause();
+            Config.EnemySpawner.Pause();
+            Config.EnemiesSpeedDirector.Pause();
+            _circle.Show(_circleSize, Config.Car.transform.position);
             _circle.AnyClicked += Deactivate;
-            Show ( );
+            Show();
         }
 
-        protected override void OnDeactivated ( )
+        protected override void OnDeactivated()
         {
             _circle.AnyClicked -= Deactivate;
-            Config.SwipeStrategy.Resume ( );
-            Config.EnemySpawner.Resume ( );
-            Config.EnemiesSpeedDirector.Resume ( );
-            _circle.Hide ( );
-            Hide ( );
+            Config.SwipeStrategy.Resume();
+            Config.EnemySpawner.Resume();
+            Config.EnemiesSpeedDirector.Resume();
+            _circle.Hide();
+            Hide();
         }
     }
 }

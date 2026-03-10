@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EmojiChaos.Core.Repainters
 {
-    using EmojiChaos.Core.Abstract;
+    using Abstract;
 
     public class AlphaMaskTextureReplacer : BaseRepainter
     {

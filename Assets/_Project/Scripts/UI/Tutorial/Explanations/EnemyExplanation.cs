@@ -12,44 +12,44 @@ namespace EmojiChaos.UI.Tutorial.Explanations
 
         private Enemy _enemy;
 
-        protected override void OnInitialized ( )
+        protected override void OnInitialized()
         {
-            base.OnInitialized ( );
+            base.OnInitialized();
 
             Config.EnemySpawner.Spawned += OnEnemySpawned;
         }
 
-        protected override void OnActivated ( )
+        protected override void OnActivated()
         {
-            Config.SwipeStrategy.Pause ( );
-            Invoke (nameof (HandleActivation), _delay);
+            Config.SwipeStrategy.Pause();
+            Invoke(nameof(HandleActivation), _delay);
         }
 
-        protected override void OnDeactivated ( )
+        protected override void OnDeactivated()
         {
             Config.EnemySpawner.Spawned -= OnEnemySpawned;
             _circle.AnyClicked -= Deactivate;
 
-            Config.EnemySpawner.Resume ( );
-            Config.EnemiesSpeedDirector.Resume ( );
-            Config.SwipeStrategy.Resume ( );
-            _circle.Hide ( );
-            Hide ( );
+            Config.EnemySpawner.Resume();
+            Config.EnemiesSpeedDirector.Resume();
+            Config.SwipeStrategy.Resume();
+            _circle.Hide();
+            Hide();
         }
 
-        private void HandleActivation ( )
+        private void HandleActivation()
         {
             if (IsActivated == false)
                 return;
 
             _circle.AnyClicked += Deactivate;
-            Config.EnemySpawner.Pause ( );
-            Config.EnemiesSpeedDirector.Pause ( );
-            _circle.Show (_circleSize, _enemy.CenterBody.position);
-            Show ( );
+            Config.EnemySpawner.Pause();
+            Config.EnemiesSpeedDirector.Pause();
+            _circle.Show(_circleSize, _enemy.CenterBody.position);
+            Show();
         }
 
-        private void OnEnemySpawned (Enemy enemy)
+        private void OnEnemySpawned(Enemy enemy)
         {
             if (IsActivated == false)
                 return;

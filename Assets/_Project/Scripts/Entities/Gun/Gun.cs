@@ -5,9 +5,9 @@ using DG.Tweening;
 namespace EmojiChaos.Entities.Gun
 {
     using Audio;
+    using Bullet;
     using Core.Abstract.Interface;
     using Core.Abstract.MonoBehaviourWrapper;
-    using Entities.Bullet;
     using Services.Core;
 
     public class Gun : InitializingWithConfigBehaviour<GunParam>
@@ -39,7 +39,7 @@ namespace EmojiChaos.Entities.Gun
             ValidateInit(nameof(Activate));
 
             if (bulletCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(bulletCount), "�������� ������ ���� ������ ����");
+                throw new ArgumentOutOfRangeException(nameof(bulletCount));
 
             _id = carType;
             _deactivateTween?.Kill();
@@ -111,7 +111,7 @@ namespace EmojiChaos.Entities.Gun
             UnityEditor.Handles.color = Color.yellow;
             UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
 
-            GUIStyle style = new()
+            GUIStyle style = new ()
             {
                 fontSize = 12,
                 normal = { textColor = Color.yellow },

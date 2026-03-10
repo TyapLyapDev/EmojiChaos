@@ -2,7 +2,7 @@ using System;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Services.Movement;
+    using Movement;
 
     public class DefeatHandler : IDisposable
     {

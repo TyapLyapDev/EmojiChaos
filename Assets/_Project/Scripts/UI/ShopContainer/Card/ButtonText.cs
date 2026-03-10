@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 namespace EmojiChaos.UI.ShopContainer.Card
 {
@@ -12,27 +12,27 @@ namespace EmojiChaos.UI.ShopContainer.Card
 
         private LanguageTextsSet _textsSet;
 
-        private void OnEnable ( )
+        private void OnEnable()
         {
             YandexGameConnector.LangSwitched += OnSwitchLanguage;
-            OnSwitchLanguage (YandexGameConnector.Lang);
+            OnSwitchLanguage(YandexGameConnector.Lang);
         }
 
-        private void OnDisable ( ) =>
+        private void OnDisable() =>
             YandexGameConnector.LangSwitched -= OnSwitchLanguage;
 
-        public void SetText (LanguageTextsSet textsSet)
+        public void SetText(LanguageTextsSet textsSet)
         {
             _textsSet = textsSet;
-            OnSwitchLanguage (YandexGameConnector.Lang);
+            OnSwitchLanguage(YandexGameConnector.Lang);
         }
 
-        private void OnSwitchLanguage (string lang)
+        private void OnSwitchLanguage(string lang)
         {
             if (_textsSet == null)
                 return;
 
-            LangParams langParams = _textsSet.GetByLang (lang);
+            LangParams langParams = _textsSet.GetByLang(lang);
             _text.font = langParams.Font;
             _text.fontMaterial = langParams.Preset;
             _text.text = langParams.Text;

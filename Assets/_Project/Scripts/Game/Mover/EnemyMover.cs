@@ -27,7 +27,7 @@ namespace EmojiChaos.Game.Mover
 
             _transform = transform;
             _offsetCalculator = new(splineContainer);
-            _sideOffsetHandler = new();
+            _sideOffsetHandler = new ();
             _cachedSplineLength = _offsetCalculator.SplineLength;
 
             Reset();

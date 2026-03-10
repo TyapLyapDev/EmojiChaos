@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Containers.ScrollContainer
 {
-
-namespace UI.CustomScrollContainer
-{
     public class ScrollNavigator
     {
         private readonly ScrollRect _scroll;
@@ -52,5 +49,4 @@ namespace UI.CustomScrollContainer
             return normalized;
         }
     }
-}
 }

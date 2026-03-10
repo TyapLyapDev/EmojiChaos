@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace EmojiChaos.Lang
 {
+    using System.Collections.Generic;
     using Core.Abstract.MonoBehaviourWrapper;
     using UI.Buttons;
     using Utils.Static;
+    using static Unity.VisualScripting.Icons;
 
     public class LanguageSwitcher : InitializingBehaviour
     {
@@ -38,7 +40,7 @@ namespace EmojiChaos.Lang
             string currentLanguage = YandexGameConnector.Lang;
 
             if (_languages.Contains(currentLanguage) == false)
-                throw new Exception($"���� {currentLanguage} ����������� � ������ ���������");
+                throw new Exception($"The current language { currentLanguage} is not in the list");
 
             return Array.IndexOf(_languages, currentLanguage);
         }

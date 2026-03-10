@@ -4,12 +4,11 @@ using UnityEngine.EventSystems;
 
 namespace EmojiChaos.UI.Tutorial
 {
+    public class TutorialPanelClickHandler : MonoBehaviour, IPointerClickHandler
+    {
+        public event Action Clicked;
 
-public class TutorialPanelClickHandler : MonoBehaviour, IPointerClickHandler
-{
-    public event Action Clicked;
-
-    public void OnPointerClick(PointerEventData eventData) =>
-        Clicked?.Invoke();
-}
+        public void OnPointerClick(PointerEventData eventData) =>
+            Clicked?.Invoke();
+    }
 }

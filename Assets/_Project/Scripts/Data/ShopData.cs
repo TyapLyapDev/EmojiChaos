@@ -9,6 +9,6 @@ namespace EmojiChaos.Data
     public class ShopData
     {
         public ShopEntityItemType EntityType;
-        public List<ShopCardItemButtonType> ButtonTypes = new();
+        public List<ShopCardItemButtonType> ButtonTypes = new ();
     }
 }

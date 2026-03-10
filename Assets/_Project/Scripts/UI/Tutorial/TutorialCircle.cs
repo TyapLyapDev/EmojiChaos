@@ -7,7 +7,6 @@ namespace EmojiChaos.UI.Tutorial
 {
     using Core.Abstract.MonoBehaviourWrapper;
     using EmojiChaos.Utils.Static;
-    using Services.Core;
 
     [RequireComponent(typeof(Mask))]
     public class TutorialCircle : InitializingBehaviour, IPointerClickHandler
@@ -21,7 +20,7 @@ namespace EmojiChaos.UI.Tutorial
         private Vector2 _initialSize;
         private Camera _camera;
 
-    public event Action AnyClicked;
+        public event Action AnyClicked;
         public event Action CircleClicked;
         public event Action PanelClicked;
 

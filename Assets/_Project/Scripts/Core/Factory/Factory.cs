@@ -1,7 +1,7 @@
 namespace EmojiChaos.Core.Factory
 {
-    using EmojiChaos.Core.Abstract;
-    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+    using Abstract;
+    using Abstract.MonoBehaviourWrapper;
 
     public class Factory<TBehaviour>
         : BaseFactory<TBehaviour> where TBehaviour : InitializingBehaviour

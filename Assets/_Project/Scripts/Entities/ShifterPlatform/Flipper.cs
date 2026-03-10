@@ -4,50 +4,49 @@ using UnityEngine;
 
 namespace EmojiChaos.Entities.ShifterPlatform
 {
-
-public class Flipper : MonoBehaviour
-{
-    private const float AngleStep = 180;
-
-    [SerializeField] private float _speed;
-    [SerializeField] private Vector3 _axis;
-
-    private Transform _transform;
-    private Coroutine _coroutine;
-    private float _currentAngle;
-
-    public event Action Flipped;
-
-    private void Awake() =>
-        _transform = transform;
-
-    public void Flip() =>
-        _coroutine ??= StartCoroutine(FlipRoutine());
-
-    private IEnumerator FlipRoutine()
+    public class Flipper : MonoBehaviour
     {
-        _currentAngle = 0;
+        private const float AngleStep = 180;
 
-        while (_currentAngle < AngleStep)
+        [SerializeField] private float _speed;
+        [SerializeField] private Vector3 _axis;
+
+        private Transform _transform;
+        private Coroutine _coroutine;
+        private float _currentAngle;
+
+        public event Action Flipped;
+
+        private void Awake() =>
+            _transform = transform;
+
+        public void Flip() =>
+            _coroutine ??= StartCoroutine(FlipRoutine());
+
+        private IEnumerator FlipRoutine()
         {
-            Rotate();
+            _currentAngle = 0;
 
-            yield return null;
+            while (_currentAngle < AngleStep)
+            {
+                Rotate();
+
+                yield return null;
+            }
+
+            _coroutine = null;
+            Flipped?.Invoke();
         }
 
-        _coroutine = null;
-        Flipped?.Invoke();
+        private void Rotate()
+        {
+            float rotationThisFrame = _speed * Time.deltaTime;
+
+            if (_currentAngle + rotationThisFrame > AngleStep)
+                rotationThisFrame = AngleStep - _currentAngle;
+
+            _transform.Rotate(_axis, rotationThisFrame, Space.World);
+            _currentAngle += rotationThisFrame;
+        }
     }
-
-    private void Rotate()
-    {
-        float rotationThisFrame = _speed * Time.deltaTime;
-
-        if (_currentAngle + rotationThisFrame > AngleStep)
-            rotationThisFrame = AngleStep - _currentAngle;
-
-        _transform.Rotate(_axis, rotationThisFrame, Space.World);
-        _currentAngle += rotationThisFrame;
-    }
-}
 }

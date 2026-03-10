@@ -5,8 +5,8 @@ namespace EmojiChaos.Services.Core
 {
     public class ServicesRegistry
     {
-        private readonly Dictionary<Type, object> _services = new();
-        private readonly List<IDisposable> _disposables = new();
+        private readonly Dictionary<Type, object> _services = new ();
+        private readonly List<IDisposable> _disposables = new ();
 
         public void Add<T>(T service)
             where T : class

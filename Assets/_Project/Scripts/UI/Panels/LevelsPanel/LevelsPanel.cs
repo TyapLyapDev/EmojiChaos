@@ -10,14 +10,14 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
     using Data;
     using LevelSelector;
     using LevelSelector.CardsLevelSelector;
-    using LevelSelector.CardsLevelSelector.Card.UI.LevelCards;
+    using LevelSelector.CardsLevelSelector.Card;
     using LevelSelector.MiniCellsLevelSelector;
-    using LevelSelector.MiniCellsLevelSelector.MiniCell.UI.CustomMiniCellsLevelSelector;
+    using LevelSelector.MiniCellsLevelSelector.MiniCell;
     using Services.Level;
 
     public class LevelsPanel : PanelBase
     {
-        private readonly LevelFinder _levelFinder = new();
+        private readonly LevelFinder _levelFinder = new ();
 
         [SerializeField] private MiniCellsLevelSelector _levelBoxContainer;
         [SerializeField] private CardsLevelSelector _cardsLevelSelector;
@@ -44,7 +44,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
             _levelProgress = levelProgress;
 
             IReadOnlyList<Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
-            List<LevelInfo> levelInfos = new();
+            List<LevelInfo> levelInfos = new ();
 
             for (int i = 0; i < levelPrefabs.Count; i++)
             {
@@ -74,7 +74,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
             _levelBoxContainer.Init(levelInfos.Cast<IMiniCellInfo>().ToList());
             _cardsLevelSelector.Init(levelInfos.Cast<ICardInfo>().ToList());
 
-            _selectors = new()
+            _selectors = new ()
         {
             _cardsLevelSelector,
             _levelBoxContainer,

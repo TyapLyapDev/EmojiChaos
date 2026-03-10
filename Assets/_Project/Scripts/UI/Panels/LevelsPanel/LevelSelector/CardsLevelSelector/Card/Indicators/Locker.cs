@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
 {
-
-namespace UI.LevelCards
-{
     public class Locker : MonoBehaviour
     {
         [SerializeField] private GameObject[] _lockObjects;
@@ -23,5 +20,4 @@ namespace UI.LevelCards
                 obj.SetActive(IsLock == false);
         }
     }
-}
 }

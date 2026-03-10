@@ -5,7 +5,6 @@ namespace EmojiChaos.UI.ShopContainer.Card
     using Core.Abstract.UI;
     using Enum;
     using ScriptableObect.Shop;
-    using UI.Shop;
 
     public class ShopCard : ButtonClickHandler<ShopCard>
     {

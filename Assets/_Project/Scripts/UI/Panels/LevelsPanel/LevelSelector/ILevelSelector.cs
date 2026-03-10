@@ -2,15 +2,14 @@ using System;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector
 {
+    public interface ILevelSelector
+    {
+        event Action<int> LevelClicked;
 
-public interface ILevelSelector
-{
-    event Action<int> LevelClicked;
+        void Hide();
 
-    void Hide();
+        void Show();
 
-    void Show();
-
-    void AlignByLevel(int levelIndex);
-}
+        void AlignByLevel(int levelIndex);
+    }
 }

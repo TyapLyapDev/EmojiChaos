@@ -177,7 +177,7 @@ namespace EmojiChaos.Entities.Car
         private void OnDestinationReached()
         {
             if (_targetRack.TryActivateGun(_id, _bulletCount, _config.Color) == false)
-                throw new Exception($"�� ������� ������������ ����� ��� ������ {_id}");
+                throw new Exception($"Failed activation attempt by Id {_id}");
 
             if (_roar != null)
                 _roar.Stop();
@@ -198,7 +198,7 @@ namespace EmojiChaos.Entities.Car
             UnityEditor.Handles.color = Color.yellow;
             UnityEditor.Handles.DrawWireDisc(position, Camera.current?.transform.forward ?? Vector3.forward, bgRadius);
 
-            GUIStyle style = new()
+            GUIStyle style = new ()
             {
                 fontSize = 12,
                 normal = { textColor = Color.yellow },

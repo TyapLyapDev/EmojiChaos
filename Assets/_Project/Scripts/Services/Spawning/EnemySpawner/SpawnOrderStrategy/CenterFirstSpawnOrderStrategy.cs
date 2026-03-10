@@ -2,76 +2,75 @@ using System;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy
 {
-
-public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
-{
-    private const int MiddlePointDivisor = 2;
-
-    public int[] Calculate(int countLines)
+    public class CenterFirstSpawnOrderStrategy : IEnemySpawnOrderStrategy
     {
-        if (countLines <= 0)
-            throw new ArgumentOutOfRangeException(nameof(countLines), "�����! ���������� ����� ������ ���� ������ ����");
+        private const int MiddlePointDivisor = 2;
 
-        if (countLines == 1)
-            return new int[] { 0 };
-
-        int centerIndex = CalculateCenterIndex(countLines);
-
-        return GenerateSpawnOrder(countLines, centerIndex);
-    }
-
-    private int[] GenerateSpawnOrder(int countLines, int centerIndex)
-    {
-        int[] spawnOrder = new int[countLines];
-        spawnOrder[0] = centerIndex;
-
-        int leftDistance = 1;
-        int rightDistance = 1;
-        int orderIndex = 1;
-
-        while (orderIndex < countLines)
+        public int[] Calculate(int countLines)
         {
-            int leftIndex = centerIndex - leftDistance;
+            if (countLines <= 0)
+                throw new ArgumentOutOfRangeException(nameof(countLines), "The quantity must be greater than zero");
 
-            if (TryAddIndexInRange(leftIndex, countLines, spawnOrder, ref orderIndex, ref leftDistance))
+            if (countLines == 1)
+                return new int[] { 0 };
+
+            int centerIndex = CalculateCenterIndex(countLines);
+
+            return GenerateSpawnOrder(countLines, centerIndex);
+        }
+
+        private int[] GenerateSpawnOrder(int countLines, int centerIndex)
+        {
+            int[] spawnOrder = new int[countLines];
+            spawnOrder[0] = centerIndex;
+
+            int leftDistance = 1;
+            int rightDistance = 1;
+            int orderIndex = 1;
+
+            while (orderIndex < countLines)
             {
-                if (orderIndex >= countLines)
-                    break;
+                int leftIndex = centerIndex - leftDistance;
+
+                if (TryAddIndexInRange(leftIndex, countLines, spawnOrder, ref orderIndex, ref leftDistance))
+                {
+                    if (orderIndex >= countLines)
+                        break;
+                }
+
+                int rightIndex = centerIndex + rightDistance;
+
+                TryAddIndexInRange(rightIndex, countLines, spawnOrder, ref orderIndex, ref rightDistance);
             }
 
-            int rightIndex = centerIndex + rightDistance;
-
-            TryAddIndexInRange(rightIndex, countLines, spawnOrder, ref orderIndex, ref rightDistance);
+            return spawnOrder;
         }
 
-        return spawnOrder;
-    }
-
-    private int CalculateCenterIndex(int countLines)
-    {
-        int result = countLines / MiddlePointDivisor;
-
-        if (IsEven(countLines))
-            --result;
-
-        return result;
-    }
-
-    private bool IsEven(int value) =>
-        value % MiddlePointDivisor == 0;
-
-    private bool TryAddIndexInRange(int sideIndex, int countLines, int[] spawnOrder, ref int orderIndex, ref int distance)
-    {
-        if (sideIndex >= 0 && sideIndex < countLines)
+        private int CalculateCenterIndex(int countLines)
         {
-            spawnOrder[orderIndex] = sideIndex;
-            orderIndex++;
-            distance++;
+            int result = countLines / MiddlePointDivisor;
 
-            return true;
+            if (IsEven(countLines))
+                --result;
+
+            return result;
         }
 
-        return false;
+        private bool IsEven(int value) =>
+            value % MiddlePointDivisor == 0;
+
+        private bool TryAddIndexInRange(int sideIndex, int countLines, int[] spawnOrder, ref int orderIndex, ref int distance)
+        {
+            if (sideIndex >= 0 && sideIndex < countLines)
+            {
+                spawnOrder[orderIndex] = sideIndex;
+                orderIndex++;
+                distance++;
+
+                return true;
+            }
+
+            return false;
+        }
     }
-}
 }

@@ -15,8 +15,8 @@ namespace EmojiChaos.Services.Movement
         private const float BackwardSpeedMultiplier = 2f;
 
         private readonly EnemySpawner _spawner;
-        private readonly List<EnemyMovementInfo> _enemies = new();
-        private readonly CompositeDisposable _disposables = new();
+        private readonly List<EnemyMovementInfo> _enemies = new ();
+        private readonly CompositeDisposable _disposables = new ();
         private readonly Portal _portal;
         private readonly float _speed;
         private bool _isPause;

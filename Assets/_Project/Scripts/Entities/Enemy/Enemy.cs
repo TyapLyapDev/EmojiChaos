@@ -79,7 +79,7 @@ namespace EmojiChaos.Entities.Enemy
             ValidateInit(nameof(Kill));
 
             if (IsActive == false)
-                throw new InvalidOperationException($"������ ���������");
+                throw new InvalidOperationException($"Accessing an inactive object");
 
             _visual.SetDied();
             Killed?.Invoke(this);

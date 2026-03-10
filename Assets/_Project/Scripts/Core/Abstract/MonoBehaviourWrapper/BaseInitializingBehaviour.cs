@@ -16,7 +16,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
         protected void BaseInitialize()
         {
             if (_isInitialized)
-                throw new InvalidOperationException($"{gameObject.name}: ������� ��������� �������������");
+                throw new InvalidOperationException($"{gameObject.name}: Reinitialization attempt");
 
 #if UNITY_EDITOR
             ValidateFieldsInInspector();
@@ -28,7 +28,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
         protected void ValidateInit([CallerMemberName] string methodName = "")
         {
             if (_isInitialized == false)
-                throw new InvalidOperationException($"{gameObject.name}: ����� {methodName} ��� ������ �� �������������");
+                throw new InvalidOperationException($"{gameObject.name}: Calling the method {methodName} before initialization");
         }
 
         protected T GetSafeReference<T>(T field, [CallerMemberName] string fieldName = "")
@@ -36,7 +36,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
         {
             ValidateInitForField(fieldName);
 
-            return field ?? throw new InvalidOperationException($"{gameObject.name}: ���� {fieldName} �� ��������� � ����������");
+            return field ?? throw new InvalidOperationException($"{gameObject.name}: Accessing a property {fieldName} before initialization");
         }
 
         protected T GetSafeValue<T>(T field, [CallerMemberName] string fieldName = "")
@@ -50,7 +50,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
         private void ValidateInitForField(string fieldName)
         {
             if (_isInitialized == false)
-                throw new InvalidOperationException($"{gameObject.name}: ��������� � ���� {fieldName} �� �������������");
+                throw new InvalidOperationException($"{gameObject.name}: Accessing a property {fieldName} before initialization");
         }
 
 #if UNITY_EDITOR
@@ -70,7 +70,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
                     continue;
 
                 if (IsUnityObjectNull(value))
-                    throw new NullReferenceException($"{gameObject.name}: SerializeField ���� {fieldName} �� ��������� � ����������");
+                    throw new NullReferenceException($"{gameObject.name}: SerializeField {fieldName} link is missing");
 
                 ValidateCollectionElements(value, fieldName, field.FieldType);
             }
@@ -78,7 +78,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
 
         private IEnumerable<FieldInfo> GetAllFieldsInHierarchy()
         {
-            List<FieldInfo> allFields = new();
+            List<FieldInfo> allFields = new ();
             Type currentType = GetType();
 
             while (currentType != null && currentType != typeof(BaseInitializingBehaviour) && currentType != typeof(object))
@@ -127,8 +127,7 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
                     if (element == null)
                     {
                         throw new NullReferenceException(
-                            $"{gameObject.name}: ������� � �������� {index} � ��������� {fieldName} ({fieldType.Name}) �������� null. " +
-                            "��� �������� ��������� ������ ���� ��������� � ����������.");
+                            $"{gameObject.name}:  element with the index {index} in the field {fieldName} ({fieldType.Name}) is null");
                     }
 
                     index++;
@@ -137,15 +136,15 @@ namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
                 switch (collection)
                 {
                     case IList list when list.Count == 0:
-                        Debug.LogWarning($"{gameObject.name}: ��������� {fieldName} ������");
+                        Debug.LogWarning($"{gameObject.name}: the list {fieldName} is empty");
                         break;
 
                     case Array array when array.Length == 0:
-                        Debug.LogWarning($"{gameObject.name}: ������ {fieldName} ������");
+                        Debug.LogWarning($"{gameObject.name}: the array {fieldName} is empty");
                         break;
 
                     case ICollection genericCollection when genericCollection.Count == 0:
-                        Debug.LogWarning($"{gameObject.name}: ��������� {fieldName} ������");
+                        Debug.LogWarning($"{gameObject.name}: the collection {fieldName} is empty");
                         break;
                 }
             }

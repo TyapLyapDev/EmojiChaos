@@ -51,6 +51,7 @@ namespace EmojiChaos.Animation.UI
             if (_transform == null || _canvasGroup == null || isActiveAndEnabled == false)
             {
                 _isPlaying = false;
+
                 return;
             }
 
@@ -95,14 +96,16 @@ namespace EmojiChaos.Animation.UI
 
             sequence.OnComplete(() =>
             {
-                if (_isDestroyed || this == null) return;
+                if (_isDestroyed)
+                    return;
 
                 _isPlaying = false;
                 completed?.Invoke();
             })
             .OnKill(() =>
             {
-                if (_isDestroyed) return;
+                if (_isDestroyed)
+                    return;
 
                 _tween = null;
                 _isPlaying = false;

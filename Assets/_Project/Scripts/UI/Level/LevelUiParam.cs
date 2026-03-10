@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace EmojiChaos.UI.Level
 {
+    using Buttons;
     using Core.Abstract.Interface;
-    using EmojiChaos.UI.Buttons;
     using Services.Core;
     using Services.GameFlow;
     using Services.Save;

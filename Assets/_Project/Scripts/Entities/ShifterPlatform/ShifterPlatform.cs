@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace EmojiChaos.Entities.ShifterPlatform
 {
-    using Entities.Car;
+    using Car;
 
     public class ShifterPlatform : MonoBehaviour
     {
@@ -13,8 +13,8 @@ namespace EmojiChaos.Entities.ShifterPlatform
         private Detector _detector;
         private Bubble _bubble;
         private Transform _flipperParent;
-        private List<Car> _carsToShow = new();
-        private List<Car> _carsEnter = new();
+        private List<Car> _carsToShow = new ();
+        private List<Car> _carsEnter = new ();
 
         private void Awake()
         {

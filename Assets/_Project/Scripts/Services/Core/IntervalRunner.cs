@@ -1,59 +1,58 @@
 using System;
-using UniRx;
 using UnityEngine;
+using UniRx;
 
 namespace EmojiChaos.Services.Core
 {
-
-public class IntervalRunner : IDisposable
-{
-    private readonly Action _onIntervalElapsed;
-    private IDisposable _updateSubscription;
-    private float _interval;
-    private float _accumulatedTime;
-    private bool _isRunning;
-
-    public IntervalRunner(Action onIntervalElapsed)
+    public class IntervalRunner : IDisposable
     {
-        _onIntervalElapsed = onIntervalElapsed ?? throw new System.ArgumentNullException(nameof(onIntervalElapsed));
-    }
+        private readonly Action _onIntervalElapsed;
+        private IDisposable _updateSubscription;
+        private float _interval;
+        private float _accumulatedTime;
+        private bool _isRunning;
 
-    public void Dispose() =>
-        StopRunning();
+        public IntervalRunner(Action onIntervalElapsed)
+        {
+            _onIntervalElapsed = onIntervalElapsed ?? throw new System.ArgumentNullException(nameof(onIntervalElapsed));
+        }
 
-    public void StartRunning(float intervalInSeconds)
-    {
-        if (intervalInSeconds <= 0f)
-            throw new ArgumentOutOfRangeException(nameof(intervalInSeconds), "�������� ������ ���� ������ ����");
+        public void Dispose() =>
+            StopRunning();
 
-        if (_isRunning)
-            throw new InvalidOperationException($"{nameof(StartRunning)}: ������� ���������� �������");
+        public void StartRunning(float intervalInSeconds)
+        {
+            if (intervalInSeconds <= 0f)
+                throw new ArgumentOutOfRangeException(nameof(intervalInSeconds));
 
-        _isRunning = true;
-        _interval = intervalInSeconds;
-        _accumulatedTime = 0f;
+            if (_isRunning)
+                throw new InvalidOperationException($"{nameof(StartRunning)}: Re-launch attempt");
 
-        _updateSubscription = Observable.EveryUpdate()
-            .Subscribe(_ =>
-            {
-                if (_isRunning == false)
-                    return;
+            _isRunning = true;
+            _interval = intervalInSeconds;
+            _accumulatedTime = 0f;
 
-                _accumulatedTime += Time.deltaTime;
-
-                if (_accumulatedTime >= _interval)
+            _updateSubscription = Observable.EveryUpdate()
+                .Subscribe(_ =>
                 {
-                    _accumulatedTime = 0f;
-                    _onIntervalElapsed?.Invoke();
-                }
-            });
-    }
+                    if (_isRunning == false)
+                        return;
 
-    public void StopRunning()
-    {
-        _isRunning = false;
-        _updateSubscription?.Dispose();
-        _updateSubscription = null;
+                    _accumulatedTime += Time.deltaTime;
+
+                    if (_accumulatedTime >= _interval)
+                    {
+                        _accumulatedTime = 0f;
+                        _onIntervalElapsed?.Invoke();
+                    }
+                });
+        }
+
+        public void StopRunning()
+        {
+            _isRunning = false;
+            _updateSubscription?.Dispose();
+            _updateSubscription = null;
+        }
     }
-}
 }

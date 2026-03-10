@@ -14,22 +14,22 @@ namespace EmojiChaos.Lang
 
         private Image _image;
 
-        private void Awake ( )
+        private void Awake()
         {
-            if (TryGetComponent (out _image) == false)
-                throw new NullReferenceException ($"Object: {name}, NullComponent: {nameof (_image)}");
+            if (TryGetComponent(out _image) == false)
+                throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_image)}");
         }
 
-        private void OnEnable ( )
+        private void OnEnable()
         {
             YandexGameConnector.LangSwitched += SwitchLanguage;
-            SwitchLanguage (YandexGameConnector.Lang);
+            SwitchLanguage(YandexGameConnector.Lang);
         }
 
-        private void OnDisable ( ) =>
+        private void OnDisable() =>
             YandexGameConnector.LangSwitched -= SwitchLanguage;
 
-        private void SwitchLanguage (string lang)
+        private void SwitchLanguage(string lang)
         {
             _image.sprite = lang switch
             {

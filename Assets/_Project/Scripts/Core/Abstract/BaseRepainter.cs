@@ -26,6 +26,6 @@ namespace EmojiChaos.Core.Abstract
             renderer.SetPropertyBlock(propertyBlock);
 
         protected override void OnInitialize() =>
-            _propertyBlock = new();
+            _propertyBlock = new ();
     }
 }

@@ -5,22 +5,21 @@ using UnityEngine.Splines;
 
 namespace EmojiChaos.Utils.Splines.Graph
 {
-
-public partial class MapSplineNodes
-{
-    private readonly NodeGraphBuilder _graphBuilder;
-    private readonly AStarPathfinder _pathfinder;
-
-    public MapSplineNodes(SplineContainer splineContainer)
+    public partial class MapSplineNodes
     {
-        if (splineContainer == null)
-            throw new ArgumentException(nameof(splineContainer));
+        private readonly NodeGraphBuilder _graphBuilder;
+        private readonly AStarPathfinder _pathfinder;
 
-        _graphBuilder = new (splineContainer);
-        _pathfinder = new (splineContainer, _graphBuilder.Nodes);
+        public MapSplineNodes(SplineContainer splineContainer)
+        {
+            if (splineContainer == null)
+                throw new ArgumentException(nameof(splineContainer));
+
+            _graphBuilder = new(splineContainer);
+            _pathfinder = new(splineContainer, _graphBuilder.Nodes);
+        }
+
+        public List<SplineSegment> GetPath(Vector3 startPosition, Vector3 targetPosition) =>
+            _pathfinder.GetPath(startPosition, targetPosition);
     }
-
-    public List<SplineSegment> GetPath(Vector3 startPosition, Vector3 targetPosition) =>
-        _pathfinder.GetPath(startPosition, targetPosition);
-}
 }

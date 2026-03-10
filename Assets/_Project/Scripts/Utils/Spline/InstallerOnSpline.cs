@@ -10,12 +10,10 @@ namespace EmojiChaos.Utils.Splines
     public class InstallerOnSpline : MonoBehaviour
     {
 #if UNITY_EDITOR
-        [SerializeField][Min (0)] private int _splineIndex;
-        [SerializeField][Range (0, 1)] private float _progress;
+        [SerializeField][Min(0)] private int _splineIndex;
+        [SerializeField][Range(0, 1)] private float _progress;
         [SerializeField] private Vector3 _additionalRotation = Vector3.zero;
         [SerializeField] private bool _isSplineDirection = true;
-
-        [Header ("����������")]
         [SerializeField] private SplineContainer _splineContainer;
         [SerializeField] private SplineRendererMeshGenerator _splineRendererMeshGenerator;
         [SerializeField] private bool _isAutoupdate = true;
@@ -23,25 +21,25 @@ namespace EmojiChaos.Utils.Splines
         private Spline _currentSpline;
         private bool _isSubscribedToEvents = false;
 
-        private void OnValidate ( )
+        private void OnValidate()
         {
-            if (IsValid ( ) == false)
-                FindComponents ( );
+            if (IsValid() == false)
+                FindComponents();
 
             if (_isAutoupdate)
-                UpdateTransform ( );
+                UpdateTransform();
         }
 
-        private void Reset ( ) =>
-            FindComponents ( );
+        private void Reset() =>
+            FindComponents();
 
-        private void OnEnable ( ) =>
-            SubscribeToEvents ( );
+        private void OnEnable() =>
+            SubscribeToEvents();
 
-        private void OnDisable ( ) =>
-            UnsubscribeFromEvents ( );
+        private void OnDisable() =>
+            UnsubscribeFromEvents();
 
-        private bool IsValid ( )
+        private bool IsValid()
         {
             bool isValid = true;
 
@@ -57,26 +55,26 @@ namespace EmojiChaos.Utils.Splines
             return isValid;
         }
 
-        private void FindComponents ( )
+        private void FindComponents()
         {
             _splineContainer = null;
             _splineRendererMeshGenerator = null;
             _currentSpline = null;
 
-            _splineContainer = GetComponentInParent<SplineContainer> (true);
+            _splineContainer = GetComponentInParent<SplineContainer>(true);
 
             if (_splineContainer == null)
             {
-                Debug.LogWarning ($"�� ������� �������� ��������� {nameof (_splineContainer)}");
+                Debug.LogWarning($"Couldn't get the component {nameof(_splineContainer)}");
 
                 return;
             }
 
-            _splineRendererMeshGenerator = _splineContainer.GetComponent<SplineRendererMeshGenerator> ( );
+            _splineRendererMeshGenerator = _splineContainer.GetComponent<SplineRendererMeshGenerator>();
 
             if (_splineRendererMeshGenerator == null)
             {
-                Debug.LogWarning ($"�� ������� �������� ��������� {nameof (_splineRendererMeshGenerator)}");
+                Debug.LogWarning($"Couldn't get the component {nameof(_splineRendererMeshGenerator)}");
 
                 return;
             }
@@ -86,15 +84,15 @@ namespace EmojiChaos.Utils.Splines
 
             if (_currentSpline == null)
             {
-                Debug.LogWarning ($"�� ������� �������� ��������� {nameof (_currentSpline)}");
+                Debug.LogWarning($"Couldn't get the component {nameof(_currentSpline)}");
 
                 return;
             }
         }
 
-        private void SubscribeToEvents ( )
+        private void SubscribeToEvents()
         {
-            if (IsValid ( ) == false)
+            if (IsValid() == false)
                 return;
 
             if (_isSubscribedToEvents)
@@ -104,7 +102,7 @@ namespace EmojiChaos.Utils.Splines
             _isSubscribedToEvents = true;
         }
 
-        private void UnsubscribeFromEvents ( )
+        private void UnsubscribeFromEvents()
         {
             if (_isSubscribedToEvents == false)
                 return;
@@ -115,55 +113,55 @@ namespace EmojiChaos.Utils.Splines
             _isSubscribedToEvents = false;
         }
 
-        private void OnMeshGeneratorChanged ( )
+        private void OnMeshGeneratorChanged()
         {
-            if (IsValid ( ) && _isAutoupdate)
-                UpdateTransform ( );
+            if (IsValid() && _isAutoupdate)
+                UpdateTransform();
         }
 
-        [ContextMenu ("�������� ������� � �������")]
-        public void UpdateTransform ( )
+        [ContextMenu("Update the position on the spline")]
+        public void UpdateTransform()
         {
-            if (IsValid ( ) == false)
+            if (IsValid() == false)
             {
-                Debug.LogWarning ("���������� ��������, ����������� ������ �� ����������� ����������");
+                Debug.LogWarning("One or more links to required components are missing");
 
                 return;
             }
 
-            if (TryCalculatePosition (out Vector3 position) == false)
+            if (TryCalculatePosition(out Vector3 position) == false)
                 return;
 
-            if (TryCalculateRotation (out Quaternion rotation) == false)
+            if (TryCalculateRotation(out Quaternion rotation) == false)
                 return;
 
             if (position != null && rotation != null)
-                transform.SetPositionAndRotation (position, rotation);
+                transform.SetPositionAndRotation(position, rotation);
 
             transform.localScale = _splineRendererMeshGenerator.ScaleAdjustment;
 
-            if (TryGetComponent (out Star star))
-                star.SetProgress (_progress);
+            if (TryGetComponent(out Star star))
+                star.SetProgress(_progress);
         }
 
-        private bool TryCalculatePosition (out Vector3 position)
+        private bool TryCalculatePosition(out Vector3 position)
         {
             try
             {
-                position = (Vector3)_splineContainer.EvaluatePosition (_splineIndex, _progress) + _splineRendererMeshGenerator.PositionAdjustment;
+                position = (Vector3)_splineContainer.EvaluatePosition(_splineIndex, _progress) + _splineRendererMeshGenerator.PositionAdjustment;
 
                 return true;
             }
             catch (System.Exception e)
             {
-                Debug.LogError ($"������ ��� ������ ��������� �������: {e.Message}", this);
+                Debug.LogError($"Error in calculating the position: {e.Message}", this);
                 position = Vector3.zero;
 
                 return false;
             }
         }
 
-        private bool TryCalculateRotation (out Quaternion rotation)
+        private bool TryCalculateRotation(out Quaternion rotation)
         {
             try
             {
@@ -174,8 +172,8 @@ namespace EmojiChaos.Utils.Splines
                     return true;
                 }
 
-                Vector3 localTangent = _splineContainer.EvaluateTangent (_splineIndex, _progress);
-                Vector3 worldTangent = _splineContainer.transform.TransformDirection (localTangent);
+                Vector3 localTangent = _splineContainer.EvaluateTangent(_splineIndex, _progress);
+                Vector3 worldTangent = _splineContainer.transform.TransformDirection(localTangent);
 
                 if (worldTangent == Vector3.zero)
                 {
@@ -184,14 +182,14 @@ namespace EmojiChaos.Utils.Splines
                     return true;
                 }
 
-                Quaternion baseRotation = Quaternion.LookRotation (worldTangent);
-                rotation = baseRotation * Quaternion.Euler (_additionalRotation);
+                Quaternion baseRotation = Quaternion.LookRotation(worldTangent);
+                rotation = baseRotation * Quaternion.Euler(_additionalRotation);
 
                 return true;
             }
             catch (System.Exception e)
             {
-                Debug.LogError ($"Error evaluating spline rotation: {e.Message}", this);
+                Debug.LogError($"Error evaluating spline rotation: {e.Message}", this);
                 rotation = Quaternion.identity;
 
                 return false;

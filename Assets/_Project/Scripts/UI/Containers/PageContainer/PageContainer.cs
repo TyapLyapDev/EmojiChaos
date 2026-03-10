@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Containers.PageContainer
 {
-
-namespace UI.CustomPageContainer
-{
     public class PageContainer
     {
         private readonly List<IPagedItem> _items = new ();
@@ -46,5 +43,4 @@ namespace UI.CustomPageContainer
                 _content.gameObject.SetActive(false);
         }
     }
-}
 }

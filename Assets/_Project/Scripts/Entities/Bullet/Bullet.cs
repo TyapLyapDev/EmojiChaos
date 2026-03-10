@@ -34,7 +34,7 @@ namespace EmojiChaos.Entities.Bullet
                 throw new ArgumentNullException(nameof(target));
 
             if (target.IsActive == false)
-                throw new InvalidOperationException("���������� ������������ ���� ��� ���������� ����");
+                throw new InvalidOperationException("The target is inactive");
 
             _target = target;
             _visual.SetColor(target.Color);

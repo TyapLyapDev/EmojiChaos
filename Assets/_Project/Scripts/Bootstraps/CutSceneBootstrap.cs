@@ -30,7 +30,7 @@ namespace EmojiChaos.Bootstraps
 
     public class CutSceneBootstrap : MonoBehaviour
     {
-        private readonly ServicesRegistry _services = new();
+        private readonly ServicesRegistry _services = new ();
 
         [SerializeField] private LevelUiHandler _uiHandler;
         [SerializeField] private EnemySelector _enemySelector;
@@ -78,7 +78,7 @@ namespace EmojiChaos.Bootstraps
             _services.Add(new TypeColorRandomizer(new(_level.Colors), new(_level.Ids)));
             _services.Add(SceneLoader.Instance);
 
-            PoolBuilder poolBuilder = new();
+            PoolBuilder poolBuilder = new ();
             _services.Add(poolBuilder);
 
             _services.Add(poolBuilder.Build(_level.BulletPrefab));

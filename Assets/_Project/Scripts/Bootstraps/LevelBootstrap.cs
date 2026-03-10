@@ -33,7 +33,7 @@ namespace EmojiChaos.Bootstraps
 
     public class LevelBootstrap : MonoBehaviour
     {
-        private readonly ServicesRegistry _services = new();
+        private readonly ServicesRegistry _services = new ();
 
         [SerializeField] private LevelUiHandler _uiHandler;
         [SerializeField] private CarSkinReplacer _skinReplacer;
@@ -60,7 +60,7 @@ namespace EmojiChaos.Bootstraps
             _services.Add(saver);
 
             int levelIndex = saver.SelectedLevel;
-            LevelFinder finder = new();
+            LevelFinder finder = new ();
             Level levelPrefab = finder.Find(levelIndex);
             Factory<Level> levelFactory = new(levelPrefab);
             _level = levelFactory.Create();
@@ -87,7 +87,7 @@ namespace EmojiChaos.Bootstraps
             _services.Add(new TypeColorRandomizer(new(_level.Colors), new(_level.Ids)));
             _services.Add(SceneLoader.Instance);
 
-            PoolBuilder poolBuilder = new();
+            PoolBuilder poolBuilder = new ();
             _services.Add(poolBuilder);
 
             _services.Add(poolBuilder.Build(_level.BulletPrefab));

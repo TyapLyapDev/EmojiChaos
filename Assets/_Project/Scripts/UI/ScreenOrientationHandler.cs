@@ -2,54 +2,53 @@ using UnityEngine;
 
 namespace EmojiChaos.UI
 {
-
-public class ScreenOrientationHandler : MonoBehaviour
-{
-    [SerializeField] private GameObject _horizontalBackground;
-    [SerializeField] private GameObject _verticalBackground;
-
-    private Vector2Int _lastResolution;
-
-    private void Start()
+    public class ScreenOrientationHandler : MonoBehaviour
     {
-        _lastResolution = new Vector2Int(Screen.width, Screen.height);
-        UpdateOrientationState();
+        [SerializeField] private GameObject _horizontalBackground;
+        [SerializeField] private GameObject _verticalBackground;
+
+        private Vector2Int _lastResolution;
+
+        private void Start()
+        {
+            _lastResolution = new Vector2Int(Screen.width, Screen.height);
+            UpdateOrientationState();
 
 #if UNITY_ANDROID || UNITY_IOS
         Application.onBeforeRender += HandleResolutionChanged;
 #endif
-    }
+        }
 
-    private void OnDestroy()
-    {
+        private void OnDestroy()
+        {
 #if UNITY_ANDROID || UNITY_IOS
         Application.onBeforeRender -= HandleResolutionChanged;
 #endif
-    }
+        }
 
-    private void Update() =>
-        HandleResolutionChanged();
+        private void Update() =>
+            HandleResolutionChanged();
 
-    private void HandleResolutionChanged()
-    {
-        Vector2Int currentResolution = new (Screen.width, Screen.height);
-
-        if (_lastResolution != currentResolution)
+        private void HandleResolutionChanged()
         {
-            _lastResolution = currentResolution;
-            UpdateOrientationState();
+            Vector2Int currentResolution = new(Screen.width, Screen.height);
+
+            if (_lastResolution != currentResolution)
+            {
+                _lastResolution = currentResolution;
+                UpdateOrientationState();
+            }
+        }
+
+        private void UpdateOrientationState()
+        {
+            bool isHorizontal = Screen.width > Screen.height;
+
+            if (_horizontalBackground != null)
+                _horizontalBackground.SetActive(isHorizontal);
+
+            if (_verticalBackground != null)
+                _verticalBackground.SetActive(isHorizontal == false);
         }
     }
-
-    private void UpdateOrientationState()
-    {
-        bool isHorizontal = Screen.width > Screen.height;
-
-        if (_horizontalBackground != null)
-            _horizontalBackground.SetActive(isHorizontal);
-
-        if (_verticalBackground != null)
-            _verticalBackground.SetActive(isHorizontal == false);
-    }
-}
 }

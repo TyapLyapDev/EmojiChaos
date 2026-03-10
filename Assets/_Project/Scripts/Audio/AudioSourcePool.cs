@@ -10,7 +10,7 @@ namespace EmojiChaos.Audio
         private readonly MonoBehaviour _mono;
         private readonly AudioMixerGroup _audioMixerGroup;
         private readonly GameObject _gameObject;
-        private readonly List<AudioSource> _audioSourcePool = new();
+        private readonly List<AudioSource> _audioSourcePool = new ();
 
         public AudioSourcePool(MonoBehaviour mono, AudioMixerGroup audioMixerGroup)
         {

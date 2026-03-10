@@ -10,7 +10,7 @@ namespace FiXiK.SceneBrowserWindow.Editor
 {
     public class SceneBrowserWindow : EditorWindow
     {
-        private const string MenuName = "Tools/Список сцен";
+        private const string MenuName = "Tools/A window with a list of scenes";
         private const string WindowName = "Список сцен";
         private const string FolderName = "Assets";
         private const string SceneType = "t:Scene";

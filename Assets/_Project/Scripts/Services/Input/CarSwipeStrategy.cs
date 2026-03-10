@@ -1,6 +1,6 @@
 using System;
-using UniRx;
 using UnityEngine;
+using UniRx;
 
 namespace EmojiChaos.Services.Input
 {

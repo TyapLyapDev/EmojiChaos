@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Containers.ScrollContainer
 {
-
-namespace UI.CustomScrollContainer
-{
     public class ItemContainer
     {
         private readonly List<IScrolledItem> _items = new ();
@@ -44,5 +41,4 @@ namespace UI.CustomScrollContainer
                 _content.gameObject.SetActive(false);
         }
     }
-}
 }

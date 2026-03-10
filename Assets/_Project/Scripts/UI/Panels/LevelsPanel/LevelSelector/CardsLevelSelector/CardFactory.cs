@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 {
     using Card;
-    using Card.UI.LevelCards;
-    using Containers.ScrollContainer.UI.CustomScrollContainer;
+    using Containers.ScrollContainer;
 
     public class CardFactory : IDisposable
     {

@@ -9,32 +9,32 @@ namespace EmojiChaos.UI.Tutorial.Explanations
     {
         [SerializeField] private RectTransform _canvas;
 
-        protected override void OnActivated ( )
+        protected override void OnActivated()
         {
-            SetPosition (Config.Car.transform.position);
+            SetPosition(Config.Car.transform.position);
             Config.SwipeStrategy.HasSwipe += OnSwipe;
 
-            Config.EnemySpawner.Pause ( );
-            Config.EnemiesSpeedDirector.Pause ( );
-            Show ( );
+            Config.EnemySpawner.Pause();
+            Config.EnemiesSpeedDirector.Pause();
+            Show();
         }
 
-        protected override void OnDeactivated ( )
+        protected override void OnDeactivated()
         {
             Config.SwipeStrategy.HasSwipe -= OnSwipe;
-            Config.EnemySpawner.Resume ( );
-            Config.EnemiesSpeedDirector.Resume ( );
-            Hide ( );
+            Config.EnemySpawner.Resume();
+            Config.EnemiesSpeedDirector.Resume();
+            Hide();
         }
 
-        private void SetPosition (Vector3 worldPosition)
+        private void SetPosition(Vector3 worldPosition)
         {
             if (IsActivated == false)
                 return;
 
-            Vector2 screenPoint = Camera.main.WorldToScreenPoint (worldPosition);
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint(worldPosition);
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle (
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _canvas,
                 screenPoint,
                 null,
@@ -45,7 +45,7 @@ namespace EmojiChaos.UI.Tutorial.Explanations
             rect.anchoredPosition = localPoint;
         }
 
-        private void OnSwipe (ISwipeable swipeable, int count)
+        private void OnSwipe(ISwipeable swipeable, int count)
         {
             if (IsActivated == false)
                 return;
@@ -54,7 +54,7 @@ namespace EmojiChaos.UI.Tutorial.Explanations
                 return;
 
             Config.SwipeStrategy.HasSwipe -= OnSwipe;
-            Deactivate ( );
+            Deactivate();
         }
     }
 }

@@ -4,38 +4,37 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Tutorial
 {
-
-public class UIMaskInverser : Image
-{
-    private Material _cachedMaterial;
-
-    public override Material materialForRendering
+    public class UIMaskInverser : Image
     {
-        get
+        private Material _cachedMaterial;
+
+        public override Material materialForRendering
         {
-            if (_cachedMaterial == null)
-                _cachedMaterial = new Material(base.materialForRendering);
+            get
+            {
+                if (_cachedMaterial == null)
+                    _cachedMaterial = new Material(base.materialForRendering);
 
-            Material baseMaterial = base.materialForRendering;
+                Material baseMaterial = base.materialForRendering;
 
-            if (_cachedMaterial.shader != baseMaterial.shader)
-                _cachedMaterial.shader = baseMaterial.shader;
+                if (_cachedMaterial.shader != baseMaterial.shader)
+                    _cachedMaterial.shader = baseMaterial.shader;
 
-            _cachedMaterial.CopyPropertiesFromMaterial(baseMaterial);
-            _cachedMaterial.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
+                _cachedMaterial.CopyPropertiesFromMaterial(baseMaterial);
+                _cachedMaterial.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
 
-            return _cachedMaterial;
+                return _cachedMaterial;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (Application.isPlaying)
+                Destroy(_cachedMaterial);
+            else
+                DestroyImmediate(_cachedMaterial);
         }
     }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-
-        if (Application.isPlaying)
-            Destroy(_cachedMaterial);
-        else
-            DestroyImmediate(_cachedMaterial);
-    }
-}
 }

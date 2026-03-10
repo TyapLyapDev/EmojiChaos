@@ -13,9 +13,9 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
     using Data;
 
     [ExecuteInEditMode]
-    [RequireComponent (typeof (SplineContainer))]
-    [RequireComponent (typeof (MeshRenderer))]
-    [RequireComponent (typeof (MeshFilter))]
+    [RequireComponent(typeof(SplineContainer))]
+    [RequireComponent(typeof(MeshRenderer))]
+    [RequireComponent(typeof(MeshFilter))]
     public class SplineRendererMeshGenerator : MonoBehaviour
     {
 #if UNITY_EDITOR
@@ -48,40 +48,40 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
 
         public Vector3 ScaleAdjustment => _scaleAdjustment;
 
-        private void OnValidate ( )
+        private void OnValidate()
         {
             if (_splineContainer == null)
-                _splineContainer = GetComponent<SplineContainer> ( );
+                _splineContainer = GetComponent<SplineContainer>();
 
             if (_meshFilter == null)
-                _meshFilter = GetComponent<MeshFilter> ( );
+                _meshFilter = GetComponent<MeshFilter>();
 
             if (_level == null)
-                _level = GetComponentInParent<Level> ( );
+                _level = GetComponentInParent<Level>();
 
-            SplineUtils.SynchronizeArraySize<float> (ref _uvResolutions, _splineContainer.Splines.Count);
+            SplineUtils.SynchronizeArraySize<float>(ref _uvResolutions, _splineContainer.Splines.Count);
 
             if (_isAutoupdate)
             {
-                SubscribeToSplineEvents ( );
-                GenerateMesh ( );
+                SubscribeToSplineEvents();
+                GenerateMesh();
             }
             else
             {
-                UnsubscribeFromSplineEvents ( );
+                UnsubscribeFromSplineEvents();
             }
         }
 
-        private void OnEnable ( ) =>
-            SubscribeToSplineEvents ( );
+        private void OnEnable() =>
+            SubscribeToSplineEvents();
 
-        private void OnDisable ( ) =>
-            UnsubscribeFromSplineEvents ( );
+        private void OnDisable() =>
+            UnsubscribeFromSplineEvents();
 
-        private void OnDestroy ( ) =>
-            UnsubscribeFromSplineEvents ( );
+        private void OnDestroy() =>
+            UnsubscribeFromSplineEvents();
 
-        private void SubscribeToSplineEvents ( )
+        private void SubscribeToSplineEvents()
         {
             if (_isAutoupdate == false)
                 return;
@@ -93,7 +93,7 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             _isSubscribedToSplineEvents = true;
         }
 
-        private void UnsubscribeFromSplineEvents ( )
+        private void UnsubscribeFromSplineEvents()
         {
             if (_isSubscribedToSplineEvents == false)
                 return;
@@ -102,79 +102,79 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             _isSubscribedToSplineEvents = false;
         }
 
-        private void OnSplineChanged (Spline spline, int index, SplineModification splineModification)
+        private void OnSplineChanged(Spline spline, int index, SplineModification splineModification)
         {
-            if (_isAutoupdate && _splineContainer.Splines.Contains (spline))
-                GenerateMesh ( );
+            if (_isAutoupdate && _splineContainer.Splines.Contains(spline))
+                GenerateMesh();
         }
 
-        private void GenerateMesh ( )
+        private void GenerateMesh()
         {
             if (Application.isPlaying)
                 return;
 
             if (_segmentMesh == null)
             {
-                Debug.LogError ("���-������� �� ��������");
+                Debug.LogError("Couldn't generate mesh");
                 return;
             }
 
-            List<Vector3> combinedVertices = new ( );
-            List<Vector3> combinedNormals = new ( );
-            List<Vector2> combinedUVs = new ( );
+            List<Vector3> combinedVertices = new ();
+            List<Vector3> combinedNormals = new ();
+            List<Vector2> combinedUVs = new ();
             List<int>[] combinedSubmeshTriangles = new List<int>[_segmentMesh.subMeshCount];
 
             for (int i = 0; i < _segmentMesh.subMeshCount; i++)
-                combinedSubmeshTriangles[i] = new ( );
+                combinedSubmeshTriangles[i] = new ();
 
             int combinedVertexOffset = 0;
             int splineCounter = 0;
-            Mesh normalizedSegmentMesh = _segmentMesh.NormalizeMesh (_rotationAdjustment, _scaleAdjustment);
+            Mesh normalizedSegmentMesh = _segmentMesh.NormalizeMesh(_rotationAdjustment, _scaleAdjustment);
 
             foreach (Spline spline in _splineContainer.Splines)
             {
-                List<Vector3> vertices = new ( );
-                List<Vector3> normals = new ( );
-                List<Vector2> uvs = new ( );
+                List<Vector3> vertices = new ();
+                List<Vector3> normals = new ();
+                List<Vector2> uvs = new ();
 
-                List<BezierKnot> knots = new (spline.Knots);
-                List<Quaternion> knotRotations = new ( );
+                List<BezierKnot> knots = new(spline.Knots);
+                List<Quaternion> knotRotations = new ();
 
                 foreach (BezierKnot knot in knots)
-                    knotRotations.Add (knot.Rotation);
+                    knotRotations.Add(knot.Rotation);
 
                 List<int>[] submeshTriangles = new List<int>[normalizedSegmentMesh.subMeshCount];
 
                 for (int i = 0; i < normalizedSegmentMesh.subMeshCount; i++)
-                    submeshTriangles[i] = new ( );
+                    submeshTriangles[i] = new ();
 
                 int segmentCount = knots.Count - 1;
 
                 if (spline.Closed)
                     segmentCount++;
 
-                List<float> segmentRatios = new ( );
+                List<float> segmentRatios = new ();
 
                 for (int i = 0; i < segmentCount; i++)
                 {
-                    float splinePoint = _splineContainer.GetDistanceAlongSpline (splineCounter, knots[i % knots.Count].Position);
-                    float ratio = splinePoint / spline.GetLength ( );
-                    segmentRatios.Add (ratio);
+                    float splinePoint = _splineContainer.GetDistanceAlongSpline(splineCounter, knots[i % knots.Count].Position);
+                    float ratio = splinePoint / spline.GetLength();
+                    segmentRatios.Add(ratio);
                 }
 
-                segmentRatios.Add (1f);
+                segmentRatios.Add(1f);
 
-                float meshBoundsDistance = Mathf.Abs (SplineUtils.GetRequiredAxis (normalizedSegmentMesh.bounds.size, _forwardAxis));
-                List<float> vertexRatios = new ( );
-                List<Vector3> vertexOffsets = new ( );
+                float meshBoundsDistance = Mathf.Abs(SplineUtils.GetRequiredAxis(normalizedSegmentMesh.bounds.size, _forwardAxis));
+                List<float> vertexRatios = new ();
+                List<Vector3> vertexOffsets = new ();
 
                 foreach (Vector3 vertex in normalizedSegmentMesh.vertices)
                 {
-                    Vector3 offset = SplineUtils.GetRequiredOffset (vertex, _forwardAxis);
-                    float ratio = Mathf.Abs (SplineUtils.GetRequiredAxis (vertex, _forwardAxis)) / meshBoundsDistance;
+                    Vector3 offset = SplineUtils.GetRequiredOffset(vertex, _forwardAxis);
+                    float ratio = Mathf.Abs(SplineUtils.GetRequiredAxis(vertex, _forwardAxis)) / meshBoundsDistance;
 
-                    vertexRatios.Add (ratio);
-                    vertexOffsets.Add (offset);
+                    vertexRatios.Add(ratio);
+                    vertexOffsets.Add(offset);
                 }
 
                 for (int i = 0; i < segmentCount; i++)
@@ -184,10 +184,10 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                     foreach (Vector3 vector in normalizedSegmentMesh.vertices)
                     {
                         float point = segmentRatios[i] + (vertexRatios[counter] * (segmentRatios[(i + 1) % segmentRatios.Count] - segmentRatios[i]));
-                        point = Mathf.Clamp01 (point);
+                        point = Mathf.Clamp01(point);
 
-                        Vector3 tangent = spline.EvaluateTangent (point);
-                        Vector3 splinePosition = spline.EvaluatePosition (point);
+                        Vector3 tangent = spline.EvaluateTangent(point);
+                        Vector3 splinePosition = spline.EvaluatePosition(point);
 
                         if (tangent.sqrMagnitude < Mathf.Epsilon)
                             tangent = Vector3.forward;
@@ -196,11 +196,11 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                         int knotBIndex = (i + 1) % knots.Count;
 
                         float t = vertexRatios[counter];
-                        Quaternion twistRotation = Quaternion.Slerp (knotRotations[knotAIndex], knotRotations[knotBIndex], t);
-                        Quaternion splineRotation = Quaternion.LookRotation (tangent.normalized, _isTwistMesh ? (twistRotation * Vector3.up) : Vector3.up);
+                        Quaternion twistRotation = Quaternion.Slerp(knotRotations[knotAIndex], knotRotations[knotBIndex], t);
+                        Quaternion splineRotation = Quaternion.LookRotation(tangent.normalized, _isTwistMesh ? (twistRotation * Vector3.up) : Vector3.up);
 
                         Vector3 transformedPosition = splinePosition + splineRotation * vertexOffsets[counter];
-                        vertices.Add (transformedPosition + _positionAdjustment);
+                        vertices.Add(transformedPosition + _positionAdjustment);
 
                         counter++;
                     }
@@ -209,9 +209,9 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                     {
                         Vector3 normal = normalizedSegmentMesh.normals[j];
                         float point = segmentRatios[i] + (vertexRatios[j] * (segmentRatios[(i + 1) % segmentRatios.Count] - segmentRatios[i]));
-                        point = Mathf.Clamp01 (point);
+                        point = Mathf.Clamp01(point);
 
-                        Vector3 tangent = spline.EvaluateTangent (point);
+                        Vector3 tangent = spline.EvaluateTangent(point);
 
                         if (tangent.sqrMagnitude < Mathf.Epsilon)
                             tangent = Vector3.forward;
@@ -220,22 +220,22 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                         int knotBIndex = (i + 1) % knots.Count;
 
                         float t = vertexRatios[j];
-                        Quaternion twistRotation = Quaternion.Slerp (knotRotations[knotAIndex], knotRotations[knotBIndex], t);
+                        Quaternion twistRotation = Quaternion.Slerp(knotRotations[knotAIndex], knotRotations[knotBIndex], t);
 
-                        Quaternion splineRotation = Quaternion.LookRotation (tangent.normalized, _isTwistMesh ? (twistRotation * Vector3.up) : Vector3.up);
+                        Quaternion splineRotation = Quaternion.LookRotation(tangent.normalized, _isTwistMesh ? (twistRotation * Vector3.up) : Vector3.up);
                         Vector3 transformedNormal = splineRotation * normal;
-                        normals.Add (transformedNormal);
+                        normals.Add(transformedNormal);
                     }
 
                     for (int submeshIndex = 0; submeshIndex < normalizedSegmentMesh.subMeshCount; submeshIndex++)
                     {
-                        int[] submeshIndices = normalizedSegmentMesh.GetTriangles (submeshIndex);
+                        int[] submeshIndices = normalizedSegmentMesh.GetTriangles(submeshIndex);
 
                         for (int k = 0; k < submeshIndices.Length; k += 3)
                         {
-                            combinedSubmeshTriangles[submeshIndex].Add (submeshIndices[k] + combinedVertexOffset);
-                            combinedSubmeshTriangles[submeshIndex].Add (submeshIndices[k + 2] + combinedVertexOffset);
-                            combinedSubmeshTriangles[submeshIndex].Add (submeshIndices[k + 1] + combinedVertexOffset);
+                            combinedSubmeshTriangles[submeshIndex].Add(submeshIndices[k] + combinedVertexOffset);
+                            combinedSubmeshTriangles[submeshIndex].Add(submeshIndices[k + 2] + combinedVertexOffset);
+                            combinedSubmeshTriangles[submeshIndex].Add(submeshIndices[k + 1] + combinedVertexOffset);
                         }
                     }
 
@@ -249,61 +249,61 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                         else
                             point = (i / (float)segmentCount) + (vertexRatios[j] * (1 / (float)segmentCount));
 
-                        Vector2 splineUV = SplineUtils.MakeUVs (uv, point, splineCounter, _uvAxis, _uvResolutions);
-                        uvs.Add (splineUV);
+                        Vector2 splineUV = SplineUtils.MakeUVs(uv, point, splineCounter, _uvAxis, _uvResolutions);
+                        uvs.Add(splineUV);
                     }
 
                     combinedVertexOffset += normalizedSegmentMesh.vertexCount;
                 }
 
-                combinedVertices.AddRange (vertices);
-                combinedNormals.AddRange (normals);
-                combinedUVs.AddRange (uvs);
+                combinedVertices.AddRange(vertices);
+                combinedNormals.AddRange(normals);
+                combinedUVs.AddRange(uvs);
 
                 splineCounter++;
             }
 
-            Mesh generatedMesh = new ( )
+            Mesh generatedMesh = new ()
             {
                 name = DefaultMeshName,
-                vertices = combinedVertices.ToArray ( ),
-                normals = combinedNormals.ToArray ( ),
-                uv = combinedUVs.ToArray ( ),
+                vertices = combinedVertices.ToArray(),
+                normals = combinedNormals.ToArray(),
+                uv = combinedUVs.ToArray(),
                 subMeshCount = _segmentMesh.subMeshCount,
             };
 
             for (int submeshIndex = 0; submeshIndex < _segmentMesh.subMeshCount; submeshIndex++)
-                generatedMesh.SetTriangles (combinedSubmeshTriangles[submeshIndex].ToArray ( ), submeshIndex);
+                generatedMesh.SetTriangles(combinedSubmeshTriangles[submeshIndex].ToArray(), submeshIndex);
 
-            generatedMesh.RecalculateBounds ( );
-            generatedMesh.RecalculateNormals ( );
-            generatedMesh.RecalculateTangents ( );
+            generatedMesh.RecalculateBounds();
+            generatedMesh.RecalculateNormals();
+            generatedMesh.RecalculateTangents();
 
-            SaveMeshAsAsset (generatedMesh);
+            SaveMeshAsAsset(generatedMesh);
 
-            Changed?.Invoke ( );
+            Changed?.Invoke();
         }
 
-        private void SaveMeshAsAsset (Mesh generatedMesh)
+        private void SaveMeshAsAsset(Mesh generatedMesh)
         {
             string path = $"{AssetsPathPrefix}{_meshSavePath}";
             string meshName = _level != null ? _level.gameObject.name : DefaultMeshName;
             meshName += _meshSuffixName;
 
-            EditorApplication.delayCall += ( ) =>
+            EditorApplication.delayCall += () =>
             {
                 if (this != null && _meshFilter != null)
                 {
-                    _meshFilter.sharedMesh = SplineUtils.SaveMeshAsAsset (generatedMesh, path, meshName, MeshAssetExtension);
-                    EditorUtility.SetDirty (this);
-                    EditorUtility.SetDirty (_meshFilter);
+                    _meshFilter.sharedMesh = SplineUtils.SaveMeshAsAsset(generatedMesh, path, meshName, MeshAssetExtension);
+                    EditorUtility.SetDirty(this);
+                    EditorUtility.SetDirty(_meshFilter);
                 }
             };
         }
 
-        [ContextMenu ("�������� ��� ���������")]
-        public void UpdateMeshCollider ( ) =>
-            GenerateMesh ( );
+        [ContextMenu("Update the renderer mesh")]
+        public void UpdateMeshRenderer() =>
+            GenerateMesh();
 #endif
     }
 }

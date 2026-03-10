@@ -1,13 +1,13 @@
 using System;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 namespace EmojiChaos.Lang
 {
     [Serializable]
     public class LangParams
     {
-        [SerializeField][TextArea] private string _text = "�����";
+        [SerializeField][TextArea] private string _text = "text";
         [SerializeField] private TMP_FontAsset _font;
         [SerializeField] private Material _preset;
 

@@ -18,7 +18,7 @@ namespace EmojiChaos.Entities.Gun
             _particleShower = particleShower ?? throw new ArgumentNullException(nameof(particleShower));
 
             if (timeReload <= 0)
-                throw new ArgumentOutOfRangeException(nameof(timeReload), timeReload, "�������� ������ ���� ������ ����");
+                throw new ArgumentOutOfRangeException(nameof(timeReload), timeReload, "The value must be greater than zero");
 
             _timeReload = timeReload;
         }

@@ -1,6 +1,6 @@
 using System;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 namespace EmojiChaos.Lang
 {
@@ -12,24 +12,24 @@ namespace EmojiChaos.Lang
 
         private TMP_Text _text;
 
-        private void Awake ( )
+        private void Awake()
         {
-            if (TryGetComponent (out _text) == false)
-                throw new NullReferenceException ($"Object: {name}, NullComponent: {nameof (_text)}");
+            if (TryGetComponent(out _text) == false)
+                throw new NullReferenceException($"Object: {name}, NullComponent: {nameof(_text)}");
         }
 
-        private void OnEnable ( )
+        private void OnEnable()
         {
             YandexGameConnector.LangSwitched += OnSwitchLanguage;
-            OnSwitchLanguage (YandexGameConnector.Lang);
+            OnSwitchLanguage(YandexGameConnector.Lang);
         }
 
-        private void OnDisable ( ) =>
+        private void OnDisable() =>
             YandexGameConnector.LangSwitched -= OnSwitchLanguage;
 
-        private void OnSwitchLanguage (string lang)
+        private void OnSwitchLanguage(string lang)
         {
-            LangParams langParams = _texts.GetByLang (lang);
+            LangParams langParams = _texts.GetByLang(lang);
 
             _text.font = langParams.Font;
             _text.fontMaterial = langParams.Preset;

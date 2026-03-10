@@ -12,24 +12,16 @@ namespace EmojiChaos.Animation
         [SerializeField] private Car _secondCar;
         [SerializeField] private Car _thirdCar;
 
-        public void StartEnemySpawn()
-        {
+        public void StartEnemySpawn() =>
             _sceneBootstrap.StartEnemySpawn();
-        }
 
-        public void StartFirstCar()
-        {
+        public void StartFirstCar() =>
             _sceneBootstrap.SlotReservator.ReserveSlot(_firstCar, -1);
-        }
 
-        public void StartSecondCar()
-        {
+        public void StartSecondCar() =>
             _sceneBootstrap.SlotReservator.ReserveSlot(_secondCar, -1);
-        }
 
-        public void StartThirdCar()
-        {
+        public void StartThirdCar() =>
             _sceneBootstrap.SlotReservator.ReserveSlot(_thirdCar, -1);
-        }
     }
 }

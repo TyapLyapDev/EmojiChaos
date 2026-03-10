@@ -11,72 +11,72 @@ namespace EmojiChaos.Utils.Editor
     public class ResourceBalanceChecker : EditorWindow
     {
         private const string MenuPath = "Tools/";
-        private const string Title = "��������� ������ �������";
+        private const string Title = "Check the level balance";
 
-        [MenuItem (MenuPath + Title)]
-        public static void GenerateReport ( )
+        [MenuItem(MenuPath + Title)]
+        public static void GenerateReport()
         {
-            CustomLogger.ClearConsole ( );
-            CustomLogger.Log ("��������� �������� ������������ ������ � �����������");
+            CustomLogger.ClearConsole();
+            CustomLogger.Log("Checking the level balance");
 
-            Level[] allLevels = Resources.LoadAll<Level> (string.Empty);
+            Level[] allLevels = Resources.LoadAll<Level>(string.Empty);
 
             if (allLevels == null || allLevels.Length == 0)
             {
-                CustomLogger.LogRed ($"�� ������� ������� � ����� Resources/");
+                CustomLogger.LogRed($"No levels found along the path in Resources/");
 
                 return;
             }
 
-            CustomLogger.LogBlue ($"������� �������: {allLevels.Length}");
+            CustomLogger.LogBlue($"Total levels: {allLevels.Length}");
 
             foreach (Level level in allLevels)
             {
                 if (level == null)
                 {
-                    CustomLogger.LogRed ("��������� null ������� � Resources");
+                    CustomLogger.LogRed("Null level detected in Resources");
 
                     continue;
                 }
 
-                CustomLogger.LogBlue ($"������� \"{level.name}\"");
-                AnalyzeLevelBalance (level);
+                CustomLogger.LogBlue($"Level \"{level.name}\"");
+                AnalyzeLevelBalance(level);
             }
         }
 
-        private static void AnalyzeLevelBalance (Level level)
+        private static void AnalyzeLevelBalance(Level level)
         {
             string propertyName = "_crowds";
-            SerializedObject serializedLevel = new (level);
-            SerializedProperty crowdsProperty = serializedLevel.FindProperty (propertyName);
+            SerializedObject serializedLevel = new(level);
+            SerializedProperty crowdsProperty = serializedLevel.FindProperty(propertyName);
 
             if (crowdsProperty == null)
             {
-                CustomLogger.LogRed ($"�� ������� ����� �������� {propertyName}");
+                CustomLogger.LogRed($"Missing property {propertyName}");
 
                 return;
             }
 
-            Car[] cars = level.GetComponentsInChildren<Car> (true);
-            SortedDictionary<int, int> enemiesByType = new ( );
+            Car[] cars = level.GetComponentsInChildren<Car>(true);
+            SortedDictionary<int, int> enemiesByType = new ();
 
             int totalCrowds = crowdsProperty.arraySize;
             int totalEnemies = 0;
 
             for (int i = 0; i < totalCrowds; i++)
             {
-                SerializedProperty crowdProperty = crowdsProperty.GetArrayElementAtIndex (i);
-                int id = crowdProperty.FindPropertyRelative ("_id").intValue;
-                int quantity = crowdProperty.FindPropertyRelative ("_quantity").intValue;
+                SerializedProperty crowdProperty = crowdsProperty.GetArrayElementAtIndex(i);
+                int id = crowdProperty.FindPropertyRelative("_id").intValue;
+                int quantity = crowdProperty.FindPropertyRelative("_quantity").intValue;
                 totalEnemies += quantity;
 
-                if (enemiesByType.ContainsKey (id))
+                if (enemiesByType.ContainsKey(id))
                     enemiesByType[id] += quantity;
                 else
-                    enemiesByType.Add (id, quantity);
+                    enemiesByType.Add(id, quantity);
             }
 
-            Dictionary<int, CarAmmoInfo> ammoByCarType = new ( );
+            Dictionary<int, CarAmmoInfo> ammoByCarType = new ();
             int totalCars = cars.Length;
 
             foreach (Car car in cars)
@@ -86,14 +86,14 @@ namespace EmojiChaos.Utils.Editor
                     int id = car.Id;
                     int bulletCount = car.BulletCount;
 
-                    if (ammoByCarType.ContainsKey (id))
+                    if (ammoByCarType.ContainsKey(id))
                     {
                         ammoByCarType[id].totalBulletCount += bulletCount;
-                        ammoByCarType[id].cars.Add (car);
+                        ammoByCarType[id].cars.Add(car);
                     }
                     else
                     {
-                        ammoByCarType.Add (id, new CarAmmoInfo
+                        ammoByCarType.Add(id, new CarAmmoInfo
                         {
                             totalBulletCount = bulletCount,
                             cars = new List<Car> { car }
@@ -102,20 +102,20 @@ namespace EmojiChaos.Utils.Editor
                 }
             }
 
-            HashSet<int> allIds = new (enemiesByType.Keys);
-            allIds.UnionWith (ammoByCarType.Keys);
+            HashSet<int> allIds = new(enemiesByType.Keys);
+            allIds.UnionWith(ammoByCarType.Keys);
             int totalTypes = allIds.Count;
 
             bool hasBalanceIssues = false;
 
             foreach (int id in allIds)
             {
-                bool hasEnemies = enemiesByType.TryGetValue (id, out int enemyCount);
-                bool hasCar = ammoByCarType.TryGetValue (id, out CarAmmoInfo carInfo);
+                bool hasEnemies = enemiesByType.TryGetValue(id, out int enemyCount);
+                bool hasCar = ammoByCarType.TryGetValue(id, out CarAmmoInfo carInfo);
 
                 if (hasEnemies == false && hasCar)
                 {
-                    CustomLogger.LogRed ($"ID [{id}]: ���� ���� ({carInfo.totalBulletCount} ��������), �� ��� ��������");
+                    CustomLogger.LogRed($"ID [{id}]: there is a car ({carInfo.totalBulletCount}), but there are no enemies");
                     hasBalanceIssues = true;
 
                     continue;
@@ -124,7 +124,7 @@ namespace EmojiChaos.Utils.Editor
 
                 if (hasEnemies && hasCar == false)
                 {
-                    CustomLogger.LogRed ($"ID [{id}]: ���� ����� ({enemyCount}), �� ��� ����");
+                    CustomLogger.LogRed($"ID [{id}]: there are enemies ({enemyCount}), but there is no car");
                     hasBalanceIssues = true;
 
                     continue;
@@ -134,22 +134,22 @@ namespace EmojiChaos.Utils.Editor
                 {
                     if (enemyCount != carInfo.totalBulletCount)
                     {
-                        CustomLogger.LogRed ($"ID [{id}]: ��������� ������ ({enemyCount}) � ��������({carInfo.totalBulletCount})");
+                        CustomLogger.LogRed($"ID [{id}]: number of enemies ({enemyCount}), number of shells({carInfo.totalBulletCount})");
                         hasBalanceIssues = true;
                     }
                 }
             }
 
-            CustomLogger.Log ($"����� ����: {totalCrowds}, ������: {totalEnemies}, ����: {totalCars}, �����: {totalTypes}");
+            CustomLogger.Log($"Total crowds: {totalCrowds}, enemies: {totalEnemies}, cars: {totalCars}, types: {totalTypes}");
 
             if (hasBalanceIssues == false)
-                CustomLogger.LogGreen ($"������ ��������, ������� �� ����������");
+                CustomLogger.LogGreen($"Level checked, no errors found");
         }
 
         private class CarAmmoInfo
         {
             public int totalBulletCount;
-            public List<Car> cars = new ( );
+            public List<Car> cars = new ();
         }
     }
 }

@@ -1,5 +1,3 @@
-using EmojiChaos.UI.Leaderboard;
-using EmojiChaos.Utils.Static;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +8,8 @@ using YG.Utils.LB;
 
 namespace EmojiChaos.UI.Leaderboard
 {
+    using EmojiChaos.Utils.Static;
+
     public class LeaderboardYGMediator : MonoBehaviour
     {
         private const string PhotoSize = "small";
@@ -17,11 +17,11 @@ namespace EmojiChaos.UI.Leaderboard
 
         private static LeaderboardYGMediator s_instance;
 
-        private readonly List<AvatarInfo> _avatars = new();
+        private readonly List<AvatarInfo> _avatars = new ();
 
         [SerializeField] private Texture2D _anonymousAvatar;
 
-        private LBData _data = new();
+        private LBData _data = new ();
 
         public event Action<AvatarInfo> AvatarLoaded;
         public event Action<LBData> DataUpdated;
@@ -91,7 +91,7 @@ namespace EmojiChaos.UI.Leaderboard
                     new Rect(0, 0, loadedTexture.width, loadedTexture.height),
                     new Vector2(0.5f, 0.5f));
 
-            AvatarInfo avatarInfo = new()
+            AvatarInfo avatarInfo = new ()
             {
                 UniqueId = uniqueId,
                 Texture = loadedTexture,

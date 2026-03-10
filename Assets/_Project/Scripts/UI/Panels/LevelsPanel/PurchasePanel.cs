@@ -10,8 +10,8 @@ using YG.Utils.Pay;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    using Core.Abstract.UI;
     using Buttons;
+    using Core.Abstract.UI;
     using Lang;
     using ScriptableObect;
     using Utils.Static;

@@ -1,17 +1,16 @@
-using EmojiChaos.Core.Abstract.Interface;
-
 namespace EmojiChaos.Core.Abstract.MonoBehaviourWrapper
 {
+    using Interface;
 
-public abstract class InitializingWithConfigBehaviour<TConfig> : BaseInitializingBehaviour
-    where TConfig : IParam
-{
-    public void Initialize(TConfig config)
+    public abstract class InitializingWithConfigBehaviour<TConfig> : BaseInitializingBehaviour
+        where TConfig : IParam
     {
-        BaseInitialize();
-        OnInitialize(config);
-    }
+        public void Initialize(TConfig config)
+        {
+            BaseInitialize();
+            OnInitialize(config);
+        }
 
-    protected abstract void OnInitialize(TConfig config);
-}
+        protected abstract void OnInitialize(TConfig config);
+    }
 }

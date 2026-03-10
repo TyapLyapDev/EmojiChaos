@@ -7,7 +7,7 @@ namespace FiXiK.HierarchyComponentIconAssigner
     public class HierarchyIconsWindow : EditorWindow
     {
         private const string MenuPath = "Tools/";
-        private const string WindowTitle = "»конки в иерархии сцены";
+        private const string WindowTitle = "Icons in the hierarchy of the scene";
         private const float Space = 10;
         private static readonly Vector2 s_MinSizeWindow = new (300, 200);
 

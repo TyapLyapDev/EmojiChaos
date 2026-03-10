@@ -11,13 +11,13 @@ namespace EmojiChaos.Services.Movement
     {
         private readonly float _speed = 5f;
 
-        private readonly List<Car> _cars = new();
+        private readonly List<Car> _cars = new ();
         private IDisposable _updateSubscription;
 
         public CarMovementDirector(float speed)
         {
             if (speed < 0)
-                throw new ArgumentOutOfRangeException(nameof(speed), speed, "�������� ������ ���� �������������");
+                throw new ArgumentOutOfRangeException(nameof(speed), speed, "The value must be positive");
 
             _speed = speed;
         }

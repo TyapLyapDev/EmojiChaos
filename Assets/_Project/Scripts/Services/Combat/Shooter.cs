@@ -40,7 +40,7 @@ namespace EmojiChaos.Services.Combat
         public void Activate(int bulletCount, int bulletType)
         {
             if (bulletCount < 0)
-                throw new ArgumentOutOfRangeException(nameof(bulletCount), "���������� �������� �� ����� ���� �������������");
+                throw new ArgumentOutOfRangeException(nameof(bulletCount), "The value must be positive");
 
             _bulletCount = bulletCount;
             _bulletType = bulletType;

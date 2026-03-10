@@ -3,29 +3,28 @@ using System.Collections.Generic;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-
-public class CrowdSequencer
-{
-    private readonly Queue<Crowd> _crowdsQueue;
-
-    public CrowdSequencer(List<Crowd> crowdSequence)
+    public class CrowdSequencer
     {
-        if (crowdSequence == null)
-            throw new ArgumentNullException(nameof(crowdSequence));
+        private readonly Queue<Crowd> _crowdsQueue;
 
-        _crowdsQueue = new (crowdSequence);
+        public CrowdSequencer(List<Crowd> crowdSequence)
+        {
+            if (crowdSequence == null)
+                throw new ArgumentNullException(nameof(crowdSequence));
+
+            _crowdsQueue = new(crowdSequence);
+        }
+
+        public bool TryGiveNextCrowd(out Crowd crowd)
+        {
+            crowd = null;
+
+            if (_crowdsQueue.Count == 0)
+                return false;
+
+            crowd = _crowdsQueue.Dequeue();
+
+            return true;
+        }
     }
-
-    public bool TryGiveNextCrowd(out Crowd crowd)
-    {
-        crowd = null;
-
-        if (_crowdsQueue.Count == 0)
-            return false;
-
-        crowd = _crowdsQueue.Dequeue();
-
-        return true;
-    }
-}
 }

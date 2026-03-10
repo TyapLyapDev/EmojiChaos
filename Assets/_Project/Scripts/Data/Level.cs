@@ -90,7 +90,7 @@ namespace EmojiChaos.Data
             PrepareCrowds();
 
             if (_colorSet.Colors == null || _colorSet.Colors.Count < _ids.Count)
-                throw new Exception($"������ {nameof(_colorSet.Colors)} ������ ���� �� ������ ������� {nameof(_ids)}");
+                throw new Exception($"The number of colors in the set {nameof(_colorSet.Colors)} there must be more than one id {nameof(_ids)}");
         }
 
         private List<int> GetIds()

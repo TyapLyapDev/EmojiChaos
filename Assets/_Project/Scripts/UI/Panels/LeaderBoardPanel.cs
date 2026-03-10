@@ -9,10 +9,10 @@ namespace EmojiChaos.UI.Panels
     {
         [SerializeField] private Leaderboard _leaderboard;
 
-        protected override void OnInitialize ( )
+        protected override void OnInitialize()
         {
-            base.OnInitialize ( );
-            _leaderboard.Initialize ( );
+            base.OnInitialize();
+            _leaderboard.Initialize();
         }
     }
 }

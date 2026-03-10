@@ -12,48 +12,48 @@ namespace EmojiChaos.UI.Tutorial.Explanations
 
         private Gun _gun;
 
-        protected override void OnActivated ( ) =>
-            SubscribeRacks ( );
+        protected override void OnActivated() =>
+            SubscribeRacks();
 
-        protected override void OnDeactivated ( )
+        protected override void OnDeactivated()
         {
-            UnsubscribeRacks ( );
+            UnsubscribeRacks();
 
             _circle.AnyClicked -= Deactivate;
-            Config.SwipeStrategy.Resume ( );
-            Config.EnemySpawner.Resume ( );
-            Config.EnemiesSpeedDirector.Resume ( );
-            _circle.Hide ( );
-            Hide ( );
+            Config.SwipeStrategy.Resume();
+            Config.EnemySpawner.Resume();
+            Config.EnemiesSpeedDirector.Resume();
+            _circle.Hide();
+            Hide();
         }
 
-        private void SubscribeRacks ( )
+        private void SubscribeRacks()
         {
             foreach (Rack rack in Config.Racks)
                 rack.GunInstalled += OnGunInstalled;
         }
 
-        private void UnsubscribeRacks ( )
+        private void UnsubscribeRacks()
         {
             foreach (Rack rack in Config.Racks)
                 rack.GunInstalled -= OnGunInstalled;
         }
 
-        private void OnGunInstalled (Gun gun)
+        private void OnGunInstalled(Gun gun)
         {
             if (IsActivated == false)
                 return;
 
             _gun = gun;
 
-            UnsubscribeRacks ( );
+            UnsubscribeRacks();
 
-            Config.SwipeStrategy.Pause ( );
-            Config.EnemySpawner.Pause ( );
-            Config.EnemiesSpeedDirector.Pause ( );
-            _circle.Show (_circleSize, _gun.Center.position);
+            Config.SwipeStrategy.Pause();
+            Config.EnemySpawner.Pause();
+            Config.EnemiesSpeedDirector.Pause();
+            _circle.Show(_circleSize, _gun.Center.position);
             _circle.AnyClicked += Deactivate;
-            Show ( );
+            Show();
         }
     }
 }

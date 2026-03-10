@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace EmojiChaos.Services.GameFlow
 {
     using Entities.Enemy;
-    using Services.Spawning.EnemySpawner;
+    using Spawning.EnemySpawner;
 
     public class EnemiesCounter : IDisposable
     {
         private readonly CrowdSpawnCoordinator _crowdSpawnCoordinator;
-        private readonly List<Enemy> _enemies = new();
+        private readonly List<Enemy> _enemies = new ();
         private bool _isDisposed;
 
         public EnemiesCounter(CrowdSpawnCoordinator crowdSpawnCoordinator)

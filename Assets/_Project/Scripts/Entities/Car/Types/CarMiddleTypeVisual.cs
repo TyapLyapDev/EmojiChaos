@@ -1,4 +1,4 @@
 namespace EmojiChaos.Entities.Car.Types
 {
-public class CarMiddleTypeVisual : CarVisual { }
+    public class CarMiddleTypeVisual : CarVisual { }
 }

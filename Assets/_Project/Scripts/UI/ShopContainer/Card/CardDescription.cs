@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 using YG;
 
 namespace EmojiChaos.UI.ShopContainer.Card

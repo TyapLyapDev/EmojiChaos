@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector
 {
-    using CardsLevelSelector.Card.UI.LevelCards;
-    using MiniCellsLevelSelector.MiniCell.UI.CustomMiniCellsLevelSelector;
+    using CardsLevelSelector.Card;
+    using MiniCellsLevelSelector.MiniCell;
 
     public readonly struct LevelInfo : ICardInfo, IMiniCellInfo
     {

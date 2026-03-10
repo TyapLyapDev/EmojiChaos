@@ -2,9 +2,9 @@ using System;
 
 namespace EmojiChaos.Core.Factory
 {
-    using EmojiChaos.Core.Abstract;
-    using EmojiChaos.Core.Abstract.Interface;
-    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+    using Abstract;
+    using Abstract.Interface;
+    using Abstract.MonoBehaviourWrapper;
 
     public class FactoryWithParam<TBehaviour, TParam> : BaseFactory<TBehaviour>
         where TBehaviour : InitializingWithConfigBehaviour<TParam>

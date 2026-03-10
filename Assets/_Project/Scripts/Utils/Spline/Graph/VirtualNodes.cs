@@ -2,20 +2,19 @@ using System;
 
 namespace EmojiChaos.Utils.Splines.Graph
 {
-
-public class VirtualNodes
-{
-    private SplineNode _start;
-    private SplineNode _goal;
-
-    public VirtualNodes(SplineNode start, SplineNode goal)
+    public class VirtualNodes
     {
-        _start = start ?? throw new ArgumentNullException(nameof(start));
-        _goal = goal ?? throw new ArgumentNullException(nameof(goal));
+        private SplineNode _start;
+        private SplineNode _goal;
+
+        public VirtualNodes(SplineNode start, SplineNode goal)
+        {
+            _start = start ?? throw new ArgumentNullException(nameof(start));
+            _goal = goal ?? throw new ArgumentNullException(nameof(goal));
+        }
+
+        public SplineNode Start => _start;
+
+        public SplineNode Goal => _goal;
     }
-
-    public SplineNode Start => _start;
-
-    public SplineNode Goal => _goal;
-}
 }

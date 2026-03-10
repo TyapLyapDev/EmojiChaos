@@ -3,12 +3,10 @@ using UnityEngine.EventSystems;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell
 {
-    using Containers.PageContainer.UI.CustomPageContainer;
+    using Containers.PageContainer;
     using Core.Abstract.UI;
     using Indicators;
-    using Indicators.UI.CustomMiniCellsLevelSelector;
     using Services.UI;
-    using UI.CustomMiniCellsLevelSelector;
 
     public class LevelCell : ButtonClickHandler<LevelCell>, IPagedItem
     {
@@ -63,7 +61,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            _shaker = new (_model.GetComponent<RectTransform>());
+            _shaker = new(_model.GetComponent<RectTransform>());
         }
     }
 }

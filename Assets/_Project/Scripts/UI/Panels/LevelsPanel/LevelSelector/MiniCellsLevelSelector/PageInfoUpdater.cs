@@ -4,9 +4,8 @@ using System.Linq;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
-    using Containers.PageContainer.UI.CustomPageContainer;
+    using Containers.PageContainer;
     using MiniCell;
-    using MiniCell.UI.CustomMiniCellsLevelSelector;
 
     public class PageInfoUpdater
     {

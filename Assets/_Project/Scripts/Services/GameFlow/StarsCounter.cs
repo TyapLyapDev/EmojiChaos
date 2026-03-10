@@ -7,7 +7,7 @@ namespace EmojiChaos.Services.GameFlow
 
     public class StarsCounter : IDisposable
     {
-        private readonly List<Star> _stars = new();
+        private readonly List<Star> _stars = new ();
 
         public StarsCounter(IReadOnlyList<Star> stars)
         {

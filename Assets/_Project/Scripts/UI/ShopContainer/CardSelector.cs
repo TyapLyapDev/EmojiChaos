@@ -1,6 +1,5 @@
 namespace EmojiChaos.UI.ShopContainer
 {
-    using UI.Shop;
     using Services.Save;
     using Card;
 

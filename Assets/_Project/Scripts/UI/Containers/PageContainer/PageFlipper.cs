@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Containers.PageContainer
 {
-
-namespace UI.CustomPageContainer
-{
     public class PageFlipper : IPageFlipper
     {
         private readonly int _levelsCount;
@@ -20,7 +17,7 @@ namespace UI.CustomPageContainer
                 throw new ArgumentOutOfRangeException(
                     nameof(levelsCount),
                     levelsCount,
-                    "���������� ������� �� ����� ���� �������������");
+                    "The quantity cannot be negative");
 
             _levelsCount = levelsCount;
 
@@ -28,7 +25,7 @@ namespace UI.CustomPageContainer
                 throw new ArgumentOutOfRangeException(
                     nameof(cellsCount),
                     cellsCount,
-                    "���������� ����� �� ����� ���� ������ �������");
+                    "The value must be greater than zero");
 
             _cellsCount = cellsCount;
 
@@ -62,5 +59,4 @@ namespace UI.CustomPageContainer
             _pageChanged?.Invoke();
         }
     }
-}
 }

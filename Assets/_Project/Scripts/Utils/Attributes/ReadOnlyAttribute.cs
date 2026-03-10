@@ -2,6 +2,5 @@ using UnityEngine;
 
 namespace EmojiChaos.Utils.Attributes
 {
-
-public class ReadOnlyAttribute : PropertyAttribute { }
+    public class ReadOnlyAttribute : PropertyAttribute { }
 }

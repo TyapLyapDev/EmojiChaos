@@ -2,26 +2,25 @@ using System;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-
-public class EnemyFormationCalculator
-{
-    private const int MiddlePointDivisor = 2;
-
-    public float[] Calculate(int countLines, float stepOffset)
+    public class EnemyFormationCalculator
     {
-        if (countLines <= 0)
-            throw new ArgumentOutOfRangeException(nameof(countLines), "������, �����! ���������� ����� � ����� ������ ���� ������ ����!");
+        private const int MiddlePointDivisor = 2;
 
-        if (stepOffset < 0)
-            throw new ArgumentOutOfRangeException(nameof(stepOffset), "������, �����! ������� �� ����� ���� ��������������!");
+        public float[] Calculate(int countLines, float stepOffset)
+        {
+            if (countLines <= 0)
+                throw new ArgumentOutOfRangeException(nameof(countLines));
 
-        float[] offsets = new float[countLines];
-        float startOffset = -(countLines - 1) * stepOffset / MiddlePointDivisor;
+            if (stepOffset < 0)
+                throw new ArgumentOutOfRangeException(nameof(stepOffset));
 
-        for (int i = 0; i < countLines; i++)
-            offsets[i] = (i * stepOffset) + startOffset;
+            float[] offsets = new float[countLines];
+            float startOffset = -(countLines - 1) * stepOffset / MiddlePointDivisor;
 
-        return offsets;
+            for (int i = 0; i < countLines; i++)
+                offsets[i] = (i * stepOffset) + startOffset;
+
+            return offsets;
+        }
     }
-}
 }

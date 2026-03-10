@@ -1,23 +1,23 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EmojiChaos.Core
 {
+    using Abstract.Interface;
+    using Utils.Static;
+
     public class Pool<T>
         where T : MonoBehaviour, IPoolable<T>
     {
-        private const int MaximumSize = 500;
-
         private readonly IFactory<T> _factory;
         private readonly Transform _parent;
-        private readonly Stack<T> _elements = new();
+        private readonly Stack<T> _elements = new ();
         private readonly int _size;
 
         private int _count;
 
-        public Pool(IFactory<T> factory, Transform parent, int size = MaximumSize)
+        public Pool(IFactory<T> factory, Transform parent, int size = Constants.PoolMaximumSize)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 

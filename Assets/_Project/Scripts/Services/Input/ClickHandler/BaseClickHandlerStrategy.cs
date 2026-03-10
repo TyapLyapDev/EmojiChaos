@@ -1,14 +1,15 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UniRx;
 
 namespace EmojiChaos.Services.Input.ClickHandler
 {
+    using EmojiChaos.Core.Abstract.Interface;
+
     public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy
     {
         private readonly IDisposable _observable;
@@ -16,11 +17,11 @@ namespace EmojiChaos.Services.Input.ClickHandler
         private readonly List<GraphicRaycaster> _graphicRaycasters;
         private readonly EventSystem _eventSystem;
 
-        public BaseClickHandlerStrategy ( )
+        public BaseClickHandlerStrategy()
         {
-            _observable = Observable.EveryUpdate ( ).Subscribe (_ => Update ( ));
+            _observable = Observable.EveryUpdate().Subscribe(_ => Update());
             _camera = Camera.main;
-            _graphicRaycasters = UnityEngine.Object.FindObjectsOfType<GraphicRaycaster> ( ).ToList ( );
+            _graphicRaycasters = UnityEngine.Object.FindObjectsOfType<GraphicRaycaster>().ToList();
             _eventSystem = EventSystem.current;
         }
 
@@ -29,22 +30,22 @@ namespace EmojiChaos.Services.Input.ClickHandler
 
         public Camera CameraMain => _camera;
 
-        public abstract Vector2 GetCurrentPosition ( );
+        public abstract Vector2 GetCurrentPosition();
 
-        protected abstract void Update ( );
+        protected abstract void Update();
 
-        public void Dispose ( ) =>
-            _observable?.Dispose ( );
+        public void Dispose() =>
+            _observable?.Dispose();
 
-        protected bool IsUiElement (Vector2 position, out RaycastResult result)
+        protected bool IsUiElement(Vector2 position, out RaycastResult result)
         {
-            result = new ( );
+            result = new ();
 
             if (_eventSystem == null || _graphicRaycasters.Count == 0)
                 return false;
 
-            PointerEventData eventData = new (_eventSystem) { position = position };
-            RaycastResult topResult = new ( );
+            PointerEventData eventData = new(_eventSystem) { position = position };
+            RaycastResult topResult = new ();
             bool foundAny = false;
 
             foreach (GraphicRaycaster raycaster in _graphicRaycasters)
@@ -52,12 +53,12 @@ namespace EmojiChaos.Services.Input.ClickHandler
                 if (raycaster == null)
                     continue;
 
-                List<RaycastResult> results = new ( );
-                raycaster.Raycast (eventData, results);
+                List<RaycastResult> results = new ();
+                raycaster.Raycast(eventData, results);
 
                 if (results.Count > 0)
                 {
-                    if (foundAny == false || IsResultHigherPriority (results[0], topResult))
+                    if (foundAny == false || IsResultHigherPriority(results[0], topResult))
                     {
                         topResult = results[0];
                         foundAny = true;
@@ -75,26 +76,26 @@ namespace EmojiChaos.Services.Input.ClickHandler
             return false;
         }
 
-        protected bool IsClickableUiElement (RaycastResult result, out IClickable clickable)
+        protected bool IsClickableUiElement(RaycastResult result, out IClickable clickable)
         {
-            if (result.gameObject.TryGetComponent (out clickable))
+            if (result.gameObject.TryGetComponent(out clickable))
                 return true;
 
-            clickable = result.gameObject.GetComponentInParent<IClickable> ( );
+            clickable = result.gameObject.GetComponentInParent<IClickable>();
 
             return clickable != null;
         }
 
-        protected void InvokeClicked (IClickable clickable, Vector2 position) =>
-            Clicked?.Invoke (clickable, position);
+        protected void InvokeClicked(IClickable clickable, Vector2 position) =>
+            Clicked?.Invoke(clickable, position);
 
-        protected void InvokeUnclicked ( ) =>
-            Unclicked?.Invoke ( );
+        protected void InvokeUnclicked() =>
+            Unclicked?.Invoke();
 
-        private bool IsResultHigherPriority (RaycastResult newResult, RaycastResult currentTop)
+        private bool IsResultHigherPriority(RaycastResult newResult, RaycastResult currentTop)
         {
-            Canvas newCanvas = newResult.gameObject.GetComponentInParent<Canvas> ( );
-            Canvas currentCanvas = currentTop.gameObject.GetComponentInParent<Canvas> ( );
+            Canvas newCanvas = newResult.gameObject.GetComponentInParent<Canvas>();
+            Canvas currentCanvas = currentTop.gameObject.GetComponentInParent<Canvas>();
 
             int newOrder = newCanvas != null ? newCanvas.sortingOrder : 0;
             int currentOrder = currentCanvas != null ? currentCanvas.sortingOrder : 0;

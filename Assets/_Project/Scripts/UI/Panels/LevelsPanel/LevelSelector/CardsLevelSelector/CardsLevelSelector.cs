@@ -6,8 +6,7 @@ using UnityEngine.UI;
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 {
     using Card;
-    using Card.UI.LevelCards;
-    using Containers.ScrollContainer.UI.CustomScrollContainer;
+    using Containers.ScrollContainer;
 
     public class CardsLevelSelector : MonoBehaviour, ILevelSelector
     {
@@ -28,10 +27,10 @@ namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 
         public void Init(IReadOnlyList<ICardInfo> cardInfos)
         {
-            _itemContainer = new (_content);
-            _scroller = new (_scroll, _viewport, _content as RectTransform, _itemContainer);
-            _cardClickHandler = new (OnClickLevel);
-            _cardFactory = new (_prefab, _itemContainer, cardInfos, _cardClickHandler.OnClickCard);
+            _itemContainer = new(_content);
+            _scroller = new(_scroll, _viewport, _content as RectTransform, _itemContainer);
+            _cardClickHandler = new(OnClickLevel);
+            _cardFactory = new(_prefab, _itemContainer, cardInfos, _cardClickHandler.OnClickCard);
             _cardFactory.CreateCards();
         }
 

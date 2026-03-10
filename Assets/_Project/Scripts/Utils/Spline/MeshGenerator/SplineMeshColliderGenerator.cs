@@ -13,9 +13,9 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
     using Utils.Attributes;
 
     [ExecuteInEditMode]
-    [RequireComponent (typeof (SplineContainer))]
-    [RequireComponent (typeof (MeshCollider))]
-    [RequireComponent (typeof (Rigidbody))]
+    [RequireComponent(typeof(SplineContainer))]
+    [RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(Rigidbody))]
     public class SplineMeshColliderGenerator : MonoBehaviour
     {
 #if UNITY_EDITOR
@@ -43,49 +43,49 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
 
         private bool _isSubscribedToSplineEvents = false;
 
-        private void OnValidate ( )
+        private void OnValidate()
         {
             if (_splineContainer == null)
-                _splineContainer = GetComponent<SplineContainer> ( );
+                _splineContainer = GetComponent<SplineContainer>();
 
             if (_meshCollider == null)
-                _meshCollider = GetComponent<MeshCollider> ( );
+                _meshCollider = GetComponent<MeshCollider>();
 
             if (_rigidbody == null)
-                _rigidbody = GetComponent<Rigidbody> ( );
+                _rigidbody = GetComponent<Rigidbody>();
 
             if (_level == null)
-                _level = GetComponentInParent<Level> ( );
+                _level = GetComponentInParent<Level>();
 
             if (_rigidbody.isKinematic == false)
                 _rigidbody.isKinematic = true;
 
-            SplineUtils.SynchronizeArraySize<int> (ref _resolutions, _splineContainer.Splines.Count);
+            SplineUtils.SynchronizeArraySize<int>(ref _resolutions, _splineContainer.Splines.Count);
 
             for (int i = 0; i < _resolutions.Length; i++)
-                _resolutions[i] = Mathf.Max (_resolutions[i], 0);
+                _resolutions[i] = Mathf.Max(_resolutions[i], 0);
 
             if (_isAutoupdate)
             {
-                SubscribeToSplineEvents ( );
-                GenerateMesh ( );
+                SubscribeToSplineEvents();
+                GenerateMesh();
             }
             else
             {
-                UnsubscribeFromSplineEvents ( );
+                UnsubscribeFromSplineEvents();
             }
         }
 
-        private void OnEnable ( ) =>
-            SubscribeToSplineEvents ( );
+        private void OnEnable() =>
+            SubscribeToSplineEvents();
 
-        private void OnDisable ( ) =>
-            UnsubscribeFromSplineEvents ( );
+        private void OnDisable() =>
+            UnsubscribeFromSplineEvents();
 
-        private void OnDestroy ( ) =>
-            UnsubscribeFromSplineEvents ( );
+        private void OnDestroy() =>
+            UnsubscribeFromSplineEvents();
 
-        private void SubscribeToSplineEvents ( )
+        private void SubscribeToSplineEvents()
         {
             if (_isAutoupdate == false)
                 return;
@@ -97,7 +97,7 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             _isSubscribedToSplineEvents = true;
         }
 
-        private void UnsubscribeFromSplineEvents ( )
+        private void UnsubscribeFromSplineEvents()
         {
             if (_isSubscribedToSplineEvents == false)
                 return;
@@ -106,16 +106,16 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             _isSubscribedToSplineEvents = false;
         }
 
-        private void OnSplineChanged (Spline spline, int index, SplineModification splineModification)
+        private void OnSplineChanged(Spline spline, int index, SplineModification splineModification)
         {
-            if (_isAutoupdate && _splineContainer.Splines.Contains (spline))
-                GenerateMesh ( );
+            if (_isAutoupdate && _splineContainer.Splines.Contains(spline))
+                GenerateMesh();
         }
 
-        private void GenerateMesh ( )
+        private void GenerateMesh()
         {
-            List<Vector3> vertices = new ( );
-            List<int> triangles = new ( );
+            List<Vector3> vertices = new ();
+            List<int> triangles = new ();
 
             for (int splineIndex = 0; splineIndex < _splineContainer.Splines.Count; splineIndex++)
             {
@@ -125,22 +125,22 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                 Spline spline = _splineContainer.Splines[splineIndex];
                 int splineResolution = _resolutions[splineIndex];
 
-                AddSplineToMesh (spline, splineResolution, vertices, triangles);
+                AddSplineToMesh(spline, splineResolution, vertices, triangles);
             }
 
-            SaveMeshAsAsset (CreateMesh (vertices, triangles));
+            SaveMeshAsAsset(CreateMesh(vertices, triangles));
         }
 
-        private void AddSplineToMesh (Spline spline, int resolution, List<Vector3> vertices, List<int> triangles)
+        private void AddSplineToMesh(Spline spline, int resolution, List<Vector3> vertices, List<int> triangles)
         {
             int startIndex = vertices.Count;
 
             for (int i = 0; i < resolution; i++)
             {
                 float t = i / (float)(resolution - 1);
-                var (position, right, up) = GetSplineFrame (spline, t);
+                var (position, right, up) = GetSplineFrame(spline, t);
 
-                vertices.AddRange (new[]
+                vertices.AddRange(new[]
                 {
                 position - right - up,
                 position + right - up,
@@ -152,21 +152,21 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                 {
                     int curr = startIndex + i * 4;
                     int prev = curr - 4;
-                    AddConnectionFaces (triangles, prev, curr);
+                    AddConnectionFaces(triangles, prev, curr);
                 }
             }
         }
 
-        private (Vector3 position, Vector3 right, Vector3 up) GetSplineFrame (Spline spline, float t)
+        private (Vector3 position, Vector3 right, Vector3 up) GetSplineFrame(Spline spline, float t)
         {
-            Vector3 position = (Vector3)spline.EvaluatePosition (t) + _offset;
-            Vector3 tangent = spline.EvaluateTangent (t);
-            Vector3 right = Vector3.Cross (Vector3.up, tangent).normalized * _width / WidthDivider;
+            Vector3 position = (Vector3)spline.EvaluatePosition(t) + _offset;
+            Vector3 tangent = spline.EvaluateTangent(t);
+            Vector3 right = Vector3.Cross(Vector3.up, tangent).normalized * _width / WidthDivider;
             Vector3 up = Vector3.up * _height / HeightDivider;
             return (position, right, up);
         }
 
-        private void AddConnectionFaces (List<int> triangles, int prevBase, int currBase)
+        private void AddConnectionFaces(List<int> triangles, int prevBase, int currBase)
         {
             int[][] faces = new[]
             {
@@ -180,7 +180,7 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
 
             foreach (var face in faces)
             {
-                triangles.AddRange (new[]
+                triangles.AddRange(new[]
                 {
                     face[0], face[1], face[2],
                     face[0], face[2], face[3],
@@ -188,12 +188,12 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             }
         }
 
-        private Mesh CreateMesh (List<Vector3> vertices, List<int> triangles)
+        private Mesh CreateMesh(List<Vector3> vertices, List<int> triangles)
         {
-            Mesh mesh = new ( );
-            mesh.SetVertices (vertices);
-            mesh.SetTriangles (triangles, 0);
-            mesh.RecalculateNormals ( );
+            Mesh mesh = new ();
+            mesh.SetVertices(vertices);
+            mesh.SetTriangles(triangles, 0);
+            mesh.RecalculateNormals();
 
             _verticesCount = vertices.Count;
             _trianglesCount = triangles.Count;
@@ -201,7 +201,7 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             return mesh;
         }
 
-        private void SaveMeshAsAsset (Mesh generatedMesh)
+        private void SaveMeshAsAsset(Mesh generatedMesh)
         {
             if (generatedMesh.vertexCount == 0)
             {
@@ -213,15 +213,15 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
             string meshName = _level != null ? _level.gameObject.name : DefaultMeshName;
             meshName += _meshSuffixName;
 
-            _meshCollider.sharedMesh = SplineUtils.SaveMeshAsAsset (generatedMesh, path, meshName, MeshAssetExtension);
+            _meshCollider.sharedMesh = SplineUtils.SaveMeshAsAsset(generatedMesh, path, meshName, MeshAssetExtension);
 
-            EditorUtility.SetDirty (this);
-            EditorUtility.SetDirty (_meshCollider);
+            EditorUtility.SetDirty(this);
+            EditorUtility.SetDirty(_meshCollider);
         }
 
-        [ContextMenu ("�������� ��� ����������")]
-        public void UpdateMeshCollider ( ) =>
-            GenerateMesh ( );
+        [ContextMenu("Update the collider mesh")]
+        public void UpdateMeshCollider() =>
+            GenerateMesh();
 #endif
     }
 }

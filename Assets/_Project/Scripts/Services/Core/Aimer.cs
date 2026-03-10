@@ -3,25 +3,24 @@ using UnityEngine;
 
 namespace EmojiChaos.Services.Core
 {
-
-public class Aimer
-{
-    private readonly Transform _rotatingModel;
-
-    public Aimer(Transform rotatingModel)
+    public class Aimer
     {
-        _rotatingModel = rotatingModel ?? throw new ArgumentNullException(nameof(rotatingModel));
+        private readonly Transform _rotatingModel;
+
+        public Aimer(Transform rotatingModel)
+        {
+            _rotatingModel = rotatingModel ?? throw new ArgumentNullException(nameof(rotatingModel));
+        }
+
+        public void AimAtTarget(Transform target)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            _rotatingModel.LookAt(target);
+        }
+
+        public void ResetRotation() =>
+            _rotatingModel.rotation = Quaternion.identity;
     }
-
-    public void AimAtTarget(Transform target)
-    {
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
-
-        _rotatingModel.LookAt(target);
-    }
-
-    public void ResetRotation() =>
-        _rotatingModel.rotation = Quaternion.identity;
-}
 }

@@ -1,4 +1,3 @@
-
 namespace EmojiChaos.UI.Buttons
 {
     using Audio;

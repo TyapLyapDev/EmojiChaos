@@ -2,34 +2,33 @@ using UnityEngine;
 
 namespace EmojiChaos.Entities.ShifterPlatform
 {
-
-public class CircleMask : MonoBehaviour
-{
-    [SerializeField] private Color _color = Color.magenta;
-    [SerializeField] private int _segments = 32;
-
-    private void OnDrawGizmosSelected()
+    public class CircleMask : MonoBehaviour
     {
-        Gizmos.color = _color;
-        Vector3 scale = transform.lossyScale;
-        float radius = Mathf.Max(scale.x, scale.z) * 0.5f;
+        [SerializeField] private Color _color = Color.magenta;
+        [SerializeField] private int _segments = 32;
 
-        float angle = 0f;
-        Vector3 lastPoint = Vector3.zero;
-
-        for (int i = 0; i <= _segments; i++)
+        private void OnDrawGizmosSelected()
         {
-            float x = Mathf.Sin(angle);
-            float z = Mathf.Cos(angle);
+            Gizmos.color = _color;
+            Vector3 scale = transform.lossyScale;
+            float radius = Mathf.Max(scale.x, scale.z) * 0.5f;
 
-            Vector3 point = transform.position + new Vector3(x * radius, 0, z * radius);
+            float angle = 0f;
+            Vector3 lastPoint = Vector3.zero;
 
-            if (i > 0)
-                Gizmos.DrawLine(lastPoint, point);
+            for (int i = 0; i <= _segments; i++)
+            {
+                float x = Mathf.Sin(angle);
+                float z = Mathf.Cos(angle);
 
-            lastPoint = point;
-            angle += 2 * Mathf.PI / _segments;
+                Vector3 point = transform.position + new Vector3(x * radius, 0, z * radius);
+
+                if (i > 0)
+                    Gizmos.DrawLine(lastPoint, point);
+
+                lastPoint = point;
+                angle += 2 * Mathf.PI / _segments;
+            }
         }
     }
-}
 }

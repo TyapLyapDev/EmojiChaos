@@ -11,9 +11,9 @@ namespace EmojiChaos.Data
         public int Score = 0;
         public float MusicVolume = 0.3f;
         public float SfxVolume = 0.7f;
-        public List<LevelDataInfo> Levels = new();
+        public List<LevelDataInfo> Levels = new ();
         public bool IsPurchsingRack = false;
         public bool IsNoAds = false;
-        public List<ShopData> ShopDatas = new();
+        public List<ShopData> ShopDatas = new ();
     }
 }

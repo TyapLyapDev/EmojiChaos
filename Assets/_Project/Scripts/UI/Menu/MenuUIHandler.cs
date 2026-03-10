@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace EmojiChaos.UI.Menu
 {
+    using Buttons;
     using Core.Abstract.MonoBehaviourWrapper;
-    using EmojiChaos.Services.Core;
-    using EmojiChaos.UI.Buttons;
-    using EmojiChaos.UI.Panels;
-    using EmojiChaos.UI.Panels.LevelsPanel;
-    using EmojiChaos.Utils.Static;
+    using Panels;
+    using Panels.LevelsPanel;
+    using Services.Core;
+    using Utils.Static;
 
     public class MenuUIHandler : InitializingWithConfigBehaviour<MenuUiParam>
     {

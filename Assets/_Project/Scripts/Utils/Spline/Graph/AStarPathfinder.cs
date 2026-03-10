@@ -26,10 +26,10 @@ namespace EmojiChaos.Utils.Splines.Graph
         public List<SplineSegment> GetPath(Vector3 startPosition, Vector3 targetPosition)
         {
             if (_positionFinder.TryFindNearestProgressOnAnySpline(startPosition, out float startProgress, out Spline nearestStartSpline) == false)
-                throw new InvalidOperationException($"�� ������� ����� ��������� ������ ��� {nameof(startPosition)}");
+                throw new InvalidOperationException($"Couldn't calculate the path to the specified position {nameof(startPosition)}");
 
             if (_positionFinder.TryFindNearestProgressOnAnySpline(targetPosition, out float targetProgress, out Spline nearestTargetSpline) == false)
-                throw new InvalidOperationException($"�� ������� ����� ��������� ������ ��� {nameof(targetPosition)}");
+                throw new InvalidOperationException($"Couldn't calculate the path to the specified position {nameof(targetPosition)}");
 
             return FindPath(nearestStartSpline, startProgress, nearestTargetSpline, targetProgress);
         }
@@ -37,7 +37,7 @@ namespace EmojiChaos.Utils.Splines.Graph
         public List<SplineSegment> FindPath(Spline startSpline, float startProgress, Spline goalSpline, float goalProgress)
         {
             if (startSpline == null || goalSpline == null)
-                return new();
+                return new ();
 
             _pathContext.InitializePathContext(startSpline, startProgress, goalSpline, goalProgress);
             VirtualNodes virtualNodes = _pathContext.CreateVirtualNodes(_positionFinder, startSpline, startProgress, goalSpline, goalProgress);
@@ -50,7 +50,7 @@ namespace EmojiChaos.Utils.Splines.Graph
                 return segmentBuilder.BuildSegments(nodePath, startSpline, startProgress, goalSpline, goalProgress);
             }
 
-            return new();
+            return new ();
         }
     }
 }

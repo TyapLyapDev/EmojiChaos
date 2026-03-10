@@ -1,28 +1,28 @@
-using EmojiChaos.Core.Abstract.Interface;
 using System;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
+    using Interface;
 
-public abstract class BaseFactory<T> : IFactory<T> 
-    where T : MonoBehaviour
-{
-    private readonly T _prefab;
-
-    protected BaseFactory(T prefab)
+    public abstract class BaseFactory<T> : IFactory<T>
+        where T : MonoBehaviour
     {
-        _prefab = prefab ?? throw new ArgumentNullException(nameof(prefab));
+        private readonly T _prefab;
+
+        protected BaseFactory(T prefab)
+        {
+            _prefab = prefab ?? throw new ArgumentNullException(nameof(prefab));
+        }
+
+        public T Create()
+        {
+            T element = UnityEngine.Object.Instantiate(_prefab);
+            OnCreate(element);
+
+            return element;
+        }
+
+        protected abstract void OnCreate(T element);
     }
-
-    public T Create()
-    {
-        T element = UnityEngine.Object.Instantiate(_prefab);
-        OnCreate(element);
-
-        return element;
-    }
-
-    protected abstract void OnCreate(T element);
-}
 }
