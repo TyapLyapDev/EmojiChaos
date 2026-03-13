@@ -1,10 +1,9 @@
 using System.Linq;
+using EmojiChaos.Services.Core;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Buttons
 {
-    using Services.Core;
-
     public class GameSpeedToggleDirector : MonoBehaviour
     {
         [SerializeField] private GameSpeedSwitchButton[] _buttons;

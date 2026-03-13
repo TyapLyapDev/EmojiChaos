@@ -1,8 +1,8 @@
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract;
+
 namespace EmojiChaos.UI.Buttons
 {
-    using Audio;
-    using Core.Abstract;
-
     public class SfxMuteButton : MuteButtonBase<SfxMuteButton>
     {
         protected override void OnSliderChanged(float value)

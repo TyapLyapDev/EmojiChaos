@@ -1,3 +1,8 @@
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Lang;
+using EmojiChaos.ScriptableObect;
+using EmojiChaos.UI.Buttons;
+using EmojiChaos.UtilsSpace.Static;
 using TMPro;
 using UnityEngine;
 using YG;
@@ -10,12 +15,6 @@ using YG.Utils.Pay;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    using Buttons;
-    using Core.Abstract.UI;
-    using Lang;
-    using ScriptableObect;
-    using Utils.Static;
-
     public class PurchasePanel : PanelBase
     {
         [SerializeField] private ImageLoadYG purchaseImageLoad;

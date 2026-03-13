@@ -1,14 +1,13 @@
 using System;
+using DG.Tweening;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using DG.Tweening;
 
 namespace EmojiChaos.Core.Abstract.UI
 {
-    using Audio;
-    using MonoBehaviourWrapper;
-
     public abstract class ButtonClickHandler<T> : InitializingBehaviour,
         IPointerDownHandler, IPointerUpHandler, IPointerClickHandler,
         IPointerEnterHandler, IPointerExitHandler

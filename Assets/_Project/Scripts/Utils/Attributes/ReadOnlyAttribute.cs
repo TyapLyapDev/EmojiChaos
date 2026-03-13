@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Attributes
+namespace EmojiChaos.UtilsSpace.Attributes
 {
     public class ReadOnlyAttribute : PropertyAttribute { }
 }

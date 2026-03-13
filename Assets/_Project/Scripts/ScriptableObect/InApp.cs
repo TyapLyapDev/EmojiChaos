@@ -1,9 +1,8 @@
+using EmojiChaos.Lang;
 using UnityEngine;
 
 namespace EmojiChaos.ScriptableObect
 {
-    using Lang;
-
     [CreateAssetMenu(menuName = "Scriptable object/In App")]
     public class InApp : ScriptableObject
     {

@@ -1,10 +1,9 @@
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Repainters;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Bullet
+namespace EmojiChaos.Entities.Bullets
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Repainters;
-
     public class BulletVisual : InitializingBehaviour
     {
         [SerializeField] private SimpleRepainter[] _repainters;

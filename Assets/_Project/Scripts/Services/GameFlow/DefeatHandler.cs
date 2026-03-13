@@ -1,9 +1,8 @@
 using System;
+using EmojiChaos.Services.Movement;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Movement;
-
     public class DefeatHandler : IDisposable
     {
         private readonly EnemiesMovementDirector _enemiesSpeedDirector;

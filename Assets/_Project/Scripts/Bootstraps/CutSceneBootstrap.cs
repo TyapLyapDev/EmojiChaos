@@ -1,33 +1,32 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core;
+using EmojiChaos.Data;
+using EmojiChaos.Entities.Bullets;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Entities.Guns;
+using EmojiChaos.Entities.Racks;
+using EmojiChaos.Entities.Star;
+using EmojiChaos.Particles;
+using EmojiChaos.Services.Combat;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.GameFlow;
+using EmojiChaos.Services.Input;
+using EmojiChaos.Services.Movement;
+using EmojiChaos.Services.Save;
+using EmojiChaos.Services.Spawning.EnemySpawner;
+using EmojiChaos.Services.Spawning.Selectors;
+using EmojiChaos.UI.Buttons;
+using EmojiChaos.UI.Level;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
+using EmojiChaos.UtilsSpace.Splines.Graph;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Bootstraps
 {
-    using Audio;
-    using Core;
-    using Data;
-    using Entities.Bullet;
-    using Entities.Car;
-    using Entities.Enemy;
-    using Entities.Gun;
-    using Entities.Rack;
-    using Entities.Star;
-    using Particles;
-    using Services.Combat;
-    using Services.Core;
-    using Services.GameFlow;
-    using Services.Input;
-    using Services.Movement;
-    using Services.Save;
-    using Services.Spawning.EnemySpawner;
-    using Services.Spawning.Selectors;
-    using UI.Buttons;
-    using UI.Level;
-    using UI.ShopContainer.Card.Enum;
-    using Utils.Splines.Graph;
-    using Utils.Static;
-
     public class CutSceneBootstrap : MonoBehaviour
     {
         private readonly ServicesRegistry _services = new ();
@@ -58,7 +57,7 @@ namespace EmojiChaos.Bootstraps
 
         private void CreateLevel()
         {
-            Saver saver = new(Utils.CalculateLevelCountInProject());
+            Saver saver = new (Utils.CalculateLevelCountInProject());
             _services.Add(saver);
 
             _level.Initialize();
@@ -75,7 +74,7 @@ namespace EmojiChaos.Bootstraps
             _services.Add(new CameraShaker());
             _services.Add(new PauseSwitcher());
             _services.Add(new CarSwipeStrategy() as ISwipeStrategy);
-            _services.Add(new TypeColorRandomizer(new(_level.Colors), new(_level.Ids)));
+            _services.Add(new TypeColorRandomizer(new (_level.Colors), new (_level.Ids)));
             _services.Add(SceneLoader.Instance);
 
             PoolBuilder poolBuilder = new ();
@@ -92,7 +91,7 @@ namespace EmojiChaos.Bootstraps
             _services.Add(new StarsCounter(_level.Stars));
             _services.Add(new SlotReservator(_level.Slots, _services.Get<ISwipeStrategy>()));
             _services.Add(new EnemySpawner(_services.Get<Pool<Enemy>>(), _services.Get<TypeColorRandomizer>(), _enemySelector.Speed));
-            _services.Add(new CrowdSpawnCoordinator(this, _services.Get<EnemySpawner>(), new(_level.Crowds), _level.Portal));
+            _services.Add(new CrowdSpawnCoordinator(this, _services.Get<EnemySpawner>(), new (_level.Crowds), _level.Portal));
             _services.Add(new EnemyRegistryToAttack(_services.Get<EnemySpawner>()));
             _services.Add(new EnemiesMovementDirector(_services.Get<EnemySpawner>(), _level.Portal, _enemySelector.Speed));
             _services.Add(new EnemiesCounter(_services.Get<CrowdSpawnCoordinator>()));
@@ -126,10 +125,10 @@ namespace EmojiChaos.Bootstraps
 
             foreach (Rack slot in _level.Slots)
             {
-                Shooter shooter = new(bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
+                Shooter shooter = new (bulletPool, enemyRegistryToAttack, bulletSpeedDirector);
                 Gun gun = Instantiate(_gunSelector.Prefab);
-                gun.Initialize(new(shooter, particleShower, _gunSelector.TimeReload));
-                slot.Initialize(new(gun, saver));
+                gun.Initialize(new (shooter, particleShower, _gunSelector.TimeReload));
+                slot.Initialize(new (gun, saver));
             }
         }
 
@@ -137,7 +136,7 @@ namespace EmojiChaos.Bootstraps
         {
             CarMovementDirector carSpeedDirector = _services.Get<CarMovementDirector>();
             ParticleShower particleShower = _services.Get<ParticleShower>();
-            MapSplineNodes mapSplineNodes = new(_level.CarSplineContainer);
+            MapSplineNodes mapSplineNodes = new (_level.CarSplineContainer);
             TypeColorRandomizer colorRandomizer = _services.Get<TypeColorRandomizer>();
 
             List<Car> cars = _level.GetComponentsInChildren<Car>(true).ToList();
@@ -148,7 +147,7 @@ namespace EmojiChaos.Bootstraps
                     continue;
 
                 if (colorRandomizer.TryGetColor(car.Id, out Color color))
-                    car.Initialize(new(carSpeedDirector, particleShower, mapSplineNodes, color));
+                    car.Initialize(new (carSpeedDirector, particleShower, mapSplineNodes, color));
             }
         }
 
@@ -159,7 +158,7 @@ namespace EmojiChaos.Bootstraps
             CameraShaker cameraShaker = _services.Get<CameraShaker>();
 
             foreach (Star star in _level.Stars)
-                star.Initialize(new(enemySpeedDirector, particleShower, cameraShaker));
+                star.Initialize(new (enemySpeedDirector, particleShower, cameraShaker));
         }
 
         private void InitializeUIHandler()

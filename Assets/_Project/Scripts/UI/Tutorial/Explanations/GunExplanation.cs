@@ -1,10 +1,9 @@
+using EmojiChaos.Entities.Guns;
+using EmojiChaos.Entities.Racks;
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial.Explanations
+namespace EmojiChaos.UI.TutorialSpace.Explanations
 {
-    using Entities.Gun;
-    using Entities.Rack;
-
     public class GunExplanation : TutorialItem
     {
         [SerializeField] private TutorialCircle _circle;

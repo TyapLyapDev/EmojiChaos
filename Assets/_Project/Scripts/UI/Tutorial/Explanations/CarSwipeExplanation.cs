@@ -1,10 +1,9 @@
 using UnityEngine;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Entities.Cars;
 
-namespace EmojiChaos.UI.Tutorial.Explanations
+namespace EmojiChaos.UI.TutorialSpace.Explanations
 {
-    using Core.Abstract.Interface;
-    using Entities.Car;
-
     public class CarSwipeExplanation : TutorialItem
     {
         [SerializeField] private RectTransform _canvas;

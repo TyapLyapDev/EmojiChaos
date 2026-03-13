@@ -1,11 +1,11 @@
 using System;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public class VirtualNodes
     {
-        private SplineNode _start;
-        private SplineNode _goal;
+        private readonly SplineNode _start;
+        private readonly SplineNode _goal;
 
         public VirtualNodes(SplineNode start, SplineNode goal)
         {

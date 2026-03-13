@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Core.Abstract;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Repainters
 {
-    using Abstract;
-
     public class AlphaMaskTextureReplacer : BaseRepainter
     {
         [SerializeField] private string _texturePropertyName = "_MainTex";

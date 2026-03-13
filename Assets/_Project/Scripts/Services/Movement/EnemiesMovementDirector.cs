@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Entities.Portal;
+using EmojiChaos.Services.Spawning.EnemySpawner;
 using UniRx;
+using UnityEngine;
 
 namespace EmojiChaos.Services.Movement
 {
-    using Entities.Enemy;
-    using Entities.Portal;
-    using Services.Spawning.EnemySpawner;
-
     public class EnemiesMovementDirector : IDisposable
     {
         private const float BackwardSpeedMultiplier = 2f;
@@ -42,7 +41,7 @@ namespace EmojiChaos.Services.Movement
             if (_spawner != null)
                 _spawner.Spawned -= OnEnemySpawned;
 
-            List<EnemyMovementInfo> enemies = new(_enemies);
+            List<EnemyMovementInfo> enemies = new (_enemies);
 
             foreach (EnemyMovementInfo enemy in enemies)
                 if (enemy.Enemy != null)
@@ -80,7 +79,7 @@ namespace EmojiChaos.Services.Movement
                     lastEnemyInfo.SetDistance(distance);
             }
 
-            EnemyMovementInfo currentEnemytInfo = new(enemy, 0);
+            EnemyMovementInfo currentEnemytInfo = new (enemy, 0);
             _enemies.Add(currentEnemytInfo);
             enemy.Killed += OnEnemyKilled;
         }

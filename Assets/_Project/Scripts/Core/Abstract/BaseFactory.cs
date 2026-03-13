@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
-    using Interface;
-
     public abstract class BaseFactory<T> : IFactory<T>
         where T : MonoBehaviour
     {

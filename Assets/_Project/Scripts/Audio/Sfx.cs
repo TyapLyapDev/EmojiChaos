@@ -1,12 +1,11 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Utils.Static;
-
     public class Sfx : InitializingBehaviour
     {
         private const float SlightPitchDeviation = 0.1f;
@@ -133,7 +132,7 @@ namespace EmojiChaos.Audio
             if (audioMixerGroups.Length == 0)
                 throw new InvalidOperationException($"AudioMixerGroup '{Constants.SfxGroup}' not found!");
 
-            _pool = new(this, audioMixerGroups[0]);
+            _pool = new (this, audioMixerGroups[0]);
         }
 
         private AudioSource PlayOneShot(AudioClip clip, float deviationPitch = 0f)

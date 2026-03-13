@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Data;
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Static
+namespace EmojiChaos.UtilsSpace.Static
 {
-    using Data;
-
     public static class Utils
     {
         public static int CalculateLevelCountInProject()

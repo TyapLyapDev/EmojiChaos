@@ -1,12 +1,11 @@
 using System;
+using EmojiChaos.Animation;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Repainters;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Car
+namespace EmojiChaos.Entities.Cars
 {
-    using Animation;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Repainters;
-
     public class CarVisual : InitializingBehaviour
     {
         [SerializeField] private MaterialIndexRepainter _repainter;

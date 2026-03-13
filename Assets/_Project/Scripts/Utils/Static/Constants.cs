@@ -1,4 +1,4 @@
-namespace EmojiChaos.Utils.Static
+namespace EmojiChaos.UtilsSpace.Static
 {
     public static class Constants
     {

@@ -1,6 +1,6 @@
+using EmojiChaos.Core.Abstract.UI;
+
 namespace EmojiChaos.UI.Panels
 {
-    using Core.Abstract.UI;
-
     public class AuthPanel : PanelBase { }
 }

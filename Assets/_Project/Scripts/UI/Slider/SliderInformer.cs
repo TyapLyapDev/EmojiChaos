@@ -1,12 +1,11 @@
 using System;
+using EmojiChaos.AudioSpace;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Sliders
 {
-    using Audio;
-
     public class SliderInformer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] private Slider _slider;

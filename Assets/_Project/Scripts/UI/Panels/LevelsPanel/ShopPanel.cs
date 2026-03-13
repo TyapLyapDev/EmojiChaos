@@ -1,13 +1,12 @@
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.ScriptableObect.Shop;
+using EmojiChaos.Services.Save;
+using EmojiChaos.UI.ShopContainer;
+using EmojiChaos.UI.ShopContainer.Card;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    using Core.Abstract.UI;
-    using ScriptableObect.Shop;
-    using Services.Save;
-    using ShopContainer;
-    using ShopContainer.Card;
-
     public class ShopPanel : PanelBase
     {
         [SerializeField] private TabFactory _tabFactory;
@@ -34,9 +33,9 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
         {
             _saver = saver;
             Initialize();
-            _cardSelector = new(_saver, _tabFactory);
-            _adsListener = new(_cardSelector);
-            _clickProcessor = new(_cardSelector, _adsListener.ShowRewardedAd);
+            _cardSelector = new (_saver, _tabFactory);
+            _adsListener = new (_cardSelector);
+            _clickProcessor = new (_cardSelector, _adsListener.ShowRewardedAd);
 
             _tabFactory.CreateTabs(_infos, OnTabClick, OnCardClick);
             _tabFactory.ApplySavedData(_saver);
@@ -46,7 +45,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
         public void DisableAds() =>
             _cardSelector.DisableAds();
 
-        private void OnTabClick(TabButton tabButton) =>
+        private void OnTabClick(ShopContainer.TabButton tabButton) =>
             _tabFactory.ActivateTab(tabButton);
 
         private void OnCardClick(TabPanel tabPanel, ShopCard card) =>

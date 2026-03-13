@@ -1,12 +1,11 @@
 using System;
+using EmojiChaos.Lang;
+using EmojiChaos.UI.ShopContainer.Card;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace EmojiChaos.UI.ShopContainer
 {
-    using Card;
-    using Lang;
-
     public class TabButton : MonoBehaviour
     {
         [SerializeField] private Button _button;

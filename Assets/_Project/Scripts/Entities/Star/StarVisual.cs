@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Repainters;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Star
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Repainters;
-
     public class StarVisual : InitializingBehaviour
     {
         [SerializeField] private StarAnimator _animator;

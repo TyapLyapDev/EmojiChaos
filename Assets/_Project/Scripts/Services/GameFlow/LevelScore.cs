@@ -1,9 +1,8 @@
 using System;
+using EmojiChaos.Entities.Enemy;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Entities.Enemy;
-
     public class LevelScore : IDisposable
     {
         private readonly EnemiesCounter _enemiesCounter;

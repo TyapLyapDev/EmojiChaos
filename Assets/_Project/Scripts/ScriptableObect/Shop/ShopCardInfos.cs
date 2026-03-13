@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Lang;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
 using UnityEngine;
 
 namespace EmojiChaos.ScriptableObect.Shop
 {
-    using Lang;
-    using UI.ShopContainer.Card.Enum;
-
     [CreateAssetMenu(menuName = "Scriptable object/Shop/CardInfos")]
     public class ShopCardInfos : ScriptableObject
     {

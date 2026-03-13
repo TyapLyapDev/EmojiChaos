@@ -1,9 +1,8 @@
+using EmojiChaos.Entities.Enemy;
 using UnityEngine;
 
 namespace EmojiChaos.ScriptableObect.Shop
 {
-    using Entities.Enemy;
-
     [CreateAssetMenu(menuName = "Scriptable object/Shop/EnemyCardInfo")]
     public class EnemyShopCardInfo : ShopCardInfo
     {

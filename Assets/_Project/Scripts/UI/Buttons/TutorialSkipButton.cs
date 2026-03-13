@@ -1,10 +1,9 @@
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.UI.TutorialSpace;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Buttons
 {
-    using Core.Abstract.UI;
-    using EmojiChaos.UI.Tutorial;
-
     public class TutorialSkipButton : ButtonClickHandler<TutorialSkipButton>
     {
         [SerializeField] private Tutorial _tutorial;

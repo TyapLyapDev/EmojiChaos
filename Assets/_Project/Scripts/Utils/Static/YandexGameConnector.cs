@@ -1,13 +1,12 @@
 using System;
 using YG;
+using EmojiChaos.Data;
+using EmojiChaos.ScriptableObect;
 using YG.Utils.LB;
 using YG.Utils.Pay;
 
-namespace EmojiChaos.Utils.Static
+namespace EmojiChaos.UtilsSpace.Static
 {
-    using Data;
-    using ScriptableObect;
-
     public static class YandexGameConnector
     {
         static YandexGameConnector()

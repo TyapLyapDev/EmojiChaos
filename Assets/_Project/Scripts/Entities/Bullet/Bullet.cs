@@ -1,12 +1,11 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Game.Mover;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Bullet
+namespace EmojiChaos.Entities.Bullets
 {
-    using Core.Abstract.Interface;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Game.Mover;
-
     public class Bullet : InitializingBehaviour, IPoolable<Bullet>
     {
         [SerializeField] private BulletVisual _visual;
@@ -67,7 +66,7 @@ namespace EmojiChaos.Entities.Bullet
         protected override void OnInitialize()
         {
             _visual.Initialize();
-            _mover = new(transform);
+            _mover = new (transform);
             _mover.TargetReached += OnTargetReached;
         }
 

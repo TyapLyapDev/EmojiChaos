@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.UI.Containers.PageContainer;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
-    using Containers.PageContainer;
-    using MiniCell;
-
     public class MiniCellsLevelSelector : MonoBehaviour, ILevelSelector
     {
         [SerializeField] private Transform _content;
@@ -26,11 +25,11 @@ namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 
         public void Init(List<IMiniCellInfo> infos)
         {
-            _container = new(_content);
-            _cellClickHandler = new(OnLevelClick);
-            _pageFlipper = new(infos.Count, _cellCapacity, OnPageChanged);
-            _cellFactory = new(_container, _prefab, _cellClickHandler.OnClickCell);
-            _infoUpdater = new(_container, _pageFlipper, infos);
+            _container = new (_content);
+            _cellClickHandler = new (OnLevelClick);
+            _pageFlipper = new (infos.Count, _cellCapacity, OnPageChanged);
+            _cellFactory = new (_container, _prefab, _cellClickHandler.OnClickCell);
+            _infoUpdater = new (_container, _pageFlipper, infos);
 
             _container.ClearContent();
             _cellFactory.CreateCells(_cellCapacity);

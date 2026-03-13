@@ -1,10 +1,9 @@
+using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace EmojiChaos.Services.Input.ClickHandler
 {
-    using EmojiChaos.Core.Abstract.Interface;
-
     public class MobileClickHandlerStrategy : BaseClickHandlerStrategy
     {
         public override Vector2 GetCurrentPosition() =>

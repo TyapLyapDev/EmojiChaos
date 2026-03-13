@@ -1,9 +1,8 @@
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
-    using MonoBehaviourWrapper;
-
     public abstract class BaseRepainter : InitializingBehaviour
     {
         [SerializeField] private Renderer _renderer;

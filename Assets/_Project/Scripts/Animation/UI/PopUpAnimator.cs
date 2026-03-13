@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.ScriptableObect;
 using UnityEngine;
 
 namespace EmojiChaos.Animation.UI
 {
-    using ScriptableObect;
-
     public class PopUpAnimator : UiAnimator
     {
         [SerializeField] private UiAnimation _enterAnimation;

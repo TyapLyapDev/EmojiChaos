@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public partial class MapSplineNodes
     {
@@ -15,8 +15,8 @@ namespace EmojiChaos.Utils.Splines.Graph
             if (splineContainer == null)
                 throw new ArgumentException(nameof(splineContainer));
 
-            _graphBuilder = new(splineContainer);
-            _pathfinder = new(splineContainer, _graphBuilder.Nodes);
+            _graphBuilder = new (splineContainer);
+            _pathfinder = new (splineContainer, _graphBuilder.Nodes);
         }
 
         public List<SplineSegment> GetPath(Vector3 startPosition, Vector3 targetPosition) =>

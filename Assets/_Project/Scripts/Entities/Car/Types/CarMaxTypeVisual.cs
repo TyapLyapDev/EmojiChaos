@@ -1,4 +1,4 @@
-namespace EmojiChaos.Entities.Car.Types
+namespace EmojiChaos.Entities.Cars.Types
 {
     public class CarMaxTypeVisual : CarVisual { }
 }

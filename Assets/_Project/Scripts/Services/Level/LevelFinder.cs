@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Data;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
-namespace EmojiChaos.Services.Level
+namespace EmojiChaos.Services.LevelSpace
 {
-    using Data;
-    using Utils.Static;
-
     public class LevelFinder
     {
         public Level Find(int index)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Data;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -8,10 +9,8 @@ using UnityEngine.Splines;
 using UnityEditor;
 #endif
 
-namespace EmojiChaos.Utils.Splines.MeshGenerator
+namespace EmojiChaos.UtilsSpace.Splines.MeshGenerator
 {
-    using Data;
-
     [ExecuteInEditMode]
     [RequireComponent(typeof(SplineContainer))]
     [RequireComponent(typeof(MeshRenderer))]
@@ -40,9 +39,9 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
         [SerializeField] private bool _isTwistMesh;
         [SerializeField] private bool _isAutoupdate;
 
-        public event Action Changed;
-
         private bool _isSubscribedToSplineEvents;
+
+        public event Action Changed;
 
         public Vector3 PositionAdjustment => _positionAdjustment;
 
@@ -137,7 +136,7 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
                 List<Vector3> normals = new ();
                 List<Vector2> uvs = new ();
 
-                List<BezierKnot> knots = new(spline.Knots);
+                List<BezierKnot> knots = new (spline.Knots);
                 List<Quaternion> knotRotations = new ();
 
                 foreach (BezierKnot knot in knots)

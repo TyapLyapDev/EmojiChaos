@@ -1,11 +1,10 @@
+using EmojiChaos.Animation.UI;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract.UI
 {
-    using Animation.UI;
-    using Audio;
-    using MonoBehaviourWrapper;
-
     public abstract class PanelBase : InitializingBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;

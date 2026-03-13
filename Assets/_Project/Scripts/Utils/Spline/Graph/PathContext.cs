@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public class PathContext
     {
@@ -44,8 +44,8 @@ namespace EmojiChaos.Utils.Splines.Graph
             Spline goalSpline,
             float goalProgress)
         {
-            SplineNode startNode = new(startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
-            SplineNode goalNode = new(goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
+            SplineNode startNode = new (startSpline, positionFinder.GetWorldPosition(startSpline, startProgress), startProgress);
+            SplineNode goalNode = new (goalSpline, positionFinder.GetWorldPosition(goalSpline, goalProgress), goalProgress);
 
             ConnectVirtualNode(startNode, _nodes.Where(n => n.Spline == startSpline).ToList(), startSpline, startProgress, true);
             ConnectVirtualNode(goalNode, _nodes.Where(n => n.Spline == goalSpline).ToList(), goalSpline, goalProgress, false);

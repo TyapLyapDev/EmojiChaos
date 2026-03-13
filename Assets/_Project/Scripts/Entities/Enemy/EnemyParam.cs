@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Core;
 using UnityEngine.Splines;
 
 namespace EmojiChaos.Entities.Enemy
 {
-    using Core.Abstract.Interface;
-    using Services.Core;
-
     public readonly struct EnemyParam : IParam
     {
         private readonly SplineContainer _splineContainer;

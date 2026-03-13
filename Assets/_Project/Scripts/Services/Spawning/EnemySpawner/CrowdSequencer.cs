@@ -12,7 +12,7 @@ namespace EmojiChaos.Services.Spawning.EnemySpawner
             if (crowdSequence == null)
                 throw new ArgumentNullException(nameof(crowdSequence));
 
-            _crowdsQueue = new(crowdSequence);
+            _crowdsQueue = new (crowdSequence);
         }
 
         public bool TryGiveNextCrowd(out Crowd crowd)

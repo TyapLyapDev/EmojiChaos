@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.UtilsSpace.Splines.Graph;
 
 namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    using Utils.Splines.Graph;
-
     public class SegmentProcessor
     {
         private readonly List<SplineSegment> _path;

@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.Core;
+using EmojiChaos.Entities.Bullets;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Services.Movement;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Combat
 {
-    using EmojiChaos.Core;
-    using Entities.Enemy;
-    using Entities.Bullet;
-    using Services.Movement;
-
     public class Shooter
     {
         private readonly Pool<Bullet> _bulletPool;

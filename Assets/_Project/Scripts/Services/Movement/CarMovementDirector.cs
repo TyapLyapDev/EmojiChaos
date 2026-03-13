@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Entities.Cars;
 using UniRx;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Movement
 {
-    using Entities.Car;
-
     public class CarMovementDirector : IDisposable
     {
         private readonly float _speed = 5f;

@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace EmojiChaos.UI.Tutorial
+namespace EmojiChaos.UI.TutorialSpace
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using EmojiChaos.Utils.Static;
-
     [RequireComponent(typeof(Mask))]
     public class TutorialCircle : InitializingBehaviour, IPointerClickHandler
     {

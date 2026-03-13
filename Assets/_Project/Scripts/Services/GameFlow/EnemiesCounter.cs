@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Services.Spawning.EnemySpawner;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Entities.Enemy;
-    using Spawning.EnemySpawner;
-
     public class EnemiesCounter : IDisposable
     {
         private readonly CrowdSpawnCoordinator _crowdSpawnCoordinator;

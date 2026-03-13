@@ -31,7 +31,7 @@ namespace EmojiChaos.UI
 
         private void HandleResolutionChanged()
         {
-            Vector2Int currentResolution = new(Screen.width, Screen.height);
+            Vector2Int currentResolution = new (Screen.width, Screen.height);
 
             if (_lastResolution != currentResolution)
             {

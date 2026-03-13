@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.GameFlow;
+using EmojiChaos.Services.Save;
+using EmojiChaos.UI.Buttons;
 
 namespace EmojiChaos.UI.Level
 {
-    using Buttons;
-    using Core.Abstract.Interface;
-    using Services.Core;
-    using Services.GameFlow;
-    using Services.Save;
-
     public readonly struct LevelUiParam : IParam
     {
         private readonly PauseSwitcher _pauseSwitcher;

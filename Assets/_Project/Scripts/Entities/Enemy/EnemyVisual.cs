@@ -1,12 +1,11 @@
-using EmojiChaos.Animation;
 using System;
+using EmojiChaos.Animation;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Repainters;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Enemy
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Repainters;
-
     public class EnemyVisual : InitializingBehaviour
     {
         [SerializeField] private EnemyAnimator _animator;

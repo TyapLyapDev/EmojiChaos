@@ -1,10 +1,9 @@
 using UnityEngine;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector
 {
-    using CardsLevelSelector.Card;
-    using MiniCellsLevelSelector.MiniCell;
-
     public readonly struct LevelInfo : ICardInfo, IMiniCellInfo
     {
         public LevelInfo(int levelNumber, int starCount, int difficulty, bool isLock, CrowdSequenceType crowdSequenceType, Sprite preview)

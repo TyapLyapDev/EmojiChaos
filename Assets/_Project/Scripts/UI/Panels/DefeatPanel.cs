@@ -1,11 +1,10 @@
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Lang;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels
 {
-    using Audio;
-    using Core.Abstract.UI;
-    using Lang;
-
     public class DefeatPanel : PanelBase
     {
         [SerializeField] private LanguageSwitchHandlerWithParam _level;

@@ -3,19 +3,16 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators
 {
-    namespace UI.LevelCards
+    public class DifficultyIndicator : MonoBehaviour
     {
-        public class DifficultyIndicator : MonoBehaviour
+        [SerializeField] private Image[] _images;
+
+        public void SetDifficulty(int value)
         {
-            [SerializeField] private Image[] _images;
+            value = Mathf.Clamp(value, 0, _images.Length);
 
-            public void SetDifficulty(int value)
-            {
-                value = Mathf.Clamp(value, 0, _images.Length);
-
-                for (int i = 0; i < _images.Length; i++)
-                    _images[i].gameObject.SetActive(i < value);
-            }
+            for (int i = 0; i < _images.Length; i++)
+                _images[i].gameObject.SetActive(i < value);
         }
     }
 }

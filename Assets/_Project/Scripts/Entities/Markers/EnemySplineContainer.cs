@@ -1,10 +1,9 @@
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 using UnityEngine.Splines;
 
 namespace EmojiChaos.Entities.Markers
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-
     [RequireComponent(typeof(SplineContainer))]
     public class EnemySplineContainer : InitializingBehaviour
     {

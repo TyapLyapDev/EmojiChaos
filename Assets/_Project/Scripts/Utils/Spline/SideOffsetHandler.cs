@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Splines
+namespace EmojiChaos.UtilsSpace.Splines
 {
     public class SideOffsetHandler
     {

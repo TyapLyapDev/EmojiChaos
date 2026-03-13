@@ -1,13 +1,12 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using EmojiChaos.Data;
+using EmojiChaos.Entities.Cars;
 using UnityEditor;
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Editor
+namespace EmojiChaos.UtilsSpace.Editor
 {
-    using Data;
-    using Entities.Car;
-
     public class ResourceBalanceChecker : EditorWindow
     {
         private const string MenuPath = "Tools/";

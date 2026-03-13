@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Entities.Markers;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
-    using Abstract.Interface;
-    using Entities.Markers;
-
     public abstract class CarStraightMoverBaseStrategy : IMovementStrategy
     {
         private const float SizeDivider = 2;

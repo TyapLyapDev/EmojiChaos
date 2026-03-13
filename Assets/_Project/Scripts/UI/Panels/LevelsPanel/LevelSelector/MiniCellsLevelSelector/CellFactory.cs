@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.UI.Containers.PageContainer;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector
 {
-    using Containers.PageContainer;
-    using MiniCell;
-
     public class CellFactory : IDisposable
     {
         private readonly PageContainer _container;

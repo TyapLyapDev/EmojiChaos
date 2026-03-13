@@ -1,11 +1,10 @@
 using System;
-using UnityEngine;
+using EmojiChaos.UtilsSpace.Static;
 using TMPro;
+using UnityEngine;
 
 namespace EmojiChaos.Lang
 {
-    using Utils.Static;
-
     public class LanguageSwitchHandlerWithParam : MonoBehaviour
     {
         [SerializeField] private LanguageTextsSet _texts;

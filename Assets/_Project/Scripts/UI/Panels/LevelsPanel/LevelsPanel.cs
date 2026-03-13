@@ -1,20 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Services.LevelSpace;
+using EmojiChaos.UI.Buttons.LevelRepresentationSwitcherButton;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.MiniCell;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel
 {
-    using Buttons.LevelRepresentationSwitcherButton;
-    using Core.Abstract.UI;
-    using Data;
-    using LevelSelector;
-    using LevelSelector.CardsLevelSelector;
-    using LevelSelector.CardsLevelSelector.Card;
-    using LevelSelector.MiniCellsLevelSelector;
-    using LevelSelector.MiniCellsLevelSelector.MiniCell;
-    using Services.Level;
-
     public class LevelsPanel : PanelBase
     {
         private readonly LevelFinder _levelFinder = new ();
@@ -43,15 +41,15 @@ namespace EmojiChaos.UI.Panels.LevelsPanel
             _levelRepresentationSwitcherButton.Initialize();
             _levelProgress = levelProgress;
 
-            IReadOnlyList<Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
+            IReadOnlyList<Data.Level> levelPrefabs = _levelFinder.GetLevelPrefabs();
             List<LevelInfo> levelInfos = new ();
 
             for (int i = 0; i < levelPrefabs.Count; i++)
             {
-                Level level = levelPrefabs[i];
+                Data.Level level = levelPrefabs[i];
                 CrowdSequenceType crowdSequenceType = level.IsRandomSequence ? CrowdSequenceType.Random : CrowdSequenceType.Deterministic;
 
-                LevelInfo levelInfo = new(
+                LevelInfo levelInfo = new (
                     levelNumber: i + 1,
                     starCount: starInfos[i],
                     difficulty: level.Difficulty,

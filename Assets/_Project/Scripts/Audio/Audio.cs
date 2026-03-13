@@ -1,9 +1,8 @@
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class Audio : InitializingBehaviour
     {
         private static Audio s_instance;

@@ -1,11 +1,10 @@
 using System.Collections;
+using EmojiChaos.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace EmojiChaos.Services.Core
 {
-    using EmojiChaos.UI;
-
     public class SceneLoader : MonoBehaviour
     {
         private const string FaderPath = "Fader";

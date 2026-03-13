@@ -1,9 +1,8 @@
+using EmojiChaos.Core.Enum;
 using UnityEngine;
 
 namespace EmojiChaos.ScriptableObect
 {
-    using Core.Enum;
-
     [CreateAssetMenu(menuName = "Scriptable object/Battle formation crowd")]
     public class BattleFormationCrowd : ScriptableObject
     {

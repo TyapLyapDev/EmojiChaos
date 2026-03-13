@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.UtilsSpace.Splines.Graph;
 using UnityEngine;
 
 namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    using Core.Abstract.Interface;
-    using Utils.Splines.Graph;
-
     public class CarSplineRollBackMoverStrategy : IMovementStrategy
     {
         private const float AngularSpeed = 150f;

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.ScriptableObect.Shop;
+using EmojiChaos.UI.ShopContainer.Card;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
 using UnityEngine;
 
 namespace EmojiChaos.UI.ShopContainer
 {
-    using Card.Enum;
-    using ScriptableObect.Shop;
-    using ShopContainer.Card;
-
     public class TabPanel : MonoBehaviour
     {
         private readonly List<ShopCard> _cards = new ();

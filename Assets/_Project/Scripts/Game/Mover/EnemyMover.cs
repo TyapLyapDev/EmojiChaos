@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.UtilsSpace.Splines;
 using UnityEngine;
 using UnityEngine.Splines;
 
 namespace EmojiChaos.Game.Mover
 {
-    using Utils.Splines;
-
     public class EnemyMover
     {
         private const float PositionInterpolationSpeed = 10;
@@ -26,7 +25,7 @@ namespace EmojiChaos.Game.Mover
                 throw new ArgumentNullException(nameof(transform));
 
             _transform = transform;
-            _offsetCalculator = new(splineContainer);
+            _offsetCalculator = new (splineContainer);
             _sideOffsetHandler = new ();
             _cachedSplineLength = _offsetCalculator.SplineLength;
 

@@ -1,11 +1,10 @@
+using EmojiChaos.Entities.Star;
+using EmojiChaos.UtilsSpace.Splines.MeshGenerator;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines
+namespace EmojiChaos.UtilsSpace.Splines
 {
-    using Entities.Star;
-    using MeshGenerator;
-
     [ExecuteInEditMode]
     public class InstallerOnSpline : MonoBehaviour
     {

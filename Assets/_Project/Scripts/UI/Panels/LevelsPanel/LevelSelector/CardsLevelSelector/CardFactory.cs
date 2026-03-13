@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.UI.Containers.ScrollContainer;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector
 {
-    using Card;
-    using Containers.ScrollContainer;
-
     public class CardFactory : IDisposable
     {
         private readonly LevelCard _prefab;

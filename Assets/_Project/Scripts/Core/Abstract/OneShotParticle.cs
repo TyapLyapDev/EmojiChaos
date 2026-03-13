@@ -1,10 +1,9 @@
 using System.Collections;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
-    using MonoBehaviourWrapper;
-
     public abstract class OneShotParticle : InitializingBehaviour
     {
         [SerializeField] private ParticleSystem _particleSystem;
@@ -25,7 +24,7 @@ namespace EmojiChaos.Core.Abstract
         protected abstract void OnCompleted();
 
         protected override void OnInitialize() =>
-            _waitUntil = new(() => _particleSystem.isStopped);
+            _waitUntil = new (() => _particleSystem.isStopped);
 
         private void StartCoroutine()
         {

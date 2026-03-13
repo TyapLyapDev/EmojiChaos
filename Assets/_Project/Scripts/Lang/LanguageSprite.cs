@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace EmojiChaos.Lang
 {
-    using Utils.Static;
-
     public class LanguageSprite : MonoBehaviour
     {
         [SerializeField] private Sprite _ru;

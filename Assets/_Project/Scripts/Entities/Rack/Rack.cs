@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Entities.Guns;
+using EmojiChaos.UI.Buttons;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Rack
+namespace EmojiChaos.Entities.Racks
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Entities.Gun;
-    using UI.Buttons;
-    using Utils.Static;
-
     public class Rack : InitializingWithConfigBehaviour<RackParam>
     {
         [SerializeField] private GameObject _rackModel;

@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Entities.Star;
+using EmojiChaos.Services.Movement;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Entities.Star;
-    using Services.Movement;
-
     public class LevelStatsHandler : IDisposable
     {
         private readonly VictoryHandler _victoryHandler;
@@ -20,9 +19,9 @@ namespace EmojiChaos.Services.GameFlow
         {
             _starsCounter = starCounter ?? throw new ArgumentNullException(nameof(starCounter));
 
-            _victoryHandler = new(enemiesCounter);
-            _defeatHandler = new(enemySpeedDirector, _starsCounter);
-            _levelScore = new(enemiesCounter, level);
+            _victoryHandler = new (enemiesCounter);
+            _defeatHandler = new (enemySpeedDirector, _starsCounter);
+            _levelScore = new (enemiesCounter, level);
 
             Subscribe();
         }

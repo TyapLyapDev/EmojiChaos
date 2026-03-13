@@ -1,15 +1,14 @@
 using System;
-using UnityEngine;
 using DG.Tweening;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Entities.Bullets;
+using EmojiChaos.Services.Core;
+using UnityEngine;
 
-namespace EmojiChaos.Entities.Gun
+namespace EmojiChaos.Entities.Guns
 {
-    using Audio;
-    using Bullet;
-    using Core.Abstract.Interface;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Services.Core;
-
     public class Gun : InitializingWithConfigBehaviour<GunParam>
     {
         private const float HiddingTime = 0.25f;
@@ -58,8 +57,8 @@ namespace EmojiChaos.Entities.Gun
 
             _visual.Initialize();
 
-            _runner = new(OnShootTick);
-            _aim = new(_rotatingModel);
+            _runner = new (OnShootTick);
+            _aim = new (_rotatingModel);
             _config.Shooter.SetStartPosition(_bulletStartPosition);
         }
 

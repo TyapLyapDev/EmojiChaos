@@ -1,16 +1,14 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Entities.Racks;
+using EmojiChaos.Services.Input;
+using EmojiChaos.Services.Movement;
+using EmojiChaos.Services.Spawning.EnemySpawner;
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial
+namespace EmojiChaos.UI.TutorialSpace
 {
-    using Core.Abstract.Interface;
-    using Entities.Car;
-    using Entities.Rack;
-    using Entities.Star;
-    using Services.Input;
-    using Services.Movement;
-    using Services.Spawning.EnemySpawner;
-
     public readonly struct TutorialParam : IParam
     {
         private readonly Transform _portalTarget;
@@ -19,7 +17,7 @@ namespace EmojiChaos.UI.Tutorial
         private readonly Car _car;
         private readonly EnemiesMovementDirector _enemiesSpeedDirector;
         private readonly Rack[] _racks;
-        private readonly Star _star;
+        private readonly Entities.Star.Star _star;
 
         public TutorialParam(
             Transform portalTarget,
@@ -28,7 +26,7 @@ namespace EmojiChaos.UI.Tutorial
             ISwipeStrategy swipeStrategy,
             EnemiesMovementDirector enemiesSpeedDirector,
             Rack[] racks,
-            Star star)
+            Entities.Star.Star star)
         {
             _portalTarget = portalTarget != null ? portalTarget : throw new ArgumentNullException(nameof(portalTarget));
             _enemySpawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
@@ -51,6 +49,6 @@ namespace EmojiChaos.UI.Tutorial
 
         public Rack[] Racks => _racks;
 
-        public Star Star => _star;
+        public Entities.Star.Star Star => _star;
     }
 }

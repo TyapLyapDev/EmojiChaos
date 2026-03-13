@@ -1,13 +1,11 @@
+using EmojiChaos.Core.Abstract.UI;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels
 {
-    using Core.Abstract.UI;
-    using Leaderboard;
-
     public class LeaderBoardPanel : PanelBase
     {
-        [SerializeField] private Leaderboard _leaderboard;
+        [SerializeField] private Leaderboard.Leaderboard _leaderboard;
 
         protected override void OnInitialize()
         {

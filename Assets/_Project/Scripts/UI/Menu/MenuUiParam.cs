@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.Save;
 
 namespace EmojiChaos.UI.Menu
 {
-    using Core.Abstract.Interface;
-    using Services.Core;
-    using Services.Save;
-
     public readonly struct MenuUiParam : IParam
     {
         private readonly Saver _saver;

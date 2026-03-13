@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial
+namespace EmojiChaos.UI.TutorialSpace
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class Tutorial : InitializingWithConfigBehaviour<TutorialParam>
     {
         [SerializeField] private TutorialCircle _circle;
@@ -13,7 +12,7 @@ namespace EmojiChaos.UI.Tutorial
 
         public void Complete()
         {
-            List<TutorialItem> items = new(_items);
+            List<TutorialItem> items = new (_items);
 
             foreach (TutorialItem item in items)
                 item.Deactivate();

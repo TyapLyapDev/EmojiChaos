@@ -1,10 +1,9 @@
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.UI.Sliders;
 using UnityEngine;
 
 namespace EmojiChaos.Core.Abstract
 {
-    using EmojiChaos.UI.Sliders;
-    using UI;
-
     public abstract class MuteButtonBase<T>
         : ButtonClickHandler<T>
         where T : MuteButtonBase<T>

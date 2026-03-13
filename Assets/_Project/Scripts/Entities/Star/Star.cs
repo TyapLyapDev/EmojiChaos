@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Star
 {
-    using Audio;
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class Star : InitializingWithConfigBehaviour<StarParam>
     {
         private const float FearProgressDistance = 0.1f;

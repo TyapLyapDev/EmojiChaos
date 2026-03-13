@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-namespace EmojiChaos.UI.Tutorial
+namespace EmojiChaos.UI.TutorialSpace
 {
     public class UIMaskInverser : Image
     {

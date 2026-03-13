@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public class NodeGraphBuilder
     {
@@ -97,7 +97,7 @@ namespace EmojiChaos.Utils.Splines.Graph
             if (existingTransitionNode != null)
                 return existingTransitionNode;
 
-            SplineNode newTransitionNode = new(spline, worldPosition, progress);
+            SplineNode newTransitionNode = new (spline, worldPosition, progress);
             transitionNodes.Add(newTransitionNode);
 
             return newTransitionNode;

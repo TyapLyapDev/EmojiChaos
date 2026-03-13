@@ -1,14 +1,12 @@
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Services.UI;
+using EmojiChaos.UI.Containers.ScrollContainer;
+using EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card.Indicators;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card
 {
-    using Card.Indicators;
-    using Containers.ScrollContainer;
-    using Core.Abstract.UI;
-    using Indicators.UI.LevelCards;
-    using Services.UI;
-
     public class LevelCard : ButtonClickHandler<LevelCard>, IScrolledItem
     {
         [SerializeField] private LevelNumber _levelNumber;
@@ -67,7 +65,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.CardsLevelSelector.Card
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            _shaker = new(_locker.GetComponent<RectTransform>());
+            _shaker = new (_locker.GetComponent<RectTransform>());
         }
 
         protected override void OnClick()

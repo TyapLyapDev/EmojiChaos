@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial.Explanations
+namespace EmojiChaos.UI.TutorialSpace.Explanations
 {
     public class StarExplanation : TutorialItem
     {

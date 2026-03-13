@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Entities.Markers;
+using EmojiChaos.Entities.Racks;
+using EmojiChaos.Game.Mover.CarMovementStrategies;
+using EmojiChaos.UtilsSpace.Splines.Graph;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Car
+namespace EmojiChaos.Entities.Cars
 {
-    using Audio;
-    using Core.Abstract.Interface;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Entities.Markers;
-    using Entities.Rack;
-    using Game.Mover.CarMovementStrategies;
-    using Utils.Splines.Graph;
-
     [RequireComponent(typeof(Collider))]
     public class Car : InitializingWithConfigBehaviour<CarInfo>, IObstacle, ISwipeable
     {

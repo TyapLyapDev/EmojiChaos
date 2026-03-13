@@ -1,10 +1,10 @@
+using EmojiChaos.Core.Abstract;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+
 namespace EmojiChaos.Core.Factory
 {
-    using Abstract;
-    using Abstract.MonoBehaviourWrapper;
-
-    public class Factory<TBehaviour>
-        : BaseFactory<TBehaviour> where TBehaviour : InitializingBehaviour
+    public class Factory<TBehaviour> : BaseFactory<TBehaviour>
+        where TBehaviour : InitializingBehaviour
     {
         public Factory(TBehaviour prefab)
             : base(prefab) { }

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Entities.Star;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Entities.Star;
-
     public class StarsCounter : IDisposable
     {
         private readonly List<Star> _stars = new ();

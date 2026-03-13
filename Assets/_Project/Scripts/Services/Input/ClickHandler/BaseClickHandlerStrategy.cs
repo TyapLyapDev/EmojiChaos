@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Core.Abstract.Interface;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UniRx;
 
 namespace EmojiChaos.Services.Input.ClickHandler
 {
-    using EmojiChaos.Core.Abstract.Interface;
-
     public abstract class BaseClickHandlerStrategy : IClickHandlerStrategy
     {
         private readonly IDisposable _observable;
@@ -44,7 +43,7 @@ namespace EmojiChaos.Services.Input.ClickHandler
             if (_eventSystem == null || _graphicRaycasters.Count == 0)
                 return false;
 
-            PointerEventData eventData = new(_eventSystem) { position = position };
+            PointerEventData eventData = new (_eventSystem) { position = position };
             RaycastResult topResult = new ();
             bool foundAny = false;
 

@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using EmojiChaos.Entities.Bullets;
 using UniRx;
+using UnityEngine;
 
 namespace EmojiChaos.Services.Movement
 {
-    using Entities.Bullet;
-
     public class BulletMovementDirector : IDisposable
     {
         private readonly float _speed;

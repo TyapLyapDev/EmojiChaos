@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Core.Enum;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy
 {
-    using EmojiChaos.Core.Enum;
-
     public class SpawnStrategyRegistry
     {
         private readonly Dictionary<SpawnOrderStrategyType, IEnemySpawnOrderStrategy> _strategies;

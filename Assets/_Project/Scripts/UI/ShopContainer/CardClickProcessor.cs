@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.UI.ShopContainer.Card;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
 
 namespace EmojiChaos.UI.ShopContainer
 {
-    using Card;
-    using Card.Enum;
-
     public class CardClickProcessor : IDisposable
     {
         private readonly CardSelector _selector;

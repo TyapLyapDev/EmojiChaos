@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Services.Spawning.EnemySpawner;
 
 namespace EmojiChaos.Services.Combat
 {
-    using Entities.Enemy;
-    using Services.Spawning.EnemySpawner;
-
     public class EnemyRegistryToAttack : IDisposable
     {
         private readonly Dictionary<int, List<Enemy>> _availableEnemiesByType = new ();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
     public class AudioSourcePool
     {

@@ -1,9 +1,8 @@
+using EmojiChaos.Core.Abstract.UI;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Buttons
 {
-    using Core.Abstract.UI;
-
     [RequireComponent(typeof(CanvasGroup))]
     public class GameSpeedSwitchButton : ButtonClickHandler<GameSpeedSwitchButton>
     {

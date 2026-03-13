@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Services.Combat;
 
 namespace EmojiChaos.Services.Movement
 {
-    using Entities.Car;
-    using Services.Combat;
-
     public class CarMovementInitiator : IDisposable
     {
         private readonly SlotReservator _slotReservator;

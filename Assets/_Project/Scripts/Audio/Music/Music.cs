@@ -1,10 +1,9 @@
+using System.Collections.Generic;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
-    using System.Collections.Generic;
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class Music : InitializingBehaviour
     {
         [SerializeField] private AudioSource _source;

@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.UI.Sliders;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
-    using UI.Sliders;
-
     public class VolumeModifier : IDisposable
     {
         private const float MinimumLevel = -80;

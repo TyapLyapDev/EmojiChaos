@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Static
+namespace EmojiChaos.UtilsSpace.Static
 {
     public static class DebugUtils
     {

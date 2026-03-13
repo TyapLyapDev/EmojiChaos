@@ -1,15 +1,10 @@
+#if UNITY_EDITOR
+using EmojiChaos.UtilsSpace.Attributes;
 using UnityEngine;
-
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-namespace EmojiChaos.Utils.Editor
+namespace EmojiChaos.UtilsSpace.Editor
 {
-    using Attributes;
-
-#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
@@ -20,5 +15,5 @@ namespace EmojiChaos.Utils.Editor
             GUI.enabled = true;
         }
     }
-#endif
 }
+#endif

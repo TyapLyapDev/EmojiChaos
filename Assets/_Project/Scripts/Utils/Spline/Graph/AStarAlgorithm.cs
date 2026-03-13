@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public class AStarAlgorithm
     {

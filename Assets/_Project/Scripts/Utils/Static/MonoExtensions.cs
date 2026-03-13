@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace EmojiChaos.Utils.Static
+namespace EmojiChaos.UtilsSpace.Static
 {
     public static class MonoExtensions
     {

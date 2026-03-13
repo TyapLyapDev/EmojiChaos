@@ -1,9 +1,8 @@
+using EmojiChaos.Entities.Cars;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.RotatibgPlatform
 {
-    using Entities.Car;
-
     public class RotatingPlatform : MonoBehaviour
     {
         private Detector _detector;

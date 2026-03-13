@@ -1,23 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Entities.Bullets;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Entities.Markers;
+using EmojiChaos.Entities.Portal;
+using EmojiChaos.Entities.Racks;
+using EmojiChaos.Entities.Star;
+using EmojiChaos.Particles;
+using EmojiChaos.ScriptableObect;
+using EmojiChaos.Services.Spawning.EnemySpawner;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.Splines;
 
 namespace EmojiChaos.Data
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Entities.Bullet;
-    using Entities.Car;
-    using Entities.Markers;
-    using Entities.Portal;
-    using Entities.Rack;
-    using Entities.Star;
-    using Particles;
-    using ScriptableObect;
-    using Services.Spawning.EnemySpawner;
-    using Utils.Static;
-
     public class Level : InitializingBehaviour
     {
         [SerializeField] private EnemySplineContainer _enemySplineContainer;
@@ -103,7 +102,7 @@ namespace EmojiChaos.Data
 
         private void PrepareCrowds()
         {
-            _readyCrowds = new(_crowds);
+            _readyCrowds = new (_crowds);
 
             if (_isRandomSequence)
                 Utils.Shuffle(_readyCrowds);

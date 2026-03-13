@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.Movement;
+using EmojiChaos.UtilsSpace.Splines.Graph;
 using UnityEngine;
 
-namespace EmojiChaos.Entities.Car
+namespace EmojiChaos.Entities.Cars
 {
-    using Core.Abstract.Interface;
-    using Services.Core;
-    using Services.Movement;
-    using Utils.Splines.Graph;
-
     public readonly struct CarInfo : IParam
     {
         private readonly CarMovementDirector _speedDirector;

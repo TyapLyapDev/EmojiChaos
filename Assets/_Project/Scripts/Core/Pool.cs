@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Core
 {
-    using Abstract.Interface;
-    using Utils.Static;
-
     public class Pool<T>
         where T : MonoBehaviour, IPoolable<T>
     {

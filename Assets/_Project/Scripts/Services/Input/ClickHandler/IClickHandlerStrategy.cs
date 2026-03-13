@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Input.ClickHandler
 {
-    using EmojiChaos.Core.Abstract.Interface;
-
     public interface IClickHandlerStrategy : IDisposable
     {
         event Action<IClickable, Vector2> Clicked;

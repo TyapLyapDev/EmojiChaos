@@ -4,7 +4,7 @@ namespace EmojiChaos.UI.Panels.LevelsPanel.LevelSelector.MiniCellsLevelSelector.
 {
     public class StarsIndicator : MonoBehaviour
     {
-        [SerializeField] private Star[] _stars;
+        [SerializeField] private StarUi[] _stars;
 
         public void OpenStars(int count)
         {

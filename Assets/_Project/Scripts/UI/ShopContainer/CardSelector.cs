@@ -1,8 +1,8 @@
+using EmojiChaos.Services.Save;
+using EmojiChaos.UI.ShopContainer.Card;
+
 namespace EmojiChaos.UI.ShopContainer
 {
-    using Services.Save;
-    using Card;
-
     public class CardSelector
     {
         private readonly Saver _saver;

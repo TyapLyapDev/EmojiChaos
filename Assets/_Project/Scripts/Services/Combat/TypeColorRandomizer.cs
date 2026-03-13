@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Combat
 {
-    using Utils.Static;
-
     public class TypeColorRandomizer
     {
         private readonly Dictionary<int, Color> _colorsMap = new ();

@@ -1,9 +1,8 @@
 using System;
+using EmojiChaos.UtilsSpace.Static;
 
 namespace EmojiChaos.UI.ShopContainer
 {
-    using Utils.Static;
-
     public class AdsRewardListener : IDisposable
     {
         private readonly CardSelector _cardSelector;

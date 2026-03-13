@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Animation
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class EnemyAnimator : InitializingBehaviour
     {
         private static readonly int s_hashIsDied = Animator.StringToHash("IsDied");

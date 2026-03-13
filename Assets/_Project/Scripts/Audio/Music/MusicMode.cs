@@ -1,4 +1,4 @@
-namespace EmojiChaos.Audio
+namespace EmojiChaos.AudioSpace
 {
     public enum MusicMode
     {

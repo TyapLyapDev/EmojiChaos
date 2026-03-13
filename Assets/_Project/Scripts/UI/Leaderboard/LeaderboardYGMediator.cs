@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.Networking;
 using YG.Utils.LB;
 
 namespace EmojiChaos.UI.Leaderboard
 {
-    using EmojiChaos.Utils.Static;
-
     public class LeaderboardYGMediator : MonoBehaviour
     {
         private const string PhotoSize = "small";

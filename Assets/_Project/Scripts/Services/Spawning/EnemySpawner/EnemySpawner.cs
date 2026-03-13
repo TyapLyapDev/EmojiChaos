@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
+using EmojiChaos.Core;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Services.Combat;
+using EmojiChaos.Services.Spawning.EnemySpawner.SpawnOrderStrategy;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-    using EmojiChaos.Core;
-    using Entities.Enemy;
-    using Services.Combat;
-    using Services.Spawning.EnemySpawner.SpawnOrderStrategy;
-
     public class EnemySpawner
     {
         private readonly Pool<Enemy> _pool;
@@ -55,8 +54,8 @@ namespace EmojiChaos.Services.Spawning.EnemySpawner
             float lineDelay = crowd.DelayLine / _gameSpeed;
             float rowDelay = crowd.DelayRow / _gameSpeed;
 
-            WaitForSeconds waitLine = new(lineDelay);
-            WaitForSeconds waitRow = new(rowDelay);
+            WaitForSeconds waitLine = new (lineDelay);
+            WaitForSeconds waitRow = new (rowDelay);
 
             int remainingEnemies = crowd.Quantity;
 

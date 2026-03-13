@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.UtilsSpace.Splines.Graph;
 using UnityEngine;
 
 namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    using Core.Abstract.Interface;
-    using Utils.Splines.Graph;
-
     public class CarSplineMoverStrategy : IMovementStrategy
     {
         private const float MovementSmoothSpeedMultiplier = 1f;
@@ -25,7 +24,7 @@ namespace EmojiChaos.Game.Mover.CarMovementStrategies
         {
             _transform = transform != null ? transform : throw new ArgumentNullException(nameof(transform));
             _destinationReached = destinationReached;
-            _segmentProcessor = new(path ?? throw new ArgumentNullException(nameof(path)));
+            _segmentProcessor = new (path ?? throw new ArgumentNullException(nameof(path)));
 
             _segmentProcessor.ProcessMovement(StartMargin);
         }

@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.Movement;
 
 namespace EmojiChaos.Entities.Star
 {
-    using Core.Abstract.Interface;
-    using Services.Core;
-    using Services.Movement;
-
     public readonly struct StarParam : IParam
     {
         private readonly EnemiesMovementDirector _enemySpeedDirector;

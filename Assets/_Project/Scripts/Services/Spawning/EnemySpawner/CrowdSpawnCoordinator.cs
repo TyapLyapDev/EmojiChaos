@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EmojiChaos.Entities.Enemy;
+using EmojiChaos.Entities.Portal;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-    using Entities.Enemy;
-    using Entities.Portal;
-
     public class CrowdSpawnCoordinator : IDisposable
     {
         private readonly EnemySpawner _enemySpawner;
@@ -23,7 +22,7 @@ namespace EmojiChaos.Services.Spawning.EnemySpawner
         {
             _runner = runner != null ? runner : throw new ArgumentNullException(nameof(runner));
             _enemySpawner = enemySpawner ?? throw new ArgumentNullException(nameof(enemySpawner));
-            _crowdSequencer = new(crowdSequence);
+            _crowdSequencer = new (crowdSequence);
             _portal = portal != null ? portal : throw new ArgumentNullException(nameof(portal));
             _isSpawning = true;
 

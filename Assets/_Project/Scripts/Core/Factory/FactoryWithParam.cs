@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 
 namespace EmojiChaos.Core.Factory
 {
-    using Abstract;
-    using Abstract.Interface;
-    using Abstract.MonoBehaviourWrapper;
-
     public class FactoryWithParam<TBehaviour, TParam> : BaseFactory<TBehaviour>
         where TBehaviour : InitializingWithConfigBehaviour<TParam>
         where TParam : IParam

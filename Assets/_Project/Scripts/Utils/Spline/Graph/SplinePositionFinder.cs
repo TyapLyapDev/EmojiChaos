@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines.Graph
+namespace EmojiChaos.UtilsSpace.Splines.Graph
 {
     public class SplinePositionFinder
     {
@@ -24,7 +24,7 @@ namespace EmojiChaos.Utils.Splines.Graph
                 return false;
 
             Vector3 localPosition = _splineContainerTransform.InverseTransformPoint(worldPosition);
-            Ray ray = new(localPosition + Vector3.up * 10f, Vector3.down);
+            Ray ray = new (localPosition + Vector3.up * 10f, Vector3.down);
 
             SplineUtility.GetNearestPoint(spline, ray, out float3 _, out float tempProgress);
             progressOnSpline = Mathf.Clamp01(tempProgress);
@@ -39,7 +39,7 @@ namespace EmojiChaos.Utils.Splines.Graph
             bool isFound = false;
 
             Vector3 localPosition = _splineContainerTransform.InverseTransformPoint(worldPosition);
-            Ray ray = new(localPosition + Vector3.up * 10f, Vector3.down);
+            Ray ray = new (localPosition + Vector3.up * 10f, Vector3.down);
             float minimumDistance = float.MaxValue;
 
             foreach (Spline tempSpline in _splineContainer.Splines)

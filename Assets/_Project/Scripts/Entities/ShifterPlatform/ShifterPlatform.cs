@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Entities.Cars;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.ShifterPlatform
 {
-    using Car;
-
     public class ShifterPlatform : MonoBehaviour
     {
         private Flipper _flipper;

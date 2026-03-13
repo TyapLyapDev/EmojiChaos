@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Game.Mover;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Enemy
 {
-    using Audio;
-    using Core.Abstract.Interface;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Game.Mover;
-
     public class Enemy : InitializingWithConfigBehaviour<EnemyParam>, IPoolable<Enemy>, IHittable
     {
         [SerializeField] private EnemyVisual _visual;
@@ -92,7 +91,7 @@ namespace EmojiChaos.Entities.Enemy
             _config = config;
 
             _visual.Initialize();
-            _mover = new(_config.SplineContainer, transform);
+            _mover = new (_config.SplineContainer, transform);
 
             _visual.DiedCompleted += OnDiedCompleted;
         }

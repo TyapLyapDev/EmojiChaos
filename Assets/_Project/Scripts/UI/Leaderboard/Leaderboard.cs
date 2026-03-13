@@ -1,11 +1,10 @@
-using UnityEngine;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.UtilsSpace.Static;
 using TMPro;
+using UnityEngine;
 
 namespace EmojiChaos.UI.Leaderboard
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Utils.Static;
-
     public class Leaderboard : InitializingBehaviour
     {
         [SerializeField] private Transform _context;
@@ -60,7 +59,7 @@ namespace EmojiChaos.UI.Leaderboard
 
                 bool isCurrentPlayer = player.uniqueID == YandexGameConnector.PlayerId;
 
-                LeaderboardLineParam config = new(
+                LeaderboardLineParam config = new (
                     uniqueId: player.uniqueID,
                     rank: player.rank,
                     nickname: player.name,
@@ -85,7 +84,7 @@ namespace EmojiChaos.UI.Leaderboard
             {
                 YG.Utils.LB.LBCurrentPlayerData player = lbData.currentPlayer;
 
-                LeaderboardLineParam config = new(
+                LeaderboardLineParam config = new (
                     uniqueId: YandexGameConnector.PlayerId,
                     rank: player.rank,
                     nickname: YandexGameConnector.PlayerName,

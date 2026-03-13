@@ -1,11 +1,10 @@
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using TMPro;
 using UnityEngine;
 
 namespace EmojiChaos.Services.GameFlow
 {
-    using Audio;
-    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
-
     public class LevelScoreDisplay : InitializingBehaviour
     {
         private static readonly int s_levelScoreBonusAddingId = Animator.StringToHash("LevelScoreBonusAdding");

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace EmojiChaos.UI
 {
-    public class Star : MonoBehaviour
+    public class StarUi : MonoBehaviour
     {
         [SerializeField] private Image _icon;
         [SerializeField] private Color _openColor;

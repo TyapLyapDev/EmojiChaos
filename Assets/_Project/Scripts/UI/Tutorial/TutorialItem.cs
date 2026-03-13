@@ -1,15 +1,15 @@
 using System;
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial
+namespace EmojiChaos.UI.TutorialSpace
 {
     public abstract class TutorialItem : MonoBehaviour
     {
         private TutorialParam _config;
 
-        protected bool IsActivated { get; private set; }
-
         public event Action<TutorialItem> Deactivated;
+
+        protected bool IsActivated { get; private set; }
 
         protected TutorialParam Config => _config;
 

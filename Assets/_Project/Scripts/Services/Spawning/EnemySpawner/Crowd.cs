@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Enum;
+using EmojiChaos.ScriptableObect;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Spawning.EnemySpawner
 {
-    using EmojiChaos.Core.Enum;
-    using ScriptableObect;
-
     [Serializable]
     public class Crowd
     {

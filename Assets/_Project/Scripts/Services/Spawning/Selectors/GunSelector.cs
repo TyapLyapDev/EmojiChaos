@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Entities.Guns;
+using EmojiChaos.ScriptableObect.Shop;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Spawning.Selectors
 {
-    using EmojiChaos.UI.ShopContainer.Card.Enum;
-    using Entities.Gun;
-    using ScriptableObect.Shop;
-
     public class GunSelector : MonoBehaviour
     {
         [SerializeField] private ShopCardInfos _gunInfos;

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Data;
+using EmojiChaos.UtilsSpace.Attributes;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -7,11 +9,8 @@ using UnityEngine.Splines;
 using UnityEditor;
 #endif
 
-namespace EmojiChaos.Utils.Splines.MeshGenerator
+namespace EmojiChaos.UtilsSpace.Splines.MeshGenerator
 {
-    using Data;
-    using Utils.Attributes;
-
     [ExecuteInEditMode]
     [RequireComponent(typeof(SplineContainer))]
     [RequireComponent(typeof(MeshCollider))]
@@ -142,11 +141,11 @@ namespace EmojiChaos.Utils.Splines.MeshGenerator
 
                 vertices.AddRange(new[]
                 {
-                position - right - up,
-                position + right - up,
-                position - right + up,
-                position + right + up,
-            });
+                    position - right - up,
+                    position + right - up,
+                    position - right + up,
+                    position + right + up,
+                });
 
                 if (i > 0)
                 {

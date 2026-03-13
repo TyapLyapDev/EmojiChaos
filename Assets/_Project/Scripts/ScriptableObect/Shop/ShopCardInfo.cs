@@ -1,10 +1,9 @@
+using EmojiChaos.Lang;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
 using UnityEngine;
 
 namespace EmojiChaos.ScriptableObect.Shop
 {
-    using Lang;
-    using UI.ShopContainer.Card.Enum;
-
     [CreateAssetMenu(menuName = "Scriptable object/Shop/TempCardInfo")]
     public abstract class ShopCardInfo : ScriptableObject
     {

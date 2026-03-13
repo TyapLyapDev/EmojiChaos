@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract;
+using EmojiChaos.Entities.Markers;
 using UnityEngine;
 
 namespace EmojiChaos.Game.Mover.CarMovementStrategies
 {
-    using Core.Abstract;
-    using Entities.Markers;
-
     public class CarStraightForwardMoverStrategy : CarStraightMoverBaseStrategy
     {
         public CarStraightForwardMoverStrategy(

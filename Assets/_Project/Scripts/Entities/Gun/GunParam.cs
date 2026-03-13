@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Combat;
+using EmojiChaos.Services.Core;
 
-namespace EmojiChaos.Entities.Gun
+namespace EmojiChaos.Entities.Guns
 {
-    using Core.Abstract.Interface;
-    using Services.Combat;
-    using Services.Core;
-
     public readonly struct GunParam : IParam
     {
         private readonly Shooter _shooter;

@@ -1,20 +1,19 @@
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Lang;
+using EmojiChaos.Services.Core;
+using EmojiChaos.UI.Buttons;
+using EmojiChaos.UI.Panels;
+using EmojiChaos.UI.Panels.LevelsPanel;
+using EmojiChaos.UI.Sliders;
+using EmojiChaos.UtilsSpace.Static;
+using UnityEngine;
 
 namespace EmojiChaos.UI.Level
 {
-    using Audio;
-    using Buttons;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Abstract.UI;
-    using Lang;
-    using Panels;
-    using Panels.LevelsPanel;
-    using Services.Core;
-    using Sliders;
-    using Utils.Static;
-
     public class LevelUiHandler : InitializingWithConfigBehaviour<LevelUiParam>
     {
         private const float DelayAfterGameOver = 1.5f;

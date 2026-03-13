@@ -1,11 +1,10 @@
-using UnityEngine;
+using EmojiChaos.Lang;
 using TMPro;
+using UnityEngine;
 using YG;
 
 namespace EmojiChaos.UI.ShopContainer.Card
 {
-    using Lang;
-
     public class CardDescription : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;

@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core;
+using EmojiChaos.Particles;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Core
 {
-    using EmojiChaos.Core;
-    using Particles;
-
     public class ParticleShower
     {
         private readonly Pool<SmokeParticle> _smokeParticlePool;

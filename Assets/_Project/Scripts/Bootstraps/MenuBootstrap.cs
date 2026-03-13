@@ -1,14 +1,13 @@
+using EmojiChaos.AudioSpace;
+using EmojiChaos.ScriptableObect;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.Save;
+using EmojiChaos.UI.Menu;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Bootstraps
 {
-    using Audio;
-    using ScriptableObect;
-    using Services.Core;
-    using Services.Save;
-    using UI.Menu;
-    using Utils.Static;
-
     public class MenuBootstrap : MonoBehaviour
     {
         [SerializeField] private MenuUIHandler _menuUIHandler;

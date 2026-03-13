@@ -1,12 +1,11 @@
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Lang;
+using EmojiChaos.Services.GameFlow;
 using UnityEngine;
 
 namespace EmojiChaos.UI.Panels
 {
-    using Audio;
-    using Core.Abstract.UI;
-    using Lang;
-    using Services.GameFlow;
-
     public class VictoryPanel : PanelBase
     {
         [SerializeField] private LevelScoreDisplay _scoreDisplay;
@@ -35,7 +34,7 @@ namespace EmojiChaos.UI.Panels
         public void Activate(int targetScore, int starsCount, int level)
         {
             _level.SetParam((level + 1).ToString());
-            _scoreAccrualAnimator = new(targetScore);
+            _scoreAccrualAnimator = new (targetScore);
 
             foreach (GameObject star in _stars)
                 star.SetActive(false);
@@ -45,7 +44,7 @@ namespace EmojiChaos.UI.Panels
 
             if (starsCount > 0)
             {
-                _starBonusCalculator = new(targetScore, starsCount);
+                _starBonusCalculator = new (targetScore, starsCount);
                 _starBonusCalculator.OnBonusUpdated += OnStarBonusUpdated;
             }
         }

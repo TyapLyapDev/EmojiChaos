@@ -1,11 +1,10 @@
 using System.Collections;
+using EmojiChaos.Core.Repainters;
+using EmojiChaos.Entities.Cars;
 using UnityEngine;
 
 namespace EmojiChaos.Particles
 {
-    using Core.Repainters;
-    using Entities.Car;
-
     public class SportCarMovementParticle : MonoBehaviour
     {
         [SerializeField] private SimpleRepainter[] _repainters;

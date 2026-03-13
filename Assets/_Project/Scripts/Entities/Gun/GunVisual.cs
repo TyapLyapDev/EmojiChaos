@@ -1,12 +1,11 @@
-using UnityEngine;
+using EmojiChaos.Animation;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Repainters;
 using TMPro;
+using UnityEngine;
 
-namespace EmojiChaos.Entities.Gun
+namespace EmojiChaos.Entities.Guns
 {
-    using Animation;
-    using Core.Abstract.MonoBehaviourWrapper;
-    using Core.Repainters;
-
     public class GunVisual : InitializingBehaviour
     {
         [SerializeField] private SimpleRepainter[] _repainters;

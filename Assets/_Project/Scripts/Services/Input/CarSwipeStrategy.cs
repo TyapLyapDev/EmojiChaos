@@ -1,13 +1,12 @@
 using System;
-using UnityEngine;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Services.Input.ClickHandler;
+using EmojiChaos.UtilsSpace.Static;
 using UniRx;
+using UnityEngine;
 
 namespace EmojiChaos.Services.Input
 {
-    using EmojiChaos.Core.Abstract.Interface;
-    using Services.Input.ClickHandler;
-    using Utils.Static;
-
     public class CarSwipeStrategy : ISwipeStrategy
     {
         private const float SwipeDistance = 20f;

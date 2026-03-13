@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Entities.Racks;
+using EmojiChaos.Services.Input;
 
 namespace EmojiChaos.Services.Combat
 {
-    using Audio;
-    using EmojiChaos.Core.Abstract.Interface;
-    using Entities.Car;
-    using Entities.Rack;
-    using Services.Input;
-
     public class SlotReservator : IDisposable
     {
         private readonly IReadOnlyList<Rack> _slots;

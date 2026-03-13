@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract;
+using EmojiChaos.Core.Abstract.Interface;
 using UnityEngine;
 
 namespace EmojiChaos.Particles
 {
-    using Core.Abstract;
-    using Core.Abstract.Interface;
-
     public class BloodParticle : OneShotParticle, IPoolable<BloodParticle>
     {
         [SerializeField] private ParticleSystem _stratched;

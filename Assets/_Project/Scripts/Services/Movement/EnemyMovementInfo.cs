@@ -1,7 +1,7 @@
+using EmojiChaos.Entities.Enemy;
+
 namespace EmojiChaos.Services.Movement
 {
-    using Entities.Enemy;
-
     public class EnemyMovementInfo
     {
         private readonly Enemy _enemy;

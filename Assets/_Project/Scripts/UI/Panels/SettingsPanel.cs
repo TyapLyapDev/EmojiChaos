@@ -1,18 +1,17 @@
 using System;
+using EmojiChaos.AudioSpace;
+using EmojiChaos.Core.Abstract.UI;
+using EmojiChaos.Lang;
+using EmojiChaos.Services.Core;
+using EmojiChaos.Services.Save;
+using EmojiChaos.UI.Buttons;
+using EmojiChaos.UI.Sliders;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace EmojiChaos.UI.Panels
 {
-    using Audio;
-    using Buttons;
-    using Core.Abstract.UI;
-    using Lang;
-    using Services.Core;
-    using Services.Save;
-    using Sliders;
-    using Utils.Static;
-
     public class SettingsPanel : PanelBase
     {
         [SerializeField] private SettingsPanelCloserButton _closerButton;
@@ -72,8 +71,8 @@ namespace EmojiChaos.UI.Panels
 
         private void InitializeVolumeModifiers()
         {
-            _musicModifier = new(_mixer, _music, Constants.MusicGroup);
-            _sfxModifier = new(_mixer, _sfx, Constants.SfxGroup);
+            _musicModifier = new (_mixer, _music, Constants.MusicGroup);
+            _sfxModifier = new (_mixer, _sfx, Constants.SfxGroup);
         }
 
         private void InitializeVolumeButtons()

@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Lang
 {
-    using Utils.Static;
-
     [Serializable]
     public class LanguageTextsSet
     {

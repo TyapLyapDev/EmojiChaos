@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Data;
+using EmojiChaos.ScriptableObect.Shop;
+using EmojiChaos.UI.Leaderboard;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
+using EmojiChaos.UtilsSpace.Static;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Save
 {
-    using Data;
-    using EmojiChaos.UI.Leaderboard;
-    using EmojiChaos.UI.ShopContainer.Card.Enum;
-    using ScriptableObect.Shop;
-    using Utils.Static;
-
     public class Saver
     {
         private readonly int _totalLevelsCount;

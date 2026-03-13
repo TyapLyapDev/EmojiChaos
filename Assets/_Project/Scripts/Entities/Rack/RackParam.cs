@@ -1,11 +1,10 @@
 using System;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Entities.Guns;
+using EmojiChaos.Services.Save;
 
-namespace EmojiChaos.Entities.Rack
+namespace EmojiChaos.Entities.Racks
 {
-    using Core.Abstract.Interface;
-    using Entities.Gun;
-    using Services.Save;
-
     public readonly struct RackParam : IParam
     {
         private readonly Gun _gun;

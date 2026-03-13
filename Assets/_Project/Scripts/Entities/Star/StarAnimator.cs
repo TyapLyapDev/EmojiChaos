@@ -1,10 +1,9 @@
 using System;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
 using UnityEngine;
 
 namespace EmojiChaos.Entities.Star
 {
-    using Core.Abstract.MonoBehaviourWrapper;
-
     public class StarAnimator : InitializingBehaviour
     {
         private static readonly int s_hashIsFear = Animator.StringToHash("IsFear");

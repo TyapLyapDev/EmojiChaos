@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace EmojiChaos.Utils
+namespace EmojiChaos.UtilsSpace
 {
     public static class CustomLogger
     {

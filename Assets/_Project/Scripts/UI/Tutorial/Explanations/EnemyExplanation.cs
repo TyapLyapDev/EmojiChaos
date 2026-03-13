@@ -1,9 +1,8 @@
+using EmojiChaos.Entities.Enemy;
 using UnityEngine;
 
-namespace EmojiChaos.UI.Tutorial.Explanations
+namespace EmojiChaos.UI.TutorialSpace.Explanations
 {
-    using Entities.Enemy;
-
     public class EnemyExplanation : TutorialItem
     {
         [SerializeField] private TutorialCircle _circle;

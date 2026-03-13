@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using EmojiChaos.Data;
+using EmojiChaos.UI.ShopContainer.Card.Enum;
+using EmojiChaos.Entities.Cars;
+using EmojiChaos.Entities.Cars.Types;
+using EmojiChaos.ScriptableObect.Shop;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Movement
 {
-    using Data;
-    using EmojiChaos.UI.ShopContainer.Card.Enum;
-    using Entities.Car;
-    using Entities.Car.Types;
-    using ScriptableObect.Shop;
-
     public class CarSkinReplacer : MonoBehaviour
     {
         private readonly List<Car> _cars = new ();

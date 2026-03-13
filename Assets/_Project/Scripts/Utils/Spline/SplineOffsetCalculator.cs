@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines
+namespace EmojiChaos.UtilsSpace.Splines
 {
     public class SplineOffsetCalculator
     {

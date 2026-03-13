@@ -1,15 +1,14 @@
 #if UNITY_EDITOR
 
 using System;
+using EmojiChaos.UtilsSpace.Splines.MeshGenerator;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace EmojiChaos.Utils.Splines
+namespace EmojiChaos.UtilsSpace.Splines
 {
-    using MeshGenerator;
-
     public static class SplineUtils
     {
         public static void SynchronizeArraySize<T>(ref T[] sourceArray, int targetSize)

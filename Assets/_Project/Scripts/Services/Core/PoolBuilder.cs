@@ -1,13 +1,12 @@
 using System;
+using EmojiChaos.Core;
+using EmojiChaos.Core.Abstract.Interface;
+using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
+using EmojiChaos.Core.Factory;
 using UnityEngine;
 
 namespace EmojiChaos.Services.Core
 {
-    using EmojiChaos.Core;
-    using EmojiChaos.Core.Abstract.Interface;
-    using EmojiChaos.Core.Abstract.MonoBehaviourWrapper;
-    using EmojiChaos.Core.Factory;
-
     public class PoolBuilder
     {
         private const string PoolParentName = "Pools";
@@ -23,7 +22,7 @@ namespace EmojiChaos.Services.Core
         public Pool<TBehaviour> Build<TBehaviour>(TBehaviour prefab)
             where TBehaviour : InitializingBehaviour, IPoolable<TBehaviour>
         {
-            Factory<TBehaviour> factory = new(prefab);
+            Factory<TBehaviour> factory = new (prefab);
             Pool<TBehaviour> pool = Build(factory);
 
             return pool;
@@ -33,7 +32,7 @@ namespace EmojiChaos.Services.Core
             where TBehaviour : InitializingWithConfigBehaviour<TConfig>, IPoolable<TBehaviour>
             where TConfig : IParam
         {
-            FactoryWithParam<TBehaviour, TConfig> factory = new(prefab, config);
+            FactoryWithParam<TBehaviour, TConfig> factory = new (prefab, config);
             Pool<TBehaviour> pool = Build(factory);
 
             return pool;
@@ -48,7 +47,7 @@ namespace EmojiChaos.Services.Core
             string poolName = $"{typeof(T).Name}{SecondaryPoolSuffix}";
             Transform poolParent = new GameObject($"{poolName}{SecondaryPoolSuffix}").transform;
             poolParent.SetParent(_registryParent);
-            Pool<T> pool = new(factory, poolParent);
+            Pool<T> pool = new (factory, poolParent);
 
             return pool;
         }

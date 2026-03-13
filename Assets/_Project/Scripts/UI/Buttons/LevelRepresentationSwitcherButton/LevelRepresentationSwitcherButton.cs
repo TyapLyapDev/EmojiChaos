@@ -1,10 +1,9 @@
 using UnityEngine;
+using EmojiChaos.Core.Abstract.UI;
 using UnityEngine.UI;
 
 namespace EmojiChaos.UI.Buttons.LevelRepresentationSwitcherButton
 {
-    using Core.Abstract.UI;
-
     public class LevelRepresentationSwitcherButton : ButtonClickHandler<LevelRepresentationSwitcherButton>
     {
         [SerializeField] private Image _iconImage;
